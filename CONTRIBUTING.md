@@ -43,15 +43,15 @@ We follow **Conventional Commits**:
 
 **Examples:**
 
-feat(auth): add login via Google OAuth
-fix(ui): correct button alignment on homepage
-chore(deps): upgrade react to 19.0.1
-test(auth): add unit tests for login
-docs(readme): update setup instructions
-ci(pipeline): add linting step
-perf(api): cache responses to reduce load times
-refactor(ui): simplified conditional rendering
-build(webpack): update configuration for production
+* feat(auth): add login via Google OAuth
+* fix(ui): correct button alignment on homepage
+* chore(deps): upgrade react to 19.0.1
+* test(auth): add unit tests for login
+* docs(readme): update setup instructions
+* ci(pipeline): add linting step
+* perf(api): cache responses to reduce load times
+* refactor(ui): simplified conditional rendering
+* build(webpack): update configuration for production
 
 Use imperative instead of past tense
 
