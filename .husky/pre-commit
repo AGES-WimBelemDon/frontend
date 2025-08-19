@@ -1,0 +1,12 @@
+#!/bin/sh
+set +e # doesn't automatically exit on error
+
+# Step 1: check for ESLint errors (no auto-fix)
+npm run lint
+
+# Step 2: attempt to auto fix if errors exist then exit (abort commit)
+if [ $? -ne 0 ]; then
+  echo "❌ Linting failed. Running 'npm run lint:fix'..."
+  npm run lint:fix
+  echo "✅ Auto-fix attempted. Please review the changes and commit again."
+fi

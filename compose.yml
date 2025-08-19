@@ -1,0 +1,18 @@
+services:
+  dev:
+    build:
+      context: .
+      target: development
+    container_name: wbd_frontend_dev
+    working_dir: /app
+    command: npm run dev
+    ports:
+      - "5173:5173"
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    restart: unless-stopped
+    tty: true         # Keep container terminal open
+    stdin_open: true  # Allow interactive input

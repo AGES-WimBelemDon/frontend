@@ -1,0 +1,5 @@
+stages:
+  - mirror
+
+include:
+  - local: './mirror-main.yml'
