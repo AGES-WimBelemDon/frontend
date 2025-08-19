@@ -4,15 +4,17 @@ export const portugueseTextMap = {
   },
   techDemo: {
     title: 'Tech Demo',
-    description: ({ value }: { value: number }) => (
-      `c² = ${value}`
-    ),
     goHomeButton: ({ time }: { time: number }) => (
       `Voltar para tela inicial em ${time} segundos`
     ),
     fetching: 'Atualizando...',
-    apiError: ({ message }: { message: string }) => (
-      `Erro na API: ${message}`
-    )
+    child: {
+      detail: ({ c2 }: { c2: string }) => (
+        `Recebi um parâmetro na URL: ${c2}`
+      ),
+      apiError: ({ message }: { message: string }) => (
+        `Erro na API: ${message}`
+      ),
+    }
   }
 } as const;
