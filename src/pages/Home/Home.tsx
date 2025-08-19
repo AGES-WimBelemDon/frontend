@@ -1,7 +1,8 @@
 import { Box, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router';
 
 import logo from '/wbd-2021.png';
-import { Link } from 'react-router';
+import { pt } from '../../constants';
 
 function Home() {
   return (
@@ -22,7 +23,7 @@ function Home() {
         />
         <Link to={'/tech-demo/1'}>
           <Typography variant="h2" fontWeight="bold" fontSize={24} color='white'>
-            Em Desenvolvimento
+            {pt.home.description}
           </Typography>
         </Link>
       </Stack>

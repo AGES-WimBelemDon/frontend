@@ -4,12 +4,13 @@ import { Button, CircularProgress, Container, Stack, Typography } from '@mui/mat
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 
+import { pt } from '../../constants';
 import { getTechDemo } from '../../services/tech-demo';
 
 function TechDemo() {
   const { id } = useParams();
   const [searchParams] =  useSearchParams();
-  const c2 = searchParams.get('c2');
+  const c2 = searchParams.get('c2') ?? '1';
 
   const navigate = useNavigate();
 
@@ -41,10 +42,10 @@ function TechDemo() {
   return (
     <Container maxWidth="sm">
       <Stack>
-        <Typography variant='h1'>Tech Demo {id}</Typography>
-        <Typography variant='body1'>c² = {c2}</Typography>
+        <Typography variant='h1'>{pt.techDemo.title}</Typography>
+        <Typography variant='body1'>{pt.techDemo.description({ value: +c2 })}</Typography>
         <Button onClick={goHome} variant="contained" color="primary">
-          Go Home programmatically in {remainingSeconds} seconds.
+          {pt.techDemo.goHomeButton({ time: remainingSeconds })}
         </Button>
       </Stack>
       {!apiError ? (
@@ -56,10 +57,10 @@ function TechDemo() {
             <Typography>✨ {data.stargazers_count}</Typography>
             <Typography>🍴 {data.forks_count}</Typography>
           </Stack>
-          {isFetching && <Typography mt={1}>Updating...</Typography>}
+          {isFetching && <Typography mt={1}>{pt.techDemo.fetching}</Typography>}
         </Stack>
       ) : (
-        <Typography color='error'>API Error: {apiError.message}</Typography>
+        <Typography color='error'>{pt.techDemo.apiError({ message: apiError.message })}</Typography>
       )}
     </Container>
   );
