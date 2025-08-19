@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
+import { Button, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 
-import './styles.css';
 import { getTechDemo } from '../../services/tech-demo';
 
 function TechDemo() {
@@ -33,30 +33,35 @@ function TechDemo() {
   }
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return (
+      <CircularProgress />
+    );
   }
 
   return (
-    <div>
-      <h1>Tech Demo {id}</h1>
-      <p>c² = {c2}</p>
-      <button onClick={goHome}>
-        Go Home programmatically in {remainingSeconds} seconds.
-      </button>
-
+    <Container maxWidth="sm">
+      <Stack>
+        <Typography variant='h1'>Tech Demo {id}</Typography>
+        <Typography variant='body1'>c² = {c2}</Typography>
+        <Button onClick={goHome} variant="contained" color="primary">
+          Go Home programmatically in {remainingSeconds} seconds.
+        </Button>
+      </Stack>
       {!apiError ? (
-        <div>
-          <h1>{data.full_name}</h1>
-          <p>{data.description}</p>
-          <strong>👀 {data.subscribers_count}</strong>{' '}
-          <strong>✨ {data.stargazers_count}</strong>{' '}
-          <strong>🍴 {data.forks_count}</strong>
-          <div>{isFetching ? 'Updating...' : ''}</div>
-        </div>
+        <Stack mt={4} spacing={2}>
+          <Typography variant='h2'>{data.full_name}</Typography>
+          <Typography variant='body1'>{data.description}</Typography>
+          <Stack direction="row" spacing={4}>
+            <Typography>👀 {data.subscribers_count}</Typography>
+            <Typography>✨ {data.stargazers_count}</Typography>
+            <Typography>🍴 {data.forks_count}</Typography>
+          </Stack>
+          {isFetching && <Typography mt={1}>Updating...</Typography>}
+        </Stack>
       ) : (
-        <div>API Error: {apiError.message}</div>
+        <Typography color='error'>API Error: {apiError.message}</Typography>
       )}
-    </div>
+    </Container>
   );
 }
 
