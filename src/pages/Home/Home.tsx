@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
+import { Link } from 'react-router';
+
 import reactLogo from '../../assets/react.svg';
+
 import logo from '/wbd-2021.png';
 import './Home.css';
 
@@ -26,6 +29,9 @@ function Home() {
           Edit <code>src/Home.tsx</code> and save to test HMR
         </p>
       </div>
+      <Link to={`/tech-demo/${count}?c2=${count*count}`} className="tech-demo-link">
+        Go to Tech Demo {count}
+      </Link>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
