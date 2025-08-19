@@ -1,11 +1,11 @@
-import { CircularProgress, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useSearchParams } from 'react-router';
 
 import { pt } from '../../constants';
 import { getTechDemo } from '../../services/tech-demo';
 
-function Child() {
+function MockAPI() {
   const { id } = useParams();
   const [searchParams] =  useSearchParams();
   const c2 = searchParams.get('c2');
@@ -17,7 +17,9 @@ function Child() {
 
   if (isPending) {
     return (
-      <CircularProgress />
+      <Box sx={{ display: 'grid', placeItems: 'center' }}>
+        <CircularProgress />
+      </Box>
     );
   }
 
@@ -29,7 +31,6 @@ function Child() {
 
   return (
     <Stack mt={4} spacing={2}>
-      {c2 && <Typography variant='h1'>{pt.techDemo.child.detail({ c2 })}</Typography>}
       <Typography variant='h2'>{data.full_name}</Typography>
       <Typography variant='body1'>{data.description}</Typography>
       <Stack direction="row" spacing={4}>
@@ -38,8 +39,9 @@ function Child() {
         <Typography>🍴 {data.forks_count}</Typography>
       </Stack>
       {isFetching && <Typography mt={1}>{pt.techDemo.fetching}</Typography>}
+      {c2 && <Typography variant='body2'>{pt.techDemo.child.detail({ c2 })}</Typography>}
     </Stack>
   );
 }
 
-export default Child;
+export default MockAPI;

@@ -4,10 +4,8 @@ export const portugueseTextMap = {
   },
   techDemo: {
     title: 'Tech Demo',
-    goHomeButton: ({ time }: { time: number }) => (
-      `Voltar para tela inicial em ${time} segundos`
-    ),
     fetching: 'Atualizando...',
+    showAPIInfo: 'Mostrar informações da API',
     child: {
       detail: ({ c2 }: { c2: string }) => (
         `Recebi um parâmetro na URL: ${c2}`
