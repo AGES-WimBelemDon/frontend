@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+
+import { Method, RouteMatcher } from 'cypress/types/net-stubbing';
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -38,4 +41,14 @@
 
 Cypress.Commands.add('dataCy', (selector) => {
   return cy.get(`[data-cy=${selector}]`);
+});
+
+Cypress.Commands.add('interceptOrMock', (name: string, method: Method, path: RouteMatcher, fixture: string) => {
+  return cy.intercept(method, path, (req) => {
+    if (Cypress.env('USE_MOCK_API_DATA')) {
+      req.reply({ fixture });
+    } else {
+      req.continue();
+    }
+  }).as(name);
 });
