@@ -21,7 +21,7 @@ function Home() {
           alt="WimBelemDon logo"
           height={300}
         />
-        <Link to='/tech-demo'>
+        <Link to='/tech-demo' data-cy='tech-demo-nav-link'>
           <Typography variant="h2" fontWeight="bold" fontSize={24} color='white'>
             {pt.home.description}
           </Typography>
