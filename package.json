@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "cy:run": "cypress run",
-    "cy:open": "cypress open",
+    "cy:open": "cypress open --browser electron",
     "preview": "vite preview",
     "prepare": "node .husky/install.mjs"
   },
