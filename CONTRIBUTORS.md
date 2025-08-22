@@ -1,1 +1,2 @@
-* [Felipe Freitas Silva](https://github.com/felipefreitassilva)
+- [Felipe Freitas Silva](https://github.com/felipefreitassilva)
+- [Renato Machado de Souza](https://github.com/Renatu5)
