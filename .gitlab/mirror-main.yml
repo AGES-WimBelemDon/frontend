@@ -9,4 +9,4 @@ sync-with-github:
     - git config --global user.name "GitLab CI Bot"
   script:
     - git remote add github https://${GITHUB_PAT}@github.com/AGES-WimBelemDon/frontend.git
-    - git push github HEAD:main
+    - git push github HEAD:refs/heads/main
