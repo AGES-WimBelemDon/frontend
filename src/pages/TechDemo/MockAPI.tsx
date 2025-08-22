@@ -31,12 +31,12 @@ function MockAPI() {
 
   return (
     <Stack mt={4} spacing={2}>
-      <Typography variant='h2'>{data.full_name}</Typography>
-      <Typography variant='body1'>{data.description}</Typography>
+      <Typography variant='h2' data-cy="tech-demo-api-full-name">{data.full_name}</Typography>
+      <Typography variant='body1' data-cy="tech-demo-api-description">{data.description}</Typography>
       <Stack direction="row" spacing={4}>
-        <Typography>👀 {data.subscribers_count}</Typography>
-        <Typography>✨ {data.stargazers_count}</Typography>
-        <Typography>🍴 {data.forks_count}</Typography>
+        <Typography data-cy="tech-demo-api-subscribers-count">👀 {data.subscribers_count}</Typography>
+        <Typography data-cy="tech-demo-api-stargazers-count">✨ {data.stargazers_count}</Typography>
+        <Typography data-cy="tech-demo-api-forks-count">🍴 {data.forks_count}</Typography>
       </Stack>
       {isFetching && <Typography mt={1}>{pt.techDemo.fetching}</Typography>}
       {c2 && <Typography variant='body2'>{pt.techDemo.child.detail({ c2 })}</Typography>}
