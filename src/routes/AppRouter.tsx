@@ -6,7 +6,7 @@ import TechDemoMockAPI from '../pages/TechDemo/MockAPI.tsx';
 
 function AppRouter() {
   return (
-    <BrowserRouter basename='/'>
+    <BrowserRouter basename='/frontend/'>
       <Routes>
         <Route index element={<Home />} />
         <Route path="tech-demo" element={<TechDemo />}>
