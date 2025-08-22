@@ -1,2 +1,3 @@
 - [Felipe Freitas Silva](https://github.com/felipefreitassilva)
 - [Renato Machado de Souza](https://github.com/Renatu5)
+- [Daniel Chin Tay Lee](https://github.com/danictlee)
