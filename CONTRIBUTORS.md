@@ -4,3 +4,4 @@
 - [João Oliveira Galeazzi](https://github.com/GaleazziI)
 - [Felipe Conzatti Frison](https://github.com/fcfrison)
 - [Leticia Brasil Flores](https://github.com/lbflores)
+- [Leonardo Gemin Pereira](https://github.com/leogemin)
