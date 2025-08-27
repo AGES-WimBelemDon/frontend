@@ -5,3 +5,4 @@
 - [Felipe Conzatti Frison](https://github.com/fcfrison)
 - [Leticia Brasil Flores](https://github.com/lbflores)
 - [Leonardo Gemin Pereira](https://github.com/leogemin)
+- [Isabela Araujo](https://github.com/belakraujo)
