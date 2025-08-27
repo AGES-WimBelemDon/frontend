@@ -1,5 +1,7 @@
 import axios, { type AxiosInstance } from 'axios';
 
+import { auth } from '../firebase';
+
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const axiosClient: AxiosInstance = axios.create({
@@ -9,10 +11,17 @@ const axiosClient: AxiosInstance = axios.create({
 
 // Add request interceptor to include auth token if present
 axiosClient.interceptors.request.use(
-  (config) => {
-    const api_token = localStorage.getItem('api_token');
-    if (api_token) {
-      config.headers.Authorization = `Bearer ${api_token}`;
+  async(config) => {
+    try {
+      const { currentUser } = auth;
+      if (currentUser) {
+        const token = await currentUser.getIdToken();
+        config.headers.Authorization = `Bearer ${token}`;
+      } else {
+        delete config.headers.Authorization;
+      }
+    } catch (err) {
+      console.error('Error fetching token for API:', err);
     }
     return config;
   },
