@@ -1,18 +1,26 @@
 import axios, { type AxiosInstance } from 'axios';
 
+import { getAuthToken } from './auth.firebase';
+
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const axiosClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10_000,
+  timeout: 10 * 60_000, // 10 minutes
 });
 
 // Add request interceptor to include auth token if present
 axiosClient.interceptors.request.use(
-  (config) => {
-    const api_token = localStorage.getItem('api_token');
-    if (api_token) {
-      config.headers.Authorization = `Bearer ${api_token}`;
+  async(config) => {
+    try {
+      const token = await getAuthToken();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      } else {
+        delete config.headers.Authorization;
+      }
+    } catch (error) {
+      console.error('Error fetching token for API:', error);
     }
     return config;
   },

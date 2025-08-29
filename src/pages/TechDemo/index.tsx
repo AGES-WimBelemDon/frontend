@@ -1,6 +1,7 @@
 import { Button, Container, Stack, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
+import UserProfile from './Profile';
 import { pt } from '../../constants';
 
 function TechDemo() {
@@ -23,6 +24,7 @@ function TechDemo() {
           <Typography variant='body1'>{pt.techDemo.showAPIInfo}</Typography>
         </Button>
       </Stack>
+      <UserProfile />
       <Outlet />
     </Container>
   );

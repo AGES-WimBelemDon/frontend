@@ -25,7 +25,7 @@ function MockAPI() {
 
   if (apiError) {
     return (
-      <Typography color='error'>{pt.techDemo.child.apiError({ message: apiError.message })}</Typography>
+      <Typography color='error'>{pt.techDemo.children.mockAPI.apiError({ message: apiError.message })}</Typography>
     );
   }
 
@@ -39,7 +39,7 @@ function MockAPI() {
         <Typography data-cy="tech-demo-api-forks-count">🍴 {data.forks_count}</Typography>
       </Stack>
       {isFetching && <Typography mt={1}>{pt.techDemo.fetching}</Typography>}
-      {c2 && <Typography variant='body2'>{pt.techDemo.child.detail({ c2 })}</Typography>}
+      {c2 && <Typography variant='body2'>{pt.techDemo.children.mockAPI.detail({ c2 })}</Typography>}
     </Stack>
   );
 }
