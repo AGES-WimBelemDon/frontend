@@ -4,10 +4,10 @@ import type { User } from 'firebase/auth';
 
 type AuthContextType = {
   user: User | null;
-  loading: boolean;
+  isLoadingAuth: boolean;
 };
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
-  loading: true,
+  isLoadingAuth: true,
 });

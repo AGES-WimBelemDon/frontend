@@ -5,17 +5,17 @@ import { useAuth } from '../../hooks/useAuth';
 import { loginWithGoogle, logout } from '../../services/auth.firebase';
 
 export default function UserProfile() {
-  const { user, loading } = useAuth();
+  const { user, isLoadingAuth } = useAuth();
 
   async function handleSignIn() {
     try {
       await loginWithGoogle();
-    } catch (err) {
-      console.error('Sign in error:', err);
+    } catch {
+      // TODO: Handle sign in error visually
     }
   };
 
-  if (loading) {
+  if (isLoadingAuth) {
     return <Typography>{pt.techDemo.children.profile.loading}</Typography>;
   }
 
