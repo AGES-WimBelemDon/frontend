@@ -90,7 +90,12 @@ However, you can also run the app simulating the production environment locally.
 
 ### With Docker
 
-You can simulate a production-ready container with Nginx:
+You can simulate a production-ready container with Nginx. For that, you need to copy the environment variables into a `.env.production` file.
+
+```sh
+cp .env.example .env.production # Linux-based
+copy .env.example .env.production # Windows
+```
 
 ```sh
 docker compose up prod -d
