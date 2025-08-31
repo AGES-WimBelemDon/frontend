@@ -39,6 +39,7 @@ function TechDemo() {
         titleProps={{ color: 'white', fontWeight: 'bold' }}
         descriptionProps={{ color: 'black', fontWeight: 'semibold' }}
         titleVariant="h5"
+        onClick={() => console.log('clicou') }
       ></GenericCard>
 
       <GenericCard

@@ -12,7 +12,8 @@ export type TypeCard = {
     cardProps?: SxProps<Theme>,
     titleProps: SxProps<Theme>,
     descriptionProps?: SxProps<Theme>
-    titleVariant?: TypographyProps['variant'] 
+    titleVariant?: TypographyProps['variant'],
+    onClick?: () => void,
 
 }
 
