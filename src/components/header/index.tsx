@@ -1,26 +1,28 @@
 import { Menu, AccountCircle } from '@mui/icons-material';
-import { Box, Divider } from '@mui/material';
+import { Box, Container, Divider } from '@mui/material';
 
 export default function Header() {
   return (
-    <Box>
+    <Container maxWidth='xl'>
       <Box
         component='header'
         sx={{
           display: 'grid',
           gridTemplateColumns: 'auto 1fr auto',
-          padding: '20px',
+          px: {md:'none', xs:'20px'},
+          py: '20px',
           backgroundColor: 'background.paper',
           alignItems: 'center',
           justifyItems: 'center',
+          width: {md: 1}
         }}
       >
         <Menu
           sx={{ 
             cursor: 'pointer',
-            display: { md: 'none' },
-            height: 30,
-            width: 30, 
+            //display: { md: 'none' },
+            height: { md: 40 , xs:30 }, 
+            width: { md: 40 , xs:30 }, 
           }}
           color='primary'
           onClick={() => alert('open sidebar')}
@@ -32,17 +34,17 @@ export default function Header() {
           onClick={() => alert('go to home')}
           sx={{ 
             cursor: 'pointer',
-            display: { md: 'none' },
-            height: 30,
-            width: 30, 
+            //display: { md: 'none' },
+            height: { md: 50 , xs:30 }, 
+            width: { md: 50 , xs:30 }, 
           }}
         />
         <AccountCircle
           sx={{ 
             cursor: 'pointer',
-            display: { md: 'none' },
-            height: 30,
-            width: 30, 
+
+            height: { md: 40 , xs:30 }, 
+            width: { md: 40 , xs:30 }, 
           }}
           color='primary'
           onClick={() => alert('show profile')}
@@ -53,11 +55,10 @@ export default function Header() {
       <Divider 
         variant='middle' 
         sx={{
-          display: { md: 'none' },
           bgcolor: 'primary.main',
           height: 2,
         }}
       />
-    </Box>
+    </Container>
   );
 }
