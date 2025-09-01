@@ -58,18 +58,46 @@ copy .env.example .env # Windows
 
 ### With Docker
 
-To build and start the application, run:
+To get full IntelliSense, type checking, linting, and Git hooks working, you need to set up your local environment.
+This project provides a helper script that handles everything for you, even if you don’t have Node installed.
+
+After cloning the repository, run (on a Unix-based terminal like Git Bash or WSL on Windows, or the default terminal on macOS/Linux):
+
+```sh
+./scripts/dev-setup.sh
+```
+
+This script will:
+
+1. Set up Git hooks so that pre-commit and pre-push verifications are in place.
+2. Copy `node_modules` folder from the Docker container to the host machine.
+
+After the script completes, start the development server with:
 
 ```sh
 docker compose up dev
 ```
 
-Note: If changes are made to one of [`Dockerfile`, `docker-compose.yml`, `package.json`] files, you may need to run the above command ending with the `--build` flag in the end.
-
 To stop the application, run:
 
 ```sh
 docker compose down dev
+```
+
+**Important:**
+
+If changes are made to one of [`Dockerfile`, `docker-compose.yml`, `package.json`] files, you need to update your local `node_modules` by running:
+
+1. Docker setup (on a Unix-based terminal):
+
+```sh
+./scripts/setup_node_docker.sh
+```
+
+2. When starting the development server for the first time after that, rebuild the Docker image to include changes:
+
+```sh
+docker compose up dev --build
 ```
 
 ### Without Docker
