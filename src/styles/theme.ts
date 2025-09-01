@@ -1,5 +1,13 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, type PaletteColor, type PaletteColorOptions } from '@mui/material/styles';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    customColors: Record<string, PaletteColor>;
+  }
+  interface PaletteOptions {
+    customColors?: Record<string, PaletteColorOptions>;
+  }
+}
 
 export const theme = createTheme({
   palette: {
@@ -14,5 +22,8 @@ export const theme = createTheme({
       main: '#8dc740',
       dark: '#628b2c',
     },
+    customColors: {
+      
+    }
   },
 });
