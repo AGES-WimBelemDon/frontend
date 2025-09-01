@@ -4,10 +4,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
 import type { ThemeStyle, TextCard } from './interface';
+import { theme } from '../../styles/theme';
 
 const themeStyle: Record<ThemeStyle, object> = {
-  light: { backgroundColor: 'white', border: '2px solid #0E6872' },
-  dark: { backgroundColor: '#0E6872', border: '2px solidrgb(255, 255, 255)' },
+  light: { backgroundColor: theme.palette.primary.main, border: `2px solid ${theme.palette.secondary.main}`  },
+  dark: { backgroundColor: theme.palette.secondary.main, border: `2px solid ${theme.palette.primary.main}` },
 };
 
 export function TextCard({ title, theme, onClick }: TextCard) {

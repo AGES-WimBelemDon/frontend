@@ -13,17 +13,15 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      light: '#387b81',
-      main: '#075b62',
-      dark: '#043f44',
+      main: '#FFFFFF',
     },
     secondary: {
-      light: '#a3d266',
-      main: '#8dc740',
-      dark: '#628b2c',
+      main: '#0E6872',
     },
     customColors: {
-      
+      terciary: {
+        main: '#8DC740'
+      }
     }
   },
 });
