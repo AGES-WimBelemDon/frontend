@@ -1,11 +1,11 @@
 import { Menu, AccountCircle } from '@mui/icons-material';
-import { Box, Divider} from '@mui/material';
+import { Box, Divider } from '@mui/material';
 
 export default function Header() {
   return (
     <Box>
       <Box
-        component="header"
+        component='header'
         sx={{
           display: 'grid',
           gridTemplateColumns: 'auto 1fr auto',
@@ -22,14 +22,14 @@ export default function Header() {
             height: 30,
             width: 30, 
           }}
-          color="primary"
-          onClick={() => {alert('Open Sidebar');}}
+          color='primary'
+          onClick={() => alert('open sidebar')}
         />
         <Box
-          component="img"
-          src="./pwa-192x192.png"
-          alt="WimBelemDon logo"
-          onClick={() => {alert('go to Home');}}
+          component='img'
+          src='./logo.png'
+          alt='WimBelemDon logo'
+          onClick={() => alert('go to home')}
           sx={{ 
             cursor: 'pointer',
             display: { md: 'none' },
@@ -44,14 +44,14 @@ export default function Header() {
             height: 30,
             width: 30, 
           }}
-          color="primary"
-          onClick={() => {alert('Open something');}}
+          color='primary'
+          onClick={() => alert('show profile')}
           
         />
         
       </Box>
       <Divider 
-        variant="middle" 
+        variant='middle' 
         sx={{
           display: { md: 'none' },
           bgcolor: 'primary.main',
