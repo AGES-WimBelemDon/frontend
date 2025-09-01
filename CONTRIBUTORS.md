@@ -1,4 +1,5 @@
 - [Bernardo Lorenzi Müller](https://github.com/BernardoMuller)
+- [Bernardo Lykawka Medeiros Silva](https://github.com/BernardoLykawka)
 - [Daniel Chin Tay Lee](https://github.com/danictlee)
 - [Felipe Conzatti Frison](https://github.com/fcfrison)
 - [Felipe Freitas Silva](https://github.com/felipefreitassilva)
