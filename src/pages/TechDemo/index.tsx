@@ -3,8 +3,8 @@ import { Button, Container, Stack, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
 import UserProfile from './Profile';
+import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
-import { TextCard } from '../../components/GenericCard';
 
 function TechDemo() {
   const navigate = useNavigate();

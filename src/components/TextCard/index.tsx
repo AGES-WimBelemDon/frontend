@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import { CardActionArea, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import HomeIcon from '@mui/icons-material/Home';
 
 import type { ThemeStyle, TextCard } from "./interface";
 
@@ -22,15 +22,17 @@ export function TextCard({ title, theme, onClick }: TextCard) {
         alignItems: "center",
       }}
     >
-      <CardContent onClick={onClick}>
-      <HomeIcon sx={{ color: '#0E6872' }} fontSize="large" />
-        <Typography
-          sx={{ color: "#0E6872", fontWeight: "bold" }}
-          variant={"h5"}
-        >
-          {title}
-        </Typography>
-      </CardContent>
+      <CardActionArea sx={{height: "100%"}}>
+        <CardContent onClick={onClick}>
+          <HomeIcon sx={{ color: "#0E6872" }} fontSize="large" />
+          <Typography
+            sx={{ color: "#0E6872", fontWeight: "bold" }}
+            variant={"h5"}
+          >
+            {title}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   ) : (
     <Card
@@ -43,15 +45,17 @@ export function TextCard({ title, theme, onClick }: TextCard) {
         alignItems: "center",
       }}
     >
-      <CardContent onClick={onClick}>
-      <HomeIcon sx={{ color: 'white' }} fontSize="large" />
-        <Typography
-          sx={{ color: "white", fontWeight: "bold" }}
-          variant={"h5"}
-        >
-          {title}
-        </Typography>
-      </CardContent>
+      <CardActionArea sx={{height: "100%"}}>
+        <CardContent onClick={onClick}>
+          <HomeIcon sx={{ color: "white" }} fontSize="large" />
+          <Typography
+            sx={{ color: "white", fontWeight: "bold" }}
+            variant={"h5"}
+          >
+            {title}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }
