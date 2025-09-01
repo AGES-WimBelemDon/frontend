@@ -4,8 +4,7 @@ import { Outlet, useNavigate } from 'react-router';
 
 import UserProfile from './Profile';
 import { pt } from '../../constants';
-import { theme } from '../../styles/theme';
-import { GenericCard } from '../../ui/custom/GenericCard';
+import { TextCard } from '../../components/GenericCard';
 
 function TechDemo() {
   const navigate = useNavigate();
@@ -31,26 +30,19 @@ function TechDemo() {
       </Stack>
       <UserProfile />
 
-      <GenericCard
+      <TextCard
         title="Home"
-        type="list"
         theme="dark"
         icon={<HomeIcon sx={{ color: 'white' }} fontSize="large" />}
-        titleProps={{ color: 'white', fontWeight: 'bold' }}
-        descriptionProps={{ color: 'black', fontWeight: 'semibold' }}
-        titleVariant="h5"
         onClick={() => console.log('clicou') }
-      ></GenericCard>
+      ></TextCard>
 
-      <GenericCard
-        title="Nome do Aluno"
-        type="default"
-        description="Frequência: 90(9/10)"
+      <TextCard
+        title="Home"
         theme="light"
-        titleProps={{ color: theme.palette.primary.main, fontWeight: 'bold' }}
-        descriptionProps={{ color: 'black', fontWeight: 'semibold' }}
+        icon={<HomeIcon sx={{ color: '#0E6872' }} fontSize="large" />}
         titleVariant="h5"
-      ></GenericCard>
+      ></TextCard>
 
       <Outlet />
     </Container>
