@@ -1,12 +1,21 @@
 #!/bin/sh
 set +e # doesn't automatically exit on error
 
-# Step 1: check for ESLint errors (no auto-fix)
-npm run lint
-
-# Step 2: attempt to auto fix if errors exist then exit (abort commit)
-if [ $? -ne 0 ]; then
-  echo "❌ Linting failed. Running 'npm run lint:fix'..."
+# Check if npm and eslint exist
+if command -v npm >/dev/null 2>&1 && command -v eslint >/dev/null 2>&1; then
+  echo "✅ Running lint:fix on host..."
   npm run lint:fix
-  echo "✅ Auto-fix attempted. Please review the changes and commit again."
+  STATUS=$?
+else
+  echo "⚠️  npm or eslint not found on host. Running lint:fix inside Docker..."
+  docker compose run -T --rm dev sh -c "npm run lint:fix"
+  STATUS=$?
 fi
+
+if [ $STATUS -ne 0 ]; then
+  echo "❌ Auto-fix failed. Please review changes before committing."
+  exit 1
+fi
+
+echo "✅ Linting applied successfully."
+exit 0

@@ -1,0 +1,46 @@
+#!/bin/sh
+set +e # doesn't automatically exit on error
+
+# Check for uncommitted changes
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo "⚠️ You have uncommitted changes. Please commit or stash them before pushing."
+  echo "    You can still push current commits with 'git add/commit' or 'git stash' your changes."
+  exit 1
+fi
+
+# Check if npm and eslint exist
+if command -v npm >/dev/null 2>&1 && command -v eslint >/dev/null 2>&1; then
+  echo "✅ Running lint on host..."
+  npm run lint
+  STATUS=$?
+else
+  echo "⚠️ npm or eslint not found on host. Running lint inside Docker..."
+  docker compose run -T --rm dev sh -c "npm run lint"
+  STATUS=$?
+fi
+
+if [ $STATUS -ne 0 ]; then
+  echo "❌ Linting failed. 'lint:fix' should have already been run during commit."
+  echo "    Please run './scripts/setup_npm_docker.sh' or 'npm run lint:fix' and commit the changes."
+  exit 1
+fi
+
+# Check if branch name follows naming conventions
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+# Non-commitable branches (main and develop)
+if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "develop" ]]; then
+  echo "❌ Branch '$BRANCH_NAME' is not allowed to be pushed."
+  echo "    Please create a new branch for your changes and move your commits there if needed"
+  exit 1
+fi
+
+# Accepted names: [feature/*, fix/*, chore/*, test/*, docs/*, ci/*, perf/*, refactor/*, build/*]
+if ! echo "$BRANCH_NAME" | grep -E '^(feature|fix|chore|test|docs|ci|perf|refactor|build)/[a-z0-9._-]+$' >/dev/null 2>&1; then
+  echo "❌ Branch name '$BRANCH_NAME' does not follow naming convention."
+  echo "    Use feature/*, fix/*, chore/*, test/*, docs/*, ci/*, perf/*, refactor/*, or build/* format."
+  exit 1
+fi
+
+echo "✅ Lint passed, no uncommitted changes, and branch name is valid. Thank you!"
+exit 0
