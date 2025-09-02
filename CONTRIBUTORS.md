@@ -10,3 +10,4 @@
 - [Leticia Brasil Flores](https://github.com/lbflores)
 - [Lucas Barroso Afonso](https://github.com/Lucas-Afonso8)
 - [Renato Machado de Souza](https://github.com/Renatu5)
+- [Vinicius Raupp de Matos](https://github.com/ViniciusMatox)
