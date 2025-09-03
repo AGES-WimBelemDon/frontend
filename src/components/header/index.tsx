@@ -1,9 +1,9 @@
 import { Menu, AccountCircle } from '@mui/icons-material';
-import { Box, Container, Divider } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 
 export default function Header() {
   return (
-    <Container maxWidth='xl'>
+    <header>
       <Box
         component='header'
         sx={{
@@ -59,6 +59,6 @@ export default function Header() {
           height: 2,
         }}
       />
-    </Container>
+    </header>
   );
 }
