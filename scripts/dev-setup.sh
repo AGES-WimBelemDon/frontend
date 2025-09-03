@@ -5,6 +5,6 @@ set -e
 echo "🚀 Running full local setup..."
 
 ./scripts/setup_git_hooks.sh
-./scripts/setup_npm_docker.sh
+./scripts/setup_node_docker.sh
 
 echo "✅ Local setup complete."
