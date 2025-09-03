@@ -3,7 +3,7 @@ import { Box, Divider } from '@mui/material';
 
 export function Header() {
   return (
-    <header>
+    <>
       <Box
         component='header'
         sx={{
@@ -20,7 +20,6 @@ export function Header() {
         <Menu
           sx={{ 
             cursor: 'pointer',
-            //display: { md: 'none' },
             height: { md: 40 , xs:30 }, 
             width: { md: 40 , xs:30 }, 
           }}
@@ -34,7 +33,6 @@ export function Header() {
           onClick={() => alert('go to home')}
           sx={{ 
             cursor: 'pointer',
-            //display: { md: 'none' },
             height: { md: 50 , xs:30 }, 
             width: { md: 50 , xs:30 }, 
           }}
@@ -59,6 +57,6 @@ export function Header() {
           height: 2,
         }}
       />
-    </header>
+    </>
   );
 }

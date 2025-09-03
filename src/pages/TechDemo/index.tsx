@@ -15,22 +15,20 @@ function TechDemo() {
   return ( 
     <>
       <Header/>
-      <Container maxWidth='xl'>
-        <Container maxWidth="sm">
-          <Stack>
-            <Typography variant='h1' data-cy="tech-demo-title">{pt.techDemo.title}</Typography>
-            <Button
-              onClick={showAPIInfo}
-              variant="contained"
-              color="primary"
-              data-cy="tech-demo-show-api-info-button"
-            >
-              <Typography variant='body1'>{pt.techDemo.showAPIInfo}</Typography>
-            </Button>
-          </Stack>
-          <UserProfile />
-          <Outlet />
-        </Container>
+      <Container maxWidth="md">
+        <Stack>
+          <Typography variant='h1' data-cy="tech-demo-title">{pt.techDemo.title}</Typography>
+          <Button
+            onClick={showAPIInfo}
+            variant="contained"
+            color="primary"
+            data-cy="tech-demo-show-api-info-button"
+          >
+            <Typography variant='body1'>{pt.techDemo.showAPIInfo}</Typography>
+          </Button>
+        </Stack>
+        <UserProfile />
+        <Outlet />
       </Container>
     </>
   );
