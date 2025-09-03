@@ -3,7 +3,7 @@ import { Button, Container, Stack, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
 import UserProfile from './Profile';
-import Header from '../../components/header';
+import { Header } from '../../components/Header';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 
@@ -15,9 +15,9 @@ function TechDemo() {
   }
 
   return ( 
-    <Container>
+    <>
       <Header/>
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Stack>
           <Typography variant='h1' data-cy="tech-demo-title">{pt.techDemo.title}</Typography>
           <Button
@@ -43,7 +43,7 @@ function TechDemo() {
         <UserProfile />
         <Outlet />
       </Container>
-    </Container>
+    </>
   );
 }
 
