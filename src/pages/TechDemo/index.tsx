@@ -13,7 +13,7 @@ function TechDemo() {
   }
 
   return ( 
-    <div>
+    <>
       <Header/>
       <Container maxWidth='xl'>
         <Container maxWidth="sm">
@@ -32,7 +32,7 @@ function TechDemo() {
           <Outlet />
         </Container>
       </Container>
-    </div>
+    </>
   );
 }
 
