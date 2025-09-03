@@ -41,7 +41,6 @@ function TechDemo() {
         title="Home"
         theme="light"
         icon={<HomeIcon sx={{ color: '#0E6872' }} fontSize="large" />}
-        titleVariant="h5"
       ></TextCard>
 
       <Outlet />
