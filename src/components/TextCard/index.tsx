@@ -1,56 +1,33 @@
 import HomeIcon from '@mui/icons-material/Home';
-import { CardActionArea, Typography } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import { Card, CardActionArea, CardContent, Typography } from '@mui/material';  
+
 
 import type { ThemeStyle, TextCard } from './interface';
-import { theme } from '../../styles/theme';
 
 const themeStyle: Record<ThemeStyle, object> = {
-  light: { backgroundColor: theme.palette.primary.main, border: `2px solid ${theme.palette.secondary.main}`  },
-  dark: { backgroundColor: theme.palette.secondary.main, border: `2px solid ${theme.palette.primary.main}` },
+  light: { backgroundColor: 'primary.main', color: 'secondary.main' },  
+  dark: { backgroundColor: 'secondary.main', color: 'primary.main' }, 
 };
 
 export function TextCard({ title, theme, onClick }: TextCard) {
-  return theme === 'light' ? (
+  return (
     <Card
       sx={{
         ...themeStyle[theme],
-        maxWidth: 375,
-        borderRadius: 2,
+        borderWidth: 2,  
+        borderRadius: 2,  
+        borderStyle: 'solid',  
+        borderColor: 'secondary.main',  
         height: 125,
         flex: 1,
         alignItems: 'center',
       }}
     >
-      <CardActionArea sx={{height: '100%'}}>
-        <CardContent onClick={onClick}>
-          <HomeIcon sx={{ color: '#0E6872' }} fontSize="large" />
+      <CardActionArea sx={{height: '100%'}} onClick={onClick}>
+        <CardContent >
+          <HomeIcon fontSize="large" />
           <Typography
-            sx={{ color: '#0E6872', fontWeight: 'bold' }}
-            variant={'h5'}
-          >
-            {title}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  ) : (
-    <Card
-      sx={{
-        ...themeStyle[theme],
-        maxWidth: 375,
-        borderRadius: 2,
-        height: 125,
-        flex: 1,
-        alignItems: 'center',
-      }}
-    >
-      <CardActionArea sx={{height: '100%'}}>
-        <CardContent onClick={onClick}>
-          <HomeIcon sx={{ color: 'white' }} fontSize="large" />
-          <Typography
-            sx={{ color: 'white', fontWeight: 'bold' }}
+            sx={{fontWeight: 'bold' }}
             variant={'h5'}
           >
             {title}
