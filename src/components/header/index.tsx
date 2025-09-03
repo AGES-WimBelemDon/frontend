@@ -1,7 +1,7 @@
 import { Menu, AccountCircle } from '@mui/icons-material';
 import { Box, Divider } from '@mui/material';
 
-export default function Header() {
+export function Header() {
   return (
     <header>
       <Box

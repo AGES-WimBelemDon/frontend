@@ -2,7 +2,7 @@ import { Button, Container, Stack, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
 import UserProfile from './Profile';
-import Header from '../../components/header';
+import { Header } from '../../components/Header';
 import { pt } from '../../constants';
 
 function TechDemo() {
