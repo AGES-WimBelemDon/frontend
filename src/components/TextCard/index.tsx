@@ -1,7 +1,5 @@
 import HomeIcon from '@mui/icons-material/Home';
 import { Card, CardActionArea, CardContent, Typography } from '@mui/material';  
-
-
 import type { ThemeStyle, TextCard } from './interface';
 
 const themeStyle: Record<ThemeStyle, object> = {
