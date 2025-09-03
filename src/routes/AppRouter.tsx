@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 
-import Home from '../pages/Home/Home';
+import Home from '../pages/Home/Index.tsx';
 import TechDemo from '../pages/TechDemo';
 import TechDemoMockAPI from '../pages/TechDemo/MockAPI.tsx';
 
