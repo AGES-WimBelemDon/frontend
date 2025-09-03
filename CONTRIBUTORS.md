@@ -7,6 +7,7 @@
 - [João Oliveira Galeazzi](https://github.com/GaleazziI)
 - [Leonardo Mallet Scheidt](https://github.com/LeoMallet04)
 - [Leonardo Gemin Pereira](https://github.com/leogemin)
+- [Leonardo Sabino Botton](https://github.com/LeoSabino)
 - [Leticia Brasil Flores](https://github.com/lbflores)
 - [Lucas Barroso Afonso](https://github.com/Lucas-Afonso8)
 - [Renato Machado de Souza](https://github.com/Renatu5)
