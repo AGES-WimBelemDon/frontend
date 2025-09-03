@@ -77,7 +77,8 @@ ex: feat(auth): add login via Google OAuth (#123)
 
 ## Language
 
-All code, comments, commit messages, documentation, pull request description and any other texts (non UI) **must be** written in English.
+All code, comments, commit messages, documentation, and any other texts (non UI) **must be** written in English.
+The only exception being PR description and comments, which can be written in Portuguese as that follows the project's language guidelines.
 
 ## Thank You
 

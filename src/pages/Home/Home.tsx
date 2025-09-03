@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router';
 
-import logo from '/wbd-2021.png';
+import logo from '/logo.png';
 import { pt } from '../../constants';
 
 function Home() {
