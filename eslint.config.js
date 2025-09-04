@@ -45,10 +45,8 @@ export default tseslint.config([
         }
       ],
       'indent': ['error', 2],
-      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'always'],
-      'space-before-function-paren': ['error', 'never'],
+      'quotes': ['error', 'double', { avoidEscape: true, allowTemplateLiterals: true }],
+      'jsx-quotes': ['error', 'prefer-double']
     }
   },
 ]);
