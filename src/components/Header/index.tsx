@@ -1,5 +1,7 @@
-import { Menu, AccountCircle } from '@mui/icons-material';
+import { Menu } from '@mui/icons-material';
 import { Box, ButtonBase, Divider, IconButton } from '@mui/material';
+
+import { UserProfile } from './UserProfile';
 
 export function Header() {
   return (
@@ -44,18 +46,7 @@ export function Header() {
             }}
           />
         </ButtonBase>
-        <IconButton
-          aria-label="go to profile"
-          data-cy="header-profile-button"
-          onClick={() => alert('show profile')}
-        >
-          <AccountCircle
-            sx={{
-              fontSize: { xs: 30, md: 40 },
-            }}
-            color="primary"
-          />
-        </IconButton>
+        <UserProfile />
       </Box>
       <Divider
         variant="middle"
