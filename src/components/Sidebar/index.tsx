@@ -67,6 +67,7 @@ const DrawerHeader = ({ handleDrawerClose, isOpen }: { handleDrawerClose: () => 
         }
 
         <IconButton
+          aria-label='close/toggle drawer'
           onClick={handleDrawerClose}
           sx={{
             color: 'primary.main',
@@ -128,7 +129,7 @@ const DrawerMenu = () => {
             alignItems: 'center',
             display: 'flex',
             marginBottom: '1em',
-          }}>
+          }} aria-label='menu item'>
             <ListItemIcon sx={{ color: 'primary.main', minWidth: 'fit-content' }}>
               {item.icon}
             </ListItemIcon>
