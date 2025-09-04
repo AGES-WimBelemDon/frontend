@@ -17,8 +17,9 @@ export function Toast() {
           : { horizontal: 'right', vertical: 'top' }
       }
       onClose={closeToast}
+      
     >
-      <Alert variant="filled" severity={toast.severity}>
+      <Alert variant="filled" severity={toast.severity} onClose={(toast.closable  ? closeToast: undefined)} sx={{ width: '100%' }}>
         {toastTemplates[toast.severity]?.(toast.message)}
       </Alert>
     </Snackbar>

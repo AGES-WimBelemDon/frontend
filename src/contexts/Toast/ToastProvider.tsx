@@ -11,11 +11,12 @@ export function ToastProvider({children} : {children: React.ReactNode}) {
     }
   );
 
-  const showToast = (message: string, severity: ToastState['severity']) => {
+  const showToast = (message: string, severity: ToastState['severity'], closable?: boolean) => {
     setToastState({
       isOpen: true,
       message,
-      severity
+      severity,
+      closable
     });
   };
 
