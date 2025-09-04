@@ -1,7 +1,7 @@
 import { Alert, Snackbar, useMediaQuery } from '@mui/material';
 
 import { toastTemplates } from './interface';
-import { useToast } from '../../hooks/useAlert';
+import { useToast } from '../../hooks/useToast';
 
 export function Toast() {
   const { toast, closeToast } = useToast();
