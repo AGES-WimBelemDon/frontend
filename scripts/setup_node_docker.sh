@@ -5,7 +5,7 @@
 set -e
 
 echo "✅ Building dev image..."
-docker compose build dev > /dev/null
+docker compose build dev
 
 echo "✅ Cleaning host node_modules folder..."
 rm -rf ./node_modules

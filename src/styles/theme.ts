@@ -1,6 +1,6 @@
-import { createTheme, type PaletteColor, type PaletteColorOptions } from '@mui/material/styles';
+import { createTheme, type PaletteColor, type PaletteColorOptions } from "@mui/material/styles";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface Palette {
     customColors: Record<string, PaletteColor>;
   }
@@ -11,16 +11,16 @@ declare module '@mui/material/styles' {
 
 export const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
-      main: '#FFFFFF',
+      main: "#FFFFFF",
     },
     secondary: {
-      main: '#0E6872',
+      main: "#0E6872",
     },
     customColors: {
       terciary: {
-        main: '#8DC740'
+        main: "#8DC740"
       }
     }
   },

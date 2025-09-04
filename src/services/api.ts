@@ -1,6 +1,6 @@
-import axios, { type AxiosInstance } from 'axios';
+import axios, { type AxiosInstance } from "axios";
 
-import { getAuthToken } from './auth.firebase';
+import { getAuthToken } from "./auth.firebase";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -20,7 +20,7 @@ axiosClient.interceptors.request.use(
         delete config.headers.Authorization;
       }
     } catch (error) {
-      console.error('Error fetching token for API:', error);
+      console.error("Error fetching token for API:", error);
     }
     return config;
   },
@@ -31,7 +31,7 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('API Error:', error);
+    console.error("API Error:", error);
     return Promise.reject(error);
   }
 );

@@ -1,0 +1,27 @@
+name: Branch Name Check
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  branch-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Validate branch name
+        run: |
+          SOURCE_BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          TARGET_BRANCH="${GITHUB_BASE_REF}"
+
+          echo "🔍 Checking PR from '$SOURCE_BRANCH' into '$TARGET_BRANCH'"
+
+          if [[ "$SOURCE_BRANCH" == "main" ]]; then
+            echo "::error::Pull requests starting from 'main' are not allowed. See CONTRIBUTING.md for details."
+            exit 1
+          fi
+
+          if ! echo "$SOURCE_BRANCH" | grep -Eq '^(feature|fix|chore|test|docs|ci|perf|refactor|build)/[a-z0-9._-]+$'; then
+            echo "::error::Branch name '$SOURCE_BRANCH' does not follow naming convention. Allowed prefixes: feature/*, fix/*, chore/*, test/*, docs/*, ci/*, perf/*, refactor/*, build/* (see CONTRIBUTING.md)."
+            exit 1
+          fi
