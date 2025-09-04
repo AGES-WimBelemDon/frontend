@@ -1,59 +1,59 @@
-import { Menu, AccountCircle } from '@mui/icons-material';
-import { Box, Divider } from '@mui/material';
+import { Menu, AccountCircle } from "@mui/icons-material";
+import { Box, Divider } from "@mui/material";
 
 export function Header() {
   return (
     <>
       <Box
-        component='header'
+        component="header"
         sx={{
-          display: 'grid',
-          gridTemplateColumns: 'auto 1fr auto',
-          px: {md:'none', xs:'20px'},
-          py: '20px',
-          backgroundColor: 'background.paper',
-          alignItems: 'center',
-          justifyItems: 'center',
+          display: "grid",
+          gridTemplateColumns: "auto 1fr auto",
+          px: {md:"none", xs:"20px"},
+          py: "20px",
+          backgroundColor: "background.paper",
+          alignItems: "center",
+          justifyItems: "center",
           width: {md: 1}
         }}
       >
         <Menu
           sx={{ 
-            cursor: 'pointer',
+            cursor: "pointer",
             height: { md: 40 , xs:30 }, 
             width: { md: 40 , xs:30 }, 
           }}
-          color='primary'
-          onClick={() => alert('open sidebar')}
+          color="primary"
+          onClick={() => alert("open sidebar")}
         />
         <Box
-          component='img'
-          src='./logo.png'
-          alt='WimBelemDon logo'
-          onClick={() => alert('go to home')}
+          component="img"
+          src="./logo.png"
+          alt="WimBelemDon logo"
+          onClick={() => alert("go to home")}
           sx={{ 
-            cursor: 'pointer',
+            cursor: "pointer",
             height: { md: 50 , xs:30 }, 
             width: { md: 50 , xs:30 }, 
           }}
         />
         <AccountCircle
           sx={{ 
-            cursor: 'pointer',
+            cursor: "pointer",
 
             height: { md: 40 , xs:30 }, 
             width: { md: 40 , xs:30 }, 
           }}
-          color='primary'
-          onClick={() => alert('show profile')}
+          color="primary"
+          onClick={() => alert("show profile")}
           
         />
         
       </Box>
       <Divider 
-        variant='middle' 
+        variant="middle" 
         sx={{
-          bgcolor: 'primary.main',
+          bgcolor: "primary.main",
           height: 2,
         }}
       />

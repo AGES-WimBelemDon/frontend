@@ -1,8 +1,8 @@
-import { Button, Paper, Stack, Typography } from '@mui/material';
+import { Button, Paper, Stack, Typography } from "@mui/material";
 
-import { pt } from '../../constants';
-import { useAuth } from '../../hooks/useAuth';
-import { loginWithGoogle, logout } from '../../services/auth.firebase';
+import { pt } from "../../constants";
+import { useAuth } from "../../hooks/useAuth";
+import { loginWithGoogle, logout } from "../../services/auth.firebase";
 
 export default function UserProfile() {
   const { user, isLoadingAuth } = useAuth();
