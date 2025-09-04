@@ -1,15 +1,16 @@
-import { IconButton, Tooltip } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
+import { IconButton, Tooltip } from '@mui/material';
+import { useNavigate } from 'react-router';
 
+import { pt } from '../../constants';
 import { useAuth } from '../../hooks/useAuth';
 import { loginWithGoogle, logout } from '../../services/auth.firebase';
-import { useNavigate } from 'react-router';
 
 export function UserProfile() {
   const { user, isLoadingAuth } = useAuth();
   const navigate = useNavigate();
 
-  const actionLabel = user ? 'Sign out' : 'Sign in with Google';
+  const actionLabel = user ? pt.header.profileLogout : pt.header.profileLogin;
 
   async function handleSignIn() {
     try {

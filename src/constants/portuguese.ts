@@ -1,4 +1,11 @@
 export const portugueseTextMap = {
+  header: {
+    openSidebar: 'Abrir menu lateral',
+    goToHome: 'Ir para a página inicial',
+    logoAlt: 'Logotipo do WimBelemDon',
+    profileLogin: 'Conectar com Google',
+    profileLogout: 'Sair',
+  },
   home: {
     description: 'Em Desenvolvimento'
   },
@@ -16,5 +23,8 @@ export const portugueseTextMap = {
         ),
       },
     }
+  },
+  textCard: {
+    exploreHome: 'Visitar Página Inicial',
   }
 } as const;

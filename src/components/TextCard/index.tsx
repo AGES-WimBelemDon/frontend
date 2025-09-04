@@ -2,6 +2,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Card, CardActionArea, CardContent, Typography, type SxProps, type Theme } from '@mui/material';
   
 import type { ThemeStyle, TextCard } from './interface';
+import { pt } from '../../constants';
 
 const themeStyle: Record<ThemeStyle, SxProps<Theme>> = {
   light: { backgroundColor: 'background.paper', color: 'primary.main' },
@@ -24,7 +25,7 @@ export function TextCard({ title, theme, onClick }: TextCard) {
       <CardActionArea
         sx={{ height: '100%' }}
         onClick={onClick}
-        aria-label={`explore ${title}`}
+        aria-label={pt.textCard.exploreHome}
         data-cy="text-card-button"
       >
         <CardContent>
