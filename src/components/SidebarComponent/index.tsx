@@ -143,7 +143,7 @@ const DrawerMenu = () => {
   );
 };
 
-const Sidebar = () => {
+export const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width: 600px)');
 
@@ -172,5 +172,3 @@ const Sidebar = () => {
     </>
   );
 };
-
-export default Sidebar;
