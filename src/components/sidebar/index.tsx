@@ -3,6 +3,7 @@ import { useState, type ReactNode } from 'react';
 import { AppRegistration, AssignmentAdd, Checklist, Home, PeopleAlt } from '@mui/icons-material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Fade, useMediaQuery } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -13,25 +14,28 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 // Wrapper
-const DrawerWrapper = ({ children, isOpen }: { children: ReactNode[], isOpen: boolean }) => {
-  const drawerWidth = 300;
+const DrawerWrapper = ({ children, isOpen, isMobile }: { children: ReactNode[], isOpen: boolean, isMobile: boolean }) => {
+  const drawerWidth = isMobile ? '100%' : '300px';
 
   return (
     <Drawer
       sx={{
-        width: drawerWidth,
+        width: isOpen ? drawerWidth : '80px',
         flexShrink: 0,
+        overflow: 'hidden',
+        transition: '.5s all ease',
         '& .MuiDrawer-paper': {
-          width: drawerWidth,
+          width: isOpen ? drawerWidth : '80px',
           padding: '1em',
           boxSizing: 'border-box',
           border: 'none',
-          boxShadow: '1px 0px 5px #efefef'
+          boxShadow: '1px 0px 5px #efefef',
+          transition: '.5s all ease',
         },
       }}
       variant="persistent"
       anchor="left"
-      open={isOpen}
+      open={isMobile ? isOpen : true}
     >
       {children}
     </Drawer>
@@ -39,27 +43,36 @@ const DrawerWrapper = ({ children, isOpen }: { children: ReactNode[], isOpen: bo
 };
 
 // Sidebar Header
-const DrawerHeader = ({ handleDrawerClose }: { handleDrawerClose: () => void }) => {
+const DrawerHeader = ({ handleDrawerClose, isOpen }: { handleDrawerClose: () => void, isOpen: boolean }) => {
   return (
     <>
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr'
+        gridTemplateColumns: isOpen ? '1fr 1fr 1fr' : '1fr'
       }}>
-        <img
-          alt="logo"
-          src="logo.png"
-          style={{
-            height: 40,
-            gridColumn: '2',
-            justifySelf: 'center'
-          }}
-        />
+        {
+          isOpen && (
+            <Fade in={isOpen}>
+              <img
+                alt="WBD Logo"
+                src="logo.png"
+                style={{
+                  height: 40,
+                  gridColumn: '2',
+                  justifySelf: 'center',
+                }}
+              />
+            </Fade>
+          )
+        }
+
         <IconButton
           onClick={handleDrawerClose}
           sx={{
             color: 'primary.main',
-            justifySelf: 'end'
+            justifySelf: isOpen ? 'end' : 'center',
+            rotate: isOpen ? '0deg' : '180deg',
+            transition: '.5s all ease',
           }}>
           <ChevronLeftIcon />
         </IconButton>
@@ -75,7 +88,7 @@ const DrawerHeader = ({ handleDrawerClose }: { handleDrawerClose: () => void }) 
 };
 
 // Menu
-const DrawerList = () => {
+const DrawerMenu = () => {
   const menuItems = [
     {
       text: 'Página Inicial',
@@ -111,14 +124,17 @@ const DrawerList = () => {
             backgroundColor: '#efefef',
             borderRadius: '.7em',
             padding: '.7em 1em',
+            justifyContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
             marginBottom: '1em',
           }}>
-            <ListItemIcon sx={{ color: 'primary.main', minWidth: '3em' }}>
+            <ListItemIcon sx={{ color: 'primary.main', minWidth: 'fit-content' }}>
               {item.icon}
             </ListItemIcon>
             <ListItemText
               primary={item.text}
-              sx={{ '& .MuiListItemText-primary': { fontWeight: 'bold' } }}
+              sx={{ '& .MuiListItemText-primary': { fontWeight: 'bold', textWrap: 'nowrap', overflow: 'hidden', marginLeft: '1em' } }}
             />
           </ListItemButton>
         </ListItem>
@@ -129,23 +145,28 @@ const DrawerList = () => {
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 600px)');
 
   const handleDrawerToggle = () => open ? setOpen(false) : setOpen(true);
 
   return (
     <>
-      <IconButton
-        aria-label="open drawer"
-        onClick={handleDrawerToggle}
-        edge="start"
-        sx={{ color: 'primary.main', m: 1 }}
-      >
-        <MenuIcon />
-      </IconButton>
+      {
+        isMobile && (
+          <IconButton
+            aria-label="open drawer"
+            onClick={handleDrawerToggle}
+            edge="start"
+            sx={{ color: 'primary.main', m: 1 }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )
+      }
 
-      <DrawerWrapper isOpen={open}>
-        <DrawerHeader handleDrawerClose={handleDrawerToggle} />
-        <DrawerList />
+      <DrawerWrapper isOpen={open} isMobile={isMobile}>
+        <DrawerHeader handleDrawerClose={handleDrawerToggle} isOpen={open} />
+        <DrawerMenu />
       </DrawerWrapper>
 
     </>
