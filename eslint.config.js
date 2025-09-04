@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import { globalIgnores } from 'eslint/config';
 import importPlugin from 'eslint-plugin-import';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
@@ -12,6 +13,7 @@ export default tseslint.config([
     files: ['**/*.{ts,tsx}', '**/*.{mjs,js}'],
     plugins: {
       import: importPlugin,
+      'jsx-a11y': jsxA11y,
     },
     extends: [
       js.configs.recommended,
@@ -24,6 +26,7 @@ export default tseslint.config([
       globals: globals.browser,
     },
     rules: {
+      ...jsxA11y.configs.strict.rules,
       'import/order': [
         'error',
         {
