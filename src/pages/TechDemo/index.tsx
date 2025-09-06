@@ -1,39 +1,59 @@
-import { Button, Container, Stack, Typography } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
-import UserProfile from './Profile';
 import ButtonCard from '../../components/ButtonCard';
-import Header from '../../components/header';
+import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 
-function TechDemo() {
+export default function TechDemo() {
   const navigate = useNavigate();
-  
+
   function showAPIInfo() {
     navigate('2?c2=4');
   }
 
-  return ( 
-    <Container>
-      <Header/>
-      <Container maxWidth="sm">
-        <Stack>
-          <Typography variant='h1' data-cy="tech-demo-title">{pt.techDemo.title}</Typography>
-          <Button
-            onClick={showAPIInfo}
-            variant="contained"
-            color="primary"
-            data-cy="tech-demo-show-api-info-button"
-          >
-            <Typography variant='body1'>{pt.techDemo.showAPIInfo}</Typography>
-          </Button>
-        </Stack>
-        <UserProfile />
-        <Outlet />
-        <ButtonCard initialName='Nome do aluno 1' frequency='teste de frequencia do aluno'></ButtonCard>
-      </Container>
+  return (
+    <Container maxWidth="md">
+      <Typography variant='h1' data-cy="tech-demo-title">{pt.techDemo.title}</Typography>
+
+      <hr />
+
+      <Grid container spacing={2}>
+        <TextCard
+          title="Home"
+          theme="dark"
+          icon={<HomeIcon />}
+          onClick={() => console.log('clicou')}
+        />
+        <TextCard
+          title="Home"
+          theme="light"
+          icon={<HomeIcon />}
+        />
+      </Grid>
+
+      <hr />
+
+      <Button
+        onClick={showAPIInfo}
+        variant="contained"
+        color="primary"
+        data-cy="tech-demo-show-api-info-button"
+      >
+        <Typography variant='body1'>{pt.techDemo.showAPIInfo}</Typography>
+      </Button>
+
+      <hr />
+      
+      <ButtonCard
+        initialName='Nome do aluno 1'
+        frequency='teste de frequencia do aluno'
+      />
+      
+      <hr />
+
+      <Outlet />
     </Container>
   );
 }
-
-export default TechDemo;
