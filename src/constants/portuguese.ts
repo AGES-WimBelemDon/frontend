@@ -1,4 +1,9 @@
 export const portugueseTextMap = {
+  buttonCard: {
+    frequency: ({ percent }: { percent: number }) => (
+      `Frequência: ${percent}%`
+    ),
+  },
   header: {
     openSidebar: 'Abrir menu lateral',
     goToHome: 'Ir para a página inicial',

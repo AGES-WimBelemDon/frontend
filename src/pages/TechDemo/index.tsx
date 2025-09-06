@@ -2,6 +2,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
+import { ButtonCard } from '../../components/ButtonCard';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 import { useToast } from '../../hooks/useToast';
@@ -75,7 +76,14 @@ export default function TechDemo() {
       </Grid>
       
       <hr />
-        
+      
+      <ButtonCard
+        name='João Mallet'
+        frequencyPercent={75}
+      />
+
+      <hr />
+      
       <Outlet />
     </Container>
   );
