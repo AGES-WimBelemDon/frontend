@@ -26,5 +26,8 @@ export const portugueseTextMap = {
   },
   textCard: {
     exploreHome: 'Visitar Página Inicial',
+  },
+  frequency: {
+    takeAttendance: 'Realizar Chamada'
   }
 } as const;
