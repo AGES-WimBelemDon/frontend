@@ -1,50 +1,62 @@
-import { Button, Container, Stack, Typography } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
-import UserProfile from './Profile';
-import Header from '../../components/header';
+import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 import { useToast } from '../../hooks/useToast';
 
-function TechDemo() {
+export default function TechDemo() {
   const navigate = useNavigate();
-  const {showToast} = useToast();
+  const { showToast } = useToast();
 
   function showAPIInfo() {
     navigate('2?c2=4');
   }
 
   return (
-    <Container>
-      <Header />
-      <Container maxWidth="sm">
-        <Stack>
-          <Typography variant="h1" data-cy="tech-demo-title">
-            {pt.techDemo.title}
-          </Typography>
-          <Button
-            onClick={showAPIInfo}
-            variant="contained"
-            color="primary"
-            data-cy="tech-demo-show-api-info-button"
-          >
-            <Typography variant="body1">{pt.techDemo.showAPIInfo}</Typography>
-          </Button>
+    <Container maxWidth="md">
+      <Typography variant='h1' data-cy="tech-demo-title">{pt.techDemo.title}</Typography>
 
-          <Button
-            variant="contained"
-            color="primary"
-            data-cy="tech-demo-show-api-info-button"
-            onClick={() => showToast('Teste de Toast', 'success') }
-          >
-            Abrir TOAST!
-          </Button>
-        </Stack>
-        <UserProfile />
-        <Outlet />
-      </Container>
+      <hr />
+
+      <Grid container spacing={2}>
+        <TextCard
+          title="Home"
+          theme="dark"
+          icon={<HomeIcon />}
+          onClick={() => console.log('clicou')}
+        />
+        <TextCard
+          title="Home"
+          theme="light"
+          icon={<HomeIcon />}
+        />
+      </Grid>
+
+      <hr />
+
+      <Button
+        onClick={showAPIInfo}
+        variant="contained"
+        color="primary"
+        data-cy="tech-demo-show-api-info-button"
+      >
+        <Typography variant='body1'>{pt.techDemo.showAPIInfo}</Typography>
+      </Button>
+
+      <hr />
+      
+      <Button
+        variant="contained"
+        color="primary"
+        data-cy="tech-demo-show-api-info-button"
+        onClick={() => showToast('Teste de Toast', 'success') }
+      >
+        Abrir TOAST!
+      </Button>
+
+      <Outlet />
     </Container>
   );
 }
-
-export default TechDemo;
