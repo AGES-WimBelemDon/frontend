@@ -9,6 +9,9 @@ export const portugueseTextMap = {
   home: {
     description: 'Em Desenvolvimento'
   },
+  frequency: {
+    takeAttendance: 'Realizar Chamada'
+  },
   techDemo: {
     title: 'Tech Demo',
     fetching: 'Atualizando...',
