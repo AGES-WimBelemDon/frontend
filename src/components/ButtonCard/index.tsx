@@ -1,102 +1,65 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
+import {
+  Check as CheckIcon,
+  Close as CloseIcon
+} from '@mui/icons-material';
 import {
   Card,
   CardContent,
   Typography,
   Box,
-  TextField,
+  Button,
 } from '@mui/material';
 
-type StudentCardProps = {
-  initialName: string;
-  frequency: string;
-};
+import type { ButtonCardProps } from './interface';
+import { pt } from '../../constants';
 
-const ButtonCard: React.FC<StudentCardProps> = ({ initialName, frequency }) => {
-  const [name, setName] = useState(initialName);
-  const [editing, setEditing] = useState(false);
+export function ButtonCard({ name, frequencyPercent }: ButtonCardProps) {
   const [status, setStatus] = useState<'present' | 'absent' | null>(null);
 
   return (
     <Card
       variant="outlined"
       sx={{
+        gap: 2,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        mb: 2,
         borderRadius: 2,
-        boxShadow: 0,
-        paddingX: 2,
+        padding: 2,
       }}
     >
-      <CardContent sx={{ flex: 1 }}>
-        {editing ? (
-          <TextField
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onBlur={() => setEditing(false)}
-            autoFocus
-            variant="standard"
-            fullWidth
-          />
-        ) : (
-          <>
-            <Typography
-              variant="subtitle1"
-              fontWeight="bold"
-              sx={{ cursor: 'pointer', color: 'primary.main' }}
-              onClick={() => setEditing(true)}
-            >
-              {name}
-            </Typography>
-            <Typography variant="body2" color="black">
-              {frequency}
-            </Typography>
-          </>
-        )}
+      <CardContent sx={{ padding: 0 }}>
+        <Typography variant="subtitle1" fontWeight="bold">
+          {name}
+        </Typography>
+        <Typography variant="body2">
+          {pt.buttonCard.frequency({ percent: frequencyPercent })}
+        </Typography>
       </CardContent>
-      <Box sx={{ display: 'flex', gap: 1 }}>
-        <Box
+      <Box
+        gap={2}
+        display='flex'
+        flexDirection='row-reverse'
+      >
+        <Button
+          size='medium'
+          color='primary'
+          variant={status === 'present' ? 'contained' : 'outlined'}
           onClick={() => setStatus('present')}
-          sx={{
-            width: 40,
-            height: 40,
-            bgcolor: status === 'present' ? 'secondary.main' : 'white',
-            border: '1px solid lightgray',
-            borderRadius: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
         >
-          <CheckIcon
-            sx={{ color: status === 'present' ? 'primary.main' : 'gray' }}
-          />
-        </Box>
-        <Box
+          <CheckIcon />
+        </Button>
+        <Button
+          size='medium'
+          color='error'
+          variant={status === 'absent' ? 'contained' : 'outlined'}
           onClick={() => setStatus('absent')}
-          sx={{
-            width: 40,
-            height: 40,
-            bgcolor: status === 'absent' ? 'red' : 'white',
-            border: '1px solid lightgray',
-            borderRadius: 1,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-          }}
         >
-          <CloseIcon sx={{ color: status === 'absent' ? 'black' : 'gray' }} />
-        </Box>
+          <CloseIcon />
+        </Button>
       </Box>
     </Card>
   );
 };
-
-export default ButtonCard;

@@ -1,6 +1,15 @@
 import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          minWidth: 0,
+        },
+      },
+    },
+  },
   palette: {
     mode: 'light',
     background: {
