@@ -2,10 +2,9 @@ import { Button, Container, Stack, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
 import UserProfile from './Profile';
+import ButtonCard from '../../components/ButtonCard';
 import Header from '../../components/header';
 import { pt } from '../../constants';
-import ButtonCard from '../../components/ButtonCard';
-
 
 function TechDemo() {
   const navigate = useNavigate();
