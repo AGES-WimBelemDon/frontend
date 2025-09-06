@@ -1,4 +1,11 @@
 export const portugueseTextMap = {
+  header: {
+    openSidebar: 'Abrir menu lateral',
+    goToHome: 'Ir para a página inicial',
+    logoAlt: 'Logotipo do WimBelemDon',
+    profileLogin: 'Conectar com Google',
+    profileLogout: 'Sair',
+  },
   home: {
     description: 'Em Desenvolvimento'
   },
@@ -15,17 +22,9 @@ export const portugueseTextMap = {
           `Erro na API: ${message}`
         ),
       },
-      profile: {
-        loading: 'Carregando informações do perfil...',
-        noUser: 'Nenhum usuário conectado',
-        title: 'Informações do Perfil',
-        noEmail: 'Email não encontrado',
-        email: ({ email }: { email: string }) => `Email: ${email}`,
-        noName: 'Nome não encontrado',
-        name: ({ name }: { name: string }) => `Nome: ${name}`,
-        signInGoogle: 'Conectar com Google',
-        signOut: 'Sair'
-      }
     }
+  },
+  textCard: {
+    exploreHome: 'Visitar Página Inicial',
   }
 } as const;

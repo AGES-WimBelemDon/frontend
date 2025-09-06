@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import logo from '/logo.png';
 import { pt } from '../../constants';
 
-function Home() {
+export default function Home() {
   return (
     <Box
       sx={{
@@ -30,5 +30,3 @@ function Home() {
     </Box>
   );
 }
-
-export default Home;
