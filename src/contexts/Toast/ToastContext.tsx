@@ -1,16 +1,15 @@
 import { createContext } from 'react';
 
-export type ToastState = {
-  isOpen: boolean,
-  message: string,
-  severity: 'success' | 'error' | 'info' | 'warning',
-  closable?: boolean
-};
+import type { ToastState } from '../../components/Toast/interface';
 
 type ToastContextType = {
   toast: ToastState
   closeToast: () => void;
-  showToast: (message: string, severity: ToastState['severity'], closable?: boolean) => void;
+  showToast: (message: ToastState['message'], severity: ToastState['severity'], closable?: ToastState['closable']) => void;
 };
 
-export const ToastContext = createContext<ToastContextType | undefined>(undefined);
+export const ToastContext = createContext<ToastContextType>({  
+  toast: { isOpen: false, message: '', severity: 'info' },  
+  closeToast: () => {},  
+  showToast: () => {},  
+});
