@@ -26,5 +26,11 @@ export const portugueseTextMap = {
   },
   textCard: {
     exploreHome: 'Visitar Página Inicial',
+  },
+  toast: {  
+    success: ({ message }: { message: string }) => (`Sucesso: ${message}`),  
+    error: ({ message }: { message: string }) => (`Erro: ${message}`),  
+    info: ({ message }: { message: string }) => (`Info: ${message}`),  
+    warning: ({ message }: { message: string }) => (`Aviso: ${message}`),  
   }
 } as const;

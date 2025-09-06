@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useState, type PropsWithChildren } from 'react';
 
-import { ToastContext, type ToastState } from './ToastContext';
+import { ToastContext } from './ToastContext';
+import type { ToastState } from '../../components/Toast/interface';
 
-export function ToastProvider({children} : {children: React.ReactNode}) {
-  const [toastState, setToastState] = useState<ToastState>(
-    {
-      isOpen: false,
-      message: '',
-      severity: 'info'
-    }
-  );
+export function ToastProvider({ children }: PropsWithChildren) {
+  const [toastState, setToastState] = useState<ToastState>({
+    isOpen: false,
+    message: '',
+    severity: 'info'
+  });
 
-  const showToast = (message: string, severity: ToastState['severity'], closable?: boolean) => {
+  function showToast(
+    message: ToastState['message'],
+    severity: ToastState['severity'],
+    closable?: ToastState['closable']
+  ) {
     setToastState({
       isOpen: true,
       message,
@@ -20,13 +23,13 @@ export function ToastProvider({children} : {children: React.ReactNode}) {
     });
   };
 
-  const closeToast = () => {
+  function closeToast() {
     setToastState((prev) => ({  ...prev, isOpen: false }));
   };
+
   return (
-    <ToastContext.Provider value={{toast: toastState, closeToast, showToast}}>
+    <ToastContext.Provider value={{ toast: toastState, closeToast, showToast }}>
       {children}
     </ToastContext.Provider>
   );
-
 }
