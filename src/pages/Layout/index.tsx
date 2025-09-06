@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import { Outlet } from 'react-router';
 
 import { Header } from '../../components/Header';
+import { Toast } from '../../components/Toast';
 
 export default function Layout() {
   return (
@@ -23,6 +24,7 @@ export default function Layout() {
           flex="1"
           overflow="auto"
         >
+          <Toast />
           <Outlet />
         </Box>
       </Box>
