@@ -5,6 +5,7 @@ import Home from '../pages/Home/Home';
 import Layout from '../pages/Layout';
 import TechDemo from '../pages/TechDemo';
 import TechDemoMockAPI from '../pages/TechDemo/MockAPI.tsx';
+import { FrequencyCall } from '../pages/FrequencyCall/index.tsx';
 
 function AppRouter() {
   return (
@@ -12,6 +13,7 @@ function AppRouter() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="chamada" element={<FrequencyCall/>} />
           <Route path="frequencia" element={<Frequency />} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
