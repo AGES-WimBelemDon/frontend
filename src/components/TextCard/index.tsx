@@ -1,5 +1,12 @@
-import BookIcon from '@mui/icons-material/Book';
-import { Card, CardActionArea, CardContent, Typography, type SxProps, type Theme } from '@mui/material';
+import { Book as BookIcon } from '@mui/icons-material';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+  type SxProps,
+  type Theme
+} from '@mui/material';
   
 import type { ThemeStyle, TextCard } from './interface';
 import { pt } from '../../constants';
@@ -19,11 +26,9 @@ export function TextCard({ title, theme, onClick }: TextCard) {
         borderStyle: 'solid',
         borderColor: 'primary.main',
         height: 125,
-        display: 'flex',
-        width: { xs: '100%', sm: 300 },
+        minWidth: 200,
       }}
     >
-
       <CardActionArea
         sx={{ height: '100%' }}
         onClick={onClick}
