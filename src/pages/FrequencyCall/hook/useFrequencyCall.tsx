@@ -1,13 +1,13 @@
 import {useState } from 'react';
 
-import { useDataInput } from '../../../components/DataInput/hook/useDataInput';
+import { useDateInput } from '../../../components/DateInput/hook/useDateInput';
 import type { FrequencyCardStudent } from '../../../components/FrequencyCard/interface';
 import { useToast } from '../../../hooks/useToast';
 import type { FrequencyCallObject } from '../interface';
 
 export function useFrequencyCall() {
 
-  const {searchParams} = useDataInput();
+  const {searchParams} = useDateInput();
 
   const {showToast} = useToast();
 
@@ -54,16 +54,16 @@ export function useFrequencyCall() {
   };
 
   const registerCall = () => {
-    const data = searchParams.get('data');
+    const date = searchParams.get('date');
     if(!students){
       return showToast('Erro ao salvar a chamada, tente novamente', 'error', true);
     }
-    if(!data) {
+    if(!date) {
       return showToast('Erro ao salvar chamada, por favor insira uma data', 'error', true);
     } 
     const callObject : FrequencyCallObject = {
       students: students,
-      data: data
+      date: date
     };
 
     console.log(callObject);

@@ -2,5 +2,5 @@ import type { FrequencyCardStudent } from '../../components/FrequencyCard/interf
 
 export interface FrequencyCallObject {
     students: FrequencyCardStudent[],
-    data: string,
+    date: string,
 }

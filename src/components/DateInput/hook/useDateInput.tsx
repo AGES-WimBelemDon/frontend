@@ -2,7 +2,7 @@ import { useEffect} from 'react';
 
 import {useSearchParams } from 'react-router';
 
-export function useDataInput() {
+export function useDateInput() {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
 

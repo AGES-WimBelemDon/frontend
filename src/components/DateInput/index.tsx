@@ -1,12 +1,12 @@
 import { Box, TextField, Typography } from '@mui/material';
 
-import { useDataInput } from './hook/useDataInput';
+import { useDateInput } from './hook/useDateInput';
 
-export function DataInput() {
+export function DateInput() {
 
-  const {setDate, searchParams} = useDataInput();
+  const {setDate, searchParams} = useDateInput();
 
-  const data = searchParams.get('data');
+  const date = searchParams.get('date');
 
   return (
     <Box pb={2}>
@@ -21,7 +21,7 @@ export function DataInput() {
             shrink: true, // mantém o label acima
           },
         }}
-        value={data}
+        value={date}
         onChange={(date) => setDate(date.target.value)}
       />
     </Box>
