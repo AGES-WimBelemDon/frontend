@@ -1,9 +1,9 @@
-import AddIcon from "@mui/icons-material/Add";
-import { Check as CheckIcon, Close as CloseIcon } from "@mui/icons-material";
-import { Card, CardContent, Typography, Box, Button } from "@mui/material";
+import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
+import AddIcon from '@mui/icons-material/Add';
+import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 
-import type { ButtonCardProps } from "./interface";
-import { pt } from "../../constants";
+import type { ButtonCardProps } from './interface';
+import { pt } from '../../constants';
 
 export function ButtonCard({ name, frequencyPercent,isPresent, onChangePresence }: ButtonCardProps) {
 
@@ -12,9 +12,9 @@ export function ButtonCard({ name, frequencyPercent,isPresent, onChangePresence 
       variant="outlined"
       sx={{
         gap: 2,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         borderRadius: 2,
         padding: 2,
       }}
@@ -31,11 +31,11 @@ export function ButtonCard({ name, frequencyPercent,isPresent, onChangePresence 
         <Button
           onClick={() => {}}
           sx={{
-            backgroundColor: "gray",
-            color: "white",
+            backgroundColor: 'gray',
+            color: 'white',
             borderRadius: 1.5,
-            textTransform: "none",
-            fontWeight: "bold",
+            textTransform: 'none',
+            fontWeight: 'bold',
           }}
         >
           Adicionar Observação
@@ -52,7 +52,7 @@ export function ButtonCard({ name, frequencyPercent,isPresent, onChangePresence 
         <Button
           size="medium"
           color="error"
-          variant={isPresent === false ? "contained" : "outlined"}
+          variant={isPresent === false ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(false)}
         >
           <CloseIcon />
