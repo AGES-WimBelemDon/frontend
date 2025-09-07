@@ -66,7 +66,7 @@ export function FrequencyCard({
           <CheckIcon />
         </Button>
         <Button
-         size={isMobile ? 'small' : 'medium'}
+          size={isMobile ? 'small' : 'medium'}
           color="error"
           variant={isPresent === false ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(false)}
