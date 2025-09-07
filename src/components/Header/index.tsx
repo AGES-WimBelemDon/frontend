@@ -1,57 +1,56 @@
-import { Menu, AccountCircle } from '@mui/icons-material';
-import { Box, Divider } from '@mui/material';
+import { Menu } from '@mui/icons-material';
+import { Box, ButtonBase, Divider, IconButton } from '@mui/material';
+
+import { UserProfile } from './UserProfile';
+import { pt } from '../../constants';
 
 export function Header() {
   return (
     <>
       <Box
-        component='header'
+        component="header"
         sx={{
           display: 'grid',
           gridTemplateColumns: 'auto 1fr auto',
-          px: {md:'none', xs:'20px'},
-          py: '20px',
-          backgroundColor: 'background.paper',
+          px: { xs: 2, md: 2.5 },
+          py: { xs: 2.5, md: 1.5 },
           alignItems: 'center',
           justifyItems: 'center',
-          width: {md: 1}
         }}
       >
-        <Menu
-          sx={{ 
-            cursor: 'pointer',
-            height: { md: 40 , xs:30 }, 
-            width: { md: 40 , xs:30 }, 
-          }}
-          color='primary'
-          onClick={() => alert('open sidebar')}
-        />
-        <Box
-          component='img'
-          src='./logo.png'
-          alt='WimBelemDon logo'
-          onClick={() => alert('go to home')}
-          sx={{ 
-            cursor: 'pointer',
-            height: { md: 50 , xs:30 }, 
-            width: { md: 50 , xs:30 }, 
-          }}
-        />
-        <AccountCircle
-          sx={{ 
-            cursor: 'pointer',
-
-            height: { md: 40 , xs:30 }, 
-            width: { md: 40 , xs:30 }, 
-          }}
-          color='primary'
-          onClick={() => alert('show profile')}
-          
-        />
-        
+        <IconButton
+          aria-label={pt.header.openSidebar}
+          data-cy="header-sidebar-button"
+          onClick={() => alert(pt.header.openSidebar)}
+        >
+          <Menu
+            sx={{
+              fontSize: { xs: 30, md: 40 },
+            }}
+            color="primary"
+          />
+        </IconButton>
+        <ButtonBase
+          sx={{ borderRadius: '50%' }}
+          focusRipple
+          aria-label={pt.header.goToHome}
+          data-cy="header-home-button"
+          onClick={() => alert(pt.header.goToHome)}
+        >
+          <Box
+            component="img"
+            src="./logo.png"
+            alt={pt.header.logoAlt}
+            sx={{
+              height: { xs: 45, md: 60 },
+              width: { xs: 45, md: 60 },
+            }}
+          />
+        </ButtonBase>
+        <UserProfile />
       </Box>
-      <Divider 
-        variant='middle' 
+      <Divider
+        variant="middle"
         sx={{
           bgcolor: 'primary.main',
           height: 2,

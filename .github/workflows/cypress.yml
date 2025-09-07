@@ -27,4 +27,4 @@ jobs:
           start: npm run preview
           wait-on: 'http://localhost:4173'
           wait-on-timeout: 60
-          command: npm run cy:run
+          command: npm run test
