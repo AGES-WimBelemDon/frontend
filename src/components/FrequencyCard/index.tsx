@@ -1,5 +1,5 @@
-import { Check as CheckIcon, Close as CloseIcon } from "@mui/icons-material";
-import AddIcon from "@mui/icons-material/Add";
+import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
+import AddIcon from '@mui/icons-material/Add';
 import {
   Card,
   CardContent,
@@ -7,11 +7,11 @@ import {
   Box,
   Button,
   useMediaQuery,
-} from "@mui/material";
+} from '@mui/material';
 
-import type { FrequencyCardProps } from "./interface";
-import { pt } from "../../constants";
-import { theme } from "../../styles/theme";
+import type { FrequencyCardProps } from './interface';
+import { pt } from '../../constants';
+import { theme } from '../../styles/theme';
 
 export function FrequencyCard({
   name,
@@ -19,16 +19,16 @@ export function FrequencyCard({
   isPresent,
   onChangePresence,
 }: FrequencyCardProps) {
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Card
       variant="outlined"
       sx={{
         gap: 2,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         borderRadius: 2,
         padding: 2,
       }}
@@ -45,21 +45,21 @@ export function FrequencyCard({
         <Button
           onClick={() => {}}
           sx={{
-            backgroundColor: "gray",
-            color: "white",
+            backgroundColor: 'gray',
+            color: 'white',
             borderRadius: 1.5,
-            textTransform: "none",
-            fontWeight: "bold",
+            textTransform: 'none',
+            fontWeight: 'bold',
           }}
         >
-          {isMobile ? "" : "Adicionar Observação"}
+          {isMobile ? '' : 'Adicionar Observação'}
 
           <AddIcon />
         </Button>
         <Button
           size="medium"
           color="success"
-          variant={isPresent === true ? "contained" : "outlined"}
+          variant={isPresent === true ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(true)}
         >
           <CheckIcon />
@@ -67,7 +67,7 @@ export function FrequencyCard({
         <Button
           size="medium"
           color="error"
-          variant={isPresent === false ? "contained" : "outlined"}
+          variant={isPresent === false ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(false)}
         >
           <CloseIcon />
