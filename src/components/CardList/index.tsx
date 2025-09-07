@@ -1,21 +1,19 @@
-import React from 'react';
+import type { PropsWithChildren } from 'react';
 
-import { Stack } from '@mui/material';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 
-interface CardListProps {
-  children: React.ReactNode;
+export function CardList({ children }: PropsWithChildren) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
+  return (
+    <Grid
+      container
+      display='grid'
+      spacing={{ xs: 1 }}
+      gridTemplateColumns={isMobile ? 'repeat(1, 1fr)' : 'repeat(3, 1fr)'}
+    >
+      {children}
+    </Grid>
+  );
 }
-
-const CardList: React.FC<CardListProps> = ({ children }) => (
-  <Stack
-    direction={{ xs: 'column', md: 'row' }}
-    flexWrap="wrap"
-    justifyContent="flex-start"
-    alignItems="flex-start"
-    gap={4}
-  >
-    {children}
-  </Stack>
-);
-
-export default CardList;
