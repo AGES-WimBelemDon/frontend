@@ -34,10 +34,10 @@ export function FrequencyCard({
       }}
     >
       <CardContent sx={{ padding: 0 }}>
-        <Typography variant="subtitle1" fontWeight="bold">
+        <Typography variant="subtitle1" fontWeight="bold" fontSize={isMobile ? 12 : 16}>
           {name}
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="body2" fontSize={isMobile ? 10 : 14}>
           {pt.buttonCard.frequency({ percent: frequencyPercent })}
         </Typography>
       </CardContent>
@@ -51,13 +51,14 @@ export function FrequencyCard({
             textTransform: 'none',
             fontWeight: 'bold',
           }}
+          size={isMobile ? 'small' : 'medium'}
         >
           {isMobile ? '' : 'Adicionar Observação'}
 
           <AddIcon />
         </Button>
         <Button
-          size="medium"
+          size={isMobile ? 'small' : 'medium'}
           color="success"
           variant={isPresent === true ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(true)}
@@ -65,7 +66,7 @@ export function FrequencyCard({
           <CheckIcon />
         </Button>
         <Button
-          size="medium"
+         size={isMobile ? 'small' : 'medium'}
           color="error"
           variant={isPresent === false ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(false)}

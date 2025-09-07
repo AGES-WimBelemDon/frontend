@@ -56,10 +56,10 @@ export function useFrequencyCall() {
   const registerCall = () => {
     const data = searchParams.get('data');
     if(!students){
-      return showToast('Erro ao salvar a chamada, tente novamente', 'error');
+      return showToast('Erro ao salvar a chamada, tente novamente', 'error', true);
     }
     if(!data) {
-      return showToast('Erro ao salvar chamada, por favor insira uma data', 'error');
+      return showToast('Erro ao salvar chamada, por favor insira uma data', 'error', true);
     } 
     const callObject : FrequencyCallObject = {
       students: students,
@@ -67,7 +67,7 @@ export function useFrequencyCall() {
     };
 
     console.log(callObject);
-    return showToast('Chamada registrada com sucesso', 'success');
+    return showToast('Chamada registrada com sucesso', 'success', true);
   };
 
   return { students, updatePresence, registerCall};
