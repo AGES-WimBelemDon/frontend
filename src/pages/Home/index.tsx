@@ -1,27 +1,36 @@
-import HomeIcon from '@mui/icons-material/Home';
-import { Box, Stack, Typography, Divider } from '@mui/material';
+import { Box, Typography, Divider } from '@mui/material';
 
+import CardList from '../../components/CardList';
 import { TextCard } from '../../components/TextCard';
 import { useAuth } from '../../hooks/useAuth';
 
+const cards = [
+  { title: 'Realizar Chamada' },
+  { title: 'Gerenciar Turmas' },
+  { title: 'Gerenciar Alunos' },
+  { title: 'Atividades' },
+];
+
 export default function Home() {
   const { user } = useAuth();
+
   return (
     <Box
       sx={{
-        background: '#fff',
-        width: '81%',
+        width: '90%',      
+        maxWidth: 1100,     
+        mx: 'auto',      
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        px: 0,
+        alignItems: 'flex-start',
+        px: 2,
         py: 0,
       }}
     >
       <Box
         sx={{
           width: '100%',
-          maxWidth: 400,
+          maxWidth: 1200,
           ml: { xs: 2.5, md: 5.5 },
           mt: { xs: 2, md: 3 },
           display: 'flex',
@@ -32,51 +41,29 @@ export default function Home() {
         <Typography
           variant="h5"
           fontWeight="bold"
-          color="primary.main"
           textAlign="center"
           sx={{ mt: 1 }}
         >
           Bem vindo(a) de volta
           <br />
           <span style={{ fontWeight: 400, fontSize: 20 }}>
-            {user?.displayName ? user.displayName : '<Username>'}!
+            {user?.displayName ?? '<Username>'}!
           </span>
         </Typography>
+
         <Divider sx={{ bgcolor: 'light', my: 2, width: '100%' }} />
-        <Stack spacing={4} width="100%" alignItems="center">
-          <Box width="100%" maxWidth={420} height={120}>
+
+        <CardList>
+          {cards.map((card) => (
             <TextCard
-              title="Realizar Chamada"
-              icon={<HomeIcon fontSize="large" />}
+              key={card.title}
+              title={card.title}
               theme="light"
               onClick={() => {}}
             />
-          </Box>
-          <Box width="100%" maxWidth={420} height={120}>
-            <TextCard
-              title="Gerenciar Turmas"
-              icon={<HomeIcon fontSize="large" />}
-              theme="light"
-              onClick={() => {}}
-            />
-          </Box>
-          <Box width="100%" maxWidth={420} height={120}>
-            <TextCard
-              title="Gerenciar Alunos"
-              icon={<HomeIcon fontSize="large" />}
-              theme="light"
-              onClick={() => {}}
-            />
-          </Box>
-          <Box width="100%" maxWidth={420} height={120}>
-            <TextCard
-              title="Atividades"
-              icon={<HomeIcon fontSize="large" />}
-              theme="light"
-              onClick={() => {}}
-            />
-          </Box>
-        </Stack>
+          ))}
+        </CardList>
+
       </Box>
     </Box>
   );

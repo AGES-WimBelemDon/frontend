@@ -1,4 +1,4 @@
-import HomeIcon from '@mui/icons-material/Home';
+import BookIcon from '@mui/icons-material/Book';
 import { Card, CardActionArea, CardContent, Typography, type SxProps, type Theme } from '@mui/material';
   
 import type { ThemeStyle, TextCard } from './interface';
@@ -19,9 +19,11 @@ export function TextCard({ title, theme, onClick }: TextCard) {
         borderStyle: 'solid',
         borderColor: 'primary.main',
         height: 125,
-        flex: 1,
+        display: 'flex',
+        width: { xs: '100%', sm: 300 },
       }}
     >
+
       <CardActionArea
         sx={{ height: '100%' }}
         onClick={onClick}
@@ -29,7 +31,7 @@ export function TextCard({ title, theme, onClick }: TextCard) {
         data-cy="text-card-button"
       >
         <CardContent>
-          <HomeIcon fontSize="large" />
+          <BookIcon fontSize="large" />
           <Typography
             sx={{ fontWeight: 'bold' }}
             variant="h5"
