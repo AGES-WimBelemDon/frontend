@@ -1,7 +1,6 @@
 describe('tech demo test', () => {
   beforeEach(() => {
-    cy.visit('/');
-    cy.dataCy('tech-demo-nav-link').click();
+    cy.visit('/tech-demo');
   });
 
   it('navigates to the tech demo page', () => {
