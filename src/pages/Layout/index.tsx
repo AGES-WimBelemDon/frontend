@@ -10,14 +10,14 @@ export default function Layout() {
       <Header />
 
       <Box display="flex" flex="1" overflow="hidden">
-        {/* <Box
+        <Box
           component="nav"
           width={300}
           borderRight={2}
           bgcolor="background.paper"
         >
           Sidebar here
-        </Box> */}
+        </Box>
 
         <Box
           component="main"
