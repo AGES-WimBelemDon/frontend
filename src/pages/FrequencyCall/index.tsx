@@ -1,8 +1,8 @@
 import { Box, Button, Divider, Input, List, Typography } from '@mui/material';
 
 import { useFrequencyCall } from './hook/useFrequencyCall';
-import { ButtonCard } from '../../components/ButtonCard';
-import type { ButtonCardStudent } from '../../components/ButtonCard/interface';
+import { FrequencyCard } from '../../components/FrequencyCard';
+import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
 
 export function FrequencyCall() {
   const { students, updatePresence } = useFrequencyCall();
@@ -46,8 +46,8 @@ export function FrequencyCall() {
       ></Divider>
 
       <List sx={{ width: '100%', height: '100%',marginTop: 2 , overflowY: 'auto', p:2}}>
-        {students.map((item: ButtonCardStudent) => (
-          <ButtonCard
+        {students.map((item: FrequencyCardStudent) => (
+          <FrequencyCard
             index={item.index}
             name={item.name}
             frequencyPercent={item.frequencyPercent}

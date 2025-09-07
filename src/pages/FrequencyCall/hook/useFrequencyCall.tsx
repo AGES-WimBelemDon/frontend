@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import type {
-  ButtonCardStudent,
-} from '../../../components/ButtonCard/interface';
+  FrequencyCardStudent,
+} from '../../../components/FrequencyCard/interface';
 
 export function useFrequencyCall() {
-  const [students, setStudents] = useState<ButtonCardStudent[]>([
+  const [students, setStudents] = useState<FrequencyCardStudent[]>([
     {
       index: 1,
       name: 'Leonardo Mallet',

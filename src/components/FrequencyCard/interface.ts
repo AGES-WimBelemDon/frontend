@@ -1,8 +1,8 @@
-export interface ButtonCardProps extends ButtonCardStudent {
+export interface FrequencyCardProps extends FrequencyCardStudent {
     onChangePresence: (present:boolean) => void
 }
 
-export interface ButtonCardStudent {
+export interface FrequencyCardStudent {
     index: number,
     name: string,
     frequencyPercent: number,
