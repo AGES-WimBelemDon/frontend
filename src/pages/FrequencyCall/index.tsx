@@ -1,11 +1,12 @@
-import { Box, Button, Divider, Input, List, Typography } from '@mui/material';
+import { Box, Button, Divider, List, Typography } from '@mui/material';
 
 import { useFrequencyCall } from './hook/useFrequencyCall';
+import { DataInput } from '../../components/DataInput';
 import { FrequencyCard } from '../../components/FrequencyCard';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
 
 export function FrequencyCall() {
-  const { students, updatePresence } = useFrequencyCall();
+  const { students, updatePresence, registerCall } = useFrequencyCall();
 
   return (
     <Box
@@ -33,10 +34,7 @@ export function FrequencyCall() {
         Realizar Chamada
       </Typography>
 
-      <Input type=""></Input>
-      <Box>
-        
-      </Box>
+      <DataInput></DataInput>
       <Divider
         sx={{
           bgcolor: 'primary.main',
@@ -60,9 +58,7 @@ export function FrequencyCall() {
       <Box sx={{display: 'flex',justifyContent: 'end', alignItems: 'end', width: '100%', height: '15vh'}}>
         <List>
           <Button
-            onClick={() => {
-              console.log(students);
-            }}
+            onClick={() => registerCall()}
             variant="contained"
             color="primary"
           >

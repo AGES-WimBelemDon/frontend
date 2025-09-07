@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 
-import type {
-  FrequencyCardStudent,
-} from '../../../components/FrequencyCard/interface';
+import { useDataInput } from '../../../components/DataInput/hook/useDataInput';
+import type { FrequencyCardStudent } from '../../../components/FrequencyCard/interface';
+import { useToast } from '../../../hooks/useToast';
+import type { FrequencyCallObject } from '../interface';
 
 export function useFrequencyCall() {
+
+  const {searchParams} = useDataInput();
+
+  const {showToast} = useToast();
+
   const [students, setStudents] = useState<FrequencyCardStudent[]>([
     {
       index: 1,
@@ -47,9 +53,22 @@ export function useFrequencyCall() {
     );
   };
 
-  useEffect(() => {
-    console.log('Alunos atualizados: ', students);
-  }, [students]);
+  const registerCall = () => {
+    const data = searchParams.get('data');
+    if(!students){
+      return showToast('Erro ao salvar a chamada, tente novamente', 'error');
+    }
+    if(!data) {
+      return showToast('Erro ao salvar chamada, por favor insira uma data', 'error');
+    } 
+    const callObject : FrequencyCallObject = {
+      students: students,
+      data: data
+    };
 
-  return { students, updatePresence };
+    console.log(callObject);
+    return showToast('Chamada registrada com sucesso', 'success');
+  };
+
+  return { students, updatePresence, registerCall};
 }
