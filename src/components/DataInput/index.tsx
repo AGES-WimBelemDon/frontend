@@ -1,15 +1,16 @@
-import { Box, TextField, Typography } from "@mui/material";
-import { useDataInput } from "./hook/useDataInput";
+import { Box, TextField, Typography } from '@mui/material';
+
+import { useDataInput } from './hook/useDataInput';
 
 export function DataInput() {
 
-  const {setDate, searchParams} = useDataInput()
+  const {setDate, searchParams} = useDataInput();
 
-  const data = searchParams.get('data')
+  const data = searchParams.get('data');
 
   return (
     <Box pb={2}>
-      <Typography fontSize={16} fontWeight={"bold"}>
+      <Typography fontSize={16} fontWeight={'bold'}>
         Data da aula
       </Typography>
       <TextField
