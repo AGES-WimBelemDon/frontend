@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 
 import Frequency from '../pages/Frequency';
-import Home from '../pages/Home/Home';
+import Home from '../pages/Home';
 import Layout from '../pages/Layout';
 import TechDemo from '../pages/TechDemo';
 import TechDemoMockAPI from '../pages/TechDemo/MockAPI.tsx';
