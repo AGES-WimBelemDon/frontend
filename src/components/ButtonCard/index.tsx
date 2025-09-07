@@ -1,31 +1,20 @@
-import { useState } from 'react';
+import AddIcon from "@mui/icons-material/Add";
+import { Check as CheckIcon, Close as CloseIcon } from "@mui/icons-material";
+import { Card, CardContent, Typography, Box, Button } from "@mui/material";
 
-import {
-  Check as CheckIcon,
-  Close as CloseIcon
-} from '@mui/icons-material';
-import {
-  Card,
-  CardContent,
-  Typography,
-  Box,
-  Button,
-} from '@mui/material';
+import type { ButtonCardProps } from "./interface";
+import { pt } from "../../constants";
 
-import type { ButtonCardProps } from './interface';
-import { pt } from '../../constants';
-
-export function ButtonCard({ name, frequencyPercent }: ButtonCardProps) {
-  const [status, setStatus] = useState<'present' | 'absent' | null>(null);
+export function ButtonCard({ name, frequencyPercent,isPresent, onChangePresence }: ButtonCardProps) {
 
   return (
     <Card
       variant="outlined"
       sx={{
         gap: 2,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
         borderRadius: 2,
         padding: 2,
       }}
@@ -38,28 +27,37 @@ export function ButtonCard({ name, frequencyPercent }: ButtonCardProps) {
           {pt.buttonCard.frequency({ percent: frequencyPercent })}
         </Typography>
       </CardContent>
-      <Box
-        gap={2}
-        display='flex'
-        flexDirection='row-reverse'
-      >
+      <Box gap={2} display="flex" flexDirection="row">
         <Button
-          size='medium'
-          color='primary'
-          variant={status === 'present' ? 'contained' : 'outlined'}
-          onClick={() => setStatus('present')}
+          onClick={() => {}}
+          sx={{
+            backgroundColor: "gray",
+            color: "white",
+            borderRadius: 1.5,
+            textTransform: "none",
+            fontWeight: "bold",
+          }}
+        >
+          Adicionar Observação
+          <AddIcon />
+        </Button>
+        <Button
+          size="medium"
+          color="success"
+          variant={isPresent === true ? 'contained' : 'outlined'}
+          onClick={() => onChangePresence(true)}
         >
           <CheckIcon />
         </Button>
         <Button
-          size='medium'
-          color='error'
-          variant={status === 'absent' ? 'contained' : 'outlined'}
-          onClick={() => setStatus('absent')}
+          size="medium"
+          color="error"
+          variant={isPresent === false ? "contained" : "outlined"}
+          onClick={() => onChangePresence(false)}
         >
           <CloseIcon />
         </Button>
       </Box>
     </Card>
   );
-};
+}
