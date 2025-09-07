@@ -17,6 +17,9 @@ export const portugueseTextMap = {
   frequency: {
     takeAttendance: 'Realizar Chamada'
   },
+  frequencyClasses: {
+    takeAttendance: 'Realizar Chamada - <Nome da Atividade>'
+  },
   techDemo: {
     title: 'Tech Demo',
     fetching: 'Atualizando...',

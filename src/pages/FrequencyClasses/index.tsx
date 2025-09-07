@@ -1,28 +1,16 @@
 import { Typography } from '@mui/material';
-import { useNavigate } from 'react-router';
 
 import { CardList } from '../../components/CardList';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 
 const activities = [
-  { title: 'Chamada Geral' },
-  { title: 'Tênis', goTo: '/turmas' },
-  { title: 'Hidroginástica', goTo: '/turmas' },
-  { title: 'Natação' },
-  { title: 'Musculação' },
-  { title: 'Spinning' },
-  { title: 'Jump' },
-  { title: 'Alongamento' },
-  { title: 'Pilates' },
-  { title: 'Yoga' },
-  { title: 'Zumba' },
+  { title: 'Turma 30' },
+  { title: 'Turma 31' },
+  { title: 'Turma 32' }
 ];
 
-export default function Frequency() {
-
-  const navigate = useNavigate();
-
+export default function FrequencyClasses() {
   return (
     <>
       <Typography
@@ -31,7 +19,7 @@ export default function Frequency() {
         fontSize={24}
         fontWeight='bold'
       >
-        {pt.frequency.takeAttendance}
+        {pt.frequencyClasses.takeAttendance}
       </Typography>
       <CardList>
         {activities.map((c, index) => (
@@ -39,7 +27,6 @@ export default function Frequency() {
             key={`${index}-${c.title}`}
             title={c.title}
             theme={index === 0 ? 'dark' : 'light'}
-            onClick={() => c.goTo && navigate(c.goTo)}
           />
         ))}
       </CardList>
