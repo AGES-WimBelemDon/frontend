@@ -1,4 +1,3 @@
-import HomeIcon from '@mui/icons-material/Home';
 import { Button, Container, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
@@ -25,13 +24,10 @@ export default function TechDemo() {
         <TextCard
           title="Home"
           theme="dark"
-          icon={<HomeIcon />}
-          onClick={() => console.log('clicou')}
         />
         <TextCard
           title="Home"
           theme="light"
-          icon={<HomeIcon />}
         />
       </Grid>
 
