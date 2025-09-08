@@ -63,10 +63,10 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
   
   const drawerWidth = (() => {
     switch (true) {
-    case isMobile:
-      return '100%';
     case !isSidebarOpen:
       return '90px';
+    case isSidebarOpen && isMobile:
+      return '100%';
     default:
       return '300px';
     }
