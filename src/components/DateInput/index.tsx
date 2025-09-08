@@ -1,24 +1,23 @@
 import { Box, TextField, Typography } from '@mui/material';
 
-import { useDateInput } from './hook/useDateInput';
+import { useDateInput } from './hook';
+import { pt } from '../../constants';
 
 export function DateInput() {
-
-  const {setDate, searchParams} = useDateInput();
-
+  const { setDate, searchParams } = useDateInput();
   const date = searchParams.get('date');
 
   return (
-    <Box pb={2}>
-      <Typography fontSize={16} fontWeight={'bold'}>
-        Data da aula
+    <Box>
+      <Typography fontSize={16} fontWeight='bold'>
+        {pt.dateInput.selectDate}
       </Typography>
       <TextField
         id="date"
         type="date"
         slotProps={{
           inputLabel: {
-            shrink: true, // mantém o label acima
+            shrink: true,
           },
         }}
         value={date}
