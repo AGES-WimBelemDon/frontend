@@ -1,73 +1,43 @@
-import {useState } from 'react';
+import { useState } from 'react';
 
-import { useDateInput } from '../../../components/DateInput/hook/useDateInput';
+import { useDateInput } from '../../../components/DateInput/hook';
 import type { FrequencyCardStudent } from '../../../components/FrequencyCard/interface';
+import { pt } from '../../../constants';
 import { useToast } from '../../../hooks/useToast';
-import type { FrequencyCallObject } from '../interface';
 
 export function useFrequencyCall() {
-
-  const {searchParams} = useDateInput();
-
-  const {showToast} = useToast();
+  const { searchParams } = useDateInput();
+  const { showToast } = useToast();
 
   const [students, setStudents] = useState<FrequencyCardStudent[]>([
-    {
-      index: 1,
-      name: 'Leonardo Mallet',
-      frequencyPercent: 90,
-      isPresent: true,
-    },
-    { index: 2, name: 'João Pedro', frequencyPercent: 60, isPresent: true },
-    {
-      index: 3,
-      name: 'Pedro Henrique',
-      frequencyPercent: 40,
-      isPresent: true,
-    },
-    {
-      index: 4,
-      name: 'Thiago Camargo',
-      frequencyPercent: 55,
-      isPresent: true,
-    },
-    {
-      index: 5,
-      name: 'Paulo Camargo',
-      frequencyPercent: 55,
-      isPresent: true,
-    },
-    {
-      index: 6,
-      name: 'Mayara Cardi',
-      frequencyPercent: 55,
-      isPresent: true,
-    },
+    { id: 1, name: 'Leonardo Mallet', frequencyPercent: 90, isPresent: true },
+    { id: 2, name: 'João Pedro', frequencyPercent: 60, isPresent: true },
+    { id: 3, name: 'Pedro Henrique', frequencyPercent: 40, isPresent: true },
+    { id: 4, name: 'Thiago Camargo', frequencyPercent: 55, isPresent: true },
+    { id: 5, name: 'Paulo Camargo', frequencyPercent: 55, isPresent: true },
+    { id: 6, name: 'Mayara Cardi', frequencyPercent: 55, isPresent: true },
   ]);
 
-  const updatePresence = (index: number, present: boolean) => {
+  function updatePresence(id: number, present: boolean) {
     setStudents((prevList) =>
       prevList.map((i) =>
-        i.index === index ? { ...i, isPresent: present } : i
+        i.id === id ? { ...i, isPresent: present } : i
       )
     );
   };
 
-  const registerCall = () => {
+  function registerCall() {
     const date = searchParams.get('date');
-    if(!students){
-      return showToast('Erro ao salvar a chamada, tente novamente', 'error', true);
+    
+    if (!students) {
+      return showToast(pt.frequencyCall.errorNoStudents, 'error', true);
     }
-    if(!date) {
-      return showToast('Erro ao salvar chamada, por favor insira uma data', 'error', true);
-    } 
-    const callObject : FrequencyCallObject = {
-      students: students,
-      date: date
-    };
 
-    console.log(callObject);
-    return showToast('Chamada registrada com sucesso', 'success', true);
+    if (!date) {
+      return showToast(pt.frequencyCall.errorNoDate, 'error', true);
+    }
+
+    return showToast(pt.frequencyCall.successSave, 'success', true);
   };
 
   return { students, updatePresence, registerCall};
