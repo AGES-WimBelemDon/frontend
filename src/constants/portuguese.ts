@@ -20,6 +20,11 @@ export const portugueseTextMap = {
   frequencyClasses: {
     takeAttendance: 'Realizar Chamada - <Nome da Atividade>'
   },
+  sidebar: {
+    listIcon: ({ to }: { to: string }) => (
+      `Navegar para a página ${to}`
+    ),
+  },
   techDemo: {
     title: 'Tech Demo',
     fetching: 'Atualizando...',

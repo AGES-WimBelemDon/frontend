@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
 import { ButtonCard } from '../../components/ButtonCard';
@@ -15,7 +15,7 @@ export default function TechDemo() {
   }
 
   return (
-    <Container maxWidth="md">
+    <>
       <Typography variant='h1' data-cy="tech-demo-title">{pt.techDemo.title}</Typography>
 
       <hr />
@@ -81,6 +81,6 @@ export default function TechDemo() {
       <hr />
       
       <Outlet />
-    </Container>
+    </>
   );
 }

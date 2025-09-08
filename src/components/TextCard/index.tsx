@@ -12,7 +12,7 @@ import type { ThemeStyle, TextCard } from './interface';
 import { pt } from '../../constants';
 
 const themeStyle: Record<ThemeStyle, SxProps<Theme>> = {
-  light: { backgroundColor: 'background.paper', color: 'primary.main' },
+  light: { backgroundColor: 'background.default', color: 'primary.main' },
   dark: { backgroundColor: 'primary.main', color: 'primary.contrastText' },
 };
 

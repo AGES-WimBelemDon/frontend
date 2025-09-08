@@ -1,5 +1,5 @@
 import { AccountCircle } from '@mui/icons-material';
-import { IconButton, Tooltip } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 import { pt } from '../../constants';
@@ -30,21 +30,21 @@ export function UserProfile() {
   }
 
   return (
-    <Tooltip title={actionLabel}>
-      <IconButton
-        aria-label={actionLabel}
-        data-cy="header-profile-button"
-        onClick={user ? handleSignOut : handleSignIn}
-        loading={isLoadingAuth}
-        disabled={isLoadingAuth}
-      >
-        <AccountCircle
-          sx={{
-            fontSize: { xs: 30, md: 40 },
-          }}
-          color="primary"
-        />
-      </IconButton>
-    </Tooltip>
+    <Box position="fixed" bottom={16} left={11}>
+      <Tooltip title={actionLabel}>
+        <IconButton
+          aria-label={actionLabel}
+          data-cy="header-profile-button"
+          onClick={user ? handleSignOut : handleSignIn}
+          loading={isLoadingAuth}
+          disabled={isLoadingAuth}
+        >
+          <AccountCircle
+            sx={{ fontSize: 40 }}
+            color="primary"
+          />
+        </IconButton>
+      </Tooltip>
+    </Box>
   );
 }

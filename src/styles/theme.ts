@@ -14,7 +14,15 @@ export const theme = createTheme({
     mode: 'light',
     background: {
       default: '#FFFFFF',
-      paper: '#FFFFFF'
+      paper: '#EEFEEE',
+    },
+    grey: {
+      50: '#FAFAFA',
+      100: '#F5F5F5',
+      200: '#EEEEEE',
+      300: '#E0E0E0',
+      400: '#BDBDBD',
+      500: '#9E9E9E',
     },
     text: {
       primary: '#0E6872',
