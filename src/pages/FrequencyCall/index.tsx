@@ -1,4 +1,4 @@
-import { Box, Button, Divider, List, Typography } from '@mui/material';
+import { Box, Button, Divider, List, ListItem, Typography } from '@mui/material';
 
 import { useFrequencyCall } from './hook';
 import { DateInput } from '../../components/DateInput';
@@ -13,13 +13,11 @@ export function FrequencyCall() {
       sx={{
         width: '100%',
         height: '88vh',
-        padding: 2.5,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'start',
         alignItems: 'start',
         overflow: 'hidden'
-
       }}
     >
       <Typography
@@ -34,24 +32,31 @@ export function FrequencyCall() {
         Realizar Chamada
       </Typography>
 
-      <DateInput></DateInput>
+      <DateInput />
       <Divider
         sx={{
           bgcolor: 'primary.main',
           height: 2,
           width: '100%',
+          marginY: 2,
         }}
-      ></Divider>
+      />
 
-      <List sx={{ width: '100%', height: '100%',marginTop: 2 , overflowY: 'auto', p:2}}>
+      <List sx={{
+        width: '100%',
+        height: '100%',
+        overflowY: 'auto'
+      }}>
         {students.map((item: FrequencyCardStudent) => (
-          <FrequencyCard
-            id={item.id}
-            name={item.name}
-            frequencyPercent={item.frequencyPercent}
-            isPresent={item.isPresent}
-            onChangePresence={(present) => updatePresence(item.id, present)}
-          />
+          <ListItem key={item.id} sx={{ paddingX: 0 }}>
+            <FrequencyCard
+              id={item.id}
+              name={item.name}
+              frequencyPercent={item.frequencyPercent}
+              isPresent={item.isPresent}
+              onChangePresence={(present) => updatePresence(item.id, present)}
+            />
+          </ListItem>
         ))}
       </List>
 
