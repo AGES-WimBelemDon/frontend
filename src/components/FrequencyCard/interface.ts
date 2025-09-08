@@ -3,7 +3,7 @@ export interface FrequencyCardProps extends FrequencyCardStudent {
 }
 
 export interface FrequencyCardStudent {
-    index: number,
+    id: number,
     name: string,
     frequencyPercent: number,
     isPresent: boolean,

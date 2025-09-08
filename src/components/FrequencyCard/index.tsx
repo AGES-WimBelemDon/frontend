@@ -1,5 +1,8 @@
-import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
-import AddIcon from '@mui/icons-material/Add';
+import {
+  Add as AddIcon,
+  Check as CheckIcon,
+  Close as CloseIcon
+} from '@mui/icons-material';
 import {
   Card,
   CardContent,
@@ -31,6 +34,8 @@ export function FrequencyCard({
         alignItems: 'center',
         borderRadius: 2,
         padding: 2,
+        backgroundColor: 'background.default',
+        width: '100%',
       }}
     >
       <CardContent sx={{ padding: 0 }}>
@@ -43,9 +48,8 @@ export function FrequencyCard({
       </CardContent>
       <Box gap={2} display="flex" flexDirection="row">
         <Button
-          onClick={() => {}}
           sx={{
-            backgroundColor: 'gray',
+            backgroundColor: 'background.paper',
             color: 'white',
             borderRadius: 1.5,
             textTransform: 'none',
@@ -54,7 +58,6 @@ export function FrequencyCard({
           size={isMobile ? 'small' : 'medium'}
         >
           {isMobile ? '' : 'Adicionar Observação'}
-
           <AddIcon />
         </Button>
         <Button
