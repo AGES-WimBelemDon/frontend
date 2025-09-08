@@ -23,6 +23,9 @@ export default function Layout() {
           component="main"
           flex="1"
           overflow="auto"
+          maxWidth='lg'
+          padding={2}
+          marginX='auto'
         >
           <Toast />
           <Outlet />

@@ -27,6 +27,9 @@ export const portugueseTextMap = {
     errorNoDate: 'Erro ao salvar chamada, por favor insira uma data',
     successSave: 'Chamada registrada com sucesso',
   },
+  frequencyClasses: {
+    takeAttendance: 'Realizar Chamada - <Nome da Atividade>'
+  },
   techDemo: {
     title: 'Tech Demo',
     fetching: 'Atualizando...',

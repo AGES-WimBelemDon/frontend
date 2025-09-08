@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 
 import Frequency from '../pages/Frequency';
 import { FrequencyCall } from '../pages/FrequencyCall/index.tsx';
-import Home from '../pages/Home/Home';
+import FrequencyClasses from '../pages/FrequencyClasses';
+import Home from '../pages/Home';
 import Layout from '../pages/Layout';
 import TechDemo from '../pages/TechDemo';
 import TechDemoMockAPI from '../pages/TechDemo/MockAPI.tsx';
@@ -15,6 +16,7 @@ function AppRouter() {
           <Route index element={<Home />} />
           <Route path="chamada" element={<FrequencyCall/>} />
           <Route path="frequencia" element={<Frequency />} />
+          <Route path="turmas" element={<FrequencyClasses />} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
