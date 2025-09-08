@@ -49,7 +49,7 @@ export function FrequencyCard({
       <Box gap={2} display="flex" flexDirection="row">
         <Button
           sx={{
-            backgroundColor: 'background.paper',
+            backgroundColor: 'grey.500',
             color: 'white',
             borderRadius: 1.5,
             textTransform: 'none',

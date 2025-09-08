@@ -1,6 +1,6 @@
 import { Box, Button, Divider, List, Typography } from '@mui/material';
 
-import { useFrequencyCall } from './hook/useFrequencyCall';
+import { useFrequencyCall } from './hook';
 import { DateInput } from '../../components/DateInput';
 import { FrequencyCard } from '../../components/FrequencyCard';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
@@ -46,11 +46,11 @@ export function FrequencyCall() {
       <List sx={{ width: '100%', height: '100%',marginTop: 2 , overflowY: 'auto', p:2}}>
         {students.map((item: FrequencyCardStudent) => (
           <FrequencyCard
-            index={item.index}
+            id={item.id}
             name={item.name}
             frequencyPercent={item.frequencyPercent}
             isPresent={item.isPresent}
-            onChangePresence={(present) => updatePresence(item.index, present)}
+            onChangePresence={(present) => updatePresence(item.id, present)}
           />
         ))}
       </List>
