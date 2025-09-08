@@ -1,175 +1,156 @@
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
 
-import { AppRegistration, AssignmentAdd, Checklist, Home, PeopleAlt } from '@mui/icons-material';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Fade, useMediaQuery } from '@mui/material';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import {
+  AppRegistration,
+  AssignmentAdd,
+  Checklist,
+  DeveloperBoard,
+  Home,
+  Menu,
+  PeopleAlt
+} from '@mui/icons-material';
+import {
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
+} from '@mui/material';
+import { useNavigate } from 'react-router';
 
-// Wrapper
-const DrawerWrapper = ({ children, isOpen, isMobile }: { children: ReactNode[], isOpen: boolean, isMobile: boolean }) => {
-  const drawerWidth = isMobile ? '100%' : '300px';
+import type { SidebarProps, SidebarRouteMapper } from './interface';
+import { pt } from '../../constants';
+
+const sidebarOptionsMapper: SidebarRouteMapper = {
+  '/': {
+    text: 'Página Inicial',
+    icon: <Home />,
+  },
+  '/cadastro': {
+    text: 'Cadastro',
+    icon: <AssignmentAdd />,
+  },
+  '/alunos': {
+    text: 'Alunos',
+    icon: <PeopleAlt />,
+  },
+  '/frequencia': {
+    text: 'Frequência',
+    icon: <Checklist />,
+  },
+  '/atividades': {
+    text: 'Atividades',
+    icon: <AppRegistration />,
+  },
+  ...(import.meta.env.DEV && {
+    '/tech-demo': {
+      text: 'Tech Demo',
+      icon: <DeveloperBoard />,
+    }
+  }),
+};
+
+export function Sidebar({ allowedRoutes }: SidebarProps) {
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  const navigate = useNavigate();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const visibleRoutes = Object.keys(sidebarOptionsMapper)
+    .filter(route => allowedRoutes.includes(route));
+  
+  const drawerWidth = (() => {
+    switch (true) {
+    case isMobile:
+      return '100%';
+    case !isSidebarOpen:
+      return '90px';
+    default:
+      return '300px';
+    }
+  })();
+
+  function onSidebarToggle() {
+    setIsSidebarOpen(isSidebarOpen => !isSidebarOpen);
+  }
 
   return (
     <Drawer
+      component="nav"
       sx={{
-        width: isOpen ? drawerWidth : '80px',
-        flexShrink: 0,
+        width: drawerWidth,
+        zIndex: 0,
         overflow: 'hidden',
         transition: '.5s all ease',
         '& .MuiDrawer-paper': {
-          width: isOpen ? drawerWidth : '80px',
-          padding: '1em',
+          width: drawerWidth,
+          padding: 2,
+          overflow: 'hidden',
           boxSizing: 'border-box',
-          border: 'none',
-          boxShadow: '1px 0px 5px #efefef',
+          boxShadow: '1px 0px 5px background.paper',
           transition: '.5s all ease',
+          backgroundColor: 'background.default',
         },
       }}
-      variant="persistent"
+      variant="permanent"
       anchor="left"
-      open={isMobile ? isOpen : true}
+      open={isSidebarOpen}
     >
-      {children}
-    </Drawer>
-  );
-};
+      <IconButton
+        aria-label={pt.header.openSidebar}
+        data-cy="header-sidebar-button"
+        onClick={onSidebarToggle}
+        sx={{ maxWidth: 'fit-content' }}
+      >
+        <Menu sx={{
+          color: 'primary.main',
+          fontSize: { xs: 30, md: 40 },
+        }} />
+      </IconButton>
 
-// Sidebar Header
-const DrawerHeader = ({ handleDrawerClose, isOpen }: { handleDrawerClose: () => void, isOpen: boolean }) => {
-  return (
-    <>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isOpen ? '1fr 1fr 1fr' : '1fr'
-      }}>
-        {
-          isOpen && (
-            <Fade in={isOpen}>
-              <img
-                alt="WBD Logo"
-                src="logo.png"
-                style={{
-                  height: 40,
-                  gridColumn: '2',
-                  justifySelf: 'center',
+      <List sx={{ overflowY: 'auto' }}>
+        {visibleRoutes.map((route) => {
+          const { text, icon } = sidebarOptionsMapper[route];
+
+          return (
+            <ListItem key={route} disablePadding>
+              <ListItemButton
+                aria-label={pt.sidebar.listIcon({ to: route })}
+                onClick={() => navigate(route)}
+                sx={{
+                  backgroundColor: 'grey.100',
+                  borderRadius: '.7em',
+                  padding: '.7em 1em',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  display: 'flex',
+                  marginBottom: '1em',
+                  ':hover': {
+                    backgroundColor: 'background.paper'
+                  }
                 }}
-              />
-            </Fade>
-          )
-        }
-
-        <IconButton
-          aria-label='close/toggle drawer'
-          onClick={handleDrawerClose}
-          sx={{
-            color: 'primary.main',
-            justifySelf: isOpen ? 'end' : 'center',
-            rotate: isOpen ? '0deg' : '180deg',
-            transition: '.5s all ease',
-          }}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </div>
-      <Divider sx={{
-        backgroundColor: 'primary.main',
-        marginY: '1em',
-        height: '2px'
-      }}
-      />
-    </>
-  );
-};
-
-// Menu
-const DrawerMenu = () => {
-  const menuItems = [
-    {
-      text: 'Página Inicial',
-      icon: <Home />,
-    },
-    {
-      text: 'Cadastro',
-      icon: <AssignmentAdd />,
-    },
-    {
-      text: 'Alunos',
-      icon: <PeopleAlt />,
-    },
-    {
-      text: 'Frequência',
-      icon: <Checklist />,
-    },
-    {
-      text: 'Atividades',
-      icon: <AppRegistration />,
-    },
-  ];
-
-  return (
-    <List
-      sx={{
-        color: 'primary.main',
-      }}
-    >
-      {menuItems.map((item) => (
-        <ListItem key={item.text} disablePadding>
-          <ListItemButton sx={{
-            backgroundColor: '#efefef',
-            borderRadius: '.7em',
-            padding: '.7em 1em',
-            justifyContent: 'center',
-            alignItems: 'center',
-            display: 'flex',
-            marginBottom: '1em',
-          }} aria-label='menu item'>
-            <ListItemIcon sx={{ color: 'primary.main', minWidth: 'fit-content' }}>
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText
-              primary={item.text}
-              sx={{ '& .MuiListItemText-primary': { fontWeight: 'bold', textWrap: 'nowrap', overflow: 'hidden', marginLeft: '1em' } }}
-            />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
-  );
-};
-
-export const Sidebar = () => {
-  const [open, setOpen] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 600px)');
-
-  const handleDrawerToggle = () => open ? setOpen(false) : setOpen(true);
-
-  return (
-    <>
-      {
-        isMobile && (
-          <IconButton
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-            edge="start"
-            sx={{ color: 'primary.main', m: 1 }}
-          >
-            <MenuIcon />
-          </IconButton>
-        )
-      }
-
-      <DrawerWrapper isOpen={open} isMobile={isMobile}>
-        <DrawerHeader handleDrawerClose={handleDrawerToggle} isOpen={open} />
-        <DrawerMenu />
-      </DrawerWrapper>
-
-    </>
+              >
+                <ListItemIcon sx={{ color: 'primary.main', minWidth: 'fit-content' }}>
+                  {icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={text}
+                  sx={{
+                    '& .MuiListItemText-primary': {
+                      fontWeight: 'bold',
+                      textWrap: 'nowrap',
+                      overflow: 'hidden',
+                      marginLeft: '1em'
+                    }
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+      </List>
+    </Drawer>
   );
 };
