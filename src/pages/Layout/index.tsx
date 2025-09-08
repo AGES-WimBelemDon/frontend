@@ -2,9 +2,9 @@ import { Box } from '@mui/material';
 import { Outlet } from 'react-router';
 
 import { Header } from '../../components/Header';
-import { UserProfile } from '../../components/Header/UserProfile';
 import { Sidebar } from '../../components/Sidebar';
 import { Toast } from '../../components/Toast';
+import { UserProfile } from '../../components/UserProfile';
 import { useRoutes } from '../../hooks/useRoutes';
 
 export default function Layout() {
