@@ -32,18 +32,21 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
   '/cadastro': {
     text: 'Cadastro',
     icon: <AssignmentAdd />,
+    disabled: true,
   },
   '/alunos': {
     text: 'Alunos',
     icon: <PeopleAlt />,
+    disabled: true,
   },
-  '/frequencia': {
+  '/frequencias': {
     text: 'Frequência',
     icon: <Checklist />,
   },
   '/atividades': {
     text: 'Atividades',
     icon: <AppRegistration />,
+    disabled: true,
   },
   ...(import.meta.env.DEV && {
     '/tech-demo': {
@@ -56,7 +59,7 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
 export function Sidebar({ allowedRoutes }: SidebarProps) {
   const isMobile = useMediaQuery('(max-width: 600px)');
   const navigate = useNavigate();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const visibleRoutes = Object.keys(sidebarOptionsMapper)
     .filter(route => allowedRoutes.includes(route));
@@ -119,6 +122,7 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
               <ListItemButton
                 aria-label={pt.sidebar.listIcon({ to: route })}
                 onClick={() => navigate(route)}
+                disabled={sidebarOptionsMapper[route].disabled}
                 sx={{
                   backgroundColor: 'grey.100',
                   borderRadius: '.7em',

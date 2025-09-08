@@ -8,7 +8,7 @@ import { Toast } from '../../components/Toast';
 import { useRoutes } from '../../hooks/useRoutes';
 
 export default function Layout() {
-  const allowedRoutes = useRoutes();
+  const { allowedRoutes } = useRoutes();
 
   return (
     <Box display="flex" height="100vh">

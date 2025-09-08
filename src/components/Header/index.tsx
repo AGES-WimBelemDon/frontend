@@ -1,10 +1,10 @@
 import { Box, ButtonBase, Divider, Tooltip, Typography } from '@mui/material';
-import { useNavigate } from 'react-router';
 
 import { pt } from '../../constants';
+import { useRoutes } from '../../hooks/useRoutes';
 
 export function Header() {
-  const navigate = useNavigate();
+  const { goTo } = useRoutes();
 
   return (
     <>
@@ -22,7 +22,7 @@ export function Header() {
             focusRipple
             aria-label={pt.header.goToHome}
             data-cy="header-home-button"
-            onClick={() => navigate('/')}
+            onClick={() => goTo('/')}
             sx={{ gap: 2, display: 'flex', paddingX: 6 }}
           >
             <Box

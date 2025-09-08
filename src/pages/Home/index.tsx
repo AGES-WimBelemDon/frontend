@@ -6,7 +6,7 @@ import { TextCard } from '../../components/TextCard';
 import { useAuth } from '../../hooks/useAuth';
 
 const cards = [
-  { title: 'Realizar Chamada', goTo: 'frequencia' },
+  { title: 'Realizar Chamada', goTo: 'frequencias' },
   { title: 'Gerenciar Turmas', goTo: 'turmas' },
   { title: 'Gerenciar Alunos', goTo: 'alunos' },
   { title: 'Atividades', goTo: 'atividades' },

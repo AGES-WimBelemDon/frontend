@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import { CardList } from '../../components/CardList';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
+import { useRoutes } from '../../hooks/useRoutes';
 
 const activities = [
   { title: 'Turma 30' },
@@ -11,6 +12,8 @@ const activities = [
 ];
 
 export default function FrequencyClasses() {
+  const { goTo } = useRoutes();
+
   return (
     <>
       <Typography
@@ -22,13 +25,17 @@ export default function FrequencyClasses() {
         {pt.frequencyClasses.takeAttendance}
       </Typography>
       <CardList>
-        {activities.map((c, index) => (
-          <TextCard
-            key={`${index}-${c.title}`}
-            title={c.title}
-            theme={index === 0 ? 'dark' : 'light'}
-          />
-        ))}
+        {activities.map((c, index) => {
+          const classId = index + 1;
+          return (
+            <TextCard
+              key={`${index}-${c.title}`}
+              title={c.title}
+              theme={index === 0 ? 'dark' : 'light'}
+              onClick={() => goTo(`${classId}/chamada`)}
+            />
+          );}
+        )}
       </CardList>
     </>
   );  
