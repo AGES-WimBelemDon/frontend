@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import { useDateInput } from '../../../components/DateInput/hook';
-import type { FrequencyCardStudent } from '../../../components/FrequencyCard/interface';
-import { pt } from '../../../constants';
-import { useToast } from '../../../hooks/useToast';
+import { useDateInput } from '../../components/DateInput/hook';
+import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
+import { pt } from '../../constants';
+import { useToast } from '../../hooks/useToast';
 
 export function useFrequencyCall() {
   const { searchParams } = useDateInput();
