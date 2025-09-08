@@ -4,6 +4,9 @@ export const portugueseTextMap = {
       `Frequência: ${percent}%`
     ),
   },
+  dateInput: {
+    selectDate: 'Selecione a data',
+  },
   header: {
     openSidebar: 'Abrir menu lateral',
     goToHome: 'Ir para a página inicial',
@@ -16,6 +19,13 @@ export const portugueseTextMap = {
   },
   frequency: {
     takeAttendance: 'Realizar Chamada'
+  },
+  frequencyCall: {
+    title: 'Realizar Chamada',
+    save: 'Salvar',
+    errorNoStudents: 'Erro ao salvar a chamada, estudantes não encontrados',
+    errorNoDate: 'Erro ao salvar chamada, por favor insira uma data',
+    successSave: 'Chamada registrada com sucesso',
   },
   techDemo: {
     title: 'Tech Demo',
