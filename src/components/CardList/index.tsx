@@ -1,11 +1,11 @@
 import type { PropsWithChildren } from 'react';
 
-import { Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Grid } from '@mui/material';
+
+import { useScreenSize } from '../../hooks/useScrenSize';
 
 export function CardList({ children }: PropsWithChildren) {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const { isMobile, isDesktop } = useScreenSize();
 
   const gridColumnsCountMapper = (() => {
     switch (true) {

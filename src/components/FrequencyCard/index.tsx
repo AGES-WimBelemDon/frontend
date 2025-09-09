@@ -9,12 +9,11 @@ import {
   Typography,
   Box,
   Button,
-  useMediaQuery,
 } from '@mui/material';
 
 import type { FrequencyCardProps } from './interface';
 import { pt } from '../../constants';
-import { theme } from '../../styles/theme';
+import { useScreenSize } from '../../hooks/useScrenSize';
 
 export function FrequencyCard({
   name,
@@ -22,7 +21,7 @@ export function FrequencyCard({
   isPresent,
   onChangePresence,
 }: FrequencyCardProps) {
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isMobile } = useScreenSize();
 
   return (
     <Card
