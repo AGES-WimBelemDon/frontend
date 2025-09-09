@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useDateInput } from '../../components/DateInput/hook';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
@@ -25,7 +25,13 @@ export function useFrequencyCall() {
   const classTitle = !classId ? ''
     : getClassTitleById(classId);
 
-  const [students, setStudents] = useState<FrequencyCardStudent[]>(apiStudents?.map(apiStudent => ({ ...apiStudent, isPresent: true })) || []);
+  const [students, setStudents] = useState<FrequencyCardStudent[]>([]);
+
+  useEffect(() => {
+    if (apiStudents) {
+      setStudents(apiStudents.map(apiStudent => ({ ...apiStudent, isPresent: true })));
+    }
+  }, [apiStudents]);
 
   function updatePresence(id: string, present: boolean) {
     setStudents((prevList) =>
