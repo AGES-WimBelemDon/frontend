@@ -26,7 +26,8 @@ export function TextCard({ title, theme, onClick }: TextCard) {
         borderStyle: 'solid',
         borderColor: 'primary.main',
         height: 125,
-        minWidth: 200,
+        minWidth: 125,
+        width: '100%',
       }}
     >
       <CardActionArea
