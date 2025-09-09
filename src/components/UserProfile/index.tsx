@@ -25,18 +25,20 @@ export function UserProfile() {
       alignItems='center'
     >
       <Tooltip title={actionLabel}>
-        <IconButton
-          aria-label={actionLabel}
-          data-cy="header-profile-button"
-          onClick={user ? handleSignOut : handleSignIn}
-          loading={isLoadingAuth}
-          disabled={isLoadingAuth}
-        >
-          <AccountCircle
-            sx={{ fontSize: 40 }}
-            color="primary"
-          />
-        </IconButton>
+        <Box component='span'>
+          <IconButton
+            aria-label={actionLabel}
+            data-cy="header-profile-button"
+            onClick={user ? handleSignOut : handleSignIn}
+            loading={isLoadingAuth}
+            disabled={isLoadingAuth}
+          >
+            <AccountCircle
+              sx={{ fontSize: 40 }}
+              color="primary"
+            />
+          </IconButton>
+        </Box>
       </Tooltip>
       {showProfileName && (
         <Tooltip title={displayedName}>
