@@ -29,6 +29,9 @@ export const portugueseTextMap = {
     errorNoDate: 'Erro ao salvar chamada, por favor insira uma data',
     successSave: 'Chamada registrada com sucesso',
   },
+  frequencyCard: {
+    absentDetails: 'Adicionar Observação',
+  },
   frequencyClasses: {
     title: ({ activity }: Params<'activity'>) => `Realizar Chamada - ${activity}`,
     loadingClasses: 'Carregando turmas...',

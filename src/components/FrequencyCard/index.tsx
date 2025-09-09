@@ -21,7 +21,7 @@ export function FrequencyCard({
   isPresent,
   onChangePresence,
 }: FrequencyCardProps) {
-  const { isMobile } = useScreenSize();
+  const { isDesktop } = useScreenSize();
 
   return (
     <Card
@@ -41,13 +41,13 @@ export function FrequencyCard({
         <Typography
           variant="subtitle1"
           fontWeight="bold"
-          fontSize={isMobile ? 12 : 16}
+          fontSize={16}
         >
           {name}
         </Typography>
         <Typography
           variant="body2"
-          fontSize={isMobile ? 10 : 14}
+          fontSize={14}
           color="grey.900"
         >
           {pt.buttonCard.frequency({ percent: frequencyPercent.toString() })}
@@ -62,13 +62,13 @@ export function FrequencyCard({
             textTransform: 'none',
             fontWeight: 'bold',
           }}
-          size={isMobile ? 'small' : 'medium'}
+          size='medium'
         >
-          {isMobile ? '' : 'Adicionar Observação'}
+          {isDesktop ? pt.frequencyCard.absentDetails : ''}
           <AddIcon />
         </Button>
         <Button
-          size={isMobile ? 'small' : 'medium'}
+          size='medium'
           color="success"
           variant={isPresent ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(true)}
@@ -76,7 +76,7 @@ export function FrequencyCard({
           <CheckIcon />
         </Button>
         <Button
-          size={isMobile ? 'small' : 'medium'}
+          size='medium'
           color="error"
           variant={!isPresent ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(false)}
