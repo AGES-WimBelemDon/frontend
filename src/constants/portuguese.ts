@@ -1,6 +1,8 @@
+import type { Params } from './type';
+
 export const portugueseTextMap = {
   buttonCard: {
-    frequency: ({ percent }: { percent: number }) => (
+    frequency: ({ percent }: Params<'percent'>) => (
       `Frequência: ${percent}%`
     ),
   },
@@ -8,30 +10,36 @@ export const portugueseTextMap = {
     selectDate: 'Selecione a data',
   },
   header: {
-    openSidebar: 'Abrir menu lateral',
     goToHome: 'Ir para a página inicial',
     logoAlt: 'Logotipo do WimBelemDon',
-    profileLogin: 'Conectar com Google',
-    profileLogout: 'Sair',
-  },
-  home: {
-    description: 'Em Desenvolvimento'
   },
   frequency: {
-    takeAttendance: 'Realizar Chamada'
+    takeAttendance: 'Realizar Chamada',
+    loadingActivities: 'Carregando atividades...',
+    activitiesError: 'Erro ao carregar atividades',
   },
   frequencyCall: {
-    title: 'Realizar Chamada',
+    title: ({ activity, classTitle }: Params<'activity' | 'classTitle'>) => (
+      `Chamada - ${activity} - ${classTitle}`
+    ),
     save: 'Salvar',
+    loadingStudents: 'Carregando estudantes...',
+    studentsError: 'Erro ao carregar estudantes',
     errorNoStudents: 'Erro ao salvar a chamada, estudantes não encontrados',
     errorNoDate: 'Erro ao salvar chamada, por favor insira uma data',
     successSave: 'Chamada registrada com sucesso',
   },
+  frequencyCard: {
+    absentDetails: 'Adicionar Observação',
+  },
   frequencyClasses: {
-    takeAttendance: 'Realizar Chamada - <Nome da Atividade>'
+    title: ({ activity }: Params<'activity'>) => `Realizar Chamada - ${activity}`,
+    loadingClasses: 'Carregando turmas...',
+    classesError: 'Erro ao carregar turmas',
   },
   sidebar: {
-    listIcon: ({ to }: { to: string }) => (
+    openSidebar: 'Abrir menu lateral',
+    listIcon: ({ to }: Params<'to'>) => (
       `Navegar para a página ${to}`
     ),
   },
@@ -41,10 +49,10 @@ export const portugueseTextMap = {
     showAPIInfo: 'Mostrar informações da API',
     children: {
       mockAPI: {
-        detail: ({ c2 }: { c2: string }) => (
+        detail: ({ c2 }: Params<'c2'>) => (
           `Recebi um parâmetro na URL: ${c2}`
         ),
-        apiError: ({ message }: { message: string }) => (
+        apiError: ({ message }: Params<'message'>) => (
           `Erro na API: ${message}`
         ),
       },
@@ -53,10 +61,14 @@ export const portugueseTextMap = {
   textCard: {
     exploreHome: 'Visitar Página Inicial',
   },
-  toast: {  
-    success: ({ message }: { message: string }) => (`Sucesso: ${message}`),  
-    error: ({ message }: { message: string }) => (`Erro: ${message}`),  
-    info: ({ message }: { message: string }) => (`Info: ${message}`),  
-    warning: ({ message }: { message: string }) => (`Aviso: ${message}`),  
-  }
+  toast: {
+    success: ({ message }: Params<'message'>) => (`Sucesso: ${message}`),
+    error: ({ message }: Params<'message'>) => (`Erro: ${message}`),
+    info: ({ message }: Params<'message'>) => (`Info: ${message}`),
+    warning: ({ message }: Params<'message'>) => (`Aviso: ${message}`),
+  },
+  userProfile: {
+    login: 'Conectar com Google',
+    logout: 'Sair',
+  },
 } as const;

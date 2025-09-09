@@ -1,6 +1,7 @@
-import { Alert, Snackbar, Typography, useMediaQuery, useTheme, type SnackbarOrigin } from '@mui/material';
+import { Alert, Snackbar, Typography, type SnackbarOrigin } from '@mui/material';
 
 import { pt } from '../../constants';
+import { useScreenSize } from '../../hooks/useScrenSize';
 import { useToast } from '../../hooks/useToast';
 
 const toastPositioning: Record<'mobile' | 'desktop', SnackbarOrigin> = {  
@@ -9,8 +10,7 @@ const toastPositioning: Record<'mobile' | 'desktop', SnackbarOrigin> = {
 };
 
 export function Toast() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isMobile } = useScreenSize();
   const { toast, closeToast } = useToast();
 
   const toastPosition = toastPositioning[isMobile ? 'mobile' : 'desktop'];

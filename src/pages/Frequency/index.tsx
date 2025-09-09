@@ -1,27 +1,22 @@
 import { Typography } from '@mui/material';
-import { useNavigate } from 'react-router';
 
 import { CardList } from '../../components/CardList';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
-
-const activities = [
-  { title: 'Chamada Geral' },
-  { title: 'Tênis', goTo: '/turmas' },
-  { title: 'Hidroginástica', goTo: '/turmas' },
-  { title: 'Natação' },
-  { title: 'Musculação' },
-  { title: 'Spinning' },
-  { title: 'Jump' },
-  { title: 'Alongamento' },
-  { title: 'Pilates' },
-  { title: 'Yoga' },
-  { title: 'Zumba' },
-];
+import { useActivities } from '../../hooks/useActivities';
+import { useRoutes } from '../../hooks/useRoutes';
 
 export default function Frequency() {
+  const { goTo } = useRoutes();
+  const { activities, isLoadingActivities, activitiesError } = useActivities();
 
-  const navigate = useNavigate();
+  if (isLoadingActivities) {
+    return <Typography>{pt.frequency.loadingActivities}</Typography>;
+  }
+
+  if (activitiesError || !activities) {
+    return <Typography color='error'>{pt.frequency.activitiesError}</Typography>;
+  }
 
   return (
     <>
@@ -34,14 +29,17 @@ export default function Frequency() {
         {pt.frequency.takeAttendance}
       </Typography>
       <CardList>
-        {activities.map((c, index) => (
-          <TextCard
-            key={`${index}-${c.title}`}
-            title={c.title}
-            theme={index === 0 ? 'dark' : 'light'}
-            onClick={() => c.goTo && navigate(c.goTo)}
-          />
-        ))}
+        {activities.map((c, index) => {
+          const activityId = index + 1;
+          return (
+            <TextCard
+              key={`${index}-${c.title}`}
+              title={c.title}
+              theme={index === 0 ? 'dark' : 'light'}
+              onClick={() => goTo(`${activityId}/turmas`)}
+            />
+          );}
+        )}
       </CardList>
     </>
   );  

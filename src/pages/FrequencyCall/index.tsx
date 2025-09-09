@@ -1,25 +1,34 @@
-import { Box, Button, Divider, List, Typography } from '@mui/material';
+import { Box, Button, Divider, List, ListItem, Typography } from '@mui/material';
 
 import { useFrequencyCall } from './hook';
 import { DateInput } from '../../components/DateInput';
 import { FrequencyCard } from '../../components/FrequencyCard';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
+import { pt } from '../../constants';
 
 export function FrequencyCall() {
-  const { students, updatePresence, registerCall } = useFrequencyCall();
+  const {
+    students,
+    updatePresence,
+    registerCall,
+    activityTitle,
+    classTitle,
+  } = useFrequencyCall();
+
+  if (!students) {
+    return <Typography color='error'>{pt.frequencyCall.studentsError}</Typography>;
+  }
 
   return (
     <Box
       sx={{
         width: '100%',
         height: '88vh',
-        padding: 2.5,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'start',
         alignItems: 'start',
         overflow: 'hidden'
-
       }}
     >
       <Typography
@@ -31,27 +40,34 @@ export function FrequencyCall() {
           paddingBottom: 4.5,
         }}
       >
-        Realizar Chamada
+        {pt.frequencyCall.title({ activity: activityTitle, classTitle: classTitle })}
       </Typography>
 
-      <DateInput></DateInput>
+      <DateInput />
       <Divider
         sx={{
           bgcolor: 'primary.main',
           height: 2,
           width: '100%',
+          marginY: 2,
         }}
-      ></Divider>
+      />
 
-      <List sx={{ width: '100%', height: '100%',marginTop: 2 , overflowY: 'auto', p:2}}>
+      <List sx={{
+        width: '100%',
+        height: '100%',
+        overflowY: 'auto'
+      }}>
         {students.map((item: FrequencyCardStudent) => (
-          <FrequencyCard
-            id={item.id}
-            name={item.name}
-            frequencyPercent={item.frequencyPercent}
-            isPresent={item.isPresent}
-            onChangePresence={(present) => updatePresence(item.id, present)}
-          />
+          <ListItem key={item.id} sx={{ paddingX: 0 }}>
+            <FrequencyCard
+              id={item.id}
+              name={item.name}
+              frequencyPercent={item.frequencyPercent}
+              isPresent={item.isPresent}
+              onChangePresence={(present) => updatePresence(item.id, present)}
+            />
+          </ListItem>
         ))}
       </List>
 
@@ -62,7 +78,7 @@ export function FrequencyCall() {
             variant="contained"
             color="primary"
           >
-            Salvar
+            {pt.frequencyCall.save}
           </Button>
         </List>
       </Box>
