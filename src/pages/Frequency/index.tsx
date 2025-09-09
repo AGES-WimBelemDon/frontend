@@ -3,24 +3,20 @@ import { Typography } from '@mui/material';
 import { CardList } from '../../components/CardList';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
+import { useActivities } from '../../hooks/useActivities';
 import { useRoutes } from '../../hooks/useRoutes';
-
-const activities = [
-  { title: 'Chamada Geral' },
-  { title: 'Tênis' },
-  { title: 'Hidroginástica' },
-  { title: 'Natação' },
-  { title: 'Musculação' },
-  { title: 'Spinning' },
-  { title: 'Jump' },
-  { title: 'Alongamento' },
-  { title: 'Pilates' },
-  { title: 'Yoga' },
-  { title: 'Zumba' },
-];
 
 export default function Frequency() {
   const { goTo } = useRoutes();
+  const { activities, isLoadingActivities, activitiesError } = useActivities();
+
+  if (isLoadingActivities) {
+    return <Typography>{pt.frequency.loadingActivities}</Typography>;
+  }
+
+  if (activitiesError || !activities) {
+    return <Typography color='error'>{pt.frequency.activitiesError}</Typography>;
+  }
 
   return (
     <>

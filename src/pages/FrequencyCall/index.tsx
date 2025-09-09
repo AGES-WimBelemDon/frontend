@@ -7,7 +7,17 @@ import type { FrequencyCardStudent } from '../../components/FrequencyCard/interf
 import { pt } from '../../constants';
 
 export function FrequencyCall() {
-  const { students, updatePresence, registerCall } = useFrequencyCall();
+  const {
+    students,
+    updatePresence,
+    registerCall,
+    activityTitle,
+    classTitle,
+  } = useFrequencyCall();
+
+  if (!students) {
+    return <Typography color='error'>{pt.frequencyCall.studentsError}</Typography>;
+  }
 
   return (
     <Box
@@ -30,7 +40,7 @@ export function FrequencyCall() {
           paddingBottom: 4.5,
         }}
       >
-        {pt.frequencyCall.title}
+        {pt.frequencyCall.title({ activity: activityTitle, classTitle: classTitle })}
       </Typography>
 
       <DateInput />

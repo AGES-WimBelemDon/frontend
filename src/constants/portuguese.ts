@@ -14,17 +14,25 @@ export const portugueseTextMap = {
     logoAlt: 'Logotipo do WimBelemDon',
   },
   frequency: {
-    takeAttendance: 'Realizar Chamada'
+    takeAttendance: 'Realizar Chamada',
+    loadingActivities: 'Carregando atividades...',
+    activitiesError: 'Erro ao carregar atividades',
   },
   frequencyCall: {
-    title: 'Realizar Chamada',
+    title: ({ activity, classTitle }: Params<'activity' | 'classTitle'>) => (
+      `Chamada - ${activity} - ${classTitle}`
+    ),
     save: 'Salvar',
+    loadingStudents: 'Carregando estudantes...',
+    studentsError: 'Erro ao carregar estudantes',
     errorNoStudents: 'Erro ao salvar a chamada, estudantes não encontrados',
     errorNoDate: 'Erro ao salvar chamada, por favor insira uma data',
     successSave: 'Chamada registrada com sucesso',
   },
   frequencyClasses: {
-    takeAttendance: ({ activity }: Params<'activity'>) => `Realizar Chamada - ${activity}`
+    title: ({ activity }: Params<'activity'>) => `Realizar Chamada - ${activity}`,
+    loadingClasses: 'Carregando turmas...',
+    classesError: 'Erro ao carregar turmas',
   },
   sidebar: {
     openSidebar: 'Abrir menu lateral',

@@ -3,22 +3,31 @@ import { useState } from 'react';
 import { useDateInput } from '../../components/DateInput/hook';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
 import { pt } from '../../constants';
+import { useActivities } from '../../hooks/useActivities';
+import { useClasses } from '../../hooks/useClasses';
+import { useRoutes } from '../../hooks/useRoutes';
+import { useStudents } from '../../hooks/useStudents';
 import { useToast } from '../../hooks/useToast';
 
 export function useFrequencyCall() {
+  const { getActivityTitleById } = useActivities();
+  const { getClassTitleById } = useClasses();
   const { searchParams } = useDateInput();
+  const { getPathParamId } = useRoutes();
+  const { students: apiStudents } = useStudents();
   const { showToast } = useToast();
 
-  const [students, setStudents] = useState<FrequencyCardStudent[]>([
-    { id: 1, name: 'Leonardo Mallet', frequencyPercent: 90, isPresent: true },
-    { id: 2, name: 'João Pedro', frequencyPercent: 60, isPresent: true },
-    { id: 3, name: 'Pedro Henrique', frequencyPercent: 40, isPresent: true },
-    { id: 4, name: 'Thiago Camargo', frequencyPercent: 55, isPresent: true },
-    { id: 5, name: 'Paulo Camargo', frequencyPercent: 55, isPresent: true },
-    { id: 6, name: 'Mayara Cardi', frequencyPercent: 55, isPresent: true },
-  ]);
+  const activityId = getPathParamId('atividades');
+  const activityTitle = !activityId ? ''
+    : getActivityTitleById(activityId);
+  
+  const classId = getPathParamId('turmas');
+  const classTitle = !classId ? ''
+    : getClassTitleById(classId);
 
-  function updatePresence(id: number, present: boolean) {
+  const [students, setStudents] = useState<FrequencyCardStudent[]>(apiStudents?.map(apiStudent => ({ ...apiStudent, isPresent: true })) || []);
+
+  function updatePresence(id: string, present: boolean) {
     setStudents((prevList) =>
       prevList.map((i) =>
         i.id === id ? { ...i, isPresent: present } : i
@@ -40,5 +49,11 @@ export function useFrequencyCall() {
     return showToast(pt.frequencyCall.successSave, 'success', true);
   };
 
-  return { students, updatePresence, registerCall};
+  return {
+    students,
+    updatePresence,
+    registerCall,
+    activityTitle,
+    classTitle,
+  };
 }

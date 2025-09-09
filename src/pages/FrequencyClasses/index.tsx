@@ -1,18 +1,26 @@
 import { Typography } from '@mui/material';
 
+import { useFrequencyClasses } from './hook';
 import { CardList } from '../../components/CardList';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
-import { useRoutes } from '../../hooks/useRoutes';
-
-const activities = [
-  { title: 'Turma 30' },
-  { title: 'Turma 31' },
-  { title: 'Turma 32' }
-];
 
 export default function FrequencyClasses() {
-  const { goTo } = useRoutes();
+  const {
+    goTo,
+    isLoadingClasses,
+    classesError,
+    classes,
+    activityTitle,
+  } = useFrequencyClasses();
+
+  if (isLoadingClasses) {
+    return <Typography>{pt.frequencyClasses.loadingClasses}</Typography>;
+  }
+
+  if (classesError || !classes) {
+    return <Typography color='error'>{pt.frequencyClasses.classesError}</Typography>;
+  }
 
   return (
     <>
@@ -22,17 +30,16 @@ export default function FrequencyClasses() {
         fontSize={24}
         fontWeight='bold'
       >
-        {pt.frequencyClasses.takeAttendance({ activity: 'Atividade' })}
+        {pt.frequencyClasses.title({ activity: activityTitle })}
       </Typography>
       <CardList>
-        {activities.map((c, index) => {
-          const classId = index + 1;
+        {classes.map((c, index) => {
           return (
             <TextCard
-              key={`${index}-${c.title}`}
+              key={c.id}
               title={c.title}
               theme={index === 0 ? 'dark' : 'light'}
-              onClick={() => goTo(`${classId}/chamada`)}
+              onClick={() => goTo(`${c.id}/chamada`)}
             />
           );}
         )}
