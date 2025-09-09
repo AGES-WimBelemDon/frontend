@@ -1,5 +1,6 @@
 import { Box, ButtonBase, Divider, Tooltip, Typography } from '@mui/material';
 
+import logo from '../../assets/logo.png';
 import { pt } from '../../constants';
 import { useRoutes } from '../../hooks/useRoutes';
 import { useScreenSize } from '../../hooks/useScrenSize';
@@ -46,7 +47,7 @@ export function Header() {
           >
             <Box
               component="img"
-              src="./logo.png"
+              src={logo}
               alt={pt.header.logoAlt}
               sx={{
                 height: { xs: 45, md: 60 },
