@@ -16,14 +16,21 @@ export default function Layout() {
 
       <UserProfile />
 
-      <Box flex="1" overflow="hidden">
+      <Box
+        flex="1"
+        display='flex'
+        flexDirection='column'
+        overflow="hidden"
+      >
         <Header />
         <Box
           component="main"
           flex="1"
           overflow="auto"
+          width='100%'
           maxWidth='lg'
           padding={2}
+          paddingBottom={10}
           marginX='auto'
         >
           <Toast />
