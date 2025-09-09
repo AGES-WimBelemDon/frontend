@@ -6,10 +6,10 @@ import { TextCard } from '../../components/TextCard';
 import { useAuth } from '../../hooks/useAuth';
 
 const cards = [
-  { title: 'Realizar Chamada', goTo: 'frequencias' },
-  { title: 'Gerenciar Turmas', goTo: 'turmas' },
-  { title: 'Gerenciar Alunos', goTo: 'alunos' },
-  { title: 'Atividades', goTo: 'atividades' },
+  { title: 'Realizar Chamada', goTo: 'frequencias/atividades', disabled: false },
+  { title: 'Gerenciar Turmas', goTo: 'turmas', disabled: true },
+  { title: 'Gerenciar Alunos', goTo: 'alunos', disabled: true },
+  { title: 'Atividades', goTo: 'atividades', disabled: true },
 ];
 
 export default function Home() {
@@ -51,6 +51,7 @@ export default function Home() {
             title={card.title}
             theme='light'
             onClick={() => navigate(card.goTo)}
+            disabled={card.disabled}
           />
         ))}
       </CardList>
