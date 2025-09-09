@@ -37,7 +37,7 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
     icon: <PeopleAlt />,
     disabled: true,
   },
-  '/frequencias': {
+  '/frequencias/atividades': {
     text: 'Frequência',
     icon: <Checklist />,
   },
