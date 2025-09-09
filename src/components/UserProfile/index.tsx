@@ -1,36 +1,29 @@
 import { AccountCircle } from '@mui/icons-material';
-import { Box, IconButton, Tooltip } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 
-import { pt } from '../../constants';
-import { useAuth } from '../../hooks/useAuth';
-import { loginWithGoogle, logout } from '../../services/auth.firebase';
+import { useUserProfile } from './hook';
 
 export function UserProfile() {
-  const { user, isLoadingAuth } = useAuth();
-  const navigate = useNavigate();
-
-  const actionLabel = user ? pt.header.profileLogout : pt.header.profileLogin;
-
-  async function handleSignIn() {
-    try {
-      await loginWithGoogle();
-    } catch {
-      // TODO: Handle sign in error visually
-    }
-  }
-
-  async function handleSignOut() {
-    try {
-      await logout();
-      navigate('/');
-    } catch {
-      // TODO: Handle sign out error visually
-    }
-  }
+  const {
+    actionLabel,
+    user,
+    handleSignOut,
+    handleSignIn,
+    isLoadingAuth,
+    showProfileName,
+    displayedName,
+    profileNameMaxWidth,
+  } = useUserProfile();
 
   return (
-    <Box position="fixed" bottom={16} left={11}>
+    <Box
+      position="fixed"
+      bottom={16}
+      left={17}
+      gap={1}
+      display='flex'
+      alignItems='center'
+    >
       <Tooltip title={actionLabel}>
         <IconButton
           aria-label={actionLabel}
@@ -45,6 +38,24 @@ export function UserProfile() {
           />
         </IconButton>
       </Tooltip>
+      {showProfileName && (
+        <Tooltip title={displayedName}>
+          <Typography
+            variant="body1"
+            fontWeight="bold"
+            overflow='hidden'
+            display='-webkit-box'
+            maxWidth={profileNameMaxWidth === '100%' ? '85%' : `${profileNameMaxWidth - 100}px`}
+            sx={{
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              wordBreak: 'break-word',
+            }}
+          >
+            {displayedName}
+          </Typography>
+        </Tooltip>
+      )}
     </Box>
   );
 }
