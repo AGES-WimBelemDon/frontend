@@ -25,14 +25,21 @@ export default function Home() {
         textAlign='center'
       >
         Bem vindo(a) de volta
-        <br />
-        <Typography
-          component='span'
-          fontWeight='bold'
-          fontSize={20}
-        >
-          {user?.displayName ?? '<Username>'}!
-        </Typography>
+        {!user?.displayName
+          ? '!'
+          : (
+            <>
+              <br />
+              <Typography
+                component='span'
+                fontWeight='bold'
+                fontSize={20}
+              >
+                {user.displayName}!
+              </Typography>
+            </>
+          )
+        }
       </Typography>
 
       <Divider sx={{ my: 2, width: '100%' }} />
