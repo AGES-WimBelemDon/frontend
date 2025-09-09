@@ -106,7 +106,12 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
             <ListItem key={route} disablePadding>
               <ListItemButton
                 aria-label={pt.sidebar.listIcon({ to: route })}
-                onClick={() => navigate(route)}
+                onClick={() => {
+                  if (isMobile) {
+                    toggleSidebar();
+                  }
+                  navigate(route);
+                }}
                 disabled={sidebarOptionsMapper[route].disabled}
                 sx={{
                   backgroundColor: 'grey.100',
