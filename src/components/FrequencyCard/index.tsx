@@ -50,7 +50,7 @@ export function FrequencyCard({
           fontSize={isMobile ? 10 : 14}
           color="grey.900"
         >
-          {pt.buttonCard.frequency({ percent: frequencyPercent })}
+          {pt.buttonCard.frequency({ percent: frequencyPercent.toString() })}
         </Typography>
       </CardContent>
       <Box gap={2} display="flex" flexDirection="row">

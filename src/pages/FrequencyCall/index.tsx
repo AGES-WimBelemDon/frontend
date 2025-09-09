@@ -4,6 +4,7 @@ import { useFrequencyCall } from './hook';
 import { DateInput } from '../../components/DateInput';
 import { FrequencyCard } from '../../components/FrequencyCard';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
+import { pt } from '../../constants';
 
 export function FrequencyCall() {
   const { students, updatePresence, registerCall } = useFrequencyCall();
@@ -29,7 +30,7 @@ export function FrequencyCall() {
           paddingBottom: 4.5,
         }}
       >
-        Realizar Chamada
+        {pt.frequencyCall.title}
       </Typography>
 
       <DateInput />
@@ -67,7 +68,7 @@ export function FrequencyCall() {
             variant="contained"
             color="primary"
           >
-            Salvar
+            {pt.frequencyCall.save}
           </Button>
         </List>
       </Box>

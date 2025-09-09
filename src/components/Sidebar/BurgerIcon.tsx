@@ -7,7 +7,7 @@ import { pt } from '../../constants';
 export function SidebarBurgerIcon({ onToggle, sx }: SidebarBurgerIconProps) {
   return (
     <IconButton
-      aria-label={pt.header.openSidebar}
+      aria-label={pt.sidebar.openSidebar}
       data-cy="header-sidebar-button"
       onClick={onToggle}
       sx={{ maxWidth: 'fit-content', ...sx }}

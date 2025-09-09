@@ -22,7 +22,7 @@ export default function FrequencyClasses() {
         fontSize={24}
         fontWeight='bold'
       >
-        {pt.frequencyClasses.takeAttendance}
+        {pt.frequencyClasses.takeAttendance({ activity: 'Atividade' })}
       </Typography>
       <CardList>
         {activities.map((c, index) => {
