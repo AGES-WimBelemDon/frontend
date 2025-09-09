@@ -1,11 +1,11 @@
-import { useContext, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 import { useNavigate } from 'react-router';
 
 import { pt } from '../../constants';
-import { SidebarContext } from '../../contexts/Sidebar/SidebarContext';
 import { useAuth } from '../../hooks/useAuth';
 import { useScreenSize } from '../../hooks/useScrenSize';
+import { useSidebar } from '../../hooks/useSidebar';
 import { loginWithGoogle, logout } from '../../services/auth.firebase';
 
 export function useUserProfile() {
@@ -16,14 +16,14 @@ export function useUserProfile() {
     getSidebarWidth,
     sidebarState,
     sidebarAnimationDurationMs
-  } = useContext(SidebarContext);
+  } = useSidebar();
   const animationFrameRef = useRef<number | null>(null);
   const progressRef = useRef(0);
 
   const [displayedName, setDisplayedName] = useState<string>('');
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  const actionLabel = user ? pt.header.profileLogout : pt.header.profileLogin;
+  const actionLabel = user ? pt.userProfile.logout : pt.userProfile.login;
   const showProfileName = user && (isAnimating || progressRef.current > 0);
   const profileNameMaxWidth = getSidebarWidth(deviceSize); 
 

@@ -1,28 +1,26 @@
-import { useState } from 'react';
-
 import {
   AppRegistration,
   AssignmentAdd,
   Checklist,
   DeveloperBoard,
   Home,
-  Menu,
   PeopleAlt
 } from '@mui/icons-material';
 import {
   Drawer,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  useMediaQuery,
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 
+import { SidebarBurgerIcon } from './BurgerIcon';
 import type { SidebarProps, SidebarRouteMapper } from './interface';
 import { pt } from '../../constants';
+import { useScreenSize } from '../../hooks/useScrenSize';
+import { useSidebar } from '../../hooks/useSidebar';
 
 const sidebarOptionsMapper: SidebarRouteMapper = {
   '/': {
@@ -57,61 +55,48 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
 };
 
 export function Sidebar({ allowedRoutes }: SidebarProps) {
-  const isMobile = useMediaQuery('(max-width: 600px)');
   const navigate = useNavigate();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { deviceSize, isMobile } = useScreenSize();
+  const {
+    sidebarState,
+    toggleSidebar,
+    getSidebarWidth,
+    sidebarAnimationDurationMs,
+  } = useSidebar();
 
   const visibleRoutes = Object.keys(sidebarOptionsMapper)
     .filter(route => allowedRoutes.includes(route));
-  
-  const drawerWidth = (() => {
-    switch (true) {
-    case !isSidebarOpen:
-      return '90px';
-    case isSidebarOpen && isMobile:
-      return '100%';
-    default:
-      return '300px';
-    }
-  })();
 
-  function onSidebarToggle() {
-    setIsSidebarOpen(isSidebarOpen => !isSidebarOpen);
+  const sidebarWidth = getSidebarWidth(deviceSize) === '100%' ? '100%'
+    : `${getSidebarWidth(deviceSize)}px`;
+
+  if (isMobile && (sidebarState === 'closed' || sidebarState === 'closing')) {
+    return <></>;
   }
 
   return (
     <Drawer
       component="nav"
       sx={{
-        width: drawerWidth,
+        width: sidebarWidth,
         zIndex: 0,
         overflow: 'hidden',
-        transition: '.5s all ease',
+        transition: `${sidebarAnimationDurationMs}ms all ease`,
         '& .MuiDrawer-paper': {
-          width: drawerWidth,
+          width: sidebarWidth,
           padding: 2,
           overflow: 'hidden',
           boxSizing: 'border-box',
           boxShadow: '1px 0px 5px background.paper',
-          transition: '.5s all ease',
+          transition: `${sidebarAnimationDurationMs}ms all ease`,
           backgroundColor: 'background.default',
         },
       }}
       variant="permanent"
       anchor="left"
-      open={isSidebarOpen}
+      open={sidebarState === 'opened' || sidebarState === 'opening'}
     >
-      <IconButton
-        aria-label={pt.header.openSidebar}
-        data-cy="header-sidebar-button"
-        onClick={onSidebarToggle}
-        sx={{ maxWidth: 'fit-content' }}
-      >
-        <Menu sx={{
-          color: 'primary.main',
-          fontSize: { xs: 30, md: 40 },
-        }} />
-      </IconButton>
+      <SidebarBurgerIcon onToggle={toggleSidebar} />
 
       <List sx={{ overflowY: 'auto' }}>
         {visibleRoutes.map((route) => {
