@@ -12,8 +12,14 @@ export function UserProfile() {
     isLoadingAuth,
     showProfileName,
     displayedName,
+    isMobile,
+    isSidebarOpened,
     profileNameMaxWidth,
   } = useUserProfile();
+
+  if (isMobile && !isSidebarOpened) {
+    return null;
+  }
 
   return (
     <Box

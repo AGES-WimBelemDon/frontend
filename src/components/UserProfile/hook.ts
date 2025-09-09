@@ -11,7 +11,7 @@ import { loginWithGoogle, logout } from '../../services/auth.firebase';
 export function useUserProfile() {
   const navigate = useNavigate();
   const { user, isLoadingAuth } = useAuth();
-  const { deviceSize } = useScreenSize();
+  const { isMobile, deviceSize } = useScreenSize();
   const {
     getSidebarWidth,
     sidebarState,
@@ -23,6 +23,7 @@ export function useUserProfile() {
   const [displayedName, setDisplayedName] = useState<string>('');
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
+  const isSidebarOpened = sidebarState === 'opened' || sidebarState === 'opening';
   const actionLabel = user ? pt.userProfile.logout : pt.userProfile.login;
   const showProfileName = user && (isAnimating || progressRef.current > 0);
   const profileNameMaxWidth = getSidebarWidth(deviceSize); 
@@ -119,6 +120,8 @@ export function useUserProfile() {
     isLoadingAuth,
     showProfileName,
     displayedName,
+    isMobile,
+    isSidebarOpened,
     profileNameMaxWidth,
   };
 }
