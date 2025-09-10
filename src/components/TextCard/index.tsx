@@ -16,7 +16,7 @@ const themeStyle: Record<ThemeStyle, SxProps<Theme>> = {
   dark: { backgroundColor: 'primary.main', color: 'primary.contrastText' },
 };
 
-export function TextCard({ title, theme, onClick }: TextCard) {
+export function TextCard({ title, theme, onClick, disabled }: TextCard) {
   return (
     <Card
       sx={{
@@ -26,12 +26,15 @@ export function TextCard({ title, theme, onClick }: TextCard) {
         borderStyle: 'solid',
         borderColor: 'primary.main',
         height: 125,
-        minWidth: 200,
+        minWidth: 125,
+        width: '100%',
+        opacity: disabled ? 0.5 : 1,
       }}
     >
       <CardActionArea
         sx={{ height: '100%' }}
         onClick={onClick}
+        disabled={disabled}
         aria-label={pt.textCard.exploreHome}
         data-cy="text-card-button"
       >

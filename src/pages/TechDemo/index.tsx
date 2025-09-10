@@ -1,7 +1,6 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
-import { ButtonCard } from '../../components/ButtonCard';
 import { PageTitle } from '../../components/PageTitle';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
@@ -17,7 +16,7 @@ export default function TechDemo() {
 
   return (
     <>
-      <PageTitle title={pt.techDemo.pageTitle} /> 
+      <PageTitle title={pt.techDemo.title} /> 
 
       <hr />
 
@@ -71,16 +70,6 @@ export default function TechDemo() {
           Abrir toast de INFO!
         </Button>
       </Grid>
-      
-      <hr />
-      
-      <ButtonCard
-        name='João Mallet'
-        frequencyPercent={75}
-      />
-
-      <hr />
-      
       <Outlet />
     </>
   );
