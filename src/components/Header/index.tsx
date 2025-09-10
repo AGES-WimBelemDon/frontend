@@ -1,57 +1,71 @@
-import { Menu, AccountCircle } from '@mui/icons-material';
-import { Box, Divider } from '@mui/material';
+import { Box, ButtonBase, Divider, Tooltip, Typography } from '@mui/material';
+
+import logo from '../../assets/logo.png';
+import { pt } from '../../constants';
+import { useRoutes } from '../../hooks/useRoutes';
+import { useScreenSize } from '../../hooks/useScrenSize';
+import { useSidebar } from '../../hooks/useSidebar';
+import { SidebarBurgerIcon } from '../Sidebar/BurgerIcon';
 
 export function Header() {
+  const { goTo } = useRoutes();
+  const { isMobile } = useScreenSize();
+  const { toggleSidebar } = useSidebar();
+
   return (
     <>
       <Box
         component='header'
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: 'auto 1fr auto',
-          px: {md:'none', xs:'20px'},
-          py: '20px',
-          backgroundColor: 'background.paper',
-          alignItems: 'center',
-          justifyItems: 'center',
-          width: {md: 1}
-        }}
+        position='relative'
+        display='flex'
+        justifyContent='center'
+        px={{ xs: 2, md: 2.5 }}
+        py={{ xs: 2.5, md: 1.5 }}
       >
-        <Menu
-          sx={{ 
-            cursor: 'pointer',
-            height: { md: 40 , xs:30 }, 
-            width: { md: 40 , xs:30 }, 
-          }}
-          color='primary'
-          onClick={() => alert('open sidebar')}
-        />
-        <Box
-          component='img'
-          src='./logo.png'
-          alt='WimBelemDon logo'
-          onClick={() => alert('go to home')}
-          sx={{ 
-            cursor: 'pointer',
-            height: { md: 50 , xs:30 }, 
-            width: { md: 50 , xs:30 }, 
-          }}
-        />
-        <AccountCircle
-          sx={{ 
-            cursor: 'pointer',
-
-            height: { md: 40 , xs:30 }, 
-            width: { md: 40 , xs:30 }, 
-          }}
-          color='primary'
-          onClick={() => alert('show profile')}
-          
-        />
-        
+        {isMobile && (
+          <SidebarBurgerIcon
+            onToggle={toggleSidebar}
+            sx={{
+              position: 'absolute',
+              left: 10,
+              top: '50%',
+              transform: 'translateY(-50%)'
+            }}
+          />
+        )}
+        <Tooltip title={pt.header.goToHome} placement='right'>
+          <ButtonBase
+            focusRipple
+            aria-label={pt.header.goToHome}
+            data-cy="header-home-button"
+            onClick={() => goTo('/')}
+            sx={{
+              gap: 2,
+              display: 'flex',
+              paddingX: isMobile ? 0 : 6
+            }}
+          >
+            <Box
+              component="img"
+              src={logo}
+              alt={pt.header.logoAlt}
+              sx={{
+                height: { xs: 45, md: 60 },
+                width: { xs: 45, md: 60 },
+              }}
+            />
+            <Typography
+              variant="h1"
+              fontSize={{ xs: 20, md: 30 }}
+              fontWeight='bold'
+            >
+              WimBelemDon+
+            </Typography>
+          </ButtonBase>
+        </Tooltip>
       </Box>
-      <Divider 
-        variant='middle' 
+      <Divider
+        variant="middle"
         sx={{
           bgcolor: 'primary.main',
           height: 2,

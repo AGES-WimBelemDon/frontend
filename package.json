@@ -8,9 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open --browser electron",
     "preview": "vite preview",
+    "test": "cypress run",
+    "cy:open": "cypress open --browser electron",
     "prepare": "node .husky/install.mjs"
   },
   "dependencies": {

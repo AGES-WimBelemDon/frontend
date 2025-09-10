@@ -1,27 +1,57 @@
-import { createTheme, type PaletteColor, type PaletteColorOptions } from '@mui/material/styles';
-
-declare module '@mui/material/styles' {
-  interface Palette {
-    customColors: Record<string, PaletteColor>;
-  }
-  interface PaletteOptions {
-    customColors?: Record<string, PaletteColorOptions>;
-  }
-}
+import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          minWidth: 0,
+        },
+      },
+    },
+  },
   palette: {
     mode: 'light',
+    background: {
+      default: '#FFFFFF',
+      paper: '#EEFEEE',
+    },
+    grey: {
+      50: '#FAFAFA',
+      100: '#F5F5F5',
+      200: '#EEEEEE',
+      300: '#E0E0E0',
+      400: '#BDBDBD',
+      500: '#9E9E9E',
+      600: '#757575',
+      700: '#616161',
+      800: '#424242',
+      900: '#212121',
+    },
+    text: {
+      primary: '#0E6872',
+      secondary: '#8DC740',
+      disabled: '#EDE4D7'
+    },
     primary: {
-      main: '#FFFFFF',
+      main: '#0E6872',
+      contrastText: '#FFFFFF'
     },
     secondary: {
-      main: '#0E6872',
+      main: '#8DC740',
+      contrastText: '#FFFFFF'
     },
-    customColors: {
-      terciary: {
-        main: '#8DC740'
-      }
-    }
-  },
+    error: {
+      main: '#d32f2f',
+      contrastText: '#FFFFFF'
+    },
+    warning: {
+      main: '#ed6c02',
+      contrastText: '#FFFFFF'
+    },
+    success: {
+      main: '#2e7d32',
+      contrastText: '#FFFFFF'
+    },
+  }
 });
