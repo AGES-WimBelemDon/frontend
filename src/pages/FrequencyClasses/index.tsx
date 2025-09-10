@@ -25,7 +25,7 @@ export default function FrequencyClasses() {
 
   return (
     <>
-      <PageTitle title={pt.frequencyClasses.pageTitle} /> 
+      <PageTitle title={pt.frequencyClasses.title({activity: activityTitle})} /> 
       <CardList>
         {classes.map((c, index) => {
           return (
