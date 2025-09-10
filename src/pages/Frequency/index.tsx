@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 import { CardList } from '../../components/CardList';
+import { PageTitle } from '../../components/PageTitle';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 
@@ -25,14 +25,7 @@ export default function Frequency() {
 
   return (
     <>
-      <Typography
-        variant='h1'
-        paddingY={2.5}
-        fontSize={24}
-        fontWeight='bold'
-      >
-        {pt.frequency.takeAttendance}
-      </Typography>
+      <PageTitle title={pt.frequency.pageTitle} />
       <CardList>
         {activities.map((c, index) => (
           <TextCard

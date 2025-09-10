@@ -1,6 +1,5 @@
-import { Typography } from '@mui/material';
-
 import { CardList } from '../../components/CardList';
+import { PageTitle } from '../../components/PageTitle';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 
@@ -13,14 +12,7 @@ const activities = [
 export default function FrequencyClasses() {
   return (
     <>
-      <Typography
-        variant='h1'
-        paddingY={2.5}
-        fontSize={24}
-        fontWeight='bold'
-      >
-        {pt.frequencyClasses.takeAttendance}
-      </Typography>
+      <PageTitle title={pt.frequencyClasses.pageTitle} /> 
       <CardList>
         {activities.map((c, index) => (
           <TextCard

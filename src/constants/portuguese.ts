@@ -15,10 +15,10 @@ export const portugueseTextMap = {
     description: 'Em Desenvolvimento'
   },
   frequency: {
-    takeAttendance: 'Realizar Chamada'
+    pageTitle: 'Realizar Chamada'
   },
   frequencyClasses: {
-    takeAttendance: 'Realizar Chamada - <Nome da Atividade>'
+    pageTitle: 'Realizar Chamada - <Nome da Atividade>'
   },
   sidebar: {
     listIcon: ({ to }: { to: string }) => (
@@ -26,7 +26,7 @@ export const portugueseTextMap = {
     ),
   },
   techDemo: {
-    title: 'Tech Demo',
+    pageTitle: 'Tech Demo',
     fetching: 'Atualizando...',
     showAPIInfo: 'Mostrar informações da API',
     children: {
