@@ -1,4 +1,4 @@
-import type React from "react";
+import type React from 'react';
 
 export type TextCard = {
     title: string,
@@ -7,4 +7,4 @@ export type TextCard = {
     onClick?: () => void,
 }
 
-export type ThemeStyle = "light" | "dark";
+export type ThemeStyle = 'light' | 'dark';

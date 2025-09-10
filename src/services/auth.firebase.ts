@@ -1,10 +1,10 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 
-import { auth } from "../firebase";
+import { auth } from '../firebase';
 
 export async function loginWithGoogle() {
   if (!auth) {
-    throw new Error("Firebase auth not initialized");
+    throw new Error('Firebase auth not initialized');
   }
   
   try {
@@ -15,14 +15,14 @@ export async function loginWithGoogle() {
     
     return { user: result.user, token };
   } catch (error) {
-    console.error("Google login error:", error);
+    console.error('Google login error:', error);
     throw error;
   }
 }
 
 export async function logout() {
   if (!auth) {
-    throw new Error("Firebase auth not initialized");
+    throw new Error('Firebase auth not initialized');
   }
   await signOut(auth);
 }

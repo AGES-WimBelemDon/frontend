@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api } from './api';
 
 type TechDemo = {
     id: string;
@@ -11,6 +11,6 @@ type TechDemo = {
 
 export async function getTechDemo(): Promise<TechDemo> {
   // Needs VITE_API_URL to be https://api.github.com
-  const response = await api.get<TechDemo>("/repos/tanstack/query");
+  const response = await api.get<TechDemo>('/repos/tanstack/query');
   return response.data;
 }

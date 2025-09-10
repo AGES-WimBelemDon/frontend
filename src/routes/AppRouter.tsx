@@ -1,12 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route } from 'react-router';
 
-import Home from "../pages/Home/Home";
-import TechDemo from "../pages/TechDemo";
-import TechDemoMockAPI from "../pages/TechDemo/MockAPI.tsx";
+import Home from '../pages/Home/Home';
+import TechDemo from '../pages/TechDemo';
+import TechDemoMockAPI from '../pages/TechDemo/MockAPI.tsx';
 
 function AppRouter() {
   return (
-    <BrowserRouter basename="/frontend/">
+    <BrowserRouter basename='/frontend/'>
       <Routes>
         <Route index element={<Home />} />
         <Route path="tech-demo" element={<TechDemo />}>
