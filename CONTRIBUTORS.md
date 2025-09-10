@@ -12,3 +12,4 @@
 - [Lucas Barroso Afonso](https://github.com/Lucas-Afonso8)
 - [Renato Machado de Souza](https://github.com/Renatu5)
 - [Vinicius Raupp de Matos](https://github.com/ViniciusMatox)
+- [Guilherme Santos Terre do Amaral](https://github.com/GuilhermeTerre)
