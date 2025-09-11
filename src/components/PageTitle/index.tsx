@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import type { PageTitleProps } from './interface';
 import { useScreenSize } from '../../hooks/useScreenSize';
 
-export function PageTitle({ title }: PageTitleProps) {
+export function PageTitle({ title, dataCy }: PageTitleProps) {
   const { isMobile } = useScreenSize();
 
   return (
@@ -12,6 +12,7 @@ export function PageTitle({ title }: PageTitleProps) {
       fontWeight={'bold'}
       fontSize={isMobile ? 24 : 30}
       paddingY={2.5}
+      data-cy={`${dataCy}-page-title`}
     >
       {title}
     </Typography>
