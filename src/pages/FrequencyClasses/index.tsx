@@ -25,7 +25,10 @@ export default function FrequencyClasses() {
 
   return (
     <>
-      <PageTitle title={pt.frequencyClasses.title({activity: activityTitle})} data-cy="frequency-classes-page-title" /> 
+      <PageTitle
+        title={pt.frequencyClasses.title({ activity: activityTitle })}
+        dataCy='frequency-classes'
+      />
       <CardList>
         {classes.map((c, index) => {
           return (

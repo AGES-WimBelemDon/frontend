@@ -21,7 +21,7 @@ export default function Frequency() {
 
   return (
     <>
-      <PageTitle title={pt.frequency.title} data-cy="frequency-page-title" />
+      <PageTitle title={pt.frequency.title} dataCy='frequency-page-title' />
       <CardList>
         {activities.map((c, index) => {
           const activityId = index + 1;

@@ -38,7 +38,7 @@ export function FrequencyCall() {
             activity: activityTitle,
             classTitle: classTitle
           })}
-        data-cy="frequency-call-page-title"
+        dataCy='frequency-call'
       />
 
       <DateInput />
