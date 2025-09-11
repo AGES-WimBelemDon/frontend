@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { DeviceSize } from '../../hooks/useScrenSize';
+import type { DeviceSize } from '../../hooks/useScreenSize';
 
 export type SidebarState = 'closed' | 'opening' | 'opened' | 'closing';
 

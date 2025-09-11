@@ -16,7 +16,7 @@ export default function TechDemo() {
 
   return (
     <>
-      <PageTitle title={pt.techDemo.title} /> 
+      <PageTitle title={pt.techDemo.title} data-cy="tech-demo-page-title" /> 
 
       <hr />
 

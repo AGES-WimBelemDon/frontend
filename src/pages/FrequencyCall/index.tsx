@@ -4,6 +4,7 @@ import { useFrequencyCall } from './hook';
 import { DateInput } from '../../components/DateInput';
 import { FrequencyCard } from '../../components/FrequencyCard';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
+import { PageTitle } from '../../components/PageTitle';
 import { pt } from '../../constants';
 
 export function FrequencyCall() {
@@ -31,17 +32,14 @@ export function FrequencyCall() {
         overflow: 'hidden'
       }}
     >
-      <Typography
-        variant="h1"
-        sx={{
-          fontSize: 24,
-          fontWeight: 'bold',
-          textAlign: { md: 'left', xs: 'center' },
-          paddingBottom: 4.5,
-        }}
-      >
-        {pt.frequencyCall.title({ activity: activityTitle, classTitle: classTitle })}
-      </Typography>
+      <PageTitle
+        title={
+          pt.frequencyCall.title({
+            activity: activityTitle,
+            classTitle: classTitle
+          })}
+        data-cy="frequency-call-page-title"
+      />
 
       <DateInput />
       <Divider
@@ -71,7 +69,7 @@ export function FrequencyCall() {
         ))}
       </List>
 
-      <Box sx={{display: 'flex',justifyContent: 'end', alignItems: 'end', width: '100%', height: '15vh'}}>
+      <Box sx={{ display: 'flex', justifyContent: 'end', alignItems: 'end', width: '100%', height: '15vh' }}>
         <List>
           <Button
             onClick={() => registerCall()}

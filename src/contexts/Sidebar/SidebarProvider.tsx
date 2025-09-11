@@ -1,7 +1,7 @@
 import { useRef, useState, type PropsWithChildren } from 'react';
 
 import { SidebarContext, type SidebarState, type SidebarWidth } from './SidebarContext';
-import type { DeviceSize } from '../../hooks/useScrenSize';
+import type { DeviceSize } from '../../hooks/useScreenSize';
 
 type SidebarWidthMapperReturn = {
   opened: SidebarWidth;

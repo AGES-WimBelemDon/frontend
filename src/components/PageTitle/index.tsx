@@ -1,15 +1,19 @@
-import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import type { PageTitleProps } from './interface';
+import { useScreenSize } from '../../hooks/useScreenSize';
 
-export function PageTitle({title}: PageTitleProps) {
-  const isMobile = useMediaQuery('(max-width: 600px)');
+export function PageTitle({ title }: PageTitleProps) {
+  const { isMobile } = useScreenSize();
 
   return (
-    <Box paddingY={2.5} paddingX={0.5}>
-      <Typography variant='h1' fontWeight={'bold'} fontSize={isMobile ? 24 : 30}>
-        {title}
-      </Typography>
-    </Box>
+    <Typography
+      variant='h1'
+      fontWeight={'bold'}
+      fontSize={isMobile ? 24 : 30}
+      paddingY={2.5}
+    >
+      {title}
+    </Typography>
   );
 }

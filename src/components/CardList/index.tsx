@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react';
 
 import { Grid } from '@mui/material';
 
-import { useScreenSize } from '../../hooks/useScrenSize';
+import { useScreenSize } from '../../hooks/useScreenSize';
 
 export function CardList({ children }: PropsWithChildren) {
   const { isMobile, isDesktop } = useScreenSize();
