@@ -18,7 +18,7 @@ function AppRouter() {
           <Route path="frequencias/atividades" element={<Frequency />}/>
           <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>
           <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall/>} />
-          <Route path="student-registration" element={<StudentRegistration />} />
+          <Route path="cadastro" element={<StudentRegistration />} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
