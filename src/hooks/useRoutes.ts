@@ -32,6 +32,7 @@ export function useRoutes() {
       '/alunos',
       '/atividades',
       '/cadastro',
+      '/cadastro/responsaveis',
       '/frequencias/atividades',
       '/tech-demo',
       '/turmas',

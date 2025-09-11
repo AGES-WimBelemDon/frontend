@@ -29,7 +29,7 @@ export function Header() {
               position: 'absolute',
               left: 10,
               top: '50%',
-              transform: 'translateY(-50%)'
+              transform: 'translateY(-50%)',
             }}
           />
         )}
@@ -42,7 +42,7 @@ export function Header() {
             sx={{
               gap: 2,
               display: 'flex',
-              paddingX: isMobile ? 0 : 6
+              paddingX: isMobile ? 0 : 6,
             }}
           >
             <Box
