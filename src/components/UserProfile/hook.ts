@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 
 import { pt } from '../../constants';
 import { useAuth } from '../../hooks/useAuth';
-import { useScreenSize } from '../../hooks/useScrenSize';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import { useSidebar } from '../../hooks/useSidebar';
 import { loginWithGoogle, logout } from '../../services/auth.firebase';
 

@@ -1,7 +1,7 @@
 import { Alert, Snackbar, Typography, type SnackbarOrigin } from '@mui/material';
 
 import { pt } from '../../constants';
-import { useScreenSize } from '../../hooks/useScrenSize';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import { useToast } from '../../hooks/useToast';
 
 const toastPositioning: Record<'mobile' | 'desktop', SnackbarOrigin> = {  
