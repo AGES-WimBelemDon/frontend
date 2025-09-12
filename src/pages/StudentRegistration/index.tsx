@@ -64,17 +64,17 @@ export default function StudentRegistration() {
 	// Responsividade: ajustar
 	return(
 	  <Box width="100%" p={{ xs: 1, md: 4 }}
-	overflow ="auto" maxHeight="80vh">
+	    overflow ="auto" maxHeight="80vh">
 	    <Grid container spacing={8}>
 	      {/* Informações Pessoais */}
 	          <Grid  container
 	        display='grid'
 	        spacing={{ xs: 12, md: 1 }}>
-	        <Typography variant="h6" fontWeight="bold" mb={2} sx={{display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            mt: "13px"
-          }}>Informações Pessoais </Typography>
+	        <Typography variant="h6" fontWeight="bold" mb={2} sx={{display: 'flex',
+	          justifyContent: 'center',
+	          alignItems: 'center',
+	          mt: '13px'
+	        }}>Informações Pessoais </Typography>
 	        <TextField label="Nome" fullWidth margin="dense" value={personal.nome} onChange={e => setPersonal(p => ({ ...p, nome: e.target.value }))} />
 	        <TextField label="Data de Nascimento" type="date" fullWidth margin="dense" InputLabelProps={{ shrink: true }} value={personal.nascimento} onChange={e => setPersonal(p => ({ ...p, nascimento: e.target.value }))} />
 	        <TextField label="Sexo" select fullWidth margin="dense" value={personal.sexo} onChange={e => setPersonal(p => ({ ...p, sexo: e.target.value }))} >
@@ -102,10 +102,10 @@ export default function StudentRegistration() {
 	      <Grid  container
 	        display='grid'
 	        spacing={{ xs: 12, md: 4 }}>
-	        <Typography variant="h6" fontWeight="bold" sx={{display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }} >Documentos</Typography>
+	        <Typography variant="h6" fontWeight="bold" sx={{display: 'flex',
+	          justifyContent: 'center',
+	          alignItems: 'center'
+	        }} >Documentos</Typography>
 	        <TextField label="Documento" fullWidth margin="dense" />
 	        <Divider sx={{ my: 2 }} />
 	        <Typography fontWeight="bold" mb={1}>Mostrar docs/foto registrados p/ o aluno</Typography>
@@ -123,10 +123,10 @@ export default function StudentRegistration() {
 	      <Grid  container
 	        display='grid'
 	        spacing={{ xs: 12, md: 4 }}>
-	        <Typography variant="h6" fontWeight="bold" mb={2} sx={{display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }} >Detalhes</Typography>
+	        <Typography variant="h6" fontWeight="bold" mb={2} sx={{display: 'flex',
+	          justifyContent: 'center',
+	          alignItems: 'center'
+	        }} >Detalhes</Typography>
 	        <TextField label="Data de Cadastro" type="date" fullWidth margin="dense" InputLabelProps={{ shrink: true }} value={detalhes.dataCadastro} onChange={e => setDetalhes(d => ({ ...d, dataCadastro: e.target.value }))} />
 	        <TextField label="Como conheceu o projeto?" fullWidth margin="dense" value={detalhes.comoConheceu} onChange={e => setDetalhes(d => ({ ...d, comoConheceu: e.target.value }))} />
 	        <TextField label="Vínculo" select fullWidth margin="dense" value={detalhes.vinculo} onChange={e => setDetalhes(d => ({ ...d, vinculo: e.target.value }))} >
