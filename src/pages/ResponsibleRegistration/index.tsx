@@ -1,4 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import {
   Box,
   Typography,
@@ -9,9 +12,7 @@ import {
   Avatar,
   Button,
   Fab,
-} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
+} from '@mui/material';
 
 type Responsible = {
   id: string;
@@ -25,8 +26,8 @@ type Responsible = {
   endereco: string;
 };
 
-const wbGreen = "#9AC77A";
-const wbTeal = "#167A7A";
+const wbGreen = '#9AC77A';
+const wbTeal = '#167A7A';
 
 function InfoLine({
   label,
@@ -37,10 +38,10 @@ function InfoLine({
 }) {
   return (
     <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
-      <Typography component="span" sx={{ fontWeight: 700, color: "#19806a" }}>
-        {label}:{" "}
+      <Typography component="span" sx={{ fontWeight: 700, color: '#19806a' }}>
+        {label}:{' '}
       </Typography>
-      <Typography component="span" sx={{ color: "text.primary" }}>
+      <Typography component="span" sx={{ color: 'text.primary' }}>
         {value}
       </Typography>
     </Typography>
@@ -58,12 +59,12 @@ function ResponsibleCard({
     <Card
       elevation={3}
       sx={{
-        width: "100%",
+        width: '100%',
         maxHeight: 210,
         borderRadius: 3,
         px: 1,
         py: 0.5,
-        bgcolor: "#FAFAFA",
+        bgcolor: '#FAFAFA',
       }}
     >
       <CardContent sx={{ py: 2 }}>
@@ -74,17 +75,17 @@ function ResponsibleCard({
               sx={{
                 width: 125,
                 height: 150,
-                bgcolor: "#E7EFE8",
-                color: "#879C88",
+                bgcolor: '#E7EFE8',
+                color: '#879C88',
                 fontWeight: 700,
                 borderRadius: 2,
               }}
             >
               {data.nome
-                .split(" ")
+                .split(' ')
                 .slice(0, 2)
                 .map((s) => s[0]?.toUpperCase())
-                .join("")}
+                .join('')}
             </Avatar>
           </Grid>
 
@@ -107,20 +108,20 @@ function ResponsibleCard({
           </Grid>
         </Grid>
 
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 0.5 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 0.5 }}>
           <Button
             size="small"
             variant="contained"
             onClick={() => onEdit(data.id)}
             endIcon={<EditIcon fontSize="small" />}
             sx={{
-              textTransform: "none",
+              textTransform: 'none',
               borderRadius: 999,
               px: 1.5,
               py: 0.4,
               fontWeight: 700,
               bgcolor: wbTeal,
-              ":hover": { bgcolor: "#0f5d5d" },
+              ':hover': { bgcolor: '#0f5d5d' },
             }}
           >
             Editar
@@ -134,20 +135,20 @@ function ResponsibleCard({
 export default function ResponsibleRegistration() {
   const [lista] = React.useState<Responsible[]>([
     {
-      id: "1",
-      nome: "João Pedro Bauer",
-      cpf: "012.345.678-90",
-      nascimento: "08/08/1964",
-      estadoCivil: "Casado",
-      nis: "123.4567890-1",
-      telefone: "51-986027476",
-      email: "joaosigmund@gmail.com",
-      endereco: "Rua Portugal 245, Jardim Itu",
+      id: '1',
+      nome: 'João Pedro Bauer',
+      cpf: '012.345.678-90',
+      nascimento: '08/08/1964',
+      estadoCivil: 'Casado',
+      nis: '123.4567890-1',
+      telefone: '51-986027476',
+      email: 'joaosigmund@gmail.com',
+      endereco: 'Rua Portugal 245, Jardim Itu',
     },
   ]);
 
   function handleEdit(id: string) {
-    console.log("editar", id);
+    console.log('editar', id);
   }
 
   return (
@@ -156,16 +157,16 @@ export default function ResponsibleRegistration() {
       <Typography
         variant="h5"
         sx={{
-          width: "100%",
+          width: '100%',
           fontWeight: 700,
           fontSize: 32,
-          color: "#196a6a",
-          position: "relative",
+          color: '#196a6a',
+          position: 'relative',
           pb: 1.25,
           mb: 5,
-          "::after": {
+          '::after': {
             content: '""',
-            position: "absolute",
+            position: 'absolute',
             bottom: 0,
             left: -24,
             right: 0,
@@ -184,19 +185,19 @@ export default function ResponsibleRegistration() {
         <Typography
           variant="h6"
           sx={{
-            width: "100%",
+            width: '100%',
             fontWeight: 1000,
             fontSize: 20,
-            color: "#196a6a",
-            position: "relative",
+            color: '#196a6a',
+            position: 'relative',
             pb: 1.25,
             mb: 2,
-            "::after": {
+            '::after': {
               content: '""',
-              position: "absolute",
+              position: 'absolute',
               bottom: 0,
               left: -16,
-              width: "75%",
+              width: '75%',
               height: 2,
               bgcolor: wbGreen,
               borderRadius: 5,
@@ -220,13 +221,13 @@ export default function ResponsibleRegistration() {
             sx={{
               width: 48,
               height: 48,
-              minHeight: "unset",
-              bgcolor: "#FFFFFF",
-              color: "#6AA653",
+              minHeight: 'unset',
+              bgcolor: '#FFFFFF',
+              color: '#6AA653',
               borderRadius: 2,
-              boxShadow: "0px 2px 6px rgba(0,0,0,0.15)",
-              border: "2px solid #9AC77A",
-              ":hover": { bgcolor: "#DCF0D4" },
+              boxShadow: '0px 2px 6px rgba(0,0,0,0.15)',
+              border: '2px solid #9AC77A',
+              ':hover': { bgcolor: '#DCF0D4' },
             }}
             size="medium"
           >
@@ -238,18 +239,18 @@ export default function ResponsibleRegistration() {
       {/* Footer fixo */}
       <Box
         sx={{
-          position: "fixed",
+          position: 'fixed',
           right: 24,
           bottom: 24,
-          display: "flex",
+          display: 'flex',
           gap: 2,
-          alignItems: "center",
+          alignItems: 'center',
         }}
       >
         <Button
           variant="outlined"
           sx={{
-            textTransform: "none",
+            textTransform: 'none',
             borderRadius: 999,
             px: 3,
             py: 1,
@@ -257,28 +258,28 @@ export default function ResponsibleRegistration() {
             borderWidth: 2,
             color: wbTeal,
             borderColor: wbTeal,
-            ":hover": {
+            ':hover': {
               borderWidth: 2,
-              borderColor: "#0f5d5d",
-              color: "#0f5d5d",
+              borderColor: '#0f5d5d',
+              color: '#0f5d5d',
             },
           }}
-          onClick={() => console.log("cancelar")}
+          onClick={() => console.log('cancelar')}
         >
           Cancelar
         </Button>
         <Button
           variant="contained"
           sx={{
-            textTransform: "none",
+            textTransform: 'none',
             borderRadius: 999,
             px: 3,
             py: 1,
             fontWeight: 700,
             bgcolor: wbTeal,
-            ":hover": { bgcolor: "#0f5d5d" },
+            ':hover': { bgcolor: '#0f5d5d' },
           }}
-          onClick={() => console.log("avançar")}
+          onClick={() => console.log('avançar')}
         >
           Avançar
         </Button>
