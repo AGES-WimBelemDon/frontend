@@ -13,3 +13,4 @@
 - [Renato Machado de Souza](https://github.com/Renatu5)
 - [Vinicius Raupp de Matos](https://github.com/ViniciusMatox)
 - [Guilherme Santos Terre do Amaral](https://github.com/GuilhermeTerre)
+- [Felipe Bento Bisotto](https://github.com/FelipeBisotto)
