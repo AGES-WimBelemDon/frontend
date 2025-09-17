@@ -5,6 +5,8 @@ import { PageTitle } from '../../components/PageTitle';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 import { useToast } from '../../hooks/useToast';
+import { TextInput } from '../../components/TextInput';
+import { SelectInput } from '../../components/SelectInput';
 
 export default function TechDemo() {
   const navigate = useNavigate();
@@ -69,6 +71,15 @@ export default function TechDemo() {
         >
           Abrir toast de INFO!
         </Button>
+      </Grid>
+      <hr />
+      <Grid container spacing={2} marginBottom={2}>
+      <TextInput label="Nome" placeholder="Escreva seu nome" />
+      </Grid>
+      
+      <hr />
+      <Grid container spacing={2} marginBottom={2}>
+      <SelectInput label="Idade" options={['Opção 1', 'Opção 2', 'Opção 3']} />
       </Grid>
       <Outlet />
     </>
