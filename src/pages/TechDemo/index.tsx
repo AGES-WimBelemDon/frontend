@@ -1,6 +1,7 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
+import { PersonCard } from '../../components/PersonCard';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 import { useToast } from '../../hooks/useToast';
@@ -68,7 +69,11 @@ export default function TechDemo() {
         >
           Abrir toast de INFO!
         </Button>
+
       </Grid>
+
+      <PersonCard name='Leonardo M' cpf='029.013.320-30' birthDate='07/07/2004' civilState='Namorando' nis='123123' phone='51-986027476' email='leo@gmail.com' address='Rua Jair 617'></PersonCard>
+      
       <Outlet />
     </>
   );

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useDateInput } from '../../components/DateInput/hook';
+import { useDateInput } from '../../components/DateInput/hook/useDataInput';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
 import { pt } from '../../constants';
 import { useToast } from '../../hooks/useToast';

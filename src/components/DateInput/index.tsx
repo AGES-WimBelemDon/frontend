@@ -1,7 +1,7 @@
 import { Box, TextField, Typography } from '@mui/material';
 
-import { useDateInput } from './hook';
 import { pt } from '../../constants';
+import { useDateInput } from './hook/useDataInput';
 
 export function DateInput() {
   const { setDate, searchParams } = useDateInput();
