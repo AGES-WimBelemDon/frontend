@@ -2,11 +2,11 @@ import { Button, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
 import { PageTitle } from '../../components/PageTitle';
+import { SelectInput } from '../../components/SelectInput';
 import { TextCard } from '../../components/TextCard';
+import { TextInput } from '../../components/TextInput';
 import { pt } from '../../constants';
 import { useToast } from '../../hooks/useToast';
-import { TextInput } from '../../components/TextInput';
-import { SelectInput } from '../../components/SelectInput';
 
 export default function TechDemo() {
   const navigate = useNavigate();
@@ -74,12 +74,12 @@ export default function TechDemo() {
       </Grid>
       <hr />
       <Grid container spacing={2} marginBottom={2}>
-      <TextInput label="Nome" placeholder="Escreva seu nome" />
+        <TextInput label="Nome" placeholder="Escreva seu nome" />
       </Grid>
       
       <hr />
       <Grid container spacing={2} marginBottom={2}>
-      <SelectInput label="Idade" options={['Opção 1', 'Opção 2', 'Opção 3']} />
+        <SelectInput label="Idade" options={['Opção 1', 'Opção 2', 'Opção 3']} />
       </Grid>
       <Outlet />
     </>
