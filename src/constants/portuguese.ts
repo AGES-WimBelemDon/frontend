@@ -37,6 +37,9 @@ export const portugueseTextMap = {
     loadingClasses: 'Carregando turmas...',
     classesError: 'Erro ao carregar turmas',
   },
+  activityList: {
+    title: 'Lista de Atividades'
+  },
   sidebar: {
     openSidebar: 'Abrir menu lateral',
     listIcon: ({ to }: Params<'to'>) => (

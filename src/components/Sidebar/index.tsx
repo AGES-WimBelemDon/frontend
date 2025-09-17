@@ -44,7 +44,6 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
   '/atividades': {
     text: 'Atividades',
     icon: <AppRegistration />,
-    disabled: true,
   },
   ...(import.meta.env.DEV && {
     '/tech-demo': {
