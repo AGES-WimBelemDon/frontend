@@ -217,7 +217,7 @@ export default function StudentRegistration() {
 
             {showUploader && (
               <Box sx={{ p: 2, border: '1px solid', borderColor: 'divider', borderRadius: 1, mb: 2 }}>
-                <Button variant="outlined" component="label" fullWidth sx={{ mb: 2 }}>
+                <Button variant="contained" component="label" fullWidth sx={{ mb: 2 }}>
                   Selecionar Arquivo
                   <input
                     type="file"
@@ -278,7 +278,10 @@ export default function StudentRegistration() {
                 />
 
                 <Box display="flex" gap={1} mt={2}>
-                  <Button onClick={() => { setDocForm({ arquivo: '', tipo: '', origem: '', data: '', descricao: '' }); setShowUploader(false); }}>
+                  <Button 
+                  variant='contained'
+                  color='error'
+                  onClick={() => { setDocForm({ arquivo: '', tipo: '', origem: '', data: '', descricao: '' }); setShowUploader(false); }}>
                     Cancelar
                   </Button>
                   <Button onClick={handleAddDoc} variant="contained" disabled={!docForm.arquivo} sx={{ ml: 'auto' }}>
@@ -289,9 +292,9 @@ export default function StudentRegistration() {
             )}
 
             <Button
-              variant="outlined"
+              variant="contained"
               fullWidth
-              sx={{ color: 'text.secondary', borderColor: 'primary.main', bgcolor: '#fff', fontWeight: 600, borderRadius: 4 }}
+              sx={{ color: 'primary.contrastText', borderColor: 'primary.main', bgcolor: 'secondary.main', fontWeight: 500, borderRadius: 4 }}
             >
               Ativar Estudante
             </Button>
@@ -375,7 +378,7 @@ export default function StudentRegistration() {
               <Button variant="contained" color="primary" sx={{ flex: 1 }}>
                 Salvar
               </Button>
-              <Button variant="outlined" color="error" sx={{ flex: 1 }} onClick={() => navigate(-1)}>
+              <Button variant="contained" color="error" sx={{ flex: 1 }} onClick={() => navigate(-1)}>
                 Cancelar
               </Button>
             </Box>
