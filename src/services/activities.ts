@@ -1,9 +1,5 @@
 import { api } from './api';
-
-type Activity = {
-  id: string;
-  title: string;
-};
+import type { Activity } from '../pages/Activity/ActivityList/interface';
 
 export async function getActivities(): Promise<Activity[]> {
   try {
@@ -14,17 +10,48 @@ export async function getActivities(): Promise<Activity[]> {
     let id = 0;
     const mockResponse = await Promise.resolve({
       data: [
-        { id: (++id).toString(), title: 'Chamada Geral' },
-        { id: (++id).toString(), title: 'Tênis' },
-        { id: (++id).toString(), title: 'Hidroginástica' },
-        { id: (++id).toString(), title: 'Natação' },
-        { id: (++id).toString(), title: 'Musculação' },
-        { id: (++id).toString(), title: 'Spinning' },
-        { id: (++id).toString(), title: 'Jump' },
-        { id: (++id).toString(), title: 'Alongamento' },
-        { id: (++id).toString(), title: 'Pilates' },
-        { id: (++id).toString(), title: 'Yoga' },
-        { id: (++id).toString(), title: 'Zumba' },
+        {
+          id: ++id,
+          name: 'Chamada Geral',
+          teacher: 'Professor Mestre',
+          area: 'Esportes',
+          frequency: 'Diária',
+        },
+        {
+          id: ++id,
+          name: 'Tênis',
+          teacher: 'Professor de Tênis',
+          area: 'Esportes',
+          frequency: 'Semanal',
+        },
+        {
+          id: ++id,
+          name: 'Hidroginástica',
+          teacher: 'Professor de Hidroginástica',
+          area: 'Aquáticos',
+          frequency: 'Mensal',
+        },
+        {
+          id: ++id,
+          name: 'Natação',
+          teacher: 'Professor de Natação',
+          area: 'Aquáticos',
+          frequency: 'Semanal',
+        },
+        {
+          id: ++id,
+          name: 'Musculação',
+          teacher: 'Professor de Musculação',
+          area: 'Academia',
+          frequency: 'Diária',
+        },
+        {
+          id: ++id,
+          name: 'Spinning',
+          teacher: 'Professor de Spinning',
+          area: 'Academia',
+          frequency: 'Semanal',
+        },
       ],
     });
     return mockResponse.data;
