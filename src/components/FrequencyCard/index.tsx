@@ -9,12 +9,11 @@ import {
   Typography,
   Box,
   Button,
-  useMediaQuery,
 } from '@mui/material';
 
 import type { FrequencyCardProps } from './interface';
 import { pt } from '../../constants';
-import { theme } from '../../styles/theme';
+import { useScreenSize } from '../../hooks/useScreenSize';
 
 export function FrequencyCard({
   name,
@@ -22,7 +21,7 @@ export function FrequencyCard({
   isPresent,
   onChangePresence,
 }: FrequencyCardProps) {
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isDesktop } = useScreenSize();
 
   return (
     <Card
@@ -39,11 +38,19 @@ export function FrequencyCard({
       }}
     >
       <CardContent sx={{ padding: 0 }}>
-        <Typography variant="subtitle1" fontWeight="bold" fontSize={isMobile ? 12 : 16}>
+        <Typography
+          variant="subtitle1"
+          fontWeight="bold"
+          fontSize={16}
+        >
           {name}
         </Typography>
-        <Typography variant="body2" fontSize={isMobile ? 10 : 14}>
-          {pt.buttonCard.frequency({ percent: frequencyPercent })}
+        <Typography
+          variant="body2"
+          fontSize={14}
+          color="grey.900"
+        >
+          {pt.buttonCard.frequency({ percent: frequencyPercent.toString() })}
         </Typography>
       </CardContent>
       <Box gap={2} display="flex" flexDirection="row">
@@ -55,23 +62,23 @@ export function FrequencyCard({
             textTransform: 'none',
             fontWeight: 'bold',
           }}
-          size={isMobile ? 'small' : 'medium'}
+          size='medium'
         >
-          {isMobile ? '' : 'Adicionar Observação'}
+          {isDesktop ? pt.frequencyCard.absentDetails : ''}
           <AddIcon />
         </Button>
         <Button
-          size={isMobile ? 'small' : 'medium'}
+          size='medium'
           color="success"
-          variant={isPresent === true ? 'contained' : 'outlined'}
+          variant={isPresent ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(true)}
         >
           <CheckIcon />
         </Button>
         <Button
-          size={isMobile ? 'small' : 'medium'}
+          size='medium'
           color="error"
-          variant={isPresent === false ? 'contained' : 'outlined'}
+          variant={!isPresent ? 'contained' : 'outlined'}
           onClick={() => onChangePresence(false)}
         >
           <CloseIcon />
