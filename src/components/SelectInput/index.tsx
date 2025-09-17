@@ -13,10 +13,11 @@ export function SelectInput({ label, options }: { label: string, options: string
         fullWidth
         defaultValue= ""
         sx={{
-          width: '300px',
+          width: '150px',
           marginTop: '1px',
         }}
       >
+        <option value=""></option>
         {options.map((option, i) => (
           <option key={i} value={option}>
             {option}
