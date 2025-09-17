@@ -1,8 +1,8 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
-import { PersonCard } from '../../components/PersonCard';
 import { PageTitle } from '../../components/PageTitle';
+import { PersonCard } from '../../components/PersonCard';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 import { useToast } from '../../hooks/useToast';
