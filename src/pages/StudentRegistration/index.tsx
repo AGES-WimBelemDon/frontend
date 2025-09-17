@@ -279,9 +279,9 @@ export default function StudentRegistration() {
 
                 <Box display="flex" gap={1} mt={2}>
                   <Button 
-                  variant='contained'
-                  color='error'
-                  onClick={() => { setDocForm({ arquivo: '', tipo: '', origem: '', data: '', descricao: '' }); setShowUploader(false); }}>
+                    variant='contained'
+                    color='error'
+                    onClick={() => { setDocForm({ arquivo: '', tipo: '', origem: '', data: '', descricao: '' }); setShowUploader(false); }}>
                     Cancelar
                   </Button>
                   <Button onClick={handleAddDoc} variant="contained" disabled={!docForm.arquivo} sx={{ ml: 'auto' }}>
