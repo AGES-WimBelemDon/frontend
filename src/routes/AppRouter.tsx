@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 
-import ActivityList from '../pages/Activities/ActivityList/index.tsx';
+import ActivityList from '../pages/Activity/ActivityList/index.tsx';
 import Frequency from '../pages/Frequency';
 import { FrequencyCall } from '../pages/FrequencyCall/index.tsx';
 import FrequencyClasses from '../pages/FrequencyClasses';
