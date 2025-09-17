@@ -14,3 +14,4 @@
 - [Vinicius Raupp de Matos](https://github.com/ViniciusMatox)
 - [Guilherme Santos Terre do Amaral](https://github.com/GuilhermeTerre)
 - [Felipe Bento Bisotto](https://github.com/FelipeBisotto)
+- [Joao Pedro Paris Cunha](https://github.com/HeavyEscout123)    
