@@ -1,18 +1,18 @@
-import { Button, Grid, Typography } from "@mui/material";
-import { Outlet, useNavigate } from "react-router";
+import { Button, Grid, Typography } from '@mui/material';
+import { Outlet, useNavigate } from 'react-router';
 
-import { PageTitle } from "../../components/PageTitle";
-import { PersonCard } from "../../components/PersonCard";
-import { TextCard } from "../../components/TextCard";
-import { pt } from "../../constants";
-import { useToast } from "../../hooks/useToast";
+import { PageTitle } from '../../components/PageTitle';
+import { PersonCard } from '../../components/PersonCard';
+import { TextCard } from '../../components/TextCard';
+import { pt } from '../../constants';
+import { useToast } from '../../hooks/useToast';
 
 export default function TechDemo() {
   const navigate = useNavigate();
   const { showToast } = useToast();
 
   function showAPIInfo() {
-    navigate("2?c2=4");
+    navigate('2?c2=4');
   }
 
   return (
@@ -55,7 +55,7 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-success-button"
-          onClick={() => showToast("Teste de Toast", "success")}
+          onClick={() => showToast('Teste de Toast', 'success')}
         >
           Abrir toast de SUCESSO!
         </Button>
@@ -63,7 +63,7 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-error-button"
-          onClick={() => showToast("Teste de Toast fechável", "error", true)}
+          onClick={() => showToast('Teste de Toast fechável', 'error', true)}
         >
           Abrir toast de ERRO!
         </Button>
@@ -71,7 +71,7 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-info-button"
-          onClick={() => showToast("Teste de Toast fechável", "info", true)}
+          onClick={() => showToast('Teste de Toast fechável', 'info', true)}
         >
           Abrir toast de INFO!
         </Button>
