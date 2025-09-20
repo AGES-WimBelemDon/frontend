@@ -1,35 +1,40 @@
-import { Button, Grid, Typography } from '@mui/material';
-import { Outlet, useNavigate } from 'react-router';
+import { Button, Grid, Typography } from "@mui/material";
+import { Outlet, useNavigate } from "react-router";
 
-import { PageTitle } from '../../components/PageTitle';
-import { PersonCard } from '../../components/PersonCard';
-import { TextCard } from '../../components/TextCard';
-import { pt } from '../../constants';
-import { useToast } from '../../hooks/useToast';
+import { PageTitle } from "../../components/PageTitle";
+import { PersonCard } from "../../components/PersonCard";
+import { TextCard } from "../../components/TextCard";
+import { pt } from "../../constants";
+import { useToast } from "../../hooks/useToast";
 
 export default function TechDemo() {
   const navigate = useNavigate();
   const { showToast } = useToast();
 
   function showAPIInfo() {
-    navigate('2?c2=4');
+    navigate("2?c2=4");
   }
 
   return (
     <>
-      <PageTitle title={pt.techDemo.title} dataCy='tech-demo' />
+      <PageTitle title={pt.techDemo.title} dataCy="tech-demo" />
 
       <hr />
 
+      <PersonCard
+        name="Leonardo M"
+        cpf="029.013.320-30"
+        birthDate="07/07/2004"
+        civilState="Namorando"
+        nis="123123"
+        phone="51-986027476"
+        email="leo@gmail.com"
+        address="Rua Jair 617"
+      />
+
       <Grid container spacing={2}>
-        <TextCard
-          title="Home"
-          theme="dark"
-        />
-        <TextCard
-          title="Home"
-          theme="light"
-        />
+        <TextCard title="Home" theme="dark" />
+        <TextCard title="Home" theme="light" />
       </Grid>
 
       <hr />
@@ -40,17 +45,17 @@ export default function TechDemo() {
         color="primary"
         data-cy="tech-demo-show-api-info-button"
       >
-        <Typography variant='body1'>{pt.techDemo.showAPIInfo}</Typography>
+        <Typography variant="body1">{pt.techDemo.showAPIInfo}</Typography>
       </Button>
 
       <hr />
-      
+
       <Grid container spacing={2} marginBottom={2}>
         <Button
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-success-button"
-          onClick={() => showToast('Teste de Toast', 'success')}
+          onClick={() => showToast("Teste de Toast", "success")}
         >
           Abrir toast de SUCESSO!
         </Button>
@@ -58,7 +63,7 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-error-button"
-          onClick={() => showToast('Teste de Toast fechável', 'error', true)}
+          onClick={() => showToast("Teste de Toast fechável", "error", true)}
         >
           Abrir toast de ERRO!
         </Button>
@@ -66,15 +71,12 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-info-button"
-          onClick={() => showToast('Teste de Toast fechável', 'info', true)}
+          onClick={() => showToast("Teste de Toast fechável", "info", true)}
         >
           Abrir toast de INFO!
         </Button>
-
       </Grid>
 
-      <PersonCard name='Leonardo M' cpf='029.013.320-30' birthDate='07/07/2004' civilState='Namorando' nis='123123' phone='51-986027476' email='leo@gmail.com' address='Rua Jair 617'></PersonCard>
-      
       <Outlet />
     </>
   );

@@ -43,6 +43,16 @@ export const portugueseTextMap = {
       `Navegar para a página ${to}`
     ),
   },
+  personCard: {
+    name: "Nome: ",
+    cpf: "CPF: ",
+    birthDate: "Nascimento: ",
+    civilState: "Estado Civil: ",
+    nis: "NIS: ",
+    phone: "Telefone: ",
+    email: "Email: ",
+    address: "Endereço: ",
+  },
   techDemo: {
     title: 'Tech Demo',
     fetching: 'Atualizando...',
