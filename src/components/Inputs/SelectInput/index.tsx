@@ -1,16 +1,13 @@
 import { Box, Select, Typography } from '@mui/material';
 
 import { useSelectInput } from './hook';
+import type { SelectInputProps } from '../interface';
 
 export function SelectInput({
   label,
   options,
   id,
-}: {
-  label: string;
-  options: string[];
-  id: string;
-}) {
+}: SelectInputProps) {
   const { setSelectInput, searchParams } = useSelectInput(id);
 
   const select = searchParams.get(`select${id}`);

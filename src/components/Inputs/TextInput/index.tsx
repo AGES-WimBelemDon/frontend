@@ -1,16 +1,13 @@
 import { Box, TextField, Typography } from '@mui/material';
 
 import { useTextInput } from './hook';
+import type { TextInputProps } from '../interface';
 
 export function TextInput({
   label,
   placeholder,
   id,
-}: {
-  label: string;
-  placeholder: string;
-  id: string;
-}) {
+}: TextInputProps) {
   const { setTextInput, searchParams } = useTextInput(id);
 
   const text = searchParams.get(`text${id}`);

@@ -2,8 +2,9 @@ import { Box, TextField, Typography } from '@mui/material';
 
 import { useDateInput } from './hook';
 import { pt } from '../../../constants';
+import type { InputProps } from '../interface';
 
-export function DateInput({ id }: { id: string }) {
+export function DateInput({ id }: InputProps) {
   const { setDate, searchParams } = useDateInput(id);
   const value = searchParams.get(`date${id}`);
   return (
