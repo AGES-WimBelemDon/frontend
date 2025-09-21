@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-//import { Person } from '@mui/icons-material';
 import { Avatar } from '@mui/material';
 import {
   Card,
@@ -8,6 +7,7 @@ import {
   Typography,
   TextField
 } from '@mui/material';
+import { Divider } from '@mui/material';
 
 type StudentCardProps = {
   initialName: string;
@@ -18,31 +18,33 @@ const ButtonCadastro: React.FC<StudentCardProps> = ({ initialName }) => {
   const [name, setName] = useState(initialName);
   const [editing, setEditing] = useState(false);
   return (
+    <>
     <Card
       variant="outlined"
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'left',
+        alignItems: 'center',
         mb: 2,
-        width: 40,
+        width: 0.20,
         borderRadius: 2,
         height: 100,
         boxShadow: 1,
-        paddingX: 16,
+        paddingX: 1,
+        bgcolor: 'white'
       }}
     >
       <Avatar
         sx={{
           bgcolor: '#f2e9dd', 
-          width: 80,
-          height: 50,
+          width: 0.3,
+          height: 0.8,
           fontSize: 10,
-        
+          borderRadius: 2,
         }}
       >
       </Avatar>
-      <CardContent sx={{ flex: 1}}>
+      <CardContent sx={{ flex: 1, pl: 5}}>
         {editing ? (
           <TextField
             value={name}
@@ -57,7 +59,7 @@ const ButtonCadastro: React.FC<StudentCardProps> = ({ initialName }) => {
             <Typography
               variant="subtitle1"
               fontWeight="bold"
-              sx={{ cursor: 'pointer', color: 'primary.main' }}
+              sx={{ cursor: 'pointer', color: '#0E6872' }}
               onClick={() => setEditing(true)}
             >
               {name}
@@ -69,6 +71,9 @@ const ButtonCadastro: React.FC<StudentCardProps> = ({ initialName }) => {
         )}
       </CardContent>
     </Card>
+      {/* <Divider variant='middle' /> */}
+      <Divider sx={{ bgcolor: '#8DC740', width: 0.205  , display: 'flex', justifyContent: 'center', mb: 1.5 }}/>
+    </>
   );
 };
 

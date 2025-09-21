@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import Layout from "../pages/Layout";
 import TechDemo from "../pages/TechDemo";
 import TechDemoMockAPI from "../pages/TechDemo/MockAPI.tsx";
+import Register from "../pages/Register";
 
 function AppRouter() {
   return (
@@ -17,6 +18,7 @@ function AppRouter() {
           <Route path="frequencias/atividades" element={<Frequency />}/>
           <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>
           <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall/>} />
+          <Route path="cadastro" element={<Register />} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
