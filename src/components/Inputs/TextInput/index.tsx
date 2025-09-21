@@ -1,5 +1,6 @@
-import { Box, TextField, Typography } from "@mui/material";
-import { useTextInput } from "./hook";
+import { Box, TextField, Typography } from '@mui/material';
+
+import { useTextInput } from './hook';
 
 export function TextInput({
   label,
@@ -26,8 +27,8 @@ export function TextInput({
         placeholder={placeholder}
         fullWidth
         sx={{
-          width: "300px",
-          marginTop: "1px",
+          width: '300px',
+          marginTop: '1px',
         }}
         value={text}
         onChange={(text) => setTextInput(String(text.target.value))}

@@ -1,5 +1,6 @@
-import { Box, Select, Typography } from "@mui/material";
-import { useSelectInput } from "./hook";
+import { Box, Select, Typography } from '@mui/material';
+
+import { useSelectInput } from './hook';
 
 export function SelectInput({
   label,
@@ -26,10 +27,10 @@ export function SelectInput({
         fullWidth
         defaultValue=""
         sx={{
-          width: "150px",
-          marginTop: "1px",
+          width: '150px',
+          marginTop: '1px',
         }}
-        value={select ?? ""}
+        value={select ?? ''}
         onChange={(select) => setSelectInput(String(select.target.value))}
       >
         <option value=""></option>

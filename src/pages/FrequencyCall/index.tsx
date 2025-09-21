@@ -1,9 +1,9 @@
 import { Box, Button, Divider, List, ListItem, Typography } from '@mui/material';
 
 import { useFrequencyCall } from './hook';
-import { DateInput } from '../../components/Inputs/DateInput';
 import { FrequencyCard } from '../../components/FrequencyCard';
 import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
+import { DateInput } from '../../components/Inputs/DateInput';
 import { PageTitle } from '../../components/PageTitle';
 import { pt } from '../../constants';
 

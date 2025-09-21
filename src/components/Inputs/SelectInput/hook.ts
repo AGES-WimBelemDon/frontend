@@ -1,16 +1,16 @@
-import { useSearchParams } from "react-router";
+import { useSearchParams } from 'react-router';
 
 export function useSelectInput(id: string) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const setSelectInput = (data: string) => {
     const params = new URLSearchParams(searchParams);
-    if (data === "") {
-        params.delete(`select${id}`);
-      } else {
-        params.set(`select${id}`, data);
-      }
-      setSearchParams(params);
+    if (data === '') {
+      params.delete(`select${id}`);
+    } else {
+      params.set(`select${id}`, data);
+    }
+    setSearchParams(params);
   };
 
   const getSelect = (): string => {
@@ -18,7 +18,7 @@ export function useSelectInput(id: string) {
     if (value) {
       return value;
     }
-    return "";
+    return '';
   };
 
   return {

@@ -1,11 +1,11 @@
-import { useSearchParams } from "react-router";
+import { useSearchParams } from 'react-router';
 
 export function useTextInput(id: string) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const setTextInput = (data: string) => {
     const params = new URLSearchParams(searchParams);
-    if (data === "") {
+    if (data === '') {
       params.delete(`text${id}`);
     } else {
       params.set(`text${id}`, data);
@@ -18,7 +18,7 @@ export function useTextInput(id: string) {
     if (value) {
       return value;
     }
-    return "";
+    return '';
   };
 
   return { setTextInput, getTextInput, searchParams };
