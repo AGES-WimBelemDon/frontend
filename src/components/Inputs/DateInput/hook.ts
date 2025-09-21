@@ -7,13 +7,13 @@ export function useDateInput(id: string) {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0];
 
-  useEffect(() => {
+  useEffect(function updateSearchParams() {
     const params = new URLSearchParams(searchParams);
     params.set(`date${id}`, formattedDate);
     setSearchParams(params);
   }, [formattedDate, id, searchParams, setSearchParams]);
 
-  const setDate = (data: string) => {
+  function setDate(data: string) {
     const params = new URLSearchParams(searchParams);
     if (data === '') {
       params.delete(`date${id}`);
@@ -23,7 +23,7 @@ export function useDateInput(id: string) {
     setSearchParams(params);
   };
 
-  const getDate = (): string => {
+  function getDate(): string {
     const value = searchParams.get(`date${id}`);
     if (value) {
       return value;

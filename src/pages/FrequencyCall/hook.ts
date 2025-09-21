@@ -27,7 +27,7 @@ export function useFrequencyCall() {
 
   const [students, setStudents] = useState<FrequencyCardStudent[]>([]);
 
-  useEffect(() => {
+  useEffect(function markAllStudentsAsPresent() {
     if (apiStudents) {
       setStudents(apiStudents.map(apiStudent => ({ ...apiStudent, isPresent: true })));
     }

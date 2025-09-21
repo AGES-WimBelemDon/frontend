@@ -9,7 +9,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 
-  useEffect(() => {
+  useEffect(function loadUser() {
     if (!auth) {
       setIsLoadingAuth(false);
       return;
