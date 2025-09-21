@@ -23,7 +23,7 @@ export function SelectInput({
       <Select
         native
         id="select"
-        variant="standard"
+        variant="outlined"
         fullWidth
         defaultValue=""
         sx={{
