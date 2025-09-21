@@ -31,9 +31,6 @@ export function PersonCard({
 
   const { isMobile } = useScreenSize();
 
-  const onEdit = (newCard: PersonCardData) => {
-    setCardData(newCard);
-  };
   return (
     <Card
       sx={{
@@ -50,7 +47,7 @@ export function PersonCard({
         component="img"
         sx={{ width: '9vh', height: '100%', padding: 1.2, borderRadius: 3 }}
         image={userImg}
-        alt="Ícone"
+        alt={pt.personCard.userImageAlt}
       />
       <Box
         sx={{
@@ -66,29 +63,29 @@ export function PersonCard({
                 component="div"
                 sx={{ fontWeight: 'normal', fontSize: 7 }}
               >
-                <strong>{pt.personCard.name} </strong>
-                {cardData.name}
+                <strong>{pt.personCard.name}</strong>
+                {' '}{cardData.name}
               </Typography>
               <Typography
                 component="div"
                 sx={{ fontWeight: 'normal', fontSize: 7 }}
               >
-                <strong>{pt.personCard.cpf} </strong>
-                {cardData.cpf}
+                <strong>{pt.personCard.cpf}</strong>
+                {' '}{cardData.cpf}
               </Typography>
               <Typography
                 component="div"
                 sx={{ fontWeight: 'normal', fontSize: 7 }}
               >
-                <strong>{pt.personCard.birthDate} </strong>
-                {cardData.birthDate}
+                <strong>{pt.personCard.birthDate}</strong>
+                {' '}{cardData.birthDate}
               </Typography>
               <Typography
                 component="div"
                 sx={{ fontWeight: 'normal', fontSize: 7 }}
               >
-                <strong>{pt.personCard.civilState} </strong>
-                {cardData.civilState}
+                <strong>{pt.personCard.civilState}</strong>
+                {' '}{cardData.civilState}
               </Typography>
             </Box>
 
@@ -97,29 +94,29 @@ export function PersonCard({
                 component="div"
                 sx={{ fontWeight: 'normal', fontSize: 7 }}
               >
-                <strong>{pt.personCard.nis} </strong>
-                {cardData.nis}
+                <strong>{pt.personCard.nis}</strong>
+                {' '}{cardData.nis}
               </Typography>
               <Typography
                 component="div"
                 sx={{ fontWeight: 'normal', fontSize: 7 }}
               >
-                <strong>{pt.personCard.phone} </strong>
-                {cardData.phone}
+                <strong>{pt.personCard.phone}</strong>
+                {' '}{cardData.phone}
               </Typography>
               <Typography
                 component="div"
                 sx={{ fontWeight: 'normal', fontSize: 7 }}
               >
-                <strong>{pt.personCard.email} </strong>
-                {cardData.email}
+                <strong>{pt.personCard.email}</strong>
+                {' '}{cardData.email}
               </Typography>
               <Typography
                 component="div"
                 sx={{ fontWeight: 'normal', fontSize: 7 }}
               >
-                <strong>{pt.personCard.address} </strong>
-                {cardData.address}
+                <strong>{pt.personCard.address}</strong>
+                {' '}{cardData.address}
               </Typography>
             </Box>
           </>
@@ -128,15 +125,14 @@ export function PersonCard({
             component="span"
             sx={{ paddingTop: 1.2, fontWeight: 'normal' }}
           >
-            <strong>{pt.personCard.name} </strong>
-            {cardData.name} <strong>{pt.personCard.cpf}</strong>
-            {cardData.cpf} <strong>{pt.personCard.birthDate}</strong>
-            {cardData.birthDate} <strong>{pt.personCard.civilState}</strong>
-            {cardData.civilState} <strong>{pt.personCard.nis}</strong>
-            {cardData.nis} <strong>{pt.personCard.phone}</strong>
-            {cardData.phone} <strong>{pt.personCard.email}</strong>
-            {cardData.email} <strong>{pt.personCard.address}</strong>
-            {cardData.address}
+            <strong>{pt.personCard.name}</strong>{' '}{cardData.name}{' '}
+            <strong>{pt.personCard.cpf}</strong>{' '}{cardData.cpf}{' '}
+            <strong>{pt.personCard.birthDate}</strong>{' '}{cardData.birthDate}{' '}
+            <strong>{pt.personCard.civilState}</strong>{' '}{cardData.civilState}{' '}
+            <strong>{pt.personCard.nis}</strong>{' '}{cardData.nis}{' '}
+            <strong>{pt.personCard.phone}</strong>{' '}{cardData.phone}{' '}
+            <strong>{pt.personCard.email}</strong>{' '}{cardData.email}{' '}
+            <strong>{pt.personCard.address}</strong>{' '}{cardData.address}{' '}
           </Typography>
         )}
       </Box>
@@ -155,7 +151,7 @@ export function PersonCard({
           size="small"
           variant="contained"
           onClick={() =>
-            onEdit({
+            setCardData({
               name: 'New name',
               cpf: 'New cpf',
               birthDate: 'new date',
@@ -189,7 +185,7 @@ export function PersonCard({
             }),
           }}
         >
-          Editar
+          {pt.personCard.editButton}
         </Button>
       </Box>
     </Card>
