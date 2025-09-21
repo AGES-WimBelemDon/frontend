@@ -11,7 +11,7 @@ export function useDateInput(id: string) {
     const params = new URLSearchParams(searchParams);
     params.set(`date${id}`, formattedDate);
     setSearchParams(params);
-  }, []);
+  }, [formattedDate, id, searchParams, setSearchParams]);
 
   const setDate = (data: string) => {
     const params = new URLSearchParams(searchParams);
