@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-
-import { Avatar } from '@mui/material';
 import {
+  Avatar,
   Card,
   CardContent,
+  Divider,
   Typography,
-  TextField
 } from '@mui/material';
-import { Divider } from '@mui/material';
 
-type StudentCardProps = {
-  initialName: string;
-  frequency: string;
-};
+import type { RegisterButtonProps } from './interface';
 
-const ButtonCadastro: React.FC<StudentCardProps> = ({ initialName }) => {
-  const [name, setName] = useState(initialName);
-  const [editing, setEditing] = useState(false);
+export function RegisterButton({ title }: RegisterButtonProps) {
   return (
     <>
       <Card
@@ -45,36 +37,21 @@ const ButtonCadastro: React.FC<StudentCardProps> = ({ initialName }) => {
         >
         </Avatar>
         <CardContent sx={{ flex: 1, pl: 5}}>
-          {editing ? (
-            <TextField
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              onBlur={() => setEditing(false)}
-              autoFocus
-              variant="standard"
-              fullWidth
-            />
-          ) : (
-            <>
-              <Typography
-                variant="subtitle1"
-                fontWeight="bold"
-                sx={{ cursor: 'pointer', color: '#0E6872' }}
-                onClick={() => setEditing(true)}
-              >
-                {name}
-              </Typography>
-              <Typography variant="body2" color="black">
-                {}
-              </Typography>
-            </>
-          )}
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+          >
+            {title}
+          </Typography>
         </CardContent>
       </Card>
-      {/* <Divider variant='middle' /> */}
-      <Divider sx={{ bgcolor: '#8DC740', width: 0.205  , display: 'flex', justifyContent: 'center', mb: 1.5 }}/>
+      <Divider sx={{
+        bgcolor: '#8DC740',
+        width: 0.205,
+        display: 'flex',
+        justifyContent: 'center',
+        mb: 1.5
+      }} />
     </>
   );
 };
-
-export default ButtonCadastro;
