@@ -1,159 +1,53 @@
-import * as React from 'react';
-
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Stack,
-  Avatar,
-  Button,
-  Fab,
-} from '@mui/material';
+import { Box, Button, Fab, Stack, Typography } from '@mui/material';
 
-type Responsible = {
-  id: string;
-  nome: string;
-  cpf: string;
-  nascimento: string;
-  estadoCivil: string;
-  nis: string;
-  telefone: string;
-  email: string;
-  endereco: string;
-};
-
-const wbGreen = '#9AC77A';
-const wbTeal = '#167A7A';
-
-function InfoLine({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | number;
-}) {
-  return (
-    <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
-      <Typography component="span" sx={{ fontWeight: 700, color: '#19806a' }}>
-        {label}:{' '}
-      </Typography>
-      <Typography component="span" sx={{ color: 'text.primary' }}>
-        {value}
-      </Typography>
-    </Typography>
-  );
-}
-
-function ResponsibleCard({
-  data,
-  onEdit,
-}: {
-  data: Responsible;
-  onEdit: (id: string) => void;
-}) {
-  return (
-    <Card
-      elevation={3}
-      sx={{
-        width: '100%',
-        maxHeight: 210,
-        borderRadius: 3,
-        px: 1,
-        py: 0.5,
-        bgcolor: '#FAFAFA',
-      }}
-    >
-      <CardContent sx={{ py: 2 }}>
-        <Grid container spacing={2} alignItems="flex-start">
-          <Grid item>
-            <Avatar
-              variant="rounded"
-              sx={{
-                width: 125,
-                height: 150,
-                bgcolor: '#E7EFE8',
-                color: '#879C88',
-                fontWeight: 700,
-                borderRadius: 2,
-              }}
-            >
-              {data.nome
-                .split(' ')
-                .slice(0, 2)
-                .map((s) => s[0]?.toUpperCase())
-                .join('')}
-            </Avatar>
-          </Grid>
-
-          <Grid item xs>
-            <Stack spacing={0.25}>
-              <InfoLine label="Nome" value={data.nome} />
-              <InfoLine label="CPF" value={data.cpf} />
-              <InfoLine label="Nascimento" value={data.nascimento} />
-              <InfoLine label="Estado Civil" value={data.estadoCivil} />
-              <InfoLine label="NIS" value={data.nis} />
-            </Stack>
-          </Grid>
-
-          <Grid item xs>
-            <Stack spacing={0.25}>
-              <InfoLine label="Telefone" value={data.telefone} />
-              <InfoLine label="Email" value={data.email} />
-              <InfoLine label="Endereço" value={data.endereco} />
-            </Stack>
-          </Grid>
-        </Grid>
-
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 0.5 }}>
-          <Button
-            size="small"
-            variant="contained"
-            onClick={() => onEdit(data.id)}
-            endIcon={<EditIcon fontSize="small" />}
-            sx={{
-              textTransform: 'none',
-              borderRadius: 999,
-              px: 1.5,
-              py: 0.4,
-              fontWeight: 700,
-              bgcolor: wbTeal,
-              ':hover': { bgcolor: '#0f5d5d' },
-            }}
-          >
-            Editar
-          </Button>
-        </Box>
-      </CardContent>
-    </Card>
-  );
-}
+import { NewResponsibleModal } from '../../components/NewResponsibleModal';
+import { useNewResponsibleModal } from '../../components/NewResponsibleModal/hook';
+import { PersonCard } from '../../components/PersonCard';
+import type { PersonCardData } from '../../components/PersonCard/interface';
 
 export default function ResponsibleRegistration() {
-  const [lista] = React.useState<Responsible[]>([
+  
+  const personCardList: (PersonCardData & { id: number })[] = [
     {
-      id: '1',
-      nome: 'João Pedro Bauer',
-      cpf: '012.345.678-90',
-      nascimento: '08/08/1964',
-      estadoCivil: 'Casado',
-      nis: '123.4567890-1',
-      telefone: '51-986027476',
-      email: 'joaosigmund@gmail.com',
-      endereco: 'Rua Portugal 245, Jardim Itu',
+      id: 1,
+      name: 'Leonardo Scheidt',
+      cpf: '123.456.789-00',
+      birthDate: '1990-05-15',
+      civilState: 'Solteiro(a)',
+      nis: '12345678900',
+      phone: '(11) 91234-5678',
+      email: 'leonardo@example.com',
+      address: 'Rua A, 123, São Paulo, SP',
     },
-  ]);
+    {
+      id: 2,
+      name: 'Maria Silva',
+      cpf: '987.654.321-00',
+      birthDate: '1985-10-22',
+      civilState: 'Casado(a)',
+      nis: '98765432100',
+      phone: '(21) 99876-5432',
+      email: 'maria.silva@example.com',
+      address: 'Avenida B, 456, Rio de Janeiro, RJ',
+    },
+    {
+      id: 3,
+      name: 'Carlos Oliveira',
+      cpf: '111.222.333-44',
+      birthDate: '1978-03-08',
+      civilState: 'Divorciado(a)',
+      nis: '11122233344',
+      phone: '(31) 98765-4321',
+      email: 'carlos.oliveira@example.com',
+      address: 'Rua C, 789, Belo Horizonte, MG',
+    },
+  ];
 
-  function handleEdit(id: string) {
-    console.log('editar', id);
-  }
+  const {openModal} = useNewResponsibleModal();
 
   return (
     <Box sx={{ px: 4, pb: 12 }}>
-      {/* Título */}
       <Typography
         variant="h5"
         sx={{
@@ -171,12 +65,12 @@ export default function ResponsibleRegistration() {
             left: -24,
             right: 0,
             height: 4,
-            bgcolor: wbGreen,
+            bgcolor: 'primary.main',
             borderRadius: 5,
           },
         }}
       >
-        Cadastro – Responsáveis
+        Cadastro - Responsáveis
       </Typography>
 
       {/* 🔽 Tudo abaixo alinhado à esquerda */}
@@ -199,7 +93,7 @@ export default function ResponsibleRegistration() {
               left: -16,
               width: '75%',
               height: 2,
-              bgcolor: wbGreen,
+              bgcolor: 'primary.main',
               borderRadius: 5,
             },
           }}
@@ -209,8 +103,8 @@ export default function ResponsibleRegistration() {
 
         {/* Lista de cards */}
         <Stack spacing={2}>
-          {lista.map((r) => (
-            <ResponsibleCard key={r.id} data={r} onEdit={handleEdit} />
+          {personCardList.map((r) => (
+            <PersonCard key={r.id}name={r.name} cpf={r.cpf} birthDate={r.birthDate} civilState={r.birthDate} nis={r.nis} phone={r.phone} email={r.email} address={r.address} />
           ))}
         </Stack>
 
@@ -230,8 +124,9 @@ export default function ResponsibleRegistration() {
               ':hover': { bgcolor: '#DCF0D4' },
             }}
             size="medium"
+            onClick={openModal}
           >
-            <AddIcon />
+            <AddIcon sx={{color: '#9AC77A'}} />
           </Fab>
         </Box>
       </Box>
@@ -256,8 +151,8 @@ export default function ResponsibleRegistration() {
             py: 1,
             fontWeight: 700,
             borderWidth: 2,
-            color: wbTeal,
-            borderColor: wbTeal,
+            color: 'primary.main',
+            borderColor: 'primary.main',
             ':hover': {
               borderWidth: 2,
               borderColor: '#0f5d5d',
@@ -276,7 +171,7 @@ export default function ResponsibleRegistration() {
             px: 3,
             py: 1,
             fontWeight: 700,
-            bgcolor: wbTeal,
+            bgcolor: 'primary.main',
             ':hover': { bgcolor: '#0f5d5d' },
           }}
           onClick={() => console.log('avançar')}
@@ -284,6 +179,7 @@ export default function ResponsibleRegistration() {
           Avançar
         </Button>
       </Box>
+      <NewResponsibleModal/>
     </Box>
   );
 }

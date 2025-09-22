@@ -6,15 +6,12 @@ export const portugueseTextMap = {
       `Frequência: ${percent}%`
     ),
   },
-  dateInput: {
-    selectDate: 'Selecione a data',
-  },
   header: {
     goToHome: 'Ir para a página inicial',
     logoAlt: 'Logotipo do WimBelemDon',
   },
   frequency: {
-    takeAttendance: 'Realizar Chamada',
+    title: 'Realizar Chamada',
     loadingActivities: 'Carregando atividades...',
     activitiesError: 'Erro ao carregar atividades',
   },
@@ -22,6 +19,9 @@ export const portugueseTextMap = {
     title: ({ activity, classTitle }: Params<'activity' | 'classTitle'>) => (
       `Chamada - ${activity} - ${classTitle}`
     ),
+    dateInput: {
+      selectDate: 'Selecione a data',
+    },
     save: 'Salvar',
     loadingStudents: 'Carregando estudantes...',
     studentsError: 'Erro ao carregar estudantes',
@@ -37,11 +37,43 @@ export const portugueseTextMap = {
     loadingClasses: 'Carregando turmas...',
     classesError: 'Erro ao carregar turmas',
   },
+  newResponsibleModal: {
+    title: 'Cadastrar Responsável',
+    buttonText: 'Adicionar Responsável',
+    inputs: {
+      name: 'Nome',
+      cpf: 'CPF',
+      birthDate: 'Data de Nascimento',
+      civilState: 'Estado Civil',
+      nis: 'NIS',
+      address: 'Endereço',
+      phone: 'Telefone',
+      email: 'Email'
+    },
+    placeholder: {
+      name: 'Digite o nome do responsável',
+      cpf: 'Digite o CPF do responsável',
+      nis: 'Digite o NIS do responsável',
+      address: 'Digite o endereço do responsável',
+      phone: 'Digite o telefone do responsável',
+      email: 'Digite o email do responsável'
+    }
+  },
   sidebar: {
     openSidebar: 'Abrir menu lateral',
     listIcon: ({ to }: Params<'to'>) => (
       `Navegar para a página ${to}`
     ),
+  },
+  personCard: {
+    name: 'Nome: ',
+    cpf: 'CPF: ',
+    birthDate: 'Nascimento: ',
+    civilState: 'Estado Civil: ',
+    nis: 'NIS: ',
+    phone: 'Telefone: ',
+    email: 'Email: ',
+    address: 'Endereço: ',
   },
   techDemo: {
     title: 'Tech Demo',
