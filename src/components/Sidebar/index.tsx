@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router';
 import { SidebarBurgerIcon } from './BurgerIcon';
 import type { SidebarProps, SidebarRouteMapper } from './interface';
 import { pt } from '../../constants';
-import { useScreenSize } from '../../hooks/useScrenSize';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import { useSidebar } from '../../hooks/useSidebar';
 
 const sidebarOptionsMapper: SidebarRouteMapper = {

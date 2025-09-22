@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 
 import { CardList } from '../../components/CardList';
+import { PageTitle } from '../../components/PageTitle';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 import { useActivities } from '../../hooks/useActivities';
@@ -20,14 +21,7 @@ export default function Frequency() {
 
   return (
     <>
-      <Typography
-        variant='h1'
-        paddingY={2.5}
-        fontSize={24}
-        fontWeight='bold'
-      >
-        {pt.frequency.takeAttendance}
-      </Typography>
+      <PageTitle title={pt.frequency.title} dataCy='frequency-page-title' />
       <CardList>
         {activities.map((c, index) => {
           const activityId = index + 1;

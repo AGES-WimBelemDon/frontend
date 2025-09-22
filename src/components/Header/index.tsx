@@ -3,7 +3,7 @@ import { Box, ButtonBase, Divider, Tooltip, Typography } from '@mui/material';
 import logo from '../../assets/logo.png';
 import { pt } from '../../constants';
 import { useRoutes } from '../../hooks/useRoutes';
-import { useScreenSize } from '../../hooks/useScrenSize';
+import { useScreenSize } from '../../hooks/useScreenSize';
 import { useSidebar } from '../../hooks/useSidebar';
 import { SidebarBurgerIcon } from '../Sidebar/BurgerIcon';
 
