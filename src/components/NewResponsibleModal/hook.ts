@@ -6,6 +6,7 @@ export function useNewResponsibleModal(){
 
   const isOpen = searchParams.get('action') == 'open-new-responsible-modal';
 
+
   const openModal = () => {
     const params = new URLSearchParams(searchParams);
     params.set('action', 'open-new-responsible-modal');
@@ -13,8 +14,7 @@ export function useNewResponsibleModal(){
   };
 
   const closeModal = () => {
-    const params = new URLSearchParams(searchParams);
-    params.delete('action');
+    const params = new URLSearchParams();
     setSearchParams(params);
   };
 

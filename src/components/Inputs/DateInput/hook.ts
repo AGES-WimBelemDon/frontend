@@ -1,21 +1,11 @@
-import { useEffect } from 'react';
+import { useSearchParams } from "react-router";
 
-import { useSearchParams } from 'react-router';
-
-export function useDateInput(id: string) {
+export function useDateInput() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const today = new Date();
-  const formattedDate = today.toISOString().split('T')[0];
 
-  useEffect(() => {
+  const setDate = (data: string, id: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set(`date${id}`, formattedDate);
-    setSearchParams(params);
-  }, []);
-
-  const setDate = (data: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (data === '') {
+    if (data === "") {
       params.delete(`date${id}`);
     } else {
       params.set(`date${id}`, data);
@@ -23,13 +13,13 @@ export function useDateInput(id: string) {
     setSearchParams(params);
   };
 
-  const getDate = (): string => {
+  const getDate = (id: string): string => {
     const value = searchParams.get(`date${id}`);
     if (value) {
       return value;
     }
-    return '';
+    return "";
   };
 
-  return { setDate, getDate, formattedDate, searchParams };
+  return { setDate, getDate, searchParams };
 }

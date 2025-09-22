@@ -11,12 +11,12 @@ export function SelectInput({
   options: string[];
   id: string;
 }) {
-  const { setSelectInput, searchParams } = useSelectInput(id);
+  const { setSelectInput, searchParams } = useSelectInput();
 
   const select = searchParams.get(`select${id}`);
 
   return (
-    <Box>
+    <Box sx={{paddingTop: 2}}>
       <Typography fontSize={16} fontWeight="bold">
         {label}
       </Typography>
@@ -24,14 +24,20 @@ export function SelectInput({
         native
         id="select"
         variant="outlined"
-        fullWidth
-        defaultValue=""
-        sx={{
-          width: '150px',
-          marginTop: '1px',
+        slotProps={{
+          input: {
+            sx: {
+              fontSize: 15,
+              color: "black", 
+              "&::placeholder": {
+                color: "grey.900", 
+                opacity: 0.5,
+              },
+            },
+          },
         }}
         value={select ?? ''}
-        onChange={(select) => setSelectInput(String(select.target.value))}
+        onChange={(select) => setSelectInput(String(select.target.value), id)}
       >
         <option value=""></option>
         {options.map((option, i) => (

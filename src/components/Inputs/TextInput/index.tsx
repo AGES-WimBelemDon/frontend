@@ -1,6 +1,7 @@
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, TextField, Typography } from "@mui/material";
 
-import { useTextInput } from './hook';
+import { useTextInput } from "./hook";
+import { useEffect, useRef, useState } from "react";
 
 export function TextInput({
   label,
@@ -11,12 +12,34 @@ export function TextInput({
   placeholder: string;
   id: string;
 }) {
-  const { setTextInput, searchParams } = useTextInput(id);
+  const { setText, searchParams } = useTextInput();
+  const [localValue, setLocalValue] = useState(
+    searchParams.get(`text${id}`) ?? ""
+  );
 
-  const text = searchParams.get(`text${id}`);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      setText(localValue, id);
+    }, 500);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [localValue, id]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        paddingTop: 2,
+        width: "100%",
+      }}
+    >
       <Typography fontSize={16} fontWeight="bold">
         {label}
       </Typography>
@@ -26,12 +49,21 @@ export function TextInput({
         variant="standard"
         placeholder={placeholder}
         fullWidth
-        sx={{
-          width: '300px',
-          marginTop: '1px',
+        slotProps={{
+          input: {
+            sx: {
+              fontSize: 15,
+              color: "black", 
+              "&::placeholder": {
+                color: "grey.900", 
+                opacity: 0.5,
+               
+              },
+            },
+          },
         }}
-        value={text}
-        onChange={(text) => setTextInput(String(text.target.value))}
+        value={localValue ?? ""}
+        onChange={(text) => setLocalValue(text.target.value)}
       />
     </Box>
   );

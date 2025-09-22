@@ -37,6 +37,28 @@ export const portugueseTextMap = {
     loadingClasses: 'Carregando turmas...',
     classesError: 'Erro ao carregar turmas',
   },
+  newResponsibleModal: {
+    title: "Cadastrar Responsável",
+    buttonText: "Adicionar Responsável",
+    inputs: {
+      name: "Nome",
+      cpf: "CPF",
+      birthDate: "Data de Nascimento",
+      civilState: "Estado Civil",
+      nis: "NIS",
+      address: "Endereço",
+      phone: "Telefone",
+      email: "Email"
+    },
+    placeholder: {
+      name: "Digite o nome do responsável",
+      cpf: "Digite o CPF do responsável",
+      nis: "Digite o NIS do responsável",
+      address: "Digite o endereço do responsável",
+      phone: "Digite o telefone do responsável",
+      email: "Digite o email do responsável"
+    }
+  },
   sidebar: {
     openSidebar: 'Abrir menu lateral',
     listIcon: ({ to }: Params<'to'>) => (
