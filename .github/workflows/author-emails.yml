@@ -39,6 +39,12 @@ jobs:
               continue
             fi
 
+            # Skip synthetic merge commits (created by GitHub for PR testing)
+            if [[ "$subject" =~ ^Merge.*into.*$ ]]; then
+              echo "Skipping synthetic merge commit $hash → $subject"
+              continue
+            fi
+
             if [[ ! "$email" =~ (@edu\.pucrs\.br$|@users\.noreply\.github\.com$) ]]; then
               echo "::error::Commit $hash by <$email> → \"$subject\""
               BAD=1
