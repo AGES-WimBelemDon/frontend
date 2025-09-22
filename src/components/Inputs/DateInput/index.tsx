@@ -21,9 +21,9 @@ export function DateInput({ id }: { id: string }) {
           input: {
             sx: {
               fontSize: 15,
-              color: "black", 
-              "&::placeholder": {
-                color: "grey.900", 
+              color: 'black', 
+              '&::placeholder': {
+                color: 'grey.900', 
                 opacity: 0.5,
               },
             },
