@@ -1,6 +1,7 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
+import { PageTitle } from '../../components/PageTitle';
 import { TextCard } from '../../components/TextCard';
 import { pt } from '../../constants';
 import { useToast } from '../../hooks/useToast';
@@ -15,7 +16,7 @@ export default function TechDemo() {
 
   return (
     <>
-      <Typography variant='h1' data-cy="tech-demo-title">{pt.techDemo.title}</Typography>
+      <PageTitle title={pt.techDemo.title} dataCy='tech-demo' />
 
       <hr />
 

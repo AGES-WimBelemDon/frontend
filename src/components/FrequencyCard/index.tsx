@@ -13,7 +13,7 @@ import {
 
 import type { FrequencyCardProps } from './interface';
 import { pt } from '../../constants';
-import { useScreenSize } from '../../hooks/useScrenSize';
+import { useScreenSize } from '../../hooks/useScreenSize';
 
 export function FrequencyCard({
   name,

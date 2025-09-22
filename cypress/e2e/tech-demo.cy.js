@@ -8,7 +8,7 @@ describe('tech demo test', () => {
   });
 
   it('renders the title', () => {
-    cy.dataCy('tech-demo-title').should('have.text', 'Tech Demo');
+    cy.dataCy('tech-demo-page-title').should('have.text', 'Tech Demo');
   });
 
   it('renders button to show API info', () => {

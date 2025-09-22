@@ -14,7 +14,7 @@ export const portugueseTextMap = {
     logoAlt: 'Logotipo do WimBelemDon',
   },
   frequency: {
-    takeAttendance: 'Realizar Chamada',
+    title: 'Realizar Chamada',
     loadingActivities: 'Carregando atividades...',
     activitiesError: 'Erro ao carregar atividades',
   },
