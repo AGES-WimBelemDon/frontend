@@ -6,6 +6,7 @@ import {
   Typography,
   type SxProps,
 } from "@mui/material";
+
 import { CardList } from "../../../components/CardList";
 import { useScreenSize } from "../../../hooks/useScreenSize";
 

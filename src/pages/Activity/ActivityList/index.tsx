@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 
 import { ActivityCard } from "../ActivityCard";
 import type { Activity } from "./interface";
+import { CardList } from "../../../components/CardList";
 import { PageTitle } from "../../../components/PageTitle";
 import { pt } from "../../../constants";
 import { getActivities } from "../../../services/activities";
 import { ActivityFilter } from "../ActivityFilter";
-import { CardList } from "../../../components/CardList";
 
 export default function ActivityList() {
   const [activityList, setActivityList] = useState<Activity[]>([]);
