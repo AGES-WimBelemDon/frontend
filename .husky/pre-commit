@@ -3,8 +3,8 @@ set +e # doesn't automatically exit on error
 
 # Check if npm and eslint exist
 if command -v npm >/dev/null 2>&1 && command -v eslint >/dev/null 2>&1; then
-  echo "✅ Running lint-staged on host..."
-  npx lint-staged
+  echo "✅ Running lint:fix on host..."
+  npm run lint:fix
   STATUS=$?
 else
   echo "⚠️  npm or eslint not found on host. Running lint:fix inside Docker..."
