@@ -30,7 +30,6 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
   "/cadastro": {
     text: "Cadastro",
     icon: <AssignmentAdd />,
-    disabled: false,
   },
   "/alunos": {
     text: "Alunos",
