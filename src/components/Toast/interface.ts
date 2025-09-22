@@ -1,8 +1,8 @@
-import type { AlertProps, SnackbarProps } from '@mui/material';
+import type { AlertProps, SnackbarProps } from "@mui/material";
 
 export type ToastState = {  
-  isOpen: SnackbarProps['open'],  
+  isOpen: SnackbarProps["open"],  
   message: string,  
-  severity: NonNullable<AlertProps['severity']>,  
+  severity: NonNullable<AlertProps["severity"]>,  
   closable?: boolean  
 };

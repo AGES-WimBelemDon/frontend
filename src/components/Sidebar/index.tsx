@@ -5,7 +5,7 @@ import {
   DeveloperBoard,
   Home,
   PeopleAlt
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 import {
   Drawer,
   List,
@@ -13,41 +13,41 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-} from '@mui/material';
-import { useNavigate } from 'react-router';
+} from "@mui/material";
+import { useNavigate } from "react-router";
 
-import { SidebarBurgerIcon } from './BurgerIcon';
-import type { SidebarProps, SidebarRouteMapper } from './interface';
-import { pt } from '../../constants';
-import { useScreenSize } from '../../hooks/useScreenSize';
-import { useSidebar } from '../../hooks/useSidebar';
+import { SidebarBurgerIcon } from "./BurgerIcon";
+import type { SidebarProps, SidebarRouteMapper } from "./interface";
+import { pt } from "../../constants";
+import { useScreenSize } from "../../hooks/useScreenSize";
+import { useSidebar } from "../../hooks/useSidebar";
 
 const sidebarOptionsMapper: SidebarRouteMapper = {
-  '/': {
-    text: 'Página Inicial',
+  "/": {
+    text: "Página Inicial",
     icon: <Home />,
   },
-  '/cadastro': {
-    text: 'Cadastro',
+  "/cadastro": {
+    text: "Cadastro",
     icon: <AssignmentAdd />,
     disabled: true,
   },
-  '/alunos': {
-    text: 'Alunos',
+  "/alunos": {
+    text: "Alunos",
     icon: <PeopleAlt />,
     disabled: true,
   },
-  '/frequencias/atividades': {
-    text: 'Frequência',
+  "/frequencias/atividades": {
+    text: "Frequência",
     icon: <Checklist />,
   },
-  '/atividades': {
-    text: 'Atividades',
+  "/atividades": {
+    text: "Atividades",
     icon: <AppRegistration />,
   },
   ...(import.meta.env.DEV && {
-    '/tech-demo': {
-      text: 'Tech Demo',
+    "/tech-demo": {
+      text: "Tech Demo",
       icon: <DeveloperBoard />,
     }
   }),
@@ -66,10 +66,10 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
   const visibleRoutes = Object.keys(sidebarOptionsMapper)
     .filter(route => allowedRoutes.includes(route));
 
-  const sidebarWidth = getSidebarWidth(deviceSize) === '100%' ? '100%'
+  const sidebarWidth = getSidebarWidth(deviceSize) === "100%" ? "100%"
     : `${getSidebarWidth(deviceSize)}px`;
 
-  if (isMobile && (sidebarState === 'closed' || sidebarState === 'closing')) {
+  if (isMobile && (sidebarState === "closed" || sidebarState === "closing")) {
     return <></>;
   }
 
@@ -79,25 +79,25 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
       sx={{
         width: sidebarWidth,
         zIndex: 0,
-        overflow: 'hidden',
+        overflow: "hidden",
         transition: `${sidebarAnimationDurationMs}ms all ease`,
-        '& .MuiDrawer-paper': {
+        "& .MuiDrawer-paper": {
           width: sidebarWidth,
           padding: 2,
-          overflow: 'hidden',
-          boxSizing: 'border-box',
-          boxShadow: '1px 0px 5px background.paper',
+          overflow: "hidden",
+          boxSizing: "border-box",
+          boxShadow: "1px 0px 5px background.paper",
           transition: `${sidebarAnimationDurationMs}ms all ease`,
-          backgroundColor: 'background.default',
+          backgroundColor: "background.default",
         },
       }}
       variant="permanent"
       anchor="left"
-      open={sidebarState === 'opened' || sidebarState === 'opening'}
+      open={sidebarState === "opened" || sidebarState === "opening"}
     >
       <SidebarBurgerIcon onToggle={toggleSidebar} />
 
-      <List sx={{ overflowY: 'auto' }}>
+      <List sx={{ overflowY: "auto" }}>
         {visibleRoutes.map((route) => {
           const { text, icon } = sidebarOptionsMapper[route];
 
@@ -113,29 +113,29 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
                 }}
                 disabled={sidebarOptionsMapper[route].disabled}
                 sx={{
-                  backgroundColor: 'grey.100',
-                  borderRadius: '.7em',
-                  padding: '.7em 1em',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  display: 'flex',
-                  marginBottom: '1em',
-                  ':hover': {
-                    backgroundColor: 'background.paper'
+                  backgroundColor: "grey.100",
+                  borderRadius: ".7em",
+                  padding: ".7em 1em",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                  marginBottom: "1em",
+                  ":hover": {
+                    backgroundColor: "background.paper"
                   }
                 }}
               >
-                <ListItemIcon sx={{ color: 'primary.main', minWidth: 'fit-content' }}>
+                <ListItemIcon sx={{ color: "primary.main", minWidth: "fit-content" }}>
                   {icon}
                 </ListItemIcon>
                 <ListItemText
                   primary={text}
                   sx={{
-                    '& .MuiListItemText-primary': {
-                      fontWeight: 'bold',
-                      textWrap: 'nowrap',
-                      overflow: 'hidden',
-                      marginLeft: '1em'
+                    "& .MuiListItemText-primary": {
+                      fontWeight: "bold",
+                      textWrap: "nowrap",
+                      overflow: "hidden",
+                      marginLeft: "1em"
                     }
                   }}
                 />

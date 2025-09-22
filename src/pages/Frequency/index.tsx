@@ -1,11 +1,11 @@
-import { Typography } from '@mui/material';
+import { Typography } from "@mui/material";
 
-import { CardList } from '../../components/CardList';
-import { PageTitle } from '../../components/PageTitle';
-import { TextCard } from '../../components/TextCard';
-import { pt } from '../../constants';
-import { useActivities } from '../../hooks/useActivities';
-import { useRoutes } from '../../hooks/useRoutes';
+import { CardList } from "../../components/CardList";
+import { PageTitle } from "../../components/PageTitle";
+import { TextCard } from "../../components/TextCard";
+import { pt } from "../../constants";
+import { useActivities } from "../../hooks/useActivities";
+import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Frequency() {
   const { goTo } = useRoutes();
@@ -16,12 +16,12 @@ export default function Frequency() {
   }
 
   if (activitiesError || !activities) {
-    return <Typography color='error'>{pt.frequency.activitiesError}</Typography>;
+    return <Typography color="error">{pt.frequency.activitiesError}</Typography>;
   }
 
   return (
     <>
-      <PageTitle title={pt.frequency.title} dataCy='frequency-page-title' />
+      <PageTitle title={pt.frequency.title} dataCy="frequency-page-title" />
       <CardList>
         {activities.map((c, index) => {
           const activityId = index + 1;
@@ -29,7 +29,7 @@ export default function Frequency() {
             <TextCard
               key={`${index}-${c.title}`}
               title={c.title}
-              theme={index === 0 ? 'dark' : 'light'}
+              theme={index === 0 ? "dark" : "light"}
               onClick={() => goTo(`${activityId}/turmas`)}
             />
           );}

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { Method, RouteMatcher } from 'cypress/types/net-stubbing';
+import { Method, RouteMatcher } from "cypress/types/net-stubbing";
 
 // ***********************************************
 // This example commands.ts shows you how to
@@ -39,13 +39,13 @@ import { Method, RouteMatcher } from 'cypress/types/net-stubbing';
 //   }
 // }
 
-Cypress.Commands.add('dataCy', (selector) => {
+Cypress.Commands.add("dataCy", (selector) => {
   return cy.get(`[data-cy=${selector}]`);
 });
 
-Cypress.Commands.add('interceptOrMock', (name: string, method: Method, path: RouteMatcher, fixture: string) => {
+Cypress.Commands.add("interceptOrMock", (name: string, method: Method, path: RouteMatcher, fixture: string) => {
   return cy.intercept(method, path, (req) => {
-    if (Cypress.env('USE_MOCK_API_DATA')) {
+    if (Cypress.env("USE_MOCK_API_DATA")) {
       req.reply({ fixture });
     } else {
       req.continue();

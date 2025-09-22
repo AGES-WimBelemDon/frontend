@@ -1,7 +1,7 @@
-import { AccountCircle } from '@mui/icons-material';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { AccountCircle } from "@mui/icons-material";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 
-import { useUserProfile } from './hook';
+import { useUserProfile } from "./hook";
 
 export function UserProfile() {
   const {
@@ -27,11 +27,11 @@ export function UserProfile() {
       bottom={16}
       left={17}
       gap={1}
-      display='flex'
-      alignItems='center'
+      display="flex"
+      alignItems="center"
     >
       <Tooltip title={actionLabel}>
-        <Box component='span'>
+        <Box component="span">
           <IconButton
             aria-label={actionLabel}
             data-cy="header-profile-button"
@@ -51,13 +51,13 @@ export function UserProfile() {
           <Typography
             variant="body1"
             fontWeight="bold"
-            overflow='hidden'
-            display='-webkit-box'
-            maxWidth={profileNameMaxWidth === '100%' ? '85%' : `${profileNameMaxWidth - 100}px`}
+            overflow="hidden"
+            display="-webkit-box"
+            maxWidth={profileNameMaxWidth === "100%" ? "85%" : `${profileNameMaxWidth - 100}px`}
             sx={{
               WebkitLineClamp: 3,
-              WebkitBoxOrient: 'vertical',
-              wordBreak: 'break-word',
+              WebkitBoxOrient: "vertical",
+              wordBreak: "break-word",
             }}
           >
             {displayedName}

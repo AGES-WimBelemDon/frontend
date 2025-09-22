@@ -3,7 +3,7 @@ import type { Activity } from '../pages/Activity/ActivityList/interface';
 
 export async function getActivities(): Promise<Activity[]> {
   try {
-    const response = await api.get<Activity[]>('/atividades');
+    const response = await api.get<Activity[]>("/atividades");
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
