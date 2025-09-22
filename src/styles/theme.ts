@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
   components: {
@@ -11,47 +11,47 @@ export const theme = createTheme({
     },
   },
   palette: {
-    mode: 'light',
+    mode: "light",
     background: {
-      default: '#FFFFFF',
-      paper: '#EEFEEE',
+      default: "#FFFFFF",
+      paper: "#EEFEEE",
     },
     grey: {
-      50: '#FAFAFA',
-      100: '#F5F5F5',
-      200: '#EEEEEE',
-      300: '#E0E0E0',
-      400: '#BDBDBD',
-      500: '#9E9E9E',
-      600: '#757575',
-      700: '#616161',
-      800: '#424242',
-      900: '#212121',
+      50: "#FAFAFA",
+      100: "#F5F5F5",
+      200: "#EEEEEE",
+      300: "#E0E0E0",
+      400: "#BDBDBD",
+      500: "#9E9E9E",
+      600: "#757575",
+      700: "#616161",
+      800: "#424242",
+      900: "#212121",
     },
     text: {
-      primary: '#0E6872',
-      secondary: '#8DC740',
-      disabled: '#EDE4D7'
+      primary: "#0E6872",
+      secondary: "#8DC740",
+      disabled: "#EDE4D7"
     },
     primary: {
-      main: '#0E6872',
-      contrastText: '#FFFFFF'
+      main: "#0E6872",
+      contrastText: "#FFFFFF"
     },
     secondary: {
-      main: '#8DC740',
-      contrastText: '#FFFFFF'
+      main: "#8DC740",
+      contrastText: "#FFFFFF"
     },
     error: {
-      main: '#d32f2f',
-      contrastText: '#FFFFFF'
+      main: "#d32f2f",
+      contrastText: "#FFFFFF"
     },
     warning: {
-      main: '#ed6c02',
-      contrastText: '#FFFFFF'
+      main: "#ed6c02",
+      contrastText: "#FFFFFF"
     },
     success: {
-      main: '#2e7d32',
-      contrastText: '#FFFFFF'
+      main: "#2e7d32",
+      contrastText: "#FFFFFF"
     },
   }
 });

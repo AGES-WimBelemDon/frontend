@@ -21,7 +21,7 @@ fi
 
 if [ $STATUS -ne 0 ]; then
   echo "❌ Linting failed. 'lint:fix' should have already been run during commit."
-  echo "    Please run './scripts/setup_npm_docker.sh' or 'npm run lint:fix' and commit the changes."
+  echo "    Please run './scripts/setup_node_docker.sh' or 'npm run lint:fix' and commit the changes."
   exit 1
 fi
 
