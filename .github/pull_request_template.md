@@ -17,27 +17,17 @@
 - [ ] Refactor
 - [ ] Build may be affected
 
-## What's New
-
-- [ ] Feature A implemented
-
-## Changed
-
-- [ ] Bugfix for B
-- [ ] Documentation updated
-
-## Removed
-
-- [ ] Deleted feature C
-
-## Checklist
-
-- [ ] Branch follows the [naming conventions](../CONTRIBUTING.md#branch-naming-conventions)
-- [ ] Code follows style guidelines
-- [ ] Tests added or updated
-- [ ] All tests pass locally
-- [ ] Documentation updated (if needed)
-
 ## Screenshots (if applicable)
 
+## How to Test
+<!-- Provide instructions on how to test this PR -->
+<!-- Example: -->
+1. git checkout <branch-name>
+2. Run `npm run dev`
+3. Open http://localhost:5173/frontend in your browser
+4. Navigate to ...
+5. Click X button ...
+
 ## Additional Notes
+<!-- Any additional information that is important to this PR -->
+<!-- For example, concerns, things to be aware of when reviewing, etc. -->
