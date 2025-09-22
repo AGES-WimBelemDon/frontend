@@ -1,5 +1,5 @@
-import { api } from './api';
-import type { Activity } from '../pages/Activity/ActivityList/interface';
+import { api } from "./api";
+import type { Activity } from "../pages/Activity/ActivityList/interface";
 
 export async function getActivities(): Promise<Activity[]> {
   try {
@@ -12,45 +12,45 @@ export async function getActivities(): Promise<Activity[]> {
       data: [
         {
           id: ++id,
-          name: 'Chamada Geral',
-          teacher: 'Professor Mestre',
-          area: 'Esportes',
-          frequency: 'Diária',
+          name: "Chamada Geral",
+          teacher: "Professor Mestre",
+          area: "Esportes",
+          frequency: "Diária",
         },
         {
           id: ++id,
-          name: 'Tênis',
-          teacher: 'Professor de Tênis',
-          area: 'Esportes',
-          frequency: 'Semanal',
+          name: "Tênis",
+          teacher: "Professor de Tênis",
+          area: "Esportes",
+          frequency: "Semanal",
         },
         {
           id: ++id,
-          name: 'Hidroginástica',
-          teacher: 'Professor de Hidroginástica',
-          area: 'Aquáticos',
-          frequency: 'Mensal',
+          name: "Hidroginástica",
+          teacher: "Professor de Hidroginástica",
+          area: "Aquáticos",
+          frequency: "Mensal",
         },
         {
           id: ++id,
-          name: 'Natação',
-          teacher: 'Professor de Natação',
-          area: 'Aquáticos',
-          frequency: 'Semanal',
+          name: "Natação",
+          teacher: "Professor de Natação",
+          area: "Aquáticos",
+          frequency: "Semanal",
         },
         {
           id: ++id,
-          name: 'Musculação',
-          teacher: 'Professor de Musculação',
-          area: 'Academia',
-          frequency: 'Diária',
+          name: "Musculação",
+          teacher: "Professor de Musculação",
+          area: "Academia",
+          frequency: "Diária",
         },
         {
           id: ++id,
-          name: 'Spinning',
-          teacher: 'Professor de Spinning',
-          area: 'Academia',
-          frequency: 'Semanal',
+          name: "Spinning",
+          teacher: "Professor de Spinning",
+          area: "Academia",
+          frequency: "Semanal",
         },
       ],
     });

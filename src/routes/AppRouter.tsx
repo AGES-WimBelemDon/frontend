@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
-import ActivityList from '../pages/Activity/ActivityList/index.tsx';
-import Frequency from '../pages/Frequency';
-import { FrequencyCall } from '../pages/FrequencyCall/index.tsx';
-import FrequencyClasses from '../pages/FrequencyClasses';
-import Home from '../pages/Home';
-import Layout from '../pages/Layout';
-import TechDemo from '../pages/TechDemo';
-import TechDemoMockAPI from '../pages/TechDemo/MockAPI.tsx';
+import ActivityList from "../pages/Activity/ActivityList/index.tsx";
+import Frequency from "../pages/Frequency";
+import { FrequencyCall } from "../pages/FrequencyCall/index.tsx";
+import FrequencyClasses from "../pages/FrequencyClasses";
+import Home from "../pages/Home";
+import Layout from "../pages/Layout";
+import TechDemo from "../pages/TechDemo";
+import TechDemoMockAPI from "../pages/TechDemo/MockAPI.tsx";
 
 function AppRouter() {
   return (

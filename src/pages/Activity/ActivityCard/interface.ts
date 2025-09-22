@@ -1,4 +1,4 @@
-import type { Activity } from '../ActivityList/interface';
+import type { Activity } from "../ActivityList/interface";
 
 export interface ActivityCardProps { 
   content: Activity
