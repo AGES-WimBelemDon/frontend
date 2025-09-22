@@ -1,4 +1,4 @@
-import { Book as BookIcon } from '@mui/icons-material';
+import { Book as BookIcon } from "@mui/icons-material";
 import {
   Card,
   CardActionArea,
@@ -6,14 +6,14 @@ import {
   Typography,
   type SxProps,
   type Theme
-} from '@mui/material';
+} from "@mui/material";
   
-import type { ThemeStyle, TextCard } from './interface';
-import { pt } from '../../constants';
+import type { ThemeStyle, TextCard } from "./interface";
+import { pt } from "../../constants";
 
 const themeStyle: Record<ThemeStyle, SxProps<Theme>> = {
-  light: { backgroundColor: 'background.default', color: 'primary.main' },
-  dark: { backgroundColor: 'primary.main', color: 'primary.contrastText' },
+  light: { backgroundColor: "background.default", color: "primary.main" },
+  dark: { backgroundColor: "primary.main", color: "primary.contrastText" },
 };
 
 export function TextCard({ title, theme, onClick, disabled }: TextCard) {
@@ -23,16 +23,16 @@ export function TextCard({ title, theme, onClick, disabled }: TextCard) {
         ...themeStyle[theme],
         borderWidth: 2,
         borderRadius: 2,
-        borderStyle: 'solid',
-        borderColor: 'primary.main',
+        borderStyle: "solid",
+        borderColor: "primary.main",
         height: 125,
         minWidth: 125,
-        width: '100%',
+        width: "100%",
         opacity: disabled ? 0.5 : 1,
       }}
     >
       <CardActionArea
-        sx={{ height: '100%' }}
+        sx={{ height: "100%" }}
         onClick={onClick}
         disabled={disabled}
         aria-label={pt.textCard.exploreHome}
@@ -41,7 +41,7 @@ export function TextCard({ title, theme, onClick, disabled }: TextCard) {
         <CardContent>
           <BookIcon fontSize="large" />
           <Typography
-            sx={{ fontWeight: 'bold' }}
+            sx={{ fontWeight: "bold" }}
             variant="h5"
           >
             {title}

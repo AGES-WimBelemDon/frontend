@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { useDateInput } from '../../components/DateInput/hook';
-import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
-import { pt } from '../../constants';
-import { useActivities } from '../../hooks/useActivities';
-import { useClasses } from '../../hooks/useClasses';
-import { useRoutes } from '../../hooks/useRoutes';
-import { useStudents } from '../../hooks/useStudents';
-import { useToast } from '../../hooks/useToast';
+import { useDateInput } from "../../components/DateInput/hook";
+import type { FrequencyCardStudent } from "../../components/FrequencyCard/interface";
+import { pt } from "../../constants";
+import { useActivities } from "../../hooks/useActivities";
+import { useClasses } from "../../hooks/useClasses";
+import { useRoutes } from "../../hooks/useRoutes";
+import { useStudents } from "../../hooks/useStudents";
+import { useToast } from "../../hooks/useToast";
 
 export function useFrequencyCall() {
   const { getActivityTitleById } = useActivities();
@@ -17,12 +17,12 @@ export function useFrequencyCall() {
   const { students: apiStudents } = useStudents();
   const { showToast } = useToast();
 
-  const activityId = getPathParamId('atividades');
-  const activityTitle = !activityId ? ''
+  const activityId = getPathParamId("atividades");
+  const activityTitle = !activityId ? ""
     : getActivityTitleById(activityId);
   
-  const classId = getPathParamId('turmas');
-  const classTitle = !classId ? ''
+  const classId = getPathParamId("turmas");
+  const classTitle = !classId ? ""
     : getClassTitleById(classId);
 
   const [students, setStudents] = useState<FrequencyCardStudent[]>([]);
@@ -42,17 +42,17 @@ export function useFrequencyCall() {
   };
 
   function registerCall() {
-    const date = searchParams.get('date');
+    const date = searchParams.get("date");
     
     if (!students) {
-      return showToast(pt.frequencyCall.errorNoStudents, 'error', true);
+      return showToast(pt.frequencyCall.errorNoStudents, "error", true);
     }
 
     if (!date) {
-      return showToast(pt.frequencyCall.errorNoDate, 'error', true);
+      return showToast(pt.frequencyCall.errorNoDate, "error", true);
     }
 
-    return showToast(pt.frequencyCall.successSave, 'success', true);
+    return showToast(pt.frequencyCall.successSave, "success", true);
   };
 
   return {

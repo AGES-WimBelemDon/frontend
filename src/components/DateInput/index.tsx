@@ -1,15 +1,15 @@
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, TextField, Typography } from "@mui/material";
 
-import { useDateInput } from './hook';
-import { pt } from '../../constants';
+import { useDateInput } from "./hook";
+import { pt } from "../../constants";
 
 export function DateInput() {
   const { setDate, searchParams } = useDateInput();
-  const date = searchParams.get('date');
+  const date = searchParams.get("date");
 
   return (
     <Box>
-      <Typography fontSize={16} fontWeight='bold'>
+      <Typography fontSize={16} fontWeight="bold">
         {pt.dateInput.selectDate}
       </Typography>
       <TextField

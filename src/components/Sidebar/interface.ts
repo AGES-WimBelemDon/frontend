@@ -1,5 +1,5 @@
-import type { Theme } from '@emotion/react';
-import type { SxProps } from '@mui/material';
+import type { Theme } from "@emotion/react";
+import type { SxProps } from "@mui/material";
 
 export type SidebarRouteMapper = {
   [path: string]: {

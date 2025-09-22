@@ -1,20 +1,20 @@
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery, useTheme } from "@mui/material";
 
-export type DeviceSize = 'mobile' | 'tablet' | 'desktop';
+export type DeviceSize = "mobile" | "tablet" | "desktop";
 
 export function useScreenSize() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
     
   function deviceSizeString(): DeviceSize {
     if (isMobile) {
-      return 'mobile';
+      return "mobile";
     }
     if (isDesktop) {
-      return 'desktop';
+      return "desktop";
     }
-    return 'tablet';
+    return "tablet";
   }
 
   return {
