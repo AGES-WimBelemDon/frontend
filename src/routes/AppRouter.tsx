@@ -15,10 +15,10 @@ function AppRouter() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="cadastro" element={<Register />} />
           <Route path="frequencias/atividades" element={<Frequency />}/>
           <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>
           <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall/>} />
-          <Route path="cadastro" element={<Register />} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
