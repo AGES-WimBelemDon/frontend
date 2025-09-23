@@ -1,6 +1,10 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { Outlet, useNavigate } from 'react-router';
 
+import { SelectInput } from '../../components/Inputs/SelectInput';
+import { TextInput } from '../../components/Inputs/TextInput';
+import { NewResponsibleModal } from '../../components/NewResponsibleModal';
+import { useNewResponsibleModal } from '../../components/NewResponsibleModal/hook';
 import { PageTitle } from '../../components/PageTitle';
 import { PersonCard } from '../../components/PersonCard';
 import { TextCard } from '../../components/TextCard';
@@ -10,6 +14,7 @@ import { useToast } from '../../hooks/useToast';
 export default function TechDemo() {
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const {openModal} = useNewResponsibleModal();
 
   function showAPIInfo() {
     navigate('2?c2=4');
@@ -75,8 +80,28 @@ export default function TechDemo() {
         >
           Abrir toast de INFO!
         </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => openModal()}
+        >
+          Abrir modal
+        </Button>
+      </Grid>
+      <hr />
+      <Grid container spacing={2} marginBottom={2}>
+        <TextInput label="Nome" placeholder="Escreva seu nome" id="1" />
       </Grid>
 
+      <hr />
+      <Grid container spacing={2} marginBottom={2}>
+        <SelectInput
+          label="Idade"
+          options={['Opção 1', 'Opção 2', 'Opção 3']}
+          id="1"
+        />
+      </Grid>
+      <NewResponsibleModal/>
       <Outlet />
     </>
   );
