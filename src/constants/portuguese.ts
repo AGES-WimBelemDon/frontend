@@ -39,7 +39,8 @@ export const portugueseTextMap = {
   },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
-    buttonText: "Adicionar Responsável",
+    loading: "Carregando...",
+    optionsError: "Erro ao carregar opções",
     inputs: {
       name: "Nome",
       cpf: "CPF",
@@ -57,7 +58,10 @@ export const portugueseTextMap = {
       address: "Digite o endereço do responsável",
       phone: "Digite o telefone do responsável",
       email: "Digite o email do responsável"
-    }
+    },
+    buttonText: "Adicionar Responsável",
+    successText: "Responsável adicionado com sucesso!",
+    errorText: "Preencha todos os campos",
   },
   sidebar: {
     openSidebar: "Abrir menu lateral",
