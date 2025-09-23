@@ -1,12 +1,14 @@
 name: Cypress Tests
 
 on:
-  pull_request:
-    branches:
-      - develop
+  workflow_run:
+    workflows: ["Build"]
+    types: [completed]
+    branches: [develop]
 
 jobs:
   cypress-run:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
