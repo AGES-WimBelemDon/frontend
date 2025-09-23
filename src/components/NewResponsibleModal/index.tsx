@@ -10,74 +10,28 @@ import {
 } from "@mui/material";
 
 import { useNewResponsibleModal } from "./hook";
-import type { ResponsibleData } from "./interface";
 import { pt } from "../../constants";
-import { useToast } from "../../hooks/useToast";
+import { useSelectOptions } from "../../hooks/useSelectOptions";
 import { DateInput } from "../Inputs/DateInput";
-import { useDateInput } from "../Inputs/DateInput/hook";
 import { SelectInput } from "../Inputs/SelectInput";
-import { useSelectInput } from "../Inputs/SelectInput/hook";
 import { TextInput } from "../Inputs/TextInput";
-import { useTextInput } from "../Inputs/TextInput/hook";
 
 export function NewResponsibleModal() {
-  const { showToast } = useToast();
-  const { isOpen, closeModal } = useNewResponsibleModal();
-  const { getSelect } = useSelectInput({ id: "new-responsible-civil-state" });
-  const { getDate } = useDateInput({ id: "new-responsible-birth-date" });
-  const { getTextParam: getName } = useTextInput({ id: "new-responsible-name" });
-  const { getTextParam: getCpf } = useTextInput({ id: "new-responsible-cpf" });
-  const { getTextParam: getNis } = useTextInput({ id: "new-responsible-nis" });
-  const { getTextParam: getAddress } = useTextInput({ id: "new-responsible-address" });
-  const { getTextParam: getPhone } = useTextInput({ id: "new-responsible-phone" });
-  const { getTextParam: getEmail } = useTextInput({ id: "new-responsible-email" });
+  const { isOpen, closeModal, addResponsible } = useNewResponsibleModal();
+  const { selectOptions, isLoadingSelectOptions, selectOptionsError } = useSelectOptions("civil-state");
 
-  function getFormData(): ResponsibleData | null {
-    const name = getName();
-    const cpf = getCpf();
-    const birthDate = getDate();
-    const civilState = getSelect();
-    const nis = getNis();
-    const address = getAddress();
-    const phone = getPhone();
-    const email = getEmail();
+  if (isLoadingSelectOptions) {
+    return <div>{pt.newResponsibleModal.loading}</div>;
+  }
 
-    if (name
-      && cpf
-      && birthDate
-      && civilState
-      && nis
-      && address
-      && phone
-      && email) {
-      return {
-        name,
-        cpf,
-        birthDate,
-        civilState,
-        nis,
-        address,
-        email,
-        phone,
-      };
-    }
-
-    return null;
-  };
-  
-  const addResponsible = () => {
-    const responsible = getFormData();
-    if (responsible) {
-      showToast("Responsável adicionado com sucesso!", "success");
-      return closeModal();
-    }
-    showToast("Preencha todos os campos", "error");
-  };
+  if (selectOptionsError || !selectOptions) {
+    return <div>{pt.newResponsibleModal.optionsError}</div>;
+  }
 
   return (
     <Dialog
       open={isOpen}
-      onClose={() => closeModal()}
+      onClose={closeModal}
       fullWidth
       sx={{
         "& .MuiPaper-root": {
@@ -88,9 +42,8 @@ export function NewResponsibleModal() {
         },
       }}
     >
-      {/* 1. Título */}
       <DialogTitle
-        fontWeight={"bold"}
+        fontWeight="bold"
         fontSize={24}
         sx={{
           display: "flex",
@@ -101,7 +54,7 @@ export function NewResponsibleModal() {
           fontSize: 24,
         }}
       >
-        Cadastrar Responsável
+        {pt.newResponsibleModal.title}
         <IconButton
           onClick={closeModal}
           sx={{
@@ -160,12 +113,7 @@ export function NewResponsibleModal() {
             />
             <SelectInput
               label={pt.newResponsibleModal.inputs.civilState}
-              options={[
-                "Solteiro(a)",
-                "Casado(a)",
-                "Divorciado(a)",
-                "Viuvo(a)",
-              ]}
+              options={selectOptions}
               id="new-responsible-civil-state"
             />
 
@@ -184,10 +132,9 @@ export function NewResponsibleModal() {
         </Box>
       </DialogContent>
 
-      {/* 3. Ações */}
       <DialogActions>
         <Button variant="contained" color="primary" onClick={addResponsible}>
-          Adicionar
+          {pt.newResponsibleModal.buttonText}
         </Button>
       </DialogActions>
     </Dialog>

@@ -8,12 +8,14 @@ import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hoo
 import { PageTitle } from "../../components/PageTitle";
 import { TextCard } from "../../components/TextCard";
 import { pt } from "../../constants";
+import { useSelectOptions } from "../../hooks/useSelectOptions";
 import { useToast } from "../../hooks/useToast";
 
 export default function TechDemo() {
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const {openModal} = useNewResponsibleModal();
+  const { openModal } = useNewResponsibleModal();
+  const { selectOptions } = useSelectOptions("age-range")
 
   function showAPIInfo() {
     navigate("2?c2=4");
@@ -85,8 +87,8 @@ export default function TechDemo() {
       <Grid container spacing={2} marginBottom={2}>
         <SelectInput
           label="Idade"
-          options={["Opção 1", "Opção 2", "Opção 3"]}
-          id="1"
+          options={selectOptions || []}
+          id="ageSelect"
         />
       </Grid>
       <NewResponsibleModal/>
