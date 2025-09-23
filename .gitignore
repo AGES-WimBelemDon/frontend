@@ -32,3 +32,9 @@ dev-dist
 
 cypress/downloads
 cypress/screenshots
+
+# Git Submodules
+
+frontend
+backend
+infrastructure
