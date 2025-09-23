@@ -1,8 +1,8 @@
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from "react";
 
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 
-import { useScreenSize } from '../../hooks/useScreenSize';
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function CardList({ children }: PropsWithChildren) {
   const { isMobile, isDesktop } = useScreenSize();
@@ -21,7 +21,7 @@ export function CardList({ children }: PropsWithChildren) {
   return (
     <Grid
       container
-      display='grid'
+      display="grid"
       spacing={{ xs: 1 }}
       gridTemplateColumns={`repeat(${gridColumnsCountMapper}, 1fr)`}
     >

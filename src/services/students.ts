@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api } from "./api";
 
 type Student = {
   id: string;
@@ -8,7 +8,7 @@ type Student = {
 
 export async function getStudents(): Promise<Student[]> {
   try {
-    const response = await api.get<Student[]>('/alunos');
+    const response = await api.get<Student[]>("/alunos");
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -17,32 +17,32 @@ export async function getStudents(): Promise<Student[]> {
       data: [
         {
           id: (++id).toString(),
-          name: 'Leonardo Mallet',
+          name: "Leonardo Mallet",
           frequencyPercent: 90,
         },
         {
           id: (++id).toString(),
-          name: 'João Pedro',
+          name: "João Pedro",
           frequencyPercent: 60,
         },
         {
           id: (++id).toString(),
-          name: 'Pedro Henrique',
+          name: "Pedro Henrique",
           frequencyPercent: 40,
         },
         {
           id: (++id).toString(),
-          name: 'Thiago Camargo',
+          name: "Thiago Camargo",
           frequencyPercent: 55,
         },
         {
           id: (++id).toString(),
-          name: 'Paulo Camargo',
+          name: "Paulo Camargo",
           frequencyPercent: 55,
         },
         {
           id: (++id).toString(),
-          name: 'Mayara Cardi',
+          name: "Mayara Cardi",
           frequencyPercent: 55,
         },
       ],

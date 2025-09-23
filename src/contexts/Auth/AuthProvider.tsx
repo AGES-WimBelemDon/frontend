@@ -1,9 +1,9 @@
-import { useEffect, useState, type PropsWithChildren } from 'react';
+import { useEffect, useState, type PropsWithChildren } from "react";
 
-import { onAuthStateChanged, type User } from 'firebase/auth';
+import { onAuthStateChanged, type User } from "firebase/auth";
 
-import { AuthContext } from './AuthContext';
-import { auth } from '../../firebase';
+import { AuthContext } from "./AuthContext";
+import { auth } from "../../firebase";
 
 export function AuthProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | null>(null);

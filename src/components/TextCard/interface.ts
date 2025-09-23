@@ -6,4 +6,4 @@ export type TextCard = {
     disabled?: boolean,
 }
 
-export type ThemeStyle = 'light' | 'dark';
+export type ThemeStyle = "light" | "dark";

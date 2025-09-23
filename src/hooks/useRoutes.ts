@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 
-type ValidRoute = '/'
-  | '/alunos'
-  | '/atividades'
-  | '/cadastro'
-  | '/frequencias/atividades'
-  | '/tech-demo'
-  | '/turmas';
+type ValidRoute = "/"
+  | "/alunos"
+  | "/atividades"
+  | "/cadastro"
+  | "/frequencias/atividades"
+  | "/tech-demo"
+  | "/turmas";
 
 export function useRoutes() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export function useRoutes() {
   }
 
   function getPathParamId(previousParamName: string) {
-    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const pathSegments = window.location.pathname.split("/").filter(Boolean);
     const paramIndex = pathSegments.indexOf(previousParamName);
     if (paramIndex !== -1 && paramIndex + 1 < pathSegments.length) {
       return pathSegments[paramIndex + 1];
@@ -28,13 +28,13 @@ export function useRoutes() {
     goTo,
     getPathParamId,
     allowedRoutes: [
-      '/',
-      '/alunos',
-      '/atividades',
-      '/cadastro',
-      '/frequencias/atividades',
-      '/tech-demo',
-      '/turmas',
+      "/",
+      "/alunos",
+      "/atividades",
+      "/cadastro",
+      "/frequencias/atividades",
+      "/tech-demo",
+      "/turmas",
     ],
   };
 }
