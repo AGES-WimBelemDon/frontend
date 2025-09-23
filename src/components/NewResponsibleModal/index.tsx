@@ -24,13 +24,13 @@ export function NewResponsibleModal() {
   const { showToast } = useToast();
   const { getText } = useTextInput();
   const { getSelect } = useSelectInput();
-  const { getDate } = useDateInput();
+  const { getDate } = useDateInput({ id: "1" });
   const { isOpen, closeModal } = useNewResponsibleModal();
 
   const setAllValues = (): ResponsibleData | undefined => {
     const name = getText("1");
     const cpf = getText("2");
-    const birthDate = getDate("1");
+    const birthDate = getDate();
     const civilState = getSelect("1");
     const nis = getText("3");
     const address = getText("4");

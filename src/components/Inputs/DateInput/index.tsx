@@ -2,10 +2,11 @@ import { Box, TextField, Typography } from "@mui/material";
 
 import { useDateInput } from "./hook";
 import { pt } from "../../../constants";
+import type { InputProps } from "../interface";
 
-export function DateInput({ id }: { id: string }) {
-  const { setDate, searchParams} = useDateInput();
-  const value = searchParams.get(`date${id}`);
+export function DateInput({ id }: InputProps) {
+  const { getDate, setDate } = useDateInput({ id });
+
   return (
     <Box sx={{
       paddingTop: 2,
@@ -15,7 +16,7 @@ export function DateInput({ id }: { id: string }) {
         {pt.dateInput.selectDate}
       </Typography>
       <TextField
-        id="date"
+        id={`date${id}`}
         type="date"
         slotProps={{
           input: {
@@ -35,8 +36,8 @@ export function DateInput({ id }: { id: string }) {
         sx={{
           marginTop: "1px",
         }}
-        value={value ?? ""}
-        onChange={(date) => setDate(date.target.value, id)}
+        value={getDate()}
+        onChange={(date) => setDate(date.target.value)}
       />
     </Box>
   );

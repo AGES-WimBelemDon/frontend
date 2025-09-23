@@ -1,9 +1,11 @@
 import { useSearchParams } from "react-router";
 
-export function useDateInput() {
+import type { InputProps } from "../interface";
+
+export function useDateInput({ id }: InputProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const setDate = (data: string, id: string) => {
+  function setDate(data: string) {
     const params = new URLSearchParams(searchParams);
     if (data === "") {
       params.delete(`date${id}`);
@@ -11,15 +13,12 @@ export function useDateInput() {
       params.set(`date${id}`, data);
     }
     setSearchParams(params);
-  };
+  }
 
-  const getDate = (id: string): string => {
+  function getDate(): string {
     const value = searchParams.get(`date${id}`);
-    if (value) {
-      return value;
-    }
-    return "";
-  };
+    return value ?? "";
+  }
 
   return { setDate, getDate, searchParams };
 }
