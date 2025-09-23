@@ -132,7 +132,7 @@ export function NewResponsibleModal() {
               placeholder={pt.newResponsibleModal.placeholder.name}
               id="1"
             />
-            <DateInput id="1" />
+            <DateInput id="1" label={pt.newResponsibleModal.inputs.birthDate}/>
             <TextInput
               label={pt.newResponsibleModal.inputs.nis}
               placeholder={pt.newResponsibleModal.placeholder.nis}

@@ -41,7 +41,7 @@ export function FrequencyCall() {
         dataCy='frequency-call'
       />
 
-      <DateInput id='1' />
+      <DateInput id='1' label={pt.frequencyCall.dateInput.selectDate}/>
       <Divider
         sx={{
           bgcolor: 'primary.main',

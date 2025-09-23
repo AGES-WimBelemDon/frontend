@@ -1,9 +1,8 @@
 import { Box, TextField, Typography } from '@mui/material';
 
 import { useDateInput } from './hook';
-import { pt } from '../../../constants';
 
-export function DateInput({ id }: { id: string }) {
+export function DateInput({ id, label }: { id: string, label: string }) {
   const { setDate, searchParams} = useDateInput();
   const value = searchParams.get(`date${id}`);
   return (
@@ -12,7 +11,7 @@ export function DateInput({ id }: { id: string }) {
       width: '100%'
     }}>
       <Typography fontSize={16} fontWeight="bold">
-        {pt.dateInput.selectDate}
+        {label}
       </Typography>
       <TextField
         id="date"
