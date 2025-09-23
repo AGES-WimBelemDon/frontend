@@ -27,7 +27,7 @@ export function TextInput({
 
     debounceRef.current = setTimeout(() => {
       setText(localValue, id);
-    }, 500);
+    }, 300);
 
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
