@@ -23,7 +23,7 @@ import { useTextInput } from "../Inputs/TextInput/hook";
 export function NewResponsibleModal() {
   const { showToast } = useToast();
   const { getText } = useTextInput();
-  const { getSelect } = useSelectInput();
+  const { getSelect } = useSelectInput({ id: "1" });
   const { getDate } = useDateInput({ id: "1" });
   const { isOpen, closeModal } = useNewResponsibleModal();
 
@@ -31,7 +31,7 @@ export function NewResponsibleModal() {
     const name = getText("1");
     const cpf = getText("2");
     const birthDate = getDate();
-    const civilState = getSelect("1");
+    const civilState = getSelect();
     const nis = getText("3");
     const address = getText("4");
     const phone = getText("5");

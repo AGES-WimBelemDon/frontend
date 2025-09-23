@@ -1,28 +1,23 @@
 import { Box, Select, Typography } from "@mui/material";
 
 import { useSelectInput } from "./hook";
+import type { SelectInputProps } from "../interface";
 
 export function SelectInput({
   label,
   options,
   id,
-}: {
-  label: string;
-  options: string[];
-  id: string;
-}) {
-  const { setSelectInput, searchParams } = useSelectInput();
-
-  const select = searchParams.get(`select${id}`);
+}: SelectInputProps) {
+  const { getSelect, setSelectInput } = useSelectInput({ id });
 
   return (
-    <Box sx={{paddingTop: 2}}>
+    <Box sx={{ paddingTop: 2 }}>
       <Typography fontSize={16} fontWeight="bold">
         {label}
       </Typography>
       <Select
         native
-        id="select"
+        id={`select${id}`}
         variant="outlined"
         slotProps={{
           input: {
@@ -36,8 +31,8 @@ export function SelectInput({
             },
           },
         }}
-        value={select ?? ""}
-        onChange={(select) => setSelectInput(String(select.target.value), id)}
+        value={getSelect()}
+        onChange={(select) => setSelectInput(String(select.target.value))}
       >
         <option value=""></option>
         {options.map((option, i) => (
