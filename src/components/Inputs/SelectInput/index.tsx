@@ -35,9 +35,9 @@ export function SelectInput({
         onChange={(select) => setSelectInput(String(select.target.value))}
       >
         <option value=""></option>
-        {options.map((option, i) => (
-          <option key={i} value={option}>
-            {option}
+        {options.map(({ label, value }, i) => (
+          <option key={i} value={value}>
+            {label}
           </option>
         ))}
       </Select>
