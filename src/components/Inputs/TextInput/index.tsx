@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, TextField, Typography } from "@mui/material";
 
-import { useTextInput } from './hook';
+import { useTextInput } from "./hook";
 
 export function TextInput({
   label,
@@ -15,7 +15,7 @@ export function TextInput({
 }) {
   const { setText, searchParams } = useTextInput();
   const [localValue, setLocalValue] = useState(
-    searchParams.get(`text${id}`) ?? ''
+    searchParams.get(`text${id}`) ?? ""
   );
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -32,13 +32,13 @@ export function TextInput({
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [localValue, id]);
+  }, [localValue, id, setText]);
 
   return (
     <Box
       sx={{
         paddingTop: 2,
-        width: '100%',
+        width: "100%",
       }}
     >
       <Typography fontSize={16} fontWeight="bold">
@@ -54,16 +54,16 @@ export function TextInput({
           input: {
             sx: {
               fontSize: 15,
-              color: 'black', 
-              '&::placeholder': {
-                color: 'grey.900', 
+              color: "black", 
+              "&::placeholder": {
+                color: "grey.900", 
                 opacity: 0.5,
                
               },
             },
           },
         }}
-        value={localValue ?? ''}
+        value={localValue ?? ""}
         onChange={(text) => setLocalValue(text.target.value)}
       />
     </Box>

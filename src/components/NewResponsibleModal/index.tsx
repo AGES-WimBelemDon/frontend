@@ -1,4 +1,4 @@
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
   Button,
@@ -7,18 +7,18 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-} from '@mui/material';
+} from "@mui/material";
 
-import { useNewResponsibleModal } from './hook';
-import type { ResponsibleData } from './interface/interface';
-import { pt } from '../../constants';
-import { useToast } from '../../hooks/useToast';
-import { DateInput } from '../Inputs/DateInput';
-import { useDateInput } from '../Inputs/DateInput/hook';
-import { SelectInput } from '../Inputs/SelectInput';
-import { useSelectInput } from '../Inputs/SelectInput/hook';
-import { TextInput } from '../Inputs/TextInput';
-import { useTextInput } from '../Inputs/TextInput/hook';
+import { useNewResponsibleModal } from "./hook";
+import type { ResponsibleData } from "./interface/interface";
+import { pt } from "../../constants";
+import { useToast } from "../../hooks/useToast";
+import { DateInput } from "../Inputs/DateInput";
+import { useDateInput } from "../Inputs/DateInput/hook";
+import { SelectInput } from "../Inputs/SelectInput";
+import { useSelectInput } from "../Inputs/SelectInput/hook";
+import { TextInput } from "../Inputs/TextInput";
+import { useTextInput } from "../Inputs/TextInput/hook";
 
 export function NewResponsibleModal() {
   const { showToast } = useToast();
@@ -28,24 +28,24 @@ export function NewResponsibleModal() {
   const { isOpen, closeModal } = useNewResponsibleModal();
 
   const setAllValues = (): ResponsibleData | undefined => {
-    const name = getText('1');
-    const cpf = getText('2');
-    const birthDate = getDate('1');
-    const civilState = getSelect('1');
-    const nis = getText('3');
-    const address = getText('4');
-    const phone = getText('5');
-    const email = getText('6');
+    const name = getText("1");
+    const cpf = getText("2");
+    const birthDate = getDate("1");
+    const civilState = getSelect("1");
+    const nis = getText("3");
+    const address = getText("4");
+    const phone = getText("5");
+    const email = getText("6");
 
     if (
-      name != '' &&
-      cpf != '' &&
-      birthDate != '' &&
-      civilState != '' &&
-      nis != '' &&
-      address != '' &&
-      phone != '' &&
-      email != ''
+      name != "" &&
+      cpf != "" &&
+      birthDate != "" &&
+      civilState != "" &&
+      nis != "" &&
+      address != "" &&
+      phone != "" &&
+      email != ""
     ) {
       return {
         name,
@@ -63,10 +63,10 @@ export function NewResponsibleModal() {
     const responsible = setAllValues();
     if (responsible) {
       console.log(responsible);
-      showToast('Responsável adicionado com sucesso!', 'success');
+      showToast("Responsável adicionado com sucesso!", "success");
       return closeModal();
     }
-    showToast('Preencha todos os campos', 'error');
+    showToast("Preencha todos os campos", "error");
   };
   return (
     <Dialog
@@ -74,24 +74,24 @@ export function NewResponsibleModal() {
       onClose={() => closeModal()}
       fullWidth
       sx={{
-        '& .MuiPaper-root': {
-          borderRadius: '16px',
-          padding: '16px',
-          backgroundColor: '#f9f9f9',
-          width: '100%',
+        "& .MuiPaper-root": {
+          borderRadius: "16px",
+          padding: "16px",
+          backgroundColor: "#f9f9f9",
+          width: "100%",
         },
       }}
     >
       {/* 1. Título */}
       <DialogTitle
-        fontWeight={'bold'}
+        fontWeight={"bold"}
         fontSize={24}
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          fontWeight: 'bold',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+          fontWeight: "bold",
           fontSize: 24,
         }}
       >
@@ -99,10 +99,10 @@ export function NewResponsibleModal() {
         <IconButton
           onClick={closeModal}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 2, 
-            top: '50%',
-            transform: 'translateY(-90%)',
+            top: "50%",
+            transform: "translateY(-90%)",
           }}
         >
           <CloseIcon />
@@ -113,19 +113,19 @@ export function NewResponsibleModal() {
       <DialogContent>
         <Box
           sx={{
-            border: '2px solid',
-            borderColor: 'primary.main',
+            border: "2px solid",
+            borderColor: "primary.main",
             borderRadius: 2,
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            width: '100%',
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            width: "100%",
             padding: 2,
             gap: 2,
           }}
         >
           <Box
-            sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}
+            sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}
           >
             <TextInput
               label={pt.newResponsibleModal.inputs.name}
@@ -145,7 +145,7 @@ export function NewResponsibleModal() {
             />
           </Box>
           <Box
-            sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}
+            sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}
           >
             <TextInput
               label={pt.newResponsibleModal.inputs.cpf}
@@ -155,10 +155,10 @@ export function NewResponsibleModal() {
             <SelectInput
               label={pt.newResponsibleModal.inputs.civilState}
               options={[
-                'Solteiro(a)',
-                'Casado(a)',
-                'Divorciado(a)',
-                'Viuvo(a)',
+                "Solteiro(a)",
+                "Casado(a)",
+                "Divorciado(a)",
+                "Viuvo(a)",
               ]}
               id="1"
             />

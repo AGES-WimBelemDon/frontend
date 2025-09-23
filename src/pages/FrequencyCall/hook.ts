@@ -42,7 +42,7 @@ export function useFrequencyCall() {
   };
 
   function registerCall() {
-    const date = getDate();
+    const date = getDate("1");
     
     if (!students) {
       return showToast(pt.frequencyCall.errorNoStudents, "error", true);

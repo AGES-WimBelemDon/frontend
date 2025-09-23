@@ -1,7 +1,7 @@
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, TextField, Typography } from "@mui/material";
 
-import { useDateInput } from './hook';
-import { pt } from '../../../constants';
+import { useDateInput } from "./hook";
+import { pt } from "../../../constants";
 
 export function DateInput({ id }: { id: string }) {
   const { setDate, searchParams} = useDateInput();
@@ -9,7 +9,7 @@ export function DateInput({ id }: { id: string }) {
   return (
     <Box sx={{
       paddingTop: 2,
-      width: '100%'
+      width: "100%"
     }}>
       <Typography fontSize={16} fontWeight="bold">
         {pt.dateInput.selectDate}
@@ -21,9 +21,9 @@ export function DateInput({ id }: { id: string }) {
           input: {
             sx: {
               fontSize: 15,
-              color: 'black', 
-              '&::placeholder': {
-                color: 'grey.900', 
+              color: "black", 
+              "&::placeholder": {
+                color: "grey.900", 
                 opacity: 0.5,
               },
             },
@@ -33,9 +33,9 @@ export function DateInput({ id }: { id: string }) {
           }
         }}  
         sx={{
-          marginTop: '1px',
+          marginTop: "1px",
         }}
-        value={value ?? ''}
+        value={value ?? ""}
         onChange={(date) => setDate(date.target.value, id)}
       />
     </Box>

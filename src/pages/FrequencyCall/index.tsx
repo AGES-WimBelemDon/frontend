@@ -1,11 +1,11 @@
 import { Box, Button, Divider, List, ListItem, Typography } from "@mui/material";
 
+import { useFrequencyCall } from "./hook";
 import { FrequencyCard } from "../../components/FrequencyCard";
 import type { FrequencyCardStudent } from "../../components/FrequencyCard/interface";
 import { DateInput } from "../../components/Inputs/DateInput";
 import { PageTitle } from "../../components/PageTitle";
 import { pt } from "../../constants";
-import { useFrequencyCall } from "./hook";
 
 export function FrequencyCall() {
   const {
@@ -41,7 +41,7 @@ export function FrequencyCall() {
         dataCy="frequency-call"
       />
 
-      <DateInput id='1' />
+      <DateInput id="1" />
       <Divider
         sx={{
           bgcolor: "primary.main",

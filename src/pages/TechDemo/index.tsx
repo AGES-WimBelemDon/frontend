@@ -85,7 +85,7 @@ export default function TechDemo() {
       <Grid container spacing={2} marginBottom={2}>
         <SelectInput
           label="Idade"
-          options={['Opção 1', 'Opção 2', 'Opção 3']}
+          options={["Opção 1", "Opção 2", "Opção 3"]}
           id="1"
         />
       </Grid>
