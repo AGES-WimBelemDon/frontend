@@ -28,7 +28,6 @@ export default function Layout() {
           flex="1"
           overflow="auto"
           width='100%'
-          maxWidth='lg'
           padding={2}
           paddingBottom={10}
           marginX='auto'
