@@ -12,7 +12,7 @@ import { useToast } from '../../hooks/useToast';
 export function useFrequencyCall() {
   const { getActivityTitleById } = useActivities();
   const { getClassTitleById } = useClasses();
-  const {getDate} = useDateInput('1');
+  const {getDate} = useDateInput();
   const { getPathParamId } = useRoutes();
   const { students: apiStudents } = useStudents();
   const { showToast } = useToast();
@@ -42,7 +42,7 @@ export function useFrequencyCall() {
   };
 
   function registerCall() {
-    const date = getDate();
+    const date = getDate('1');
     
     if (!students) {
       return showToast(pt.frequencyCall.errorNoStudents, 'error', true);
