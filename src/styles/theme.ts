@@ -27,6 +27,8 @@ export const theme = createTheme({
       700: "#616161",
       800: "#424242",
       900: "#212121",
+      A100: "#1D1D1D",
+      A200: "#0E0E0E",
     },
     text: {
       primary: "#0E6872",

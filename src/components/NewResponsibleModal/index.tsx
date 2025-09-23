@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import { useNewResponsibleModal } from "./hook";
-import type { ResponsibleData } from "./interface/interface";
+import type { ResponsibleData } from "./interface";
 import { pt } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 import { DateInput } from "../Inputs/DateInput";
@@ -22,31 +22,34 @@ import { useTextInput } from "../Inputs/TextInput/hook";
 
 export function NewResponsibleModal() {
   const { showToast } = useToast();
-  const { getText } = useTextInput();
-  const { getSelect } = useSelectInput({ id: "1" });
-  const { getDate } = useDateInput({ id: "1" });
   const { isOpen, closeModal } = useNewResponsibleModal();
+  const { getSelect } = useSelectInput({ id: "new-responsible-civil-state" });
+  const { getDate } = useDateInput({ id: "new-responsible-birth-date" });
+  const { getTextParam: getName } = useTextInput({ id: "new-responsible-name" });
+  const { getTextParam: getCpf } = useTextInput({ id: "new-responsible-cpf" });
+  const { getTextParam: getNis } = useTextInput({ id: "new-responsible-nis" });
+  const { getTextParam: getAddress } = useTextInput({ id: "new-responsible-address" });
+  const { getTextParam: getPhone } = useTextInput({ id: "new-responsible-phone" });
+  const { getTextParam: getEmail } = useTextInput({ id: "new-responsible-email" });
 
-  const setAllValues = (): ResponsibleData | undefined => {
-    const name = getText("1");
-    const cpf = getText("2");
+  function getFormData(): ResponsibleData | null {
+    const name = getName();
+    const cpf = getCpf();
     const birthDate = getDate();
     const civilState = getSelect();
-    const nis = getText("3");
-    const address = getText("4");
-    const phone = getText("5");
-    const email = getText("6");
+    const nis = getNis();
+    const address = getAddress();
+    const phone = getPhone();
+    const email = getEmail();
 
-    if (
-      name != "" &&
-      cpf != "" &&
-      birthDate != "" &&
-      civilState != "" &&
-      nis != "" &&
-      address != "" &&
-      phone != "" &&
-      email != ""
-    ) {
+    if (name
+      && cpf
+      && birthDate
+      && civilState
+      && nis
+      && address
+      && phone
+      && email) {
       return {
         name,
         cpf,
@@ -58,16 +61,19 @@ export function NewResponsibleModal() {
         phone,
       };
     }
+
+    return null;
   };
+  
   const addResponsible = () => {
-    const responsible = setAllValues();
+    const responsible = getFormData();
     if (responsible) {
-      console.log(responsible);
       showToast("Responsável adicionado com sucesso!", "success");
       return closeModal();
     }
     showToast("Preencha todos os campos", "error");
   };
+
   return (
     <Dialog
       open={isOpen}
@@ -109,7 +115,6 @@ export function NewResponsibleModal() {
         </IconButton>
       </DialogTitle>
 
-      {/* 2. Conteúdo com Box do MUI + Grid do Tailwind */}
       <DialogContent>
         <Box
           sx={{
@@ -130,18 +135,19 @@ export function NewResponsibleModal() {
             <TextInput
               label={pt.newResponsibleModal.inputs.name}
               placeholder={pt.newResponsibleModal.placeholder.name}
-              id="1"
+              id="new-responsible-name"
             />
-            <DateInput id="1" />
+            <DateInput id="new-responsible-birth-date" />
             <TextInput
               label={pt.newResponsibleModal.inputs.nis}
               placeholder={pt.newResponsibleModal.placeholder.nis}
-              id="3"
+              id="new-responsible-nis"
             />
             <TextInput
               label={pt.newResponsibleModal.inputs.phone}
               placeholder={pt.newResponsibleModal.placeholder.phone}
-              id="5"
+              id="new-responsible-phone"
+              type="tel"
             />
           </Box>
           <Box
@@ -150,7 +156,7 @@ export function NewResponsibleModal() {
             <TextInput
               label={pt.newResponsibleModal.inputs.cpf}
               placeholder={pt.newResponsibleModal.placeholder.cpf}
-              id="2"
+              id="new-responsible-cpf"
             />
             <SelectInput
               label={pt.newResponsibleModal.inputs.civilState}
@@ -160,19 +166,19 @@ export function NewResponsibleModal() {
                 "Divorciado(a)",
                 "Viuvo(a)",
               ]}
-              id="1"
+              id="new-responsible-civil-state"
             />
 
             <TextInput
               label={pt.newResponsibleModal.inputs.address}
               placeholder={pt.newResponsibleModal.placeholder.address}
-              id="4"
+              id="new-responsible-address"
             />
 
             <TextInput
               label={pt.newResponsibleModal.inputs.email}
               placeholder={pt.newResponsibleModal.placeholder.email}
-              id="6"
+              id="new-responsible-email"
             />
           </Box>
         </Box>

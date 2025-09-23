@@ -1,25 +1,45 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+
 import { useSearchParams } from "react-router";
 
-export function useTextInput() {
+import type { InputProps } from "../interface";
+
+export function useTextInput({ id }: InputProps) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [text, setText] = useState("");
 
-  const setText = (data: string, id: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (data === "") {
-      params.delete(`text${id}`);
-    } else {
-      params.set(`text${id}`, data);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const getTextParam = useCallback(function getTextParam() {
+    const value = searchParams.get(`text-${id}`);
+    return value ?? "";
+  }, [id, searchParams]);
+
+  useEffect(function setTextParamsFromURL() {
+    setText(getTextParam());
+  }, [searchParams, getTextParam]);
+
+  useEffect(function syncTextParam() {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
     }
-    setSearchParams(params);
-  };
 
-  const getText = (id: string) => {
-    const value = searchParams.get(`text${id}`);
-    if (value) {
-      return value;
-    }
-    return "";
-  };
+    debounceRef.current = setTimeout(function updateTextParam() {
+      const params = new URLSearchParams(searchParams);
+      if (text === "") {
+        params.delete(`text-${id}`);
+      } else {
+        params.set(`text-${id}`, text);
+      }
+      setSearchParams(params);
+    }, 500);
 
-  return { setText, getText, searchParams };
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, [id, text, searchParams, setSearchParams]);
+
+  return { text, getTextParam, setText };
 }
