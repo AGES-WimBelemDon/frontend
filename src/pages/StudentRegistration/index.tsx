@@ -8,82 +8,90 @@ import {
   MenuItem,
   Grid,
 } from '@mui/material';
+
 import { useNavigate } from 'react-router';
 
-const genderOptions = ['Masculino', 'Feminino', 'Outro'];
-const raceOptions = [
-  'Branca',
-  'Preta',
-  'Parda',
-  'Amarela',
-  'Indígena',
-  'Outro',
-];
-const escolaridadeOptions = ['Fundamental', 'Médio', 'Superior', 'Outro'];
-const documentTypesOptions = ['Comprovante de Residência', 'Comprovante de Renda', 'Outro'];
+import { useRoutes } from '../../hooks/useRoutes';
+import { useFilters } from '../../hooks/useFilters';
 
 export default function StudentRegistration() {
+  
+  //Gera uma lista de anos de nascimento válidos para o aluno, estabelecendo uma idade mínima e uma máxima para os estudantes que serão cadastrados e evita o uso de números mágicos.
+  const MIN_AGE = 1;
+  const MAX_AGE = 30;
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: currentYear - 1980 + 1 }, (_, i) => currentYear - i);
+  const years = Array.from({ length: MAX_AGE - MIN_AGE + 1 }, (_, i) => currentYear - MIN_AGE - i);
 
-  const [personal, setPersonal] = useState({
-    nome: '',
-    nascimento: '',
-    sexo: '',
-    raca: '',
-    escolaridade: '',
-    escolaAtual: '',
-    endereco: '',
-    cep: '',
-    numero: '',
-    complemento: '',
-    ano: '',
-    documentos: '',
-    identidade: '',
-    numeroIdentidade: ''
+  const { goTo } = useRoutes();
+  
+  const {
+    genderOptions,
+    raceOptions,
+    escolaridadeOptions,
+    identityTypesOptions,
+  } = useFilters();
+  
+
+  const [student, setStudent] = useState({
+    fullName: '',
+    dateOfBirth: '',
+    gender: '',
+    race: '',
+    schoolYear: '',
+    schoolName: '',
+    address: {
+      cep: '',
+      street: '',
+      number: '',
+      complement: '',
+    },
+    docs: [],
+    registrationNumber: ''
   });
 
-  type Documento = {
-    arquivo: string;
-    tipo: string; 
-    tipoDocumento: string;
-    origem: string;
-    data: string;
-    descricao: string;
+  const [birthDay, setBirthDay] = useState('');
+  const [birthMonth, setBirthMonth] = useState('');
+  const [birthYear, setBirthYear] = useState('');
+
+
+  type Document = {
+    fileName: string;
+    fileType: string; // extensão (jpg, pdf)
+    documentType: string; // tipo do documento (rg, cpf)
+    origin: string;
+    date: string;
+    description: string;
     id: number;
   };
 
-  const [documentos, setDocumentos] = useState<Documento[]>([]);
+  const [documents, setDocuments] = useState<Document[]>([]);
   const [showUploader, setShowUploader] = useState(false);
   const [docForm, setDocForm] = useState({
-    arquivo: '',
-    tipo: '',
-    origem: '',
-    data: '',
-    descricao: '',
+    fileName: '',
+    fileType: '',
+    origin: '',
+    date: '',
+    description: '',
   });
-  const [detalhes, setDetalhes] = useState({
+  const [details, setDetails] = useState({
     dataCadastro: '',
     comoConheceu: '',
     vinculo: '',
   });
-  const navigate = useNavigate();
 
-  const handleAddDoc = () => {
-    if (!docForm.arquivo) return;
+  function handleAddDoc() {
+    if (!docForm.fileName) return;
   
-    setDocumentos((docs) => [
-      ...docs,
-      {
-        ...docForm,
-        id: Date.now(),
-        tipo: personal.documentos,
-      } as Documento,
-    ]);
-  
-    setDocForm({ arquivo: '', tipo: '', origem: '', data: '', descricao: '' });
-    setPersonal((p) => ({ ...p, documentos: '' }));
-    setShowUploader(false);
+    setDocuments((docs) => [
+  ...docs,
+  {
+    ...docForm,
+    id: Date.now(),
+  } as Document,
+]);
+
+setDocForm({ fileName: '', fileType: '', origin: '', date: '', description: '' });
+setShowUploader(false);
   };
 
   return (
@@ -93,33 +101,15 @@ export default function StudentRegistration() {
       display="flex"
       justifyContent="center"
     >
-      <Box>
+      <Box width="100%" maxWidth={1200}>
         <Grid
           container
           spacing={{ xs: 3, md: 4 }}
           alignItems="flex-start"
           justifyContent="space-between"
-          sx={{
-            flexWrap: { xs: 'wrap', md: 'nowrap' },
-            '& > .MuiGrid-item': {
-              flexBasis: { md: '33.5%' },
-              maxWidth: { md: '33.5%' },
-            },
-            '@media (min-width:1200px)': {
-              '& > .MuiGrid-item': {
-                flexBasis: '35%',
-                maxWidth: '35%',
-              },
-            },
-            '@media (min-width:1536px)': {
-              '& > .MuiGrid-item': {
-                flexBasis: '36%',
-                maxWidth: '36%',
-              },
-            },
-            columnGap: { md: 3 },
-          }}
+          sx={{flexWrap: { xs: 'wrap', md: 'nowrap'}, columnGap: 3}}
         >
+          {/* Informações Pessoais */}
           <Grid>
             <Typography
               variant="h6"
@@ -140,9 +130,9 @@ export default function StudentRegistration() {
               fullWidth
               margin="normal"
               placeholder="Digite o nome do Educando"
-              value={personal.nome}
+              value={student.fullName}
               onChange={(e) =>
-                setPersonal((p) => ({ ...p, nome: e.target.value }))
+                setStudent((p) => ({ ...p, fullName: e.target.value }))
               }
               slotProps={{
                 inputLabel: { sx: { color: 'primary.main' }, shrink: true },
@@ -162,7 +152,8 @@ export default function StudentRegistration() {
               <TextField
                 label="Dia"
                 select
-                defaultValue=""
+                value={birthDay}
+                onChange={e => setBirthDay(e.target.value)}
                 slotProps={{
                   inputLabel: { sx: { color: 'primary.main' }, shrink: true },
                 }}
@@ -175,7 +166,8 @@ export default function StudentRegistration() {
               <TextField
                 label="Mês"
                 select
-                defaultValue=""
+                value={birthMonth}
+                onChange={e => setBirthMonth(e.target.value)}
                 slotProps={{
                   inputLabel: { sx: { color: 'primary.main' }, shrink: true },
                 }}
@@ -188,8 +180,8 @@ export default function StudentRegistration() {
               <TextField
                 label="Ano"
                 select
-                value={personal.ano}
-                onChange={(e) => setPersonal((p) => ({ ...p, ano: e.target.value }))}
+                value={birthYear}
+                onChange={(e) => setBirthYear(e.target.value)}
                 slotProps={{ inputLabel: { sx: { color: 'primary.main' }, shrink: true } }}
               >
                 <MenuItem value="" disabled>Ano</MenuItem>
@@ -202,9 +194,8 @@ export default function StudentRegistration() {
               select
               fullWidth
               margin="normal"
-              value={personal.sexo}
-              onChange={(e) =>
-                setPersonal((p) => ({ ...p, sexo: e.target.value }))
+              value={student.gender}
+              onChange={(e) => setStudent((p) => ({ ...p, gender: e.target.value }))
               }
               slotProps={{
                 inputLabel: { sx: { color: 'primary.main' }, shrink: true },
@@ -220,9 +211,9 @@ export default function StudentRegistration() {
               select
               fullWidth
               margin="normal"
-              value={personal.raca}
+              value={student.race}
               onChange={(e) =>
-                setPersonal((p) => ({ ...p, raca: e.target.value }))
+                setStudent((p) => ({ ...p, race: e.target.value }))
               }
               slotProps={{
                 inputLabel: { sx: { color: 'primary.main' }, shrink: true },
@@ -238,11 +229,14 @@ export default function StudentRegistration() {
               fullWidth
               margin="normal"
               placeholder="Apenas números"
-              value={personal.cep}
+              value={student.address.cep}
               onChange={(e) =>
-                setPersonal((p) => ({
+                setStudent((p) => ({
                   ...p,
+                  address: {
+                  ...p.address,
                   cep: e.target.value.replace(/\D/g, ''),
+                  },
                 }))
               }
               slotProps={{
@@ -255,9 +249,9 @@ export default function StudentRegistration() {
               select
               fullWidth
               margin="normal"
-              value={personal.escolaridade}
+              value={student.schoolYear}
               onChange={(e) =>
-                setPersonal((p) => ({ ...p, escolaridade: e.target.value }))
+                setStudent((p) => ({ ...p, schoolYear: e.target.value }))
               }
               slotProps={{
                 inputLabel: { sx: { color: 'primary.main' }, shrink: true },
@@ -273,9 +267,9 @@ export default function StudentRegistration() {
               fullWidth
               margin="normal"
               placeholder="Digite a escola atual do Educando"
-              value={personal.escolaAtual}
+              value={student.schoolName}
               onChange={(e) =>
-                setPersonal((p) => ({ ...p, escolaAtual: e.target.value }))
+                setStudent((p) => ({ ...p, schoolName: e.target.value }))
               }
               slotProps={{
                 inputLabel: { sx: { color: 'primary.main' }, shrink: true },
@@ -303,14 +297,33 @@ export default function StudentRegistration() {
               placeholder="xxx.xxx.xxx-xx"
               fullWidth
               margin="normal"
-              value={personal.identidade}
+              value={student.docs}
               onChange={(e) =>
-                setPersonal((p) => ({ ...p, identidade: e.target.value }))
+                setStudent((p) => ({ ...p, document: e.target.value }))
               }
               slotProps={{
                 inputLabel: { sx: { color: 'primary.main' }, shrink: true },
               }}
-            />           
+            >
+              {identityTypesOptions.map((opt) => (
+                <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+              ))}
+            </TextField>
+
+            {student.docs && (
+              <TextField
+                label={`Número / Detalhes do Documento ${student.docs}`}
+                fullWidth
+                margin="normal"
+                value={student.registrationNumber|| ''}
+                onChange={(e) =>
+                  setStudent((p) => ({ ...p, registrationNumber: e.target.value }))
+                }
+                slotProps={{
+                  inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                }}
+              />
+            )}
 
             <Typography
               fontWeight="bold"
@@ -322,23 +335,23 @@ export default function StudentRegistration() {
             <Box
               sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: 'auto', mb: 2 }}
             >
-              {documentos.map(() => (
+              {documents.map(() => (
                 <Box
                   sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: 'auto', mb: 2 }}
                 >
-                  {documentos.map((doc) => (
+                  {documents.map((doc) => (
                     <Box key={doc.id} mb={1.25}>
                       <Typography variant="caption" color="primary.main" sx={{ mb: 0.5 }}>
-                        {doc.tipo}
+                        {doc.documentType}
                       </Typography>
                       <Box display="flex" gap={1.25}>
                         <TextField
-                          value={doc.arquivo}
+                          value={doc.fileName}
                           size="small"
                           sx={{ flex: 1 }}
                           disabled
                         />
-                        <Button variant="outlined" size="small">Editar</Button>
+                        <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>Editar</Button>
                       </Box>
                     </Box>
                   ))}
@@ -348,14 +361,36 @@ export default function StudentRegistration() {
             </Box>
 
             {!showUploader && (
-              <Button
-                variant="contained"
-                fullWidth
-                sx={{ my: 1, borderRadius: 4 }}
-                onClick={() => setShowUploader(true)}
-              >
-                Adicionar mais documentos
-              </Button>
+              <>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  sx={{ my: 1, borderRadius: 4 }}
+                  onClick={() => {
+                    document.getElementById('fileInputUpload2')?.click();
+                  }}
+                >
+                  Adicionar mais documentos
+                </Button>
+                <input
+                  id="fileInputUpload2"
+                  type="file"
+                  hidden
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setDocForm((f) => ({
+                        ...f,
+                        fileName: file.name,
+                        fileType: file.type || file.name.split('.').pop() || '',
+                        origin: file.webkitRelativePath || file.name,
+                        date: new Date(file.lastModified).toISOString().slice(0, 10),
+                      }));
+                      setShowUploader(true);
+                    }
+                  }}
+                />
+              </>
             )}
 
             {showUploader && (
@@ -376,6 +411,7 @@ export default function StudentRegistration() {
                 >
                   Selecionar Arquivo
                   <input
+                    id="fileInputUpload"
                     type="file"
                     hidden
                     onChange={(e) => {
@@ -383,67 +419,28 @@ export default function StudentRegistration() {
                       if (file) {
                         setDocForm((f) => ({
                           ...f,
-                          arquivo: file.name,
-                          tipo: file.type || file.name.split('.').pop() || '',
-                          origem:
-                            (file as File).webkitRelativePath ?? file.name,
-                          data: new Date(file.lastModified)
-                            .toISOString()
-                            .slice(0, 10),
+                          fileName: file.name,
+                          fileType: file.type || file.name.split('.').pop() || '',
+                          origin: file.webkitRelativePath || file.name,
+                          date: new Date(file.lastModified).toISOString().slice(0, 10),
                         }));
                       }
                     }}
                   />
                 </Button>
 
-                {docForm.arquivo && (
+                {docForm.fileName && (
                   <Typography variant="body2" sx={{ mb: 1 }}>
-                    Arquivo selecionado: {docForm.arquivo}
+                    Arquivo selecionado: {docForm.fileName}
                   </Typography>
                 )}
 
-                <TextField
-                  label="Tipo de Documento"
-                  select
-                  fullWidth
-                  margin="normal"
-                  value={personal.documentos}
-                  onChange={(e) =>
-                    setPersonal((p) => ({ ...p, documentos: e.target.value }))
-                  }
-                  slotProps={{
-                    inputLabel: { sx: { color: 'primary.main' }, shrink: true },
-                  }}
-                >
-                  {documentTypesOptions.map((opt) => (
-                    <MenuItem key={opt} value={opt}>{opt}</MenuItem>
-                  ))}
-                </TextField>
-
-                <TextField
-                  label="Extensão do Documento"
-                  fullWidth
-                  margin="dense"
-                  value={docForm.tipo}
-                  slotProps={{
-                    inputLabel: { sx: { color: 'primary.main' }, shrink: true },
-                  }}
-                />
-                <TextField
-                  label="Origem do Documento"
-                  fullWidth
-                  margin="dense"
-                  value={docForm.origem}
-                  slotProps={{
-                    inputLabel: { sx: { color: 'primary.main' }, shrink: true },
-                  }}
-                />
                 <TextField
                   label="Data"
                   type="date"
                   fullWidth
                   margin="dense"
-                  value={docForm.data}
+                  value={docForm.date}
                   slotProps={{
                     inputLabel: { sx: { color: 'primary.main' }, shrink: true },
                   }}
@@ -452,9 +449,9 @@ export default function StudentRegistration() {
                   label="Descrição"
                   fullWidth
                   margin="dense"
-                  value={docForm.descricao}
+                  value={docForm.description}
                   onChange={(e) =>
-                    setDocForm((f) => ({ ...f, descricao: e.target.value }))
+                    setDocForm((f) => ({ ...f, description: e.target.value }))
                   }
                   slotProps={{
                     inputLabel: { sx: { color: 'primary.main' }, shrink: true },
@@ -467,11 +464,11 @@ export default function StudentRegistration() {
                     color="error"
                     onClick={() => {
                       setDocForm({
-                        arquivo: '',
-                        tipo: '',
-                        origem: '',
-                        data: '',
-                        descricao: '',
+                        fileName: '',
+                        fileType: '',
+                        origin: '',
+                        date: '',
+                        description: '',
                       });
                       setShowUploader(false);
                     }}
@@ -481,7 +478,7 @@ export default function StudentRegistration() {
                   <Button
                     onClick={handleAddDoc}
                     variant="contained"
-                    disabled={!docForm.arquivo || !personal.documentos}
+                    disabled={!docForm.fileName || !student.docs}
                     sx={{ ml: 'auto' }}
                   >
                     Enviar
@@ -570,9 +567,9 @@ export default function StudentRegistration() {
               fullWidth
               margin="normal"
               placeholder="Digite como o educando conheceu o projeto"
-              value={detalhes.comoConheceu}
+              value={details.comoConheceu}
               onChange={(e) =>
-                setDetalhes((d) => ({ ...d, comoConheceu: e.target.value }))
+                setDetails((d) => ({ ...d, comoConheceu: e.target.value }))
               }
               slotProps={{
                 inputLabel: { sx: { color: 'primary.main' }, shrink: true },
@@ -594,7 +591,7 @@ export default function StudentRegistration() {
                 variant="contained"
                 color="error"
                 sx={{ flex: 1 }}
-                onClick={() => navigate(-1)}
+                onClick={() => goTo('/')} //ir para a homepage provisória
               >
                 Cancelar
               </Button>
