@@ -43,6 +43,9 @@ export const portugueseTextMap = {
       `Navegar para a página ${to}`
     ),
   },
+  users: {
+    title: "Gerenciar Usuários"
+  },
   techDemo: {
     title: "Tech Demo",
     fetching: "Atualizando...",
