@@ -1,11 +1,6 @@
 import type { Params } from "./type";
 
 export const portugueseTextMap = {
-  buttonCard: {
-    frequency: ({ percent }: Params<"percent">) => (
-      `Frequência: ${percent}%`
-    ),
-  },
   dateInput: {
     selectDate: "Selecione a data",
   },
@@ -31,6 +26,9 @@ export const portugueseTextMap = {
   },
   frequencyCard: {
     absentDetails: "Adicionar Observação",
+    frequency: ({ percent }: Params<"percent">) => (
+      `Frequência: ${percent}%`
+    ),
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
