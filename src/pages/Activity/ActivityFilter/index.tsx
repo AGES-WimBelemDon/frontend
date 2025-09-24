@@ -24,11 +24,8 @@ export function ActivityFilter() {
   return (
     <CardList>
       <Box
-        sx={
-          filterBoxStyle && {
-            gridColumn: ` ${!isMobile && !isDesktop ? "span 2" : 1}`,
-          }
-        }
+        sx={filterBoxStyle}
+        gridColumn={!isMobile && !isDesktop ? "span 2" : 1}
       >
         <Typography>Nome</Typography>
         <TextField

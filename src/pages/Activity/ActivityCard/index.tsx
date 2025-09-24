@@ -21,7 +21,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
         </Button>
       </Box>
 
-      <Box display={"grid"} gridTemplateColumns={"1fr 2fr"}>
+      <Box display={"grid"} gridTemplateColumns={"1fr 2fr"} gap={.5}>
         <Typography variant="subtitle2" fontWeight={"bold"}>
           Área:
         </Typography>
@@ -29,7 +29,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
           {content.area}
         </Typography>
       </Box>
-      <Box display={"grid"} gridTemplateColumns={"1fr 2fr"}>
+      <Box display={"grid"} gridTemplateColumns={"1fr 2fr"} gap={.5}>
         <Typography variant="subtitle2" fontWeight={"bold"}>
           Frequência:
         </Typography>
@@ -37,7 +37,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
           {content.frequency}
         </Typography>
       </Box>
-      <Box display={"grid"} gridTemplateColumns={"1fr 2fr"}>
+      <Box display={"grid"} gridTemplateColumns={"1fr 2fr"} gap={.5}>
         <Typography variant="subtitle2" fontWeight={"bold"}>
           Professor:
         </Typography>
