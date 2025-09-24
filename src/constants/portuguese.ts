@@ -42,7 +42,8 @@ export const portugueseTextMap = {
     ),
   },
   users: {
-    title: "Gerenciar Usuários"
+    title: "Gerenciar Usuários",
+    description: "Em desenvolvimento...",
   },
   techDemo: {
     title: "Tech Demo",
