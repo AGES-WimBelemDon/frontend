@@ -9,10 +9,8 @@ import {
   Grid,
 } from '@mui/material';
 
-import { useNavigate } from 'react-router';
-
-import { useRoutes } from '../../hooks/useRoutes';
 import { useFilters } from '../../hooks/useFilters';
+import { useRoutes } from '../../hooks/useRoutes';
 
 export default function StudentRegistration() {
   
@@ -30,7 +28,6 @@ export default function StudentRegistration() {
     escolaridadeOptions,
     identityTypesOptions,
   } = useFilters();
-  
 
   const [student, setStudent] = useState({
     fullName: '',
@@ -52,7 +49,6 @@ export default function StudentRegistration() {
   const [birthDay, setBirthDay] = useState('');
   const [birthMonth, setBirthMonth] = useState('');
   const [birthYear, setBirthYear] = useState('');
-
 
   type Document = {
     fileName: string;
@@ -83,15 +79,15 @@ export default function StudentRegistration() {
     if (!docForm.fileName) return;
   
     setDocuments((docs) => [
-  ...docs,
+      ...docs,
   {
     ...docForm,
     id: Date.now(),
   } as Document,
-]);
+    ]);
 
-setDocForm({ fileName: '', fileType: '', origin: '', date: '', description: '' });
-setShowUploader(false);
+    setDocForm({ fileName: '', fileType: '', origin: '', date: '', description: '' });
+    setShowUploader(false);
   };
 
   return (
@@ -234,8 +230,8 @@ setShowUploader(false);
                 setStudent((p) => ({
                   ...p,
                   address: {
-                  ...p.address,
-                  cep: e.target.value.replace(/\D/g, ''),
+                    ...p.address,
+                    cep: e.target.value.replace(/\D/g, ''),
                   },
                 }))
               }
