@@ -28,7 +28,7 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
     icon: <Home />,
   },
   "/usuarios": {
-    text: "Usuarios",
+    text: "Usuários",
     icon: <AssignmentAdd />,
     disabled: true,
   },
