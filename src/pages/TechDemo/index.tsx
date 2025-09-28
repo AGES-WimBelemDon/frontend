@@ -21,16 +21,18 @@ export default function TechDemo() {
 
       <hr />
 
-      <PersonCard
-        name="Leonardo M"
-        cpf="029.013.320-30"
-        birthDate="07/07/2004"
-        civilState="Namorando"
-        nis="123123"
-        phone="51-986027476"
-        email="leo@gmail.com"
-        address="Rua Jair 617"
-      />
+      <Grid container spacing={2} marginBottom={2}>
+        <PersonCard
+          name="Leonardo M"
+          cpf="029.013.320-30"
+          birthDate="07/07/2004"
+          civilState="Namorando"
+          nis="123123"
+          phone="51-986027476"
+          email="leo@gmail.com"
+          address="Rua Jair 617"
+        />
+      </Grid>
 
       <Grid container spacing={2}>
         <TextCard title="Home" theme="dark" />
