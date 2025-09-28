@@ -20,7 +20,6 @@ const raceOptions = [
   'Outro',
 ];
 const escolaridadeOptions = ['Fundamental', 'Médio', 'Superior', 'Outro'];
-const identityTypesOptions = ['RG', 'CPF', 'Certidão de Nascimento'];
 const documentTypesOptions = ['Comprovante de Residência', 'Comprovante de Renda', 'Outro'];
 
 export default function StudentRegistration() {
@@ -46,8 +45,8 @@ export default function StudentRegistration() {
 
   type Documento = {
     arquivo: string;
-    tipo: string; // extensão
-    tipoDocumento: string; // tipo selecionado pelo usuário
+    tipo: string; 
+    tipoDocumento: string;
     origem: string;
     data: string;
     descricao: string;
@@ -121,7 +120,6 @@ export default function StudentRegistration() {
             columnGap: { md: 3 },
           }}
         >
-          {/* Informações Pessoais */}
           <Grid>
             <Typography
               variant="h6"
@@ -285,7 +283,6 @@ export default function StudentRegistration() {
             />
           </Grid>
 
-          {/* Documentos */}
           <Grid>
             <Typography
               variant="h6"
@@ -302,8 +299,8 @@ export default function StudentRegistration() {
             </Typography>
 
             <TextField
-              label="Tipo de Documento de Identidade"
-              select
+              label="Documento de Identidade (CPF)"
+              placeholder="xxx.xxx.xxx-xx"
               fullWidth
               margin="normal"
               value={personal.identidade}
@@ -313,26 +310,7 @@ export default function StudentRegistration() {
               slotProps={{
                 inputLabel: { sx: { color: 'primary.main' }, shrink: true },
               }}
-            >
-              {identityTypesOptions.map((opt) => (
-                <MenuItem key={opt} value={opt}>{opt}</MenuItem>
-              ))}
-            </TextField>
-
-            {personal.identidade && (
-              <TextField
-                label={`Número / Detalhes do ${personal.identidade}`}
-                fullWidth
-                margin="normal"
-                value={personal.numeroIdentidade || ''}
-                onChange={(e) =>
-                  setPersonal((p) => ({ ...p, numeroIdentidade: e.target.value }))
-                }
-                slotProps={{
-                  inputLabel: { sx: { color: 'primary.main' }, shrink: true },
-                }}
-              />
-            )}
+            />           
 
             <Typography
               fontWeight="bold"
