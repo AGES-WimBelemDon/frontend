@@ -1,0 +1,71 @@
+name: Commit Author Email Check
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  check-emails:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history
+
+      - name: Verify commit author emails
+        run: |
+          echo "🔍 Checking commit author emails..."
+          BAD=0
+
+          # Commits to ignore (already known bad ones in develop)
+          IGNORE_COMMITS=("64e6856" "e8a071f" "70a57ae" "c7e5acc" "b51d712")
+
+          # Collect all PR commits from base branch up to head
+          git log origin/${{ github.base_ref }}..HEAD \
+            --pretty=format:'%h|%ae|%s' > commits.txt
+
+          echo ""
+          echo "Commits in this PR:"
+          cat commits.txt
+          echo ""
+
+          echo "Checking for invalid emails (must end with @edu.pucrs.br or @users.noreply.github.com)..."
+          echo ""
+
+          while IFS="|" read -r hash email subject; do
+            # Skip ignored commits
+            if [[ " ${IGNORE_COMMITS[*]} " == *" $hash "* ]]; then
+              echo "Skipping commit $hash → $subject (already known bad, will fix later)"
+              continue
+            fi
+
+            # Skip synthetic merge commits (created by GitHub for PR testing)
+            if [[ "$subject" =~ ^Merge.*into.*$ ]]; then
+              echo "Skipping synthetic merge commit $hash → $subject"
+              continue
+            fi
+
+            if [[ ! "$email" =~ (@edu\.pucrs\.br$|@users\.noreply\.github\.com$) ]]; then
+              echo "::error::Commit $hash by <$email> → \"$subject\""
+              BAD=1
+            fi
+          done < commits.txt
+
+          if [ $BAD -eq 1 ]; then
+            echo ""
+            echo "❌ Some commits use invalid author emails."
+            echo ""
+            echo "👉 To fix:"
+            echo "   1. Start an interactive rebase:    git rebase -i origin/${{ github.base_ref }}"
+            echo "   2. For each bad commit, mark it as 'edit'."
+            echo "   3. Amend the commit author email: git commit --amend --no-edit --author='Your Name <your.email@edu.pucrs.br>'"
+            echo "   4. Continue rebase:                git rebase --continue"
+            echo "   5. Make sure your branch is up to date with 'origin/${{ github.base_ref }}' and that no one else is working on this branch."
+            echo "   6. Push with force (if safe):      git push --force"
+            echo ""
+            echo "⚠️  Warning: 'git push --force' rewrites history. If teammates already based work on your branch and don’t have the old history, their work could be lost."
+            echo "💡 When in doubt, ask for help before force pushing."
+            exit 1
+          else
+            echo "✅ All commits have valid @edu.pucrs.br emails."
+          fi

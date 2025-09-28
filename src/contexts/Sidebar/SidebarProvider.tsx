@@ -1,7 +1,7 @@
-import { useRef, useState, type PropsWithChildren } from 'react';
+import { useRef, useState, type PropsWithChildren } from "react";
 
-import { SidebarContext, type SidebarState, type SidebarWidth } from './SidebarContext';
-import type { DeviceSize } from '../../hooks/useScreenSize';
+import { SidebarContext, type SidebarState, type SidebarWidth } from "./SidebarContext";
+import type { DeviceSize } from "../../hooks/useScreenSize";
 
 type SidebarWidthMapperReturn = {
   opened: SidebarWidth;
@@ -10,7 +10,7 @@ type SidebarWidthMapperReturn = {
 
 const sidebarWidthMapper: Record<DeviceSize, SidebarWidthMapperReturn> = {
   mobile: {
-    opened: '100%',
+    opened: "100%",
     closed: 0,
   },
   tablet: {
@@ -24,7 +24,7 @@ const sidebarWidthMapper: Record<DeviceSize, SidebarWidthMapperReturn> = {
 };
 
 export function SidebarProvider({ children }: PropsWithChildren) {
-  const [sidebarState, setSidebarState] = useState<SidebarState>('closed');
+  const [sidebarState, setSidebarState] = useState<SidebarState>("closed");
   const animationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const sidebarAnimationDurationMs = 500;
@@ -39,16 +39,16 @@ export function SidebarProvider({ children }: PropsWithChildren) {
   function toggleSidebar() {
     clearPendingAnimationTimeout();
 
-    if (sidebarState === 'closed' || sidebarState === 'closing') {
-      setSidebarState('opening');
+    if (sidebarState === "closed" || sidebarState === "closing") {
+      setSidebarState("opening");
       animationTimeout.current = setTimeout(() => {
-        setSidebarState('opened');
+        setSidebarState("opened");
         animationTimeout.current = null;
       }, sidebarAnimationDurationMs);
-    } else if (sidebarState === 'opened' || sidebarState === 'opening') {
-      setSidebarState('closing');
+    } else if (sidebarState === "opened" || sidebarState === "opening") {
+      setSidebarState("closing");
       animationTimeout.current = setTimeout(() => {
-        setSidebarState('closed');
+        setSidebarState("closed");
         animationTimeout.current = null;
       }, sidebarAnimationDurationMs);
     }
@@ -56,9 +56,9 @@ export function SidebarProvider({ children }: PropsWithChildren) {
 
   function getSidebarWidth(deviceSize: DeviceSize) {
     const mapping = sidebarWidthMapper[deviceSize];
-    if (sidebarState === 'opened' || sidebarState === 'opening') {
+    if (sidebarState === "opened" || sidebarState === "opening") {
       return mapping.opened;
-    } else if (sidebarState === 'closed' || sidebarState === 'closing') {
+    } else if (sidebarState === "closed" || sidebarState === "closing") {
       return mapping.closed;
     }
     return 0;
