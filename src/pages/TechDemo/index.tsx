@@ -2,7 +2,9 @@ import { Button, Grid, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 
 import { PageTitle } from "../../components/PageTitle";
+import { SelectInput } from "../../components/SelectInput";
 import { TextCard } from "../../components/TextCard";
+import { TextInput } from "../../components/TextInput";
 import { pt } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 

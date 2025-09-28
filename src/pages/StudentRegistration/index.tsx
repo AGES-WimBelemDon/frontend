@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 import {
   Box,
@@ -7,10 +7,10 @@ import {
   Button,
   MenuItem,
   Grid,
-} from '@mui/material';
+} from "@mui/material";
 
-import { useFilters } from '../../hooks/useFilters';
-import { useRoutes } from '../../hooks/useRoutes';
+import { useFilters } from "../../hooks/useFilters";
+import { useRoutes } from "../../hooks/useRoutes";
 
 export default function StudentRegistration() {
   
@@ -30,25 +30,25 @@ export default function StudentRegistration() {
   } = useFilters();
 
   const [student, setStudent] = useState({
-    fullName: '',
-    dateOfBirth: '',
-    gender: '',
-    race: '',
-    schoolYear: '',
-    schoolName: '',
+    fullName: "",
+    dateOfBirth: "",
+    gender: "",
+    race: "",
+    schoolYear: "",
+    schoolName: "",
     address: {
-      cep: '',
-      street: '',
-      number: '',
-      complement: '',
+      cep: "",
+      street: "",
+      number: "",
+      complement: "",
     },
     docs: [],
-    registrationNumber: ''
+    registrationNumber: ""
   });
 
-  const [birthDay, setBirthDay] = useState('');
-  const [birthMonth, setBirthMonth] = useState('');
-  const [birthYear, setBirthYear] = useState('');
+  const [birthDay, setBirthDay] = useState("");
+  const [birthMonth, setBirthMonth] = useState("");
+  const [birthYear, setBirthYear] = useState("");
 
   type Document = {
     fileName: string;
@@ -63,16 +63,16 @@ export default function StudentRegistration() {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [showUploader, setShowUploader] = useState(false);
   const [docForm, setDocForm] = useState({
-    fileName: '',
-    fileType: '',
-    origin: '',
-    date: '',
-    description: '',
+    fileName: "",
+    fileType: "",
+    origin: "",
+    date: "",
+    description: "",
   });
   const [details, setDetails] = useState({
-    dataCadastro: '',
-    comoConheceu: '',
-    vinculo: '',
+    dataCadastro: "",
+    comoConheceu: "",
+    vinculo: "",
   });
 
   function handleAddDoc() {
@@ -86,7 +86,7 @@ export default function StudentRegistration() {
   } as Document,
     ]);
 
-    setDocForm({ fileName: '', fileType: '', origin: '', date: '', description: '' });
+    setDocForm({ fileName: "", fileType: "", origin: "", date: "", description: "" });
     setShowUploader(false);
   };
 
@@ -103,7 +103,7 @@ export default function StudentRegistration() {
           spacing={{ xs: 3, md: 4 }}
           alignItems="flex-start"
           justifyContent="space-between"
-          sx={{flexWrap: { xs: 'wrap', md: 'nowrap'}, columnGap: 3}}
+          sx={{flexWrap: { xs: "wrap", md: "nowrap"}, columnGap: 3}}
         >
           {/* Informações Pessoais */}
           <Grid>
@@ -113,9 +113,9 @@ export default function StudentRegistration() {
               sx={{
                 mb: 2,
                 mt: 1,
-                color: 'primary.main',
+                color: "primary.main",
                 borderBottom: 2,
-                borderColor: 'primary.main',
+                borderColor: "primary.main",
               }}
             >
               Informações Pessoais
@@ -131,18 +131,18 @@ export default function StudentRegistration() {
                 setStudent((p) => ({ ...p, fullName: e.target.value }))
               }
               slotProps={{
-                inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             />
 
-            <Typography sx={{ mt: 2, mb: 0.5, color: 'primary.main' }}>
+            <Typography sx={{ mt: 2, mb: 0.5, color: "primary.main" }}>
               Data de Nascimento
             </Typography>
             <Box
               sx={{
-                display: 'grid',
+                display: "grid",
                 gap: { xs: 1, md: 1.5 },
-                gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(3, 1fr)' },
+                gridTemplateColumns: { xs: "1fr 1fr", sm: "repeat(3, 1fr)" },
               }}
             >
               <TextField
@@ -151,11 +151,11 @@ export default function StudentRegistration() {
                 value={birthDay}
                 onChange={e => setBirthDay(e.target.value)}
                 slotProps={{
-                  inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                  inputLabel: { sx: { color: "primary.main" }, shrink: true },
                 }}
               >
                 {Array.from({ length: 31 }, (_, i) => {
-                  const v = String(i + 1).padStart(2, '0');
+                  const v = String(i + 1).padStart(2, "0");
                   return <MenuItem key={v} value={v}>{v}</MenuItem>;
                 })}
               </TextField>
@@ -165,11 +165,11 @@ export default function StudentRegistration() {
                 value={birthMonth}
                 onChange={e => setBirthMonth(e.target.value)}
                 slotProps={{
-                  inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                  inputLabel: { sx: { color: "primary.main" }, shrink: true },
                 }}
               >
                 {Array.from({ length: 12 }, (_, i) => {
-                  const v = String(i + 1).padStart(2, '0');
+                  const v = String(i + 1).padStart(2, "0");
                   return <MenuItem key={v} value={v}>{v}</MenuItem>;
                 })}
               </TextField>
@@ -178,7 +178,7 @@ export default function StudentRegistration() {
                 select
                 value={birthYear}
                 onChange={(e) => setBirthYear(e.target.value)}
-                slotProps={{ inputLabel: { sx: { color: 'primary.main' }, shrink: true } }}
+                slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
               >
                 <MenuItem value="" disabled>Ano</MenuItem>
                 {years.map((y) => <MenuItem key={y} value={y}>{y}</MenuItem>)}
@@ -194,7 +194,7 @@ export default function StudentRegistration() {
               onChange={(e) => setStudent((p) => ({ ...p, gender: e.target.value }))
               }
               slotProps={{
-                inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             >
               {genderOptions.map((opt) => (
@@ -212,7 +212,7 @@ export default function StudentRegistration() {
                 setStudent((p) => ({ ...p, race: e.target.value }))
               }
               slotProps={{
-                inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             >
               {raceOptions.map((opt) => (
@@ -231,12 +231,12 @@ export default function StudentRegistration() {
                   ...p,
                   address: {
                     ...p.address,
-                    cep: e.target.value.replace(/\D/g, ''),
+                    cep: e.target.value.replace(/\D/g, ""),
                   },
                 }))
               }
               slotProps={{
-                inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             />
 
@@ -250,7 +250,7 @@ export default function StudentRegistration() {
                 setStudent((p) => ({ ...p, schoolYear: e.target.value }))
               }
               slotProps={{
-                inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             >
               {escolaridadeOptions.map((opt) => (
@@ -268,7 +268,7 @@ export default function StudentRegistration() {
                 setStudent((p) => ({ ...p, schoolName: e.target.value }))
               }
               slotProps={{
-                inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             />
           </Grid>
@@ -280,9 +280,9 @@ export default function StudentRegistration() {
               sx={{
                 mb: 2,
                 mt: 1,
-                color: 'primary.main',
+                color: "primary.main",
                 borderBottom: 2,
-                borderColor: 'primary.main',
+                borderColor: "primary.main",
               }}
             >
               Documentos
@@ -298,7 +298,7 @@ export default function StudentRegistration() {
                 setStudent((p) => ({ ...p, document: e.target.value }))
               }
               slotProps={{
-                inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             >
               {identityTypesOptions.map((opt) => (
@@ -311,29 +311,29 @@ export default function StudentRegistration() {
                 label={`Número / Detalhes do Documento ${student.docs}`}
                 fullWidth
                 margin="normal"
-                value={student.registrationNumber|| ''}
+                value={student.registrationNumber|| ""}
                 onChange={(e) =>
                   setStudent((p) => ({ ...p, registrationNumber: e.target.value }))
                 }
                 slotProps={{
-                  inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                  inputLabel: { sx: { color: "primary.main" }, shrink: true },
                 }}
               />
             )}
 
             <Typography
               fontWeight="bold"
-              sx={{ mt: 2, mb: 1, color: 'primary.main' }}
+              sx={{ mt: 2, mb: 1, color: "primary.main" }}
             >
               Anexos
             </Typography>
 
             <Box
-              sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: 'auto', mb: 2 }}
+              sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: "auto", mb: 2 }}
             >
               {documents.map(() => (
                 <Box
-                  sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: 'auto', mb: 2 }}
+                  sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: "auto", mb: 2 }}
                 >
                   {documents.map((doc) => (
                     <Box key={doc.id} mb={1.25}>
@@ -363,7 +363,7 @@ export default function StudentRegistration() {
                   fullWidth
                   sx={{ my: 1, borderRadius: 4 }}
                   onClick={() => {
-                    document.getElementById('fileInputUpload2')?.click();
+                    document.getElementById("fileInputUpload2")?.click();
                   }}
                 >
                   Adicionar mais documentos
@@ -378,7 +378,7 @@ export default function StudentRegistration() {
                       setDocForm((f) => ({
                         ...f,
                         fileName: file.name,
-                        fileType: file.type || file.name.split('.').pop() || '',
+                        fileType: file.type || file.name.split(".").pop() || "",
                         origin: file.webkitRelativePath || file.name,
                         date: new Date(file.lastModified).toISOString().slice(0, 10),
                       }));
@@ -393,8 +393,8 @@ export default function StudentRegistration() {
               <Box
                 sx={{
                   p: 2,
-                  border: '1px solid',
-                  borderColor: 'divider',
+                  border: "1px solid",
+                  borderColor: "divider",
                   borderRadius: 1,
                   mb: 2,
                 }}
@@ -416,7 +416,7 @@ export default function StudentRegistration() {
                         setDocForm((f) => ({
                           ...f,
                           fileName: file.name,
-                          fileType: file.type || file.name.split('.').pop() || '',
+                          fileType: file.type || file.name.split(".").pop() || "",
                           origin: file.webkitRelativePath || file.name,
                           date: new Date(file.lastModified).toISOString().slice(0, 10),
                         }));
@@ -438,7 +438,7 @@ export default function StudentRegistration() {
                   margin="dense"
                   value={docForm.date}
                   slotProps={{
-                    inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                    inputLabel: { sx: { color: "primary.main" }, shrink: true },
                   }}
                 />
                 <TextField
@@ -450,7 +450,7 @@ export default function StudentRegistration() {
                     setDocForm((f) => ({ ...f, description: e.target.value }))
                   }
                   slotProps={{
-                    inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                    inputLabel: { sx: { color: "primary.main" }, shrink: true },
                   }}
                 />
 
@@ -460,11 +460,11 @@ export default function StudentRegistration() {
                     color="error"
                     onClick={() => {
                       setDocForm({
-                        fileName: '',
-                        fileType: '',
-                        origin: '',
-                        date: '',
-                        description: '',
+                        fileName: "",
+                        fileType: "",
+                        origin: "",
+                        date: "",
+                        description: "",
                       });
                       setShowUploader(false);
                     }}
@@ -475,7 +475,7 @@ export default function StudentRegistration() {
                     onClick={handleAddDoc}
                     variant="contained"
                     disabled={!docForm.fileName || !student.docs}
-                    sx={{ ml: 'auto' }}
+                    sx={{ ml: "auto" }}
                   >
                     Enviar
                   </Button>
@@ -487,9 +487,9 @@ export default function StudentRegistration() {
               variant="contained"
               fullWidth
               sx={{
-                color: 'primary.contrastText',
-                borderColor: 'primary.main',
-                bgcolor: 'secondary.main',
+                color: "primary.contrastText",
+                borderColor: "primary.main",
+                bgcolor: "secondary.main",
                 fontWeight: 500,
                 borderRadius: 4,
               }}
@@ -506,22 +506,22 @@ export default function StudentRegistration() {
               sx={{
                 mb: 2,
                 mt: 1,
-                color: 'primary.main',
+                color: "primary.main",
                 borderBottom: 2,
-                borderColor: 'primary.main',
+                borderColor: "primary.main",
               }}
             >
               Detalhes
             </Typography>
 
-            <Typography sx={{ mt: 0.5, mb: 0.5, color: 'text.main' }}>
+            <Typography sx={{ mt: 0.5, mb: 0.5, color: "text.main" }}>
               Data De Cadastro
             </Typography>
             <Box
               sx={{
-                display: 'grid',
+                display: "grid",
                 gap: { xs: 1, md: 1.5 },
-                gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(3, 1fr)' },
+                gridTemplateColumns: { xs: "1fr 1fr", sm: "repeat(3, 1fr)" },
                 mb: 1,
               }}
             >
@@ -530,11 +530,11 @@ export default function StudentRegistration() {
                 select
                 defaultValue=""
                 slotProps={{
-                  inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                  inputLabel: { sx: { color: "primary.main" }, shrink: true },
                 }}
               >
                 {Array.from({ length: 31 }, (_, i) => {
-                  const v = String(i + 1).padStart(2, '0');
+                  const v = String(i + 1).padStart(2, "0");
                   return <MenuItem key={v} value={v}>{v}</MenuItem>;
                 })}
               </TextField>
@@ -543,18 +543,18 @@ export default function StudentRegistration() {
                 select
                 defaultValue=""
                 slotProps={{
-                  inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                  inputLabel: { sx: { color: "primary.main" }, shrink: true },
                 }}
               >
                 {Array.from({ length: 12 }, (_, i) => {
-                  const v = String(i + 1).padStart(2, '0');
+                  const v = String(i + 1).padStart(2, "0");
                   return <MenuItem key={v} value={v}>{v}</MenuItem>;
                 })}
               </TextField>
               <TextField
                 label="Ano"
                 value={String(currentYear)}
-                slotProps={{ inputLabel: { sx: { color: 'primary.main' }, shrink: true } }}
+                slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
               />
             </Box>
 
@@ -568,14 +568,14 @@ export default function StudentRegistration() {
                 setDetails((d) => ({ ...d, comoConheceu: e.target.value }))
               }
               slotProps={{
-                inputLabel: { sx: { color: 'primary.main' }, shrink: true },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             />
 
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' },
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
                 gap: 2,
                 mt: 2,
               }}
@@ -587,7 +587,7 @@ export default function StudentRegistration() {
                 variant="contained"
                 color="error"
                 sx={{ flex: 1 }}
-                onClick={() => goTo('/')} //ir para a homepage provisória
+                onClick={() => goTo("/")} //ir para a homepage provisória
               >
                 Cancelar
               </Button>

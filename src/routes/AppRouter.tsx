@@ -5,9 +5,9 @@ import { FrequencyCall } from "../pages/FrequencyCall/index.tsx";
 import FrequencyClasses from "../pages/FrequencyClasses";
 import Home from "../pages/Home";
 import Layout from "../pages/Layout";
+import StudentRegistration from "../pages/StudentRegistration/index.tsx";
 import TechDemo from "../pages/TechDemo";
 import TechDemoMockAPI from "../pages/TechDemo/MockAPI.tsx";
-import StudentRegistration from '../pages/StudentRegistration/index.tsx';
 
 function AppRouter() {
   return (
