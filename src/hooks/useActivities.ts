@@ -8,7 +8,7 @@ export function useActivities() {
     queryFn: getActivities,
   });
 
-  function getActivityTitleById(id: number) {
+  function getActivityTitleById(id: string) {
     const activity = data?.find(activity => activity.id === id);
     return activity ? activity.name : "Atividade Desconhecida";
   }
