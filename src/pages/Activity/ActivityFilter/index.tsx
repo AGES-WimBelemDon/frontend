@@ -5,12 +5,29 @@ import {
   TextField,
   Typography,
   type SxProps,
+  type SelectChangeEvent,
 } from "@mui/material";
 
 import { CardList } from "../../../components/CardList";
 import { useScreenSize } from "../../../hooks/useScreenSize";
 
-export function ActivityFilter() {
+interface ActivityFilterProps {
+  name: string;
+  area: string;
+  frequency: string;
+  onNameChange: (name: string) => void;
+  onAreaChange: (area: string) => void;
+  onFrequencyChange: (frequency: string) => void;
+}
+
+export function ActivityFilter({
+  name,
+  area,
+  frequency,
+  onNameChange,
+  onAreaChange,
+  onFrequencyChange,
+}: ActivityFilterProps) {
   const { isDesktop, isMobile } = useScreenSize();
 
   const filterBoxStyle: SxProps = {
@@ -32,19 +49,37 @@ export function ActivityFilter() {
           variant="outlined"
           placeholder="Nome da Atividade"
           fullWidth
+          value={name}
+          onChange={(e) => onNameChange(e.target.value)}
         />
       </Box>
       <Box sx={filterBoxStyle}>
         <Typography>Área</Typography>
-        <Select fullWidth defaultValue="none">
-          <MenuItem value="none">Selecione uma Área</MenuItem>
-          <MenuItem value="esporte">Esporte</MenuItem>
-          <MenuItem value="culinaria">Culinária</MenuItem>
+        <Select
+          fullWidth
+          value={area}
+          onChange={(e: SelectChangeEvent) => onAreaChange(e.target.value)}
+          displayEmpty
+        >
+          <MenuItem value="all">Selecione uma Área</MenuItem>
+          <MenuItem value="esportes">Esportes</MenuItem>
+          <MenuItem value="academia">Academia</MenuItem>
+          <MenuItem value="aquáticos">Aquáticos</MenuItem>
         </Select>
       </Box>
       <Box sx={filterBoxStyle}>
         <Typography>Frequência</Typography>
-        <Select fullWidth></Select>
+        <Select
+          fullWidth
+          value={frequency}
+          onChange={(e: SelectChangeEvent) => onFrequencyChange(e.target.value)}
+          displayEmpty
+        >
+          <MenuItem value="all">Selecione uma Frequência</MenuItem>
+          <MenuItem value="diária">Diária</MenuItem>
+          <MenuItem value="semanal">Semanal</MenuItem>
+          <MenuItem value="mensal">Mensal</MenuItem>
+        </Select>
       </Box>
     </CardList>
   );
