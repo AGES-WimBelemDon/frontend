@@ -43,7 +43,8 @@ export const portugueseTextMap = {
   },
   users: {
     title: "Gerenciar Usuários",
-    description: "Em desenvolvimento...",
+    loadingUsers: "Carregando usuários...",
+    usersError: "Erro ao carregar usuários",
   },
   techDemo: {
     title: "Tech Demo",
