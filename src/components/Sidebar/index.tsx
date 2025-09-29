@@ -30,7 +30,6 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
   "/usuarios": {
     text: "Usuários",
     icon: <AssignmentAdd />,
-    disabled: true,
   },
   "/alunos": {
     text: "Alunos",
