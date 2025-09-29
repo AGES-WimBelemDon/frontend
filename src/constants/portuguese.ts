@@ -1,6 +1,37 @@
 import type { Params } from "./type";
 
 export const portugueseTextMap = {
+  activityList: {
+    title: "Lista de Atividades",
+    loadingActivities: "Carregando atividades...",
+    activitiesError: "Erro ao carregar atividades",
+    activitiesEmpty: "Nenhuma atividade encontrada.",
+    filters: {
+      name: {
+        title: "Nome",
+        placeholder: "Nome da Atividade",
+      },
+      area: {
+        title: "Área",
+        placeholder: "Selecione a Área",
+        sports: "Esportes",
+        gym: "Academia",
+        water: "Aquáticos",
+      },
+      frequency: {
+        title: "Frequência",
+        placeholder: "Selecione a Frequência",
+        daily: "Diária",
+        weekly: "Semanal",
+        monthly: "Mensal",
+      },
+    },
+    card: {
+      area: "Área:",
+      frequency: "Frequência:",
+      teacher: "Professor:",
+    },
+  },
   dateInput: {
     selectDate: "Selecione a data",
   },

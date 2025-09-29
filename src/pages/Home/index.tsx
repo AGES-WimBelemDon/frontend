@@ -9,7 +9,7 @@ const cards = [
   { title: "Realizar Chamada", goTo: "frequencias/atividades", disabled: false },
   { title: "Gerenciar Turmas", goTo: "turmas", disabled: true },
   { title: "Gerenciar Alunos", goTo: "alunos", disabled: true },
-  { title: "Gerenciar Atividades", goTo: "atividades", disabled: true },
+  { title: "Gerenciar Atividades", goTo: "atividades", disabled: false },
   { title: "Gerenciar Usuários", goTo: "usuarios", disabled: false },
 ];
 
