@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router";
 
 type ValidRoute = "/"
+  | "/frequencias/atividades"
   | "/alunos"
   | "/atividades"
+  | "/turmas"
   | "/usuarios"
-  | "/frequencias/atividades"
   | "/tech-demo"
-  | "/turmas";
+;
 
 export function useRoutes() {
   const navigate = useNavigate();
@@ -29,12 +30,12 @@ export function useRoutes() {
     getPathParamId,
     allowedRoutes: [
       "/",
+      "/frequencias/atividades",
       "/alunos",
       "/atividades",
-      "/usuarios",
-      "/frequencias/atividades",
-      "/tech-demo",
       "/turmas",
+      "/usuarios",
+      "/tech-demo",
     ],
   };
 }
