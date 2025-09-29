@@ -27,8 +27,8 @@ export default function Frequency() {
           const activityId = index + 1;
           return (
             <TextCard
-              key={`${index}-${c.title}`}
-              title={c.title}
+              key={`${index}-${c.name}`}
+              title={c.name}
               theme={index === 0 ? "dark" : "light"}
               onClick={() => goTo(`${activityId}/turmas`)}
             />
@@ -36,5 +36,5 @@ export default function Frequency() {
         )}
       </CardList>
     </>
-  );  
+  );
 }
