@@ -2,10 +2,13 @@ import { Box, Typography, TextField, MenuItem, Button, Card, CardContent, Autoco
 
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
+import { PageTitle } from "../../components/PageTitle";
+import { pt } from "../../constants";
 
 export default function Classes() {
   const {
     isLoadingClasses,
+    classesError,
     deviceSize,
     goTo,
     activities,
@@ -21,37 +24,36 @@ export default function Classes() {
   } = useClassesPage()
 
   if (isLoadingClasses) {
-    return <p>Carregando turmas...</p>;
+    return <Typography>{pt.classes.loadingClasses}</Typography>;
+  }
+
+  if (classesError) {
+    return <Typography color="error">{pt.classes.classesError}</Typography>;
   }
 
   return(
-    <Box p = {2}>
+    <>
       <Box
-        display = "flex"
+        gap={2}
+        display="flex"
         justifyContent="space-between"
         alignItems="center"
         flexDirection={deviceSize === "mobile" ? "column" : "row"}
-        mb={3}
-        gap={2}
       >
-        <Typography variant="h5" fontWeight="bold">
-          Minhas Turmas
-        </Typography>
+        <PageTitle title={pt.classes.title} dataCy="classes-page" />
         <Button
           variant="contained"
           color="secondary"
           onClick={() => goTo("cadastro")}
         >
-            Criar turma
+          {pt.classes.createClass}
         </Button>
       </Box>
 
-
       <Box
-        display="flex"
         gap={2}
+        display="flex"
         flexDirection={deviceSize === "mobile" ? "column" : "row"}
-        mb={3}
       >
         <Autocomplete
           options={activities || []}
@@ -64,12 +66,12 @@ export default function Classes() {
 
         <TextField
           select
-          label="Dia da Semana"
+          label={pt.classes.weekDay}
           value={dayFilter}
           onChange={(e) => setDayFilter(e.target.value)}
           fullWidth
         >
-          <MenuItem value = "">Todos</MenuItem>
+          <MenuItem value="">{pt.filters.all}</MenuItem>
           {weekDays.map((weekDay) => (
             <MenuItem key={weekDay} value={weekDay}>
               {weekDay}
@@ -79,12 +81,12 @@ export default function Classes() {
 
         <TextField
           select
-          label="Nível"
+          label={pt.classes.level}
           value={levelFilter}
           onChange={(e) => setLevelFilter(e.target.value)}
           fullWidth
         >
-          <MenuItem value = "">Todos</MenuItem>
+          <MenuItem value="">{pt.filters.all}</MenuItem>
           {levels.map((lvl) => (
             <MenuItem key={lvl} value={lvl}>
               {lvl}
@@ -94,19 +96,21 @@ export default function Classes() {
         </TextField>
       </Box>
 
+      <br />
+
       <CardList>
-        {filteredClasses?.map((c) => (
+        {filteredClasses.map((c) => (
           <Card key={c.id}>
             <CardContent>
               <Typography variant="h6">{c.title}</Typography>
-              <Typography variant="body2">{"Dia da semana:"}</Typography>
-              <Typography variant="body2">{"Horário:"}</Typography>
-              <Typography variant="body2">{"Nível:"}</Typography>
+              <Typography variant="body2">{pt.classes.weekDay}</Typography>
+              <Typography variant="body2">{pt.classes.schedule}</Typography>
+              <Typography variant="body2">{pt.classes.level}</Typography>
             </CardContent>
           </Card>
         ))}
       </CardList>
-    </Box>
+    </>
   );
 }
 
