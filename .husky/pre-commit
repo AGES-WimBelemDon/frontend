@@ -17,5 +17,13 @@ if [ $STATUS -ne 0 ]; then
   exit 1
 fi
 
+AUTHOR_EMAIL=$(git config user.email)
+if [[ "$AUTHOR_EMAIL" != *"@edu.pucrs.br" && "$AUTHOR_EMAIL" != *"@users.noreply.github.com" ]]; then
+  echo "❌ Commit author email '$AUTHOR_EMAIL' is not allowed."
+  echo "    Please set your git user.email to the expected authorized domain (@edu.pucrs.br or users.noreply.github.com)"
+  git config user.email "your.email@edu.pucrs.br"
+  exit 1
+fi
+
 echo "✅ Linting applied successfully."
 exit 0
