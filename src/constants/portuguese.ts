@@ -10,7 +10,9 @@ export const portugueseTextMap = {
     selectDate: "Selecione a data",
   },
   filters: {
+    loading: "Carregando filtros...",
     race: {
+      title: "Raça",
       white: "Branca",
       black: "Preta",
       brown: "Parda",
@@ -19,11 +21,13 @@ export const portugueseTextMap = {
       notDeclared: "Não Declarado",
     },
     gender: {
+      title: "Sexo",
       male: "Masculino",
       female: "Feminino",
       other: "Outro",
     },
     socialPrograms: {
+      title: "Programas Sociais",
       bolsaFamilia: "Bolsa Família",
       bpcLoas: "BPC/LOAS",
       tarifaSocialDeEnergia: "Tarifa Social de Energia",
@@ -32,12 +36,14 @@ export const portugueseTextMap = {
       programaMunicipalViaCras: "Programa Municipal via CRAS",
     },
     employmentStatus: {
+      title: "Vínculo Empregatício",
       employed: "Empregado",
       unemployed: "Desempregado",
       student: "Estudante",
       other: "Outro",
     },
     educationLevel: {
+      title: "Nível de Escolaridade",
       none: "Nenhum",
       literate: "Alfabetizado",
       incompleteElementary: "Fundamental Incompleto",
@@ -82,6 +88,32 @@ export const portugueseTextMap = {
     listIcon: ({ to }: Params<"to">) => (
       `Navegar para a página ${to}`
     ),
+  },
+  studentRegistration: {
+    personalInformation: "Informações Pessoais",
+    name: "Nome",
+    namePlaceholder: "Nome completo",
+    dateOfBirth: "Data de Nascimento",
+    zipCode: "CEP",
+    zipCodePlaceholder: "Apenas números",
+    enrollmentDate: "Data de Cadastro",
+    documents: "Documentos",
+    registrationNumber: "Documento de Identidade (CPF)",
+    attachments: "Anexos",
+    attachMoreFiles: "Anexar mais documentos",
+    selectFiles: "Selecionar arquivo",
+    selectedFile: "Arquivo selecionado:",
+    fileCreatedAt: "Data de criação do arquivo:",
+    fileDescription: "Descrição do arquivo",
+    cancelFileSend: "Cancelar envio do arquivo",
+    addFileButton: "Adicionar arquivo",
+    toggleStudentStatusOn: "Ativar estudante",
+    toggleStudentStatusOff: "Desativar estudante",
+    details: "Detalhes",
+    schoolName: "Escola Atual",
+    schoolNamePlaceholder: "Digite a escola atual do Educando",
+    saveButton: "Salvar",
+    cancelButton: "Cancelar",
   },
   techDemo: {
     title: "Tech Demo",

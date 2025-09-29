@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 
 import type { Document } from "./interface";
+import { pt } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
 
@@ -80,15 +81,15 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          Informações Pessoais
+          {pt.studentRegistration.personalInformation}
         </Typography>
 
         <TextField
           name="fullName"
-          label="Nome"
+          label={pt.studentRegistration.name}
           fullWidth
           margin="normal"
-          placeholder="Digite o nome do Educando"
+          placeholder={pt.studentRegistration.namePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -96,7 +97,7 @@ export default function StudentRegistration() {
 
         <TextField
           name="dateOfBirth"
-          label="Data de Nascimento"
+          label={pt.studentRegistration.dateOfBirth}
           fullWidth
           margin="normal"
           type="date"
@@ -107,40 +108,42 @@ export default function StudentRegistration() {
 
         <TextField
           name="gender"
-          label="Sexo"
-          select
+          label={pt.filters.gender.title}
+          select={!!genderOptions}
+          defaultValue={!genderOptions ? pt.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         >
-          {genderOptions.map((opt) => (
-            <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+          {genderOptions?.map(({ id, label }) => (
+            <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
 
         <TextField
           name="race"
-          label="Raça"
-          select
+          label={pt.filters.race.title}
+          select={!!raceOptions}
+          defaultValue={!raceOptions ? pt.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         >
-          {raceOptions.map((opt) => (
-            <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+          {raceOptions?.map(({ id, label }) => (
+            <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
 
         <TextField
           name="address.code"
-          label="CEP"
+          label={pt.studentRegistration.zipCode}
           fullWidth
           margin="normal"
-          placeholder="Apenas números"
+          placeholder={pt.studentRegistration.zipCodePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -148,7 +151,7 @@ export default function StudentRegistration() {
         
         <TextField
           name="enrollmentDate"
-          label="Data de Cadastro"
+          label={pt.studentRegistration.enrollmentDate}
           fullWidth
           margin="normal"
           slotProps={{
@@ -168,12 +171,12 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          Documentos
+          {pt.studentRegistration.documents}
         </Typography>
 
         <TextField
           name="registrationNumber"
-          label="Documento de Identidade (CPF)"
+          label={pt.studentRegistration.registrationNumber}
           placeholder="xxx.xxx.xxx-xx"
           fullWidth
           margin="normal"
@@ -190,7 +193,7 @@ export default function StudentRegistration() {
           fontWeight="bold"
           sx={{ mt: 2, mb: 1, color: "primary.main" }}
         >
-          Anexos
+          {pt.studentRegistration.attachments}
         </Typography>
 
         <Box
@@ -230,7 +233,7 @@ export default function StudentRegistration() {
                 document.getElementById("fileInputUpload2")?.click();
               }}
             >
-              Adicionar mais documentos
+              {pt.studentRegistration.attachMoreFiles}
             </Button>
             <input
               id="fileInputUpload2"
@@ -269,7 +272,7 @@ export default function StudentRegistration() {
               fullWidth
               sx={{ mb: 2 }}
             >
-              Selecionar Arquivo
+              {pt.studentRegistration.selectFiles}
               <input
                 id="fileInputUpload"
                 type="file"
@@ -291,12 +294,12 @@ export default function StudentRegistration() {
 
             {docForm.fileName && (
               <Typography variant="body2" sx={{ mb: 1 }}>
-                Arquivo selecionado: {docForm.fileName}
+                {pt.studentRegistration.selectedFile}{" "}{docForm.fileName}
               </Typography>
             )}
 
             <TextField
-              label="Data"
+              label={pt.studentRegistration.fileCreatedAt}
               type="date"
               fullWidth
               margin="dense"
@@ -306,7 +309,7 @@ export default function StudentRegistration() {
               }}
             />
             <TextField
-              label="Descrição"
+              label={pt.studentRegistration.fileDescription}
               fullWidth
               margin="dense"
               value={docForm.description}
@@ -333,7 +336,7 @@ export default function StudentRegistration() {
                   setShowUploader(false);
                 }}
               >
-                Cancelar
+                {pt.studentRegistration.cancelFileSend}
               </Button>
               <Button
                 onClick={handleAddDoc}
@@ -341,7 +344,7 @@ export default function StudentRegistration() {
                 disabled={!docForm.fileName}
                 sx={{ ml: "auto" }}
               >
-                Enviar
+                {pt.studentRegistration.addFileButton}
               </Button>
             </Box>
           </Box>
@@ -359,7 +362,7 @@ export default function StudentRegistration() {
               borderRadius: 4,
             }}
           >
-            Ativar Estudante
+            {pt.studentRegistration.toggleStudentStatusOn}
           </Button>
         )}
       </Grid>
@@ -376,30 +379,31 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          Detalhes
+          {pt.studentRegistration.details}
         </Typography>
         
         <TextField
           name="educationLevel"
-          label="Escolaridade"
-          select
+          label={pt.filters.educationLevel.title}
+          select={!!educationLevels}
+          defaultValue={!educationLevels ? pt.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         >
-          {educationLevels.map((opt) => (
-            <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+          {educationLevels?.map(({ id, label }) => (
+            <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
 
         <TextField
           name="schoolName"
-          label="Escola Atual"
+          label={pt.studentRegistration.schoolName}
           fullWidth
           margin="normal"
-          placeholder="Digite a escola atual do Educando"
+          placeholder={pt.studentRegistration.schoolNamePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -407,31 +411,33 @@ export default function StudentRegistration() {
 
         <TextField
           name="socialProgram"
-          label="Programas Sociais"
-          select
+          label={pt.filters.socialPrograms.title}
+          select={!!socialProgramOptions}
+          defaultValue={!socialProgramOptions ? pt.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         >
-          {socialProgramOptions.map((opt) => (
-            <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+          {socialProgramOptions?.map(({ id, label }) => (
+            <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
 
         <TextField
           name="employmentStatus"
-          label="Vínculo Empregatício"
-          select
+          label={pt.filters.employmentStatus.title}
+          select={!!employmentStatusOptions}
+          defaultValue={!employmentStatusOptions ? pt.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         >
-          {employmentStatusOptions.map((opt) => (
-            <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+          {employmentStatusOptions?.map(({ id, label }) => (
+            <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
 
@@ -444,7 +450,7 @@ export default function StudentRegistration() {
           }}
         >
           <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
-            Salvar
+            {pt.studentRegistration.saveButton}
           </Button>
           <Button
             variant="contained"
@@ -453,7 +459,7 @@ export default function StudentRegistration() {
             type="button"
             onClick={() => goTo("/")}
           >
-            Cancelar
+            {pt.studentRegistration.cancelButton}
           </Button>
         </Box>
       </Grid>
