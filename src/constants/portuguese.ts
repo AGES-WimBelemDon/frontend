@@ -9,6 +9,46 @@ export const portugueseTextMap = {
   dateInput: {
     selectDate: "Selecione a data",
   },
+  filters: {
+    race: {
+      white: "Branca",
+      black: "Preta",
+      brown: "Parda",
+      yellow: "Asiática",
+      indigenous: "Indígena",
+      notDeclared: "Não Declarado",
+    },
+    gender: {
+      male: "Masculino",
+      female: "Feminino",
+      other: "Outro",
+    },
+    socialPrograms: {
+      bolsaFamilia: "Bolsa Família",
+      bpcLoas: "BPC/LOAS",
+      tarifaSocialDeEnergia: "Tarifa Social de Energia",
+      auxilioGas: "Auxílio Gás",
+      programaEstadual: "Programa Estadual",
+      programaMunicipalViaCras: "Programa Municipal via CRAS",
+    },
+    employmentStatus: {
+      employed: "Empregado",
+      unemployed: "Desempregado",
+      student: "Estudante",
+      other: "Outro",
+    },
+    educationLevel: {
+      none: "Nenhum",
+      literate: "Alfabetizado",
+      incompleteElementary: "Fundamental Incompleto",
+      completeElementary: "Fundamental Completo",
+      incompleteHighSchool: "Ensino Médio Incompleto",
+      completeHighSchool: "Ensino Médio Completo",
+      incompleteHigher: "Superior Incompleto",
+      completeHigher: "Superior Completo",
+      posGraduation: "Pós-Graduação",
+    },
+  },
   header: {
     goToHome: "Ir para a página inicial",
     logoAlt: "Logotipo do WimBelemDon",
