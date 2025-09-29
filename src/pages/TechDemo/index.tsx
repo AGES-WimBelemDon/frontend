@@ -32,7 +32,6 @@ export default function TechDemo() {
       </Grid>
 
       <hr />
-
       <Button
         onClick={showAPIInfo}
         variant="contained"
