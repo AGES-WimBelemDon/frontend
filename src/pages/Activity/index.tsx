@@ -48,7 +48,7 @@ export default function ActivityList() {
             <ActivityCard key={activity.id} content={activity} />
           ))
         ) : (
-          <p>Nenhuma atividade encontrada.</p>
+          <p>{pt.activityList.activitiesEmpty}</p>
         )}
       </CardList>
     </>

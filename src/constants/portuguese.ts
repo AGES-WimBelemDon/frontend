@@ -1,6 +1,35 @@
 import type { Params } from "./type";
 
 export const portugueseTextMap = {
+  activityList: {
+    title: "Lista de Atividades",
+    activitiesEmpty: "Nenhuma atividade encontrada.",
+    filters: {
+      name: {
+        title: "Nome",
+        placeholder: "Nome da Atividade",
+      },
+      area: {
+        title: "Área",
+        placeholder: "Selecione a Área",
+        sports: "Esportes",
+        gym: "Academia",
+        water: "Aquáticos",
+      },
+      frequency: {
+        title: "Frequência",
+        placeholder: "Selecione a Frequência",
+        daily: "Diária",
+        weekly: "Semanal",
+        monthly: "Mensal",
+      },
+    },
+    card: {
+      area: "Área:",
+      frequency: "Frequência:",
+      teacher: "Professor:",
+    },
+  },
   buttonCard: {
     frequency: ({ percent }: Params<"percent">) => (
       `Frequência: ${percent}%`
@@ -36,9 +65,6 @@ export const portugueseTextMap = {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
     loadingClasses: "Carregando turmas...",
     classesError: "Erro ao carregar turmas",
-  },
-  activityList: {
-    title: "Lista de Atividades"
   },
   sidebar: {
     openSidebar: "Abrir menu lateral",

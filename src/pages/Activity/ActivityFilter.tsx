@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 
 import { CardList } from "../../components/CardList";
+import { pt } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
 interface ActivityFilterProps {
@@ -44,41 +45,41 @@ export function ActivityFilter({
         sx={filterBoxStyle}
         gridColumn={!isMobile && !isDesktop ? "span 2" : 1}
       >
-        <Typography>Nome</Typography>
+        <Typography>{pt.activityList.filters.name.title}</Typography>
         <TextField
           variant="outlined"
-          placeholder="Nome da Atividade"
+          placeholder={pt.activityList.filters.name.placeholder}
           fullWidth
           value={name}
           onChange={(e) => onNameChange(e.target.value)}
         />
       </Box>
       <Box sx={filterBoxStyle}>
-        <Typography>Área</Typography>
+        <Typography>{pt.activityList.filters.area.title}</Typography>
         <Select
           fullWidth
           value={area}
           onChange={(e: SelectChangeEvent) => onAreaChange(e.target.value)}
           displayEmpty
         >
-          <MenuItem value="all">Selecione uma Área</MenuItem>
-          <MenuItem value="esportes">Esportes</MenuItem>
-          <MenuItem value="academia">Academia</MenuItem>
-          <MenuItem value="aquáticos">Aquáticos</MenuItem>
+          <MenuItem value="all">{pt.activityList.filters.area.placeholder}</MenuItem>
+          <MenuItem value="esportes">{pt.activityList.filters.area.sports}</MenuItem>
+          <MenuItem value="academia">{pt.activityList.filters.area.gym}</MenuItem>
+          <MenuItem value="aquáticos">{pt.activityList.filters.area.water}</MenuItem>
         </Select>
       </Box>
       <Box sx={filterBoxStyle}>
-        <Typography>Frequência</Typography>
+        <Typography>{pt.activityList.filters.frequency.title}</Typography>
         <Select
           fullWidth
           value={frequency}
           onChange={(e: SelectChangeEvent) => onFrequencyChange(e.target.value)}
           displayEmpty
         >
-          <MenuItem value="all">Selecione uma Frequência</MenuItem>
-          <MenuItem value="diária">Diária</MenuItem>
-          <MenuItem value="semanal">Semanal</MenuItem>
-          <MenuItem value="mensal">Mensal</MenuItem>
+          <MenuItem value="all">{pt.activityList.filters.frequency.placeholder}</MenuItem>
+          <MenuItem value="diária">{pt.activityList.filters.frequency.daily}</MenuItem>
+          <MenuItem value="semanal">{pt.activityList.filters.frequency.weekly}</MenuItem>
+          <MenuItem value="mensal">{pt.activityList.filters.frequency.monthly}</MenuItem>
         </Select>
       </Box>
     </CardList>
