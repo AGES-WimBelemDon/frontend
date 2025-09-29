@@ -1,3 +1,5 @@
+import type React from "react";
+
 import {
   Box,
   MenuItem,
@@ -16,9 +18,9 @@ interface ActivityFilterProps {
   name: string;
   area: string;
   frequency: string;
-  onNameChange: (name: string) => void;
-  onAreaChange: (area: string) => void;
-  onFrequencyChange: (frequency: string) => void;
+  onNameChange: React.Dispatch<React.SetStateAction<string>>;
+  onAreaChange: React.Dispatch<React.SetStateAction<string>>;
+  onFrequencyChange: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function ActivityFilter({
