@@ -91,6 +91,7 @@ export const portugueseTextMap = {
     title: "Gerenciar Usuários",
     loadingUsers: "Carregando usuários...",
     usersError: "Erro ao carregar usuários",
+  },
   studentRegistration: {
     personalInformation: "Informações Pessoais",
     name: "Nome",
