@@ -62,8 +62,6 @@ export type EducationLevel =
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
   try {
     const response = await api.post("/alunos", student);
-    console.log(response);
-    return { id: "1" };
     return response.data;
   } catch {
     throw new Error("Error registering student");
