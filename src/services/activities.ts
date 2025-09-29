@@ -1,5 +1,12 @@
 import { api } from "./api";
-import type { Activity } from "../pages/Activity/ActivityList/interface";
+
+export type Activity = {
+  id: string;
+  name: string;
+  teacher: string;
+  area: string;
+  frequency: string;
+}
 
 export async function getActivities(): Promise<Activity[]> {
   try {

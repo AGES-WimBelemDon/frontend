@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { ActivityCard } from "../ActivityCard";
-import type { Activity } from "./interface";
-import { CardList } from "../../../components/CardList";
-import { PageTitle } from "../../../components/PageTitle";
-import { pt } from "../../../constants";
-import { getActivities } from "../../../services/activities";
-import { ActivityFilter } from "../ActivityFilter";
+import { ActivityCard } from "./ActivityCard";
+import { ActivityFilter } from "./ActivityFilter";
+import { CardList } from "../../components/CardList";
+import { PageTitle } from "../../components/PageTitle";
+import { pt } from "../../constants";
+import { getActivities, type Activity } from "../../services/activities";
 
 export default function ActivityList() {
   const [activityList, setActivityList] = useState<Activity[]>([]);

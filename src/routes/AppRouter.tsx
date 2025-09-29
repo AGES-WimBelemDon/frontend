@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
-import ActivityList from "../pages/Activity/ActivityList/index.tsx";
+import ActivityList from "../pages/Activity/index.tsx";
 import Frequency from "../pages/Frequency";
 import { FrequencyCall } from "../pages/FrequencyCall/index.tsx";
 import FrequencyClasses from "../pages/FrequencyClasses";
@@ -15,10 +15,10 @@ function AppRouter() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="atividades" element={<ActivityList />} />
           <Route path="frequencias/atividades" element={<Frequency />}/>
           <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>
           <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall/>} />
-          <Route path="atividades" element={<ActivityList />} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>

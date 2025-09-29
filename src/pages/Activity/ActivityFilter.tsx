@@ -8,8 +8,8 @@ import {
   type SelectChangeEvent,
 } from "@mui/material";
 
-import { CardList } from "../../../components/CardList";
-import { useScreenSize } from "../../../hooks/useScreenSize";
+import { CardList } from "../../components/CardList";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 interface ActivityFilterProps {
   name: string;
