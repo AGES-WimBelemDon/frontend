@@ -28,6 +28,10 @@ export type Student = {
   gradeGap?: boolean;
 }
 
+type ApiStudent = Student & {
+  id: string;
+}
+
 export type StudentStatus = 
   | "ATIVO"
   | "INATIVO"
@@ -54,6 +58,29 @@ export type EducationLevel =
   | "SUPERIOR_COMPLETO"
   | "POS_GRADUACAO"
 ;
+
+export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
+  try {
+    const response = await api.post("/alunos", student);
+    console.log(response);
+    return { id: "1" };
+    return response.data;
+  } catch {
+    throw new Error("Error registering student");
+  }
+}
+
+export async function addStudentDocument<Doc>(studentId: Pick<ApiStudent, "id">, document: Doc): Promise<void> {
+  try {
+    await api.post(`/alunos/${studentId}/documentos`, document, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  } catch {
+    throw new Error("Error adding student document");
+  }
+}
 
 export async function getStudents(): Promise<StudentRecord[]> {
   try {

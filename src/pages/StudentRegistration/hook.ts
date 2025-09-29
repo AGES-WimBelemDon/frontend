@@ -3,9 +3,16 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import type { Document } from "./interface";
+import { pt } from "../../constants";
+import { useToast } from "../../hooks/useToast";
 import { fetchAddress, type Address } from "../../services/address";
+import type { EmploymentStatus, Gender, Race, SocialProgram } from "../../services/filters";
+import { addStudentDocument, registerStudent as apiRegisterStudent } from "../../services/students";
+import type { EducationLevel, Student } from "../../services/students";
 
 export function useStudentRegistration() {
+  const { showToast } = useToast()
+
   const [address, setAddress] = useState<Partial<Address> | null>(null);
   const [documents, setDocuments] = useState<Document[]>([]);
   const [showUploader, setShowUploader] = useState(false);
@@ -49,12 +56,57 @@ export function useStudentRegistration() {
     setShowUploader(false);
   };
 
+  async function registerStudent(studentLikeObject: {
+    [k: string]: FormDataEntryValue;
+  }) {
+    try {
+      const student: Partial<Student> = {
+        address: {
+          code: studentLikeObject.code as string,
+          street: studentLikeObject.street as string,
+          number: studentLikeObject.number as string,
+          complement: studentLikeObject.complement as string,
+        },
+        fullName: studentLikeObject.fullName as string,
+        dateOfBirth: new Date(studentLikeObject.dateOfBirth as string),
+        registrationNumber: studentLikeObject.registrationNumber as string,
+        enrollmentDate: new Date(studentLikeObject.enrollmentDate as string),
+        race: studentLikeObject.race as Race,
+        schoolName: studentLikeObject.schoolName as string,
+        schoolYear: studentLikeObject.schoolYear as EducationLevel,
+        socialProgram: studentLikeObject.socialProgram as SocialProgram,
+        gender: studentLikeObject.gender as Gender,
+        employmentStatus: studentLikeObject.employmentStatus as EmploymentStatus,
+      }
+
+      const newStudent = await apiRegisterStudent(student);
+
+      if (!newStudent.id) {
+        throw new Error("No ID returned from student registration");
+      }
+
+      showToast(pt.studentRegistration.successMessage, "success");
+
+      return newStudent.id;
+    } catch (error) {
+      throw new Error("Error registering student: " + error);
+    }
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const studentData = Object.fromEntries(formData.entries());
-    console.log("Student Data:", studentData);
-    console.log("Documents:", documents);
+    
+    registerStudent(studentData)
+      .then((studentId) => {
+        documents.forEach((document) => {
+          addStudentDocument<Document>({ id: studentId }, document);
+        });
+      })
+      .catch(() => {
+        showToast(pt.studentRegistration.errorMessage, "error")
+      });
   }
 
   return {

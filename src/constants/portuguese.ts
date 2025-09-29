@@ -121,6 +121,8 @@ export const portugueseTextMap = {
     schoolNamePlaceholder: "Digite a escola atual do Educando",
     saveButton: "Salvar",
     cancelButton: "Cancelar",
+    successMessage: "Estudante cadastrado com sucesso!",
+    errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
   },
   techDemo: {
     title: "Tech Demo",
