@@ -9,7 +9,7 @@ export function useUsers() {
   })
 
   return {
-    isLoadtingUsers: isPending,
+    isLoadingUsers: isPending,
     usersError: error,
     users: data
   }
