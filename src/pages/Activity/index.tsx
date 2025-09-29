@@ -1,3 +1,5 @@
+import { Typography } from "@mui/material";
+
 import { ActivityCard } from "./ActivityCard";
 import { ActivityFilter } from "./ActivityFilter";
 import { useActivityList } from "./hook";
@@ -8,6 +10,8 @@ import { type Activity } from "../../services/activities";
 
 export default function ActivityList() {
   const {
+    isLoadingActivities,
+    activitiesError,
     name,
     setName,
     area,
@@ -16,6 +20,14 @@ export default function ActivityList() {
     setFrequency,
     filteredActivities,
   } = useActivityList();
+
+  if (isLoadingActivities) {
+    return <Typography>{pt.activityList.loadingActivities}</Typography>;
+  }
+
+  if (activitiesError) {
+    return <Typography color="error">{pt.activityList.activitiesError}</Typography>;
+  }
 
   return (
     <>
@@ -32,7 +44,7 @@ export default function ActivityList() {
             <ActivityCard key={activity.id} content={activity} />
           ))
         ) : (
-          <p>{pt.activityList.activitiesEmpty}</p>
+          <Typography>{pt.activityList.activitiesEmpty}</Typography>
         )}
       </CardList>
     </>

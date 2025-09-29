@@ -3,6 +3,8 @@ import type { Params } from "./type";
 export const portugueseTextMap = {
   activityList: {
     title: "Lista de Atividades",
+    loadingActivities: "Carregando atividades...",
+    activitiesError: "Erro ao carregar atividades",
     activitiesEmpty: "Nenhuma atividade encontrada.",
     filters: {
       name: {

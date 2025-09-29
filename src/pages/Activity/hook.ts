@@ -29,6 +29,8 @@ export function useActivityList() {
   }, [isLoadingActivities, activitiesError, activities, name, area, frequency]);
 
   return {
+    isLoadingActivities,
+    activitiesError,
     name,
     setName,
     area,
