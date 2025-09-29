@@ -1,37 +1,21 @@
-import { useEffect, useMemo, useState } from "react";
-
 import { ActivityCard } from "./ActivityCard";
 import { ActivityFilter } from "./ActivityFilter";
+import { useActivityList } from "./hook";
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { pt } from "../../constants";
-import { getActivities, type Activity } from "../../services/activities";
+import { type Activity } from "../../services/activities";
 
 export default function ActivityList() {
-  const [activityList, setActivityList] = useState<Activity[]>([]);
-  const [name, setName] = useState("");
-  const [area, setArea] = useState("all");
-  const [frequency, setFrequency] = useState("all");
-
-  useEffect(() => {
-    getActivities().then(setActivityList);
-  }, []);
-
-  const filteredActivities = useMemo(() => {
-    return activityList.filter((activity) => {
-      const nameMatch =
-        name === "" ||
-        activity.name.toLowerCase().includes(name.toLowerCase());
-      const areaMatch =
-        area === "all" ||
-        activity.area.toLowerCase() === area.toLowerCase();
-      const frequencyMatch =
-        frequency === "all" ||
-        activity.frequency.toLowerCase() === frequency.toLowerCase();
-
-      return nameMatch && areaMatch && frequencyMatch;
-    });
-  }, [activityList, name, area, frequency]);
+  const {
+    name,
+    setName,
+    area,
+    setArea,
+    frequency,
+    setFrequency,
+    filteredActivities,
+  } = useActivityList();
 
   return (
     <>
