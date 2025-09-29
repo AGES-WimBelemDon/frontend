@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import {
   Box,
   Typography,
@@ -9,7 +7,7 @@ import {
   Grid,
 } from "@mui/material";
 
-import type { Document } from "./interface";
+import { useStudentRegistration } from "./hook";
 import { pt } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
@@ -26,38 +24,17 @@ export default function StudentRegistration() {
     employmentStatusOptions,
   } = useFilters();
 
-  const [documents, setDocuments] = useState<Document[]>([]);
-  const [showUploader, setShowUploader] = useState(false);
-  const [docForm, setDocForm] = useState({
-    fileName: "",
-    fileType: "",
-    origin: "",
-    date: "",
-    description: "",
-  });
-
-  function handleAddDoc() {
-    if (!docForm.fileName) return;
-  
-    setDocuments((docs) => [
-      ...docs,
-      {
-        ...docForm,
-        id: Date.now(),
-      } as Document,
-    ]);
-
-    setDocForm({ fileName: "", fileType: "", origin: "", date: "", description: "" });
-    setShowUploader(false);
-  };
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const studentData = Object.fromEntries(formData.entries());
-    console.log("Student Data:", studentData);
-    console.log("Documents:", documents);
-  }
+  const {
+    documents,
+    showUploader,
+    setShowUploader,
+    docForm,
+    setDocForm,
+    handleAddDoc,
+    handleSubmit,
+    address,
+    setAddress,
+  } = useStudentRegistration();
 
   return (
     <Box
@@ -140,14 +117,53 @@ export default function StudentRegistration() {
 
         <TextField
           name="address.code"
-          label={pt.studentRegistration.zipCode}
+          label={pt.studentRegistration.address.zipCode}
+          placeholder={pt.studentRegistration.address.zipCodePlaceholder}
           fullWidth
           margin="normal"
-          placeholder={pt.studentRegistration.zipCodePlaceholder}
+          type="number"
+          value={address?.code}
+          onChange={(e) => setAddress({ ...address, code: e.target.value })}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         />
+
+        {address?.street && (
+          <>
+            <TextField
+              name="address.street"
+              label={pt.studentRegistration.address.street}
+              fullWidth
+              margin="normal"
+              value={address?.street}
+              aria-readonly
+              slotProps={{
+                htmlInput: {
+                  readOnly: true,
+                  sx: { cursor: "not-allowed" }
+                },
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
+              }}
+            />
+            <TextField
+              name="address.number"
+              label={pt.studentRegistration.address.number}
+              placeholder={pt.studentRegistration.address.numberPlaceholder}
+              fullWidth
+              margin="normal"
+              slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
+            />
+            <TextField
+              name="address.complement"
+              label={pt.studentRegistration.address.complement}
+              placeholder={pt.studentRegistration.address.complementPlaceholder}
+              fullWidth
+              margin="normal"
+              slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
+            />
+          </>
+        )}
         
         <TextField
           name="enrollmentDate"
