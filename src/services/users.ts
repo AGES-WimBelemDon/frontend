@@ -1,17 +1,17 @@
 import { api } from "./api";
 
-type Users = {
-    id: string;
-    full_name: string;
-    phone: number;
-    access: string;
-    formation: string;
-    email: string;
+type User = {
+  id: string;
+  full_name: string;
+  phone: number;
+  access: string;
+  formation: string;
+  email: string;
 }
 
-export async function getUsers(): Promise<Users[]> {
+export async function getUsers(): Promise<User[]> {
   try {
-    const response = await api.get<Users[]>("/users");
+    const response = await api.get<User[]>("/users");
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
