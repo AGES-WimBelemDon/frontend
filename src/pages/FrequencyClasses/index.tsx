@@ -38,8 +38,8 @@ export default function FrequencyClasses() {
               theme={index === 0 ? "dark" : "light"}
               onClick={() => goTo(`${c.id}/chamada`)}
             />
-          );}
-        )}
+          );
+        })}
       </CardList>
     </>
   );  

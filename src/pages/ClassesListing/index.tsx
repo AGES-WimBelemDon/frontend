@@ -77,7 +77,7 @@ export default function ClassesListing (){
       >
         <Autocomplete
           options={activities || []}
-          getOptionLabel={(option) => option.title}
+          getOptionLabel={(option) => option.name}
           value={activities?.find((a) => a.id === activityFilter) || null}
           onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
           renderInput={(params) => <TextField {...params} label="Atividade"/>}
