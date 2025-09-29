@@ -1,11 +1,11 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 
-import { PageTitle } from '../../components/PageTitle';
-import { PersonCard } from '../../components/PersonCard';
-import { TextCard } from '../../components/TextCard';
-import { pt } from '../../constants';
-import { useToast } from '../../hooks/useToast';
+import { PageTitle } from "../../components/PageTitle";
+import { PersonCard } from "../../components/PersonCard";
+import { TextCard } from "../../components/TextCard";
+import { pt } from "../../constants";
+import { useToast } from "../../hooks/useToast";
 
 export default function TechDemo() {
   const navigate = useNavigate();
