@@ -85,26 +85,31 @@ export function useFilters() {
   const { data: raceOptions } = useQuery({
     queryKey: ["filters", "races"],
     queryFn: () => queryFunction(getRacesFilter, raceFilterOptionsMap, "race"),
+    staleTime: Infinity
   })
 
   const { data: genderOptions } = useQuery({
     queryKey: ["filters", "genders"],
     queryFn: () => queryFunction(getGendersFilter, genderFilterOptionsMap, "gender"),
+    staleTime: Infinity
   })
   
   const { data: socialProgramOptions } = useQuery({
     queryKey: ["filters", "socialPrograms"],
     queryFn: () => queryFunction(getSocialProgramsFilter, socialProgramOptionsMap, "socialPrograms"),
+    staleTime: Infinity
   })
 
   const { data: employmentStatusOptions } = useQuery({
     queryKey: ["filters", "employmentStatus"],
     queryFn: () => queryFunction(getEmploymentStatusFilter, employmentStatusFilterOptionsMap, "employmentStatus"),
+    staleTime: Infinity
   })
 
   const { data: educationLevels } = useQuery({
     queryKey: ["filters", "educationLevels"],
     queryFn: () => queryFunction(getStudentEducationLevelFilter, educationLevelFilterOptionsMap, "educationLevel"),
+    staleTime: Infinity
   })
 
   const identityTypesOptions = [
