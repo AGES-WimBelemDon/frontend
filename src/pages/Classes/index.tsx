@@ -24,7 +24,7 @@ const levels = [
   "Avançado"
 ];
 
-export default function ClassesListing (){
+export default function Classes (){
   const {classes, isLoadingClasses} = useClasses();
   const {activities} = useActivities();
   const {goTo} = useRoutes();

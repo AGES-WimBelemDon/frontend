@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
 import ActivityList from "../pages/Activity/index.tsx";
-import ClassesListing from "../pages/ClassesListing/index.tsx";
+import Classes from "../pages/Classes/index.tsx";
 import Frequency from "../pages/Frequency";
 import { FrequencyCall } from "../pages/FrequencyCall/index.tsx";
 import FrequencyClasses from "../pages/FrequencyClasses";
@@ -26,7 +26,7 @@ function AppRouter() {
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
-          <Route path="turmas" element= {<ClassesListing/>} />
+          <Route path="turmas" element= {<Classes/>} />
           <Route path="usuarios" element={<Users />} />
         </Route>
       </Routes>
