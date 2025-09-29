@@ -1,11 +1,6 @@
 import type { Params } from "./type";
 
 export const portugueseTextMap = {
-  buttonCard: {
-    frequency: ({ percent }: Params<"percent">) => (
-      `Frequência: ${percent}%`
-    ),
-  },
   dateInput: {
     selectDate: "Selecione a data",
   },
@@ -77,6 +72,9 @@ export const portugueseTextMap = {
   },
   frequencyCard: {
     absentDetails: "Adicionar Observação",
+    frequency: ({ percent }: Params<"percent">) => (
+      `Frequência: ${percent}%`
+    ),
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
@@ -88,6 +86,11 @@ export const portugueseTextMap = {
     listIcon: ({ to }: Params<"to">) => (
       `Navegar para a página ${to}`
     ),
+  },
+  users: {
+    title: "Gerenciar Usuários",
+    loadingUsers: "Carregando usuários...",
+    usersError: "Erro ao carregar usuários",
   },
   studentRegistration: {
     personalInformation: "Informações Pessoais",

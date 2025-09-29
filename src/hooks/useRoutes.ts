@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 type ValidRoute = "/"
   | "/alunos"
   | "/atividades"
-  | "/cadastro"
+  | "/usuarios"
   | "/frequencias/atividades"
   | "/tech-demo"
   | "/turmas";
@@ -31,7 +31,7 @@ export function useRoutes() {
       "/",
       "/alunos",
       "/atividades",
-      "/cadastro",
+      "/usuarios",
       "/frequencias/atividades",
       "/tech-demo",
       "/turmas",

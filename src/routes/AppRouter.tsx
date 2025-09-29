@@ -8,6 +8,7 @@ import Layout from "../pages/Layout";
 import StudentRegistration from "../pages/StudentRegistration/index.tsx";
 import TechDemo from "../pages/TechDemo";
 import TechDemoMockAPI from "../pages/TechDemo/MockAPI.tsx";
+import Users from "../pages/Users";
 
 function AppRouter() {
   return (
@@ -22,6 +23,7 @@ function AppRouter() {
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
+          <Route path="usuarios" element={<Users />} />
         </Route>
       </Routes>
     </BrowserRouter>
