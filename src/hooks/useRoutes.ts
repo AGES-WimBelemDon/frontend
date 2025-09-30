@@ -1,18 +1,23 @@
 import { useNavigate } from "react-router";
 
 type ValidRoute = "/"
+  | "/frequencias/atividades"
   | "/alunos"
   | "/atividades"
+  | "/turmas"
   | "/usuarios"
-  | "/frequencias/atividades"
   | "/tech-demo"
-  | "/turmas";
+;
 
 export function useRoutes() {
   const navigate = useNavigate();
 
   function goTo(route: ValidRoute | string) {
     navigate(route);
+  }
+
+  function goBack() {
+    navigate(-1);
   }
 
   function getPathParamId(previousParamName: string) {
@@ -26,15 +31,16 @@ export function useRoutes() {
 
   return {
     goTo,
+    goBack,
     getPathParamId,
     allowedRoutes: [
       "/",
+      "/frequencias/atividades",
       "/alunos",
       "/atividades",
-      "/usuarios",
-      "/frequencias/atividades",
-      "/tech-demo",
       "/turmas",
+      "/usuarios",
+      "/tech-demo",
     ],
   };
 }

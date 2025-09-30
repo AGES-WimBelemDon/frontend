@@ -1,12 +1,4 @@
 import {
-  AppRegistration,
-  AssignmentAdd,
-  Checklist,
-  DeveloperBoard,
-  Home,
-  PeopleAlt
-} from "@mui/icons-material";
-import {
   Drawer,
   List,
   ListItem,
@@ -17,40 +9,10 @@ import {
 import { useNavigate } from "react-router";
 
 import { SidebarBurgerIcon } from "./BurgerIcon";
-import type { SidebarProps, SidebarRouteMapper } from "./interface";
+import { sidebarOptionsMapper, type SidebarProps } from "./interface";
 import { pt } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useSidebar } from "../../hooks/useSidebar";
-
-const sidebarOptionsMapper: SidebarRouteMapper = {
-  "/": {
-    text: "Página Inicial",
-    icon: <Home />,
-  },
-  "/usuarios": {
-    text: "Usuários",
-    icon: <AssignmentAdd />,
-  },
-  "/alunos": {
-    text: "Alunos",
-    icon: <PeopleAlt />,
-    disabled: true,
-  },
-  "/frequencias/atividades": {
-    text: "Frequência",
-    icon: <Checklist />,
-  },
-  "/atividades": {
-    text: "Atividades",
-    icon: <AppRegistration />,
-  },
-  ...(import.meta.env.DEV && {
-    "/tech-demo": {
-      text: "Tech Demo",
-      icon: <DeveloperBoard />,
-    }
-  }),
-};
 
 export function Sidebar({ allowedRoutes }: SidebarProps) {
   const navigate = useNavigate();
@@ -98,7 +60,7 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
 
       <List sx={{ overflowY: "auto" }}>
         {visibleRoutes.map((route) => {
-          const { text, icon } = sidebarOptionsMapper[route];
+          const { text, icon: Icon } = sidebarOptionsMapper[route];
 
           return (
             <ListItem key={route} disablePadding>
@@ -125,7 +87,7 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
                 }}
               >
                 <ListItemIcon sx={{ color: "primary.main", minWidth: "fit-content" }}>
-                  {icon}
+                  <Icon />
                 </ListItemIcon>
                 <ListItemText
                   primary={text}

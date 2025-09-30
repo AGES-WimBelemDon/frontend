@@ -59,6 +59,20 @@ export async function getActivities(): Promise<Activity[]> {
           area: "Academia",
           frequency: "Semanal",
         },
+        {
+          id: (++id).toString(),
+          name: "Yoga",
+          teacher: "Professor de Yoga",
+          area: "Bem-estar",
+          frequency: "Semanal",
+        },
+        {
+          id: (++id).toString(),
+          name: "Programação",
+          teacher: "Professor de Programação",
+          area: "Tecnologia",
+          frequency: "Semanal",
+        },
       ],
     });
     return mockResponse.data;

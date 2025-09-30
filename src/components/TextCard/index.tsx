@@ -8,7 +8,7 @@ import {
   type Theme
 } from "@mui/material";
   
-import type { ThemeStyle, TextCard } from "./interface";
+import type { ThemeStyle, TextCardProps } from "./interface";
 import { pt } from "../../constants";
 
 const themeStyle: Record<ThemeStyle, SxProps<Theme>> = {
@@ -16,7 +16,13 @@ const themeStyle: Record<ThemeStyle, SxProps<Theme>> = {
   dark: { backgroundColor: "primary.main", color: "primary.contrastText" },
 };
 
-export function TextCard({ title, theme, onClick, disabled }: TextCard) {
+export function TextCard({
+  title,
+  theme,
+  onClick,
+  disabled,
+  icon: Icon = BookIcon,
+}: TextCardProps) {
   return (
     <Card
       sx={{
@@ -39,7 +45,7 @@ export function TextCard({ title, theme, onClick, disabled }: TextCard) {
         data-cy="text-card-button"
       >
         <CardContent>
-          <BookIcon fontSize="large" />
+          <Icon fontSize="large" />
           <Typography
             sx={{ fontWeight: "bold" }}
             variant="h5"

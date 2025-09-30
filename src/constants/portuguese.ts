@@ -32,11 +32,21 @@ export const portugueseTextMap = {
       teacher: "Professor:",
     },
   },
+  classes: {
+    title: "Minhas Turmas",
+    loadingClasses: "Carregando turmas...",
+    classesError: "Erro ao carregar turmas",
+    createClass: "Criar turma",
+    weekDay: "Dia da semana",
+    schedule: "Horário",
+    level: "Nível",
+  },
   dateInput: {
     selectDate: "Selecione a data",
   },
   filters: {
     loading: "Carregando filtros...",
+    all: "Todos",
     race: {
       title: "Raça",
       white: "Branca",
@@ -111,6 +121,8 @@ export const portugueseTextMap = {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
     loadingClasses: "Carregando turmas...",
     classesError: "Erro ao carregar turmas",
+    noClasses: "Nenhuma turma encontrada para esta atividade.",
+    goBack: "Voltar para Atividades",
   },
   sidebar: {
     openSidebar: "Abrir menu lateral",
