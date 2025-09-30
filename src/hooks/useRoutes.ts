@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 
-type ValidRoute = "/"
+export type ValidRoute = 
+  | "/"
   | "/frequencias/atividades"
   | "/alunos"
   | "/atividades"
@@ -35,12 +36,12 @@ export function useRoutes() {
     getPathParamId,
     allowedRoutes: [
       "/",
-      "/alunos/cadastro",
+      "/alunos",
       "/atividades",
       "/frequencias/atividades",
-      "/tech-demo",
       "/turmas",
       "/usuarios",
+      "/tech-demo",
     ],
   };
 }

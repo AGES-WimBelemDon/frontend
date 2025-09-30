@@ -19,12 +19,12 @@ function AppRouter() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="alunos/cadastro" element={<StudentRegistration />} />
+          <Route path="alunos/:id/responsaveis/cadastro" element={<ResponsibleRegistration />} />
           <Route path="atividades" element={<ActivityList />} />
-          <Route path="cadastro" element={<StudentRegistration />} />
           <Route path="frequencias/atividades" element={<Frequency />}/>
           <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>
           <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall/>} />
-          <Route path="cadastro/responsaveis" element={<ResponsibleRegistration />} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>

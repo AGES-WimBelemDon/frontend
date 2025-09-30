@@ -11,6 +11,8 @@ import {
 import type { SvgIconComponent } from "@mui/icons-material";
 import type { SxProps } from "@mui/material";
 
+import type { ValidRoute } from "../../hooks/useRoutes";
+
 export const sidebarOptionsMapper: SidebarRouteMapper = {
   "/": {
     text: "Página Inicial",
@@ -23,7 +25,6 @@ export const sidebarOptionsMapper: SidebarRouteMapper = {
   "/alunos": {
     text: "Alunos",
     icon: PeopleAlt,
-    disabled: true,
   },
   "/atividades": {
     text: "Atividades",
@@ -46,15 +47,14 @@ export const sidebarOptionsMapper: SidebarRouteMapper = {
 };
 
 export type SidebarRouteMapper = {
-  [path: string]: {
+  [key in ValidRoute]?: {
     text: string;
     icon: SvgIconComponent;
-    disabled?: boolean;
   }
 };
 
 export interface SidebarProps {
-  allowedRoutes: string[];
+  allowedRoutes: ValidRoute[];
 }
 
 export interface SidebarBurgerIconProps {
