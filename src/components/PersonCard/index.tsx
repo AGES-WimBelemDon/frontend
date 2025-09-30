@@ -31,110 +31,55 @@ export function PersonCard({
 
   const { isMobile } = useScreenSize();
 
+  const dataEntries = [
+    { label: pt.personCard.name, value: cardData.name },
+    { label: pt.personCard.cpf, value: cardData.cpf },
+    { label: pt.personCard.birthDate, value: cardData.birthDate },
+    { label: pt.personCard.civilState, value: cardData.civilState },
+    { label: pt.personCard.nis, value: cardData.nis },
+    { label: pt.personCard.phone, value: cardData.phone },
+    { label: pt.personCard.email, value: cardData.email },
+    { label: pt.personCard.address, value: cardData.address },
+  ]
+
   return (
     <Card
       sx={{
+        gap: 2,
         display: "flex",
         flexDirection: "row",
         borderRadius: 3,
         boxShadow: 3,
-        height: "9vh",
         width: "100% ",
         backgroundColor: "background.default",
+        padding: 1.5,
       }}
     >
       <CardMedia
         component="img"
-        sx={{ width: "9vh", height: "100%", padding: 1.2, borderRadius: 3 }}
+        sx={{ width: "9vh", height: "100%", borderRadius: 3 }}
         image={userImg}
         alt={pt.personCard.userImageAlt}
       />
       <Box
+        gap={1.2}
+        rowGap={0}
+        display={isMobile ? "grid" : "flex"}
+        flexWrap="wrap"
         sx={{
           width: "100%",
-          display: "flex",
-          flexDirection: "row",
+          gridTemplateColumns: "1fr 1fr"
         }}
       >
-        {isMobile ? (
-          <>
-            <Box sx={{ width: "50%", paddingTop: 1.2 }}>
-              <Typography
-                component="div"
-                sx={{ fontWeight: "normal", fontSize: 7 }}
-              >
-                <strong>{pt.personCard.name}</strong>
-                {" "}{cardData.name}
-              </Typography>
-              <Typography
-                component="div"
-                sx={{ fontWeight: "normal", fontSize: 7 }}
-              >
-                <strong>{pt.personCard.cpf}</strong>
-                {" "}{cardData.cpf}
-              </Typography>
-              <Typography
-                component="div"
-                sx={{ fontWeight: "normal", fontSize: 7 }}
-              >
-                <strong>{pt.personCard.birthDate}</strong>
-                {" "}{cardData.birthDate}
-              </Typography>
-              <Typography
-                component="div"
-                sx={{ fontWeight: "normal", fontSize: 7 }}
-              >
-                <strong>{pt.personCard.civilState}</strong>
-                {" "}{cardData.civilState}
-              </Typography>
-            </Box>
-
-            <Box sx={{ width: "50%", paddingTop: 1.2 }}>
-              <Typography
-                component="div"
-                sx={{ fontWeight: "normal", fontSize: 7 }}
-              >
-                <strong>{pt.personCard.nis}</strong>
-                {" "}{cardData.nis}
-              </Typography>
-              <Typography
-                component="div"
-                sx={{ fontWeight: "normal", fontSize: 7 }}
-              >
-                <strong>{pt.personCard.phone}</strong>
-                {" "}{cardData.phone}
-              </Typography>
-              <Typography
-                component="div"
-                sx={{ fontWeight: "normal", fontSize: 7 }}
-              >
-                <strong>{pt.personCard.email}</strong>
-                {" "}{cardData.email}
-              </Typography>
-              <Typography
-                component="div"
-                sx={{ fontWeight: "normal", fontSize: 7 }}
-              >
-                <strong>{pt.personCard.address}</strong>
-                {" "}{cardData.address}
-              </Typography>
-            </Box>
-          </>
-        ) : (
+        {dataEntries.map((entry, index) => (
           <Typography
+            key={`${entry.label}-${entry.value}-${index}`}
             component="span"
-            sx={{ paddingTop: 1.2, fontWeight: "normal" }}
+            fontSize={isMobile ? 14 : 16}
           >
-            <strong>{pt.personCard.name}</strong>{" "}{cardData.name}{" "}
-            <strong>{pt.personCard.cpf}</strong>{" "}{cardData.cpf}{" "}
-            <strong>{pt.personCard.birthDate}</strong>{" "}{cardData.birthDate}{" "}
-            <strong>{pt.personCard.civilState}</strong>{" "}{cardData.civilState}{" "}
-            <strong>{pt.personCard.nis}</strong>{" "}{cardData.nis}{" "}
-            <strong>{pt.personCard.phone}</strong>{" "}{cardData.phone}{" "}
-            <strong>{pt.personCard.email}</strong>{" "}{cardData.email}{" "}
-            <strong>{pt.personCard.address}</strong>{" "}{cardData.address}{" "}
+            <strong>{entry.label}</strong> {entry.value}
           </Typography>
-        )}
+        ))}
       </Box>
 
       <Box
