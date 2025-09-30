@@ -1,8 +1,33 @@
+# Dependencies
 node_modules
-npm-debug.log
-Dockerfile
-.dockerignore
+npm-debug.log*
+
+# Builds
+dist
+dev-dist
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# VCS
 .git
 .gitignore
-.env
-.env.production
+.github
+.gitlab
+
+# IDE
+.vscode
+.idea
+
+# Cypress
+cypress
+cypress.config.mjs
+
+# Docker
+docker-compose.yml
+
+# Misc
+scripts
+.DS_Store

@@ -1,11 +1,11 @@
-import { Box } from '@mui/material';
-import { Outlet } from 'react-router';
+import { Box } from "@mui/material";
+import { Outlet } from "react-router";
 
-import { Header } from '../../components/Header';
-import { Sidebar } from '../../components/Sidebar';
-import { Toast } from '../../components/Toast';
-import { UserProfile } from '../../components/UserProfile';
-import { useRoutes } from '../../hooks/useRoutes';
+import { Header } from "../../components/Header";
+import { Sidebar } from "../../components/Sidebar";
+import { Toast } from "../../components/Toast";
+import { UserProfile } from "../../components/UserProfile";
+import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Layout() {
   const { allowedRoutes } = useRoutes();
@@ -18,8 +18,8 @@ export default function Layout() {
 
       <Box
         flex="1"
-        display='flex'
-        flexDirection='column'
+        display="flex"
+        flexDirection="column"
         overflow="hidden"
       >
         <Header />
@@ -27,10 +27,11 @@ export default function Layout() {
           component="main"
           flex="1"
           overflow="auto"
-          width='100%'
+          width="100%"
+          maxWidth="lg"
           padding={2}
           paddingBottom={10}
-          marginX='auto'
+          marginX="auto"
         >
           <Toast />
           <Outlet />

@@ -1,10 +1,10 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
-import type { DeviceSize } from '../../hooks/useScreenSize';
+import type { DeviceSize } from "../../hooks/useScreenSize";
 
-export type SidebarState = 'closed' | 'opening' | 'opened' | 'closing';
+export type SidebarState = "closed" | "opening" | "opened" | "closing";
 
-export type SidebarWidth = number | '100%';
+export type SidebarWidth = number | "100%";
 
 type SidebarContextType = {
   sidebarState: SidebarState;
@@ -14,7 +14,7 @@ type SidebarContextType = {
 };
 
 export const SidebarContext = createContext<SidebarContextType>({
-  sidebarState: 'closed',
+  sidebarState: "closed",
   toggleSidebar: () => {},
   getSidebarWidth: () => 0,
   sidebarAnimationDurationMs: 500,

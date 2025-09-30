@@ -1,15 +1,13 @@
-import { Button, Grid, Typography } from '@mui/material';
-import { Outlet, useNavigate } from 'react-router';
+import { Button, Grid, Typography } from "@mui/material";
+import { Outlet, useNavigate } from "react-router";
 
-import { SelectInput } from '../../components/Inputs/SelectInput';
-import { TextInput } from '../../components/Inputs/TextInput';
-import { NewResponsibleModal } from '../../components/NewResponsibleModal';
-import { useNewResponsibleModal } from '../../components/NewResponsibleModal/hook';
-import { PageTitle } from '../../components/PageTitle';
-import { PersonCard } from '../../components/PersonCard';
-import { TextCard } from '../../components/TextCard';
-import { pt } from '../../constants';
-import { useToast } from '../../hooks/useToast';
+import { NewResponsibleModal } from "../../components/NewResponsibleModal";
+import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hook";
+import { PageTitle } from "../../components/PageTitle";
+import { PersonCard } from "../../components/PersonCard";
+import { TextCard } from "../../components/TextCard";
+import { pt } from "../../constants";
+import { useToast } from "../../hooks/useToast";
 
 export default function TechDemo() {
   const navigate = useNavigate();
@@ -17,7 +15,7 @@ export default function TechDemo() {
   const {openModal} = useNewResponsibleModal();
 
   function showAPIInfo() {
-    navigate('2?c2=4');
+    navigate("2?c2=4");
   }
 
   return (
@@ -26,16 +24,18 @@ export default function TechDemo() {
 
       <hr />
 
-      <PersonCard
-        name="Leonardo M"
-        cpf="029.013.320-30"
-        birthDate="07/07/2004"
-        civilState="Namorando"
-        nis="123123"
-        phone="51-986027476"
-        email="leo@gmail.com"
-        address="Rua Jair 617"
-      />
+      <Grid container spacing={2} marginBottom={2}>
+        <PersonCard
+          name="Leonardo M"
+          cpf="123.456.789-10"
+          birthDate="07/07/2004"
+          civilState="Namorando"
+          nis="123123"
+          phone="51-987654321"
+          email="leo@gmail.com"
+          address="Av. Ipiranga, 6681 - Partenon"
+        />
+      </Grid>
 
       <Grid container spacing={2}>
         <TextCard title="Home" theme="dark" />
@@ -43,7 +43,6 @@ export default function TechDemo() {
       </Grid>
 
       <hr />
-
       <Button
         onClick={showAPIInfo}
         variant="contained"
@@ -60,7 +59,7 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-success-button"
-          onClick={() => showToast('Teste de Toast', 'success')}
+          onClick={() => showToast("Teste de Toast", "success")}
         >
           Abrir toast de SUCESSO!
         </Button>
@@ -68,7 +67,7 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-error-button"
-          onClick={() => showToast('Teste de Toast fechável', 'error', true)}
+          onClick={() => showToast("Teste de Toast fechável", "error", true)}
         >
           Abrir toast de ERRO!
         </Button>
@@ -76,7 +75,7 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-info-button"
-          onClick={() => showToast('Teste de Toast fechável', 'info', true)}
+          onClick={() => showToast("Teste de Toast fechável", "info", true)}
         >
           Abrir toast de INFO!
         </Button>
@@ -88,20 +87,7 @@ export default function TechDemo() {
           Abrir modal
         </Button>
       </Grid>
-      <hr />
-      <Grid container spacing={2} marginBottom={2}>
-        <TextInput label="Nome" placeholder="Escreva seu nome" id="1" />
-      </Grid>
-
-      <hr />
-      <Grid container spacing={2} marginBottom={2}>
-        <SelectInput
-          label="Idade"
-          options={['Opção 1', 'Opção 2', 'Opção 3']}
-          id="1"
-        />
-      </Grid>
-      <NewResponsibleModal/>
+      <NewResponsibleModal />
       <Outlet />
     </>
   );

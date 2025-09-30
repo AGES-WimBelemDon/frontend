@@ -1,11 +1,11 @@
-import { Box, Button, Divider, List, ListItem, Typography } from '@mui/material';
+import { Box, Button, Divider, List, ListItem, Typography } from "@mui/material";
 
-import { useFrequencyCall } from './hook';
-import { FrequencyCard } from '../../components/FrequencyCard';
-import type { FrequencyCardStudent } from '../../components/FrequencyCard/interface';
-import { DateInput } from '../../components/Inputs/DateInput';
-import { PageTitle } from '../../components/PageTitle';
-import { pt } from '../../constants';
+import { useFrequencyCall } from "./hook";
+import { DateInput } from "../../components/Inputs/DateInput";
+import { FrequencyCard } from "../../components/FrequencyCard";
+import type { FrequencyCardStudent } from "../../components/FrequencyCard/interface";
+import { PageTitle } from "../../components/PageTitle";
+import { pt } from "../../constants";
 
 export function FrequencyCall() {
   const {
@@ -17,19 +17,19 @@ export function FrequencyCall() {
   } = useFrequencyCall();
 
   if (!students) {
-    return <Typography color='error'>{pt.frequencyCall.studentsError}</Typography>;
+    return <Typography color="error">{pt.frequencyCall.studentsError}</Typography>;
   }
 
   return (
     <Box
       sx={{
-        width: '100%',
-        height: '88vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'start',
-        alignItems: 'start',
-        overflow: 'hidden'
+        width: "100%",
+        height: "88vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "start",
+        alignItems: "start",
+        overflow: "hidden"
       }}
     >
       <PageTitle
@@ -38,23 +38,23 @@ export function FrequencyCall() {
             activity: activityTitle,
             classTitle: classTitle
           })}
-        dataCy='frequency-call'
+        dataCy="frequency-call"
       />
 
       <DateInput id='1' label={pt.frequencyCall.dateInput.selectDate}/>
       <Divider
         sx={{
-          bgcolor: 'primary.main',
+          bgcolor: "primary.main",
           height: 2,
-          width: '100%',
+          width: "100%",
           marginY: 2,
         }}
       />
 
       <List sx={{
-        width: '100%',
-        height: '100%',
-        overflowY: 'auto'
+        width: "100%",
+        height: "100%",
+        overflowY: "auto"
       }}>
         {students.map((item: FrequencyCardStudent) => (
           <ListItem key={item.id} sx={{ paddingX: 0 }}>
@@ -69,7 +69,7 @@ export function FrequencyCall() {
         ))}
       </List>
 
-      <Box sx={{ display: 'flex', justifyContent: 'end', alignItems: 'end', width: '100%', height: '15vh' }}>
+      <Box sx={{ display: "flex", justifyContent: "end", alignItems: "end", width: "100%", height: "15vh" }}>
         <List>
           <Button
             onClick={() => registerCall()}

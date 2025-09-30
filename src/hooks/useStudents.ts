@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
-import { getStudents } from '../services/students';
+import { getStudents } from "../services/students";
 
 export function useStudents() {
   const { isPending, error, data } = useQuery({
-    queryKey: ['students'],
+    queryKey: ["students"],
     queryFn: getStudents,
   });
 

@@ -1,11 +1,11 @@
-import { Box, ButtonBase, Divider, Tooltip, Typography } from '@mui/material';
+import { Box, ButtonBase, Divider, Tooltip, Typography } from "@mui/material";
 
-import logo from '../../assets/logo.png';
-import { pt } from '../../constants';
-import { useRoutes } from '../../hooks/useRoutes';
-import { useScreenSize } from '../../hooks/useScreenSize';
-import { useSidebar } from '../../hooks/useSidebar';
-import { SidebarBurgerIcon } from '../Sidebar/BurgerIcon';
+import logo from "../../assets/logo.png";
+import { pt } from "../../constants";
+import { useRoutes } from "../../hooks/useRoutes";
+import { useScreenSize } from "../../hooks/useScreenSize";
+import { useSidebar } from "../../hooks/useSidebar";
+import { SidebarBurgerIcon } from "../Sidebar/BurgerIcon";
 
 export function Header() {
   const { goTo } = useRoutes();
@@ -15,10 +15,10 @@ export function Header() {
   return (
     <>
       <Box
-        component='header'
-        position='relative'
-        display='flex'
-        justifyContent='center'
+        component="header"
+        position="relative"
+        display="flex"
+        justifyContent="center"
         px={{ xs: 2, md: 2.5 }}
         py={{ xs: 2.5, md: 1.5 }}
       >
@@ -26,23 +26,23 @@ export function Header() {
           <SidebarBurgerIcon
             onToggle={toggleSidebar}
             sx={{
-              position: 'absolute',
+              position: "absolute",
               left: 10,
-              top: '50%',
-              transform: 'translateY(-50%)',
+              top: "50%",
+              transform: "translateY(-50%)"
             }}
           />
         )}
-        <Tooltip title={pt.header.goToHome} placement='right'>
+        <Tooltip title={pt.header.goToHome} placement="right">
           <ButtonBase
             focusRipple
             aria-label={pt.header.goToHome}
             data-cy="header-home-button"
-            onClick={() => goTo('/')}
+            onClick={() => goTo("/")}
             sx={{
               gap: 2,
-              display: 'flex',
-              paddingX: isMobile ? 0 : 6,
+              display: "flex",
+              paddingX: isMobile ? 0 : 6
             }}
           >
             <Box
@@ -57,7 +57,7 @@ export function Header() {
             <Typography
               variant="h1"
               fontSize={{ xs: 20, md: 30 }}
-              fontWeight='bold'
+              fontWeight="bold"
             >
               WimBelemDon+
             </Typography>
@@ -67,7 +67,7 @@ export function Header() {
       <Divider
         variant="middle"
         sx={{
-          bgcolor: 'primary.main',
+          bgcolor: "primary.main",
           height: 2,
         }}
       />
