@@ -2,6 +2,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 
 import { PageTitle } from "../../components/PageTitle";
+import { PersonCard } from "../../components/PersonCard";
 import { TextCard } from "../../components/TextCard";
 import { pt } from "../../constants";
 import { useToast } from "../../hooks/useToast";
@@ -20,15 +21,22 @@ export default function TechDemo() {
 
       <hr />
 
+      <Grid container spacing={2} marginBottom={2}>
+        <PersonCard
+          name="Leonardo M"
+          cpf="123.456.789-10"
+          birthDate="07/07/2004"
+          civilState="Namorando"
+          nis="123123"
+          phone="51-987654321"
+          email="leo@gmail.com"
+          address="Av. Ipiranga, 6681 - Partenon"
+        />
+      </Grid>
+
       <Grid container spacing={2}>
-        <TextCard
-          title="Home"
-          theme="dark"
-        />
-        <TextCard
-          title="Home"
-          theme="light"
-        />
+        <TextCard title="Home" theme="dark" />
+        <TextCard title="Home" theme="light" />
       </Grid>
 
       <hr />
@@ -42,7 +50,7 @@ export default function TechDemo() {
       </Button>
 
       <hr />
-      
+
       <Grid container spacing={2} marginBottom={2}>
         <Button
           variant="contained"
@@ -69,6 +77,7 @@ export default function TechDemo() {
           Abrir toast de INFO!
         </Button>
       </Grid>
+
       <Outlet />
     </>
   );
