@@ -13,7 +13,7 @@ import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
 
 export default function StudentRegistration() {
-  const { goTo } = useRoutes();
+  const { goBack } = useRoutes();
   
   const {
     genderOptions,
@@ -473,7 +473,7 @@ export default function StudentRegistration() {
             color="error"
             sx={{ flex: 1 }}
             type="button"
-            onClick={() => goTo("/")}
+            onClick={goBack}
           >
             {pt.studentRegistration.cancelButton}
           </Button>
