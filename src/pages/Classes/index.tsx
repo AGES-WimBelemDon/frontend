@@ -1,9 +1,12 @@
+import { useEffect } from "react";
+
 import { Box, Typography, TextField, MenuItem, Button, Card, CardContent, Autocomplete } from "@mui/material";
 
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { pt } from "../../constants";
+import { useToast } from "../../hooks/useToast";
 
 export default function Classes() {
   const {
@@ -20,15 +23,23 @@ export default function Classes() {
     levelFilter,
     setLevelFilter,
     levels,
-    filteredClasses,
+    mockClasses
   } = useClassesPage()
+
+  const {showToast} = useToast()
+
+  useEffect(function handleShowErrorToast() {
+    if (classesError) {
+      showToast ("Erro ao carregar turmas", "error")
+    }
+  }, [classesError, showToast])
 
   if (isLoadingClasses) {
     return <Typography>{pt.classes.loadingClasses}</Typography>;
   }
 
   if (classesError) {
-    return <Typography color="error">{pt.classes.classesError}</Typography>;
+    return <Typography color="error">{pt.classes.classesError}</Typography>
   }
 
   return(
@@ -60,16 +71,35 @@ export default function Classes() {
           getOptionLabel={(option) => option.name}
           value={activities?.find((a) => a.id === activityFilter) || null}
           onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
-          renderInput={(params) => <TextField {...params} label="Atividade"/>}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Atividade"
+              slotProps={{
+                inputLabel: {
+                  sx: {
+                    color: "text.primary",
+                  },
+                },
+              }}
+            />
+          )}
           fullWidth
         />
-
+ 
         <TextField
           select
           label={pt.classes.weekDay}
           value={dayFilter}
           onChange={(e) => setDayFilter(e.target.value)}
           fullWidth
+          slotProps={{
+            inputLabel: {
+              sx: {
+                color: "text.primary"
+              }
+            }
+          }}
         >
           <MenuItem value="">{pt.filters.all}</MenuItem>
           {weekDays.map((weekDay) => (
@@ -85,6 +115,13 @@ export default function Classes() {
           value={levelFilter}
           onChange={(e) => setLevelFilter(e.target.value)}
           fullWidth
+          slotProps={{
+            inputLabel: {
+              sx: {
+                color: "text.primary"
+              }
+            }
+          }}
         >
           <MenuItem value="">{pt.filters.all}</MenuItem>
           {levels.map((lvl) => (
@@ -99,13 +136,13 @@ export default function Classes() {
       <br />
 
       <CardList>
-        {filteredClasses.map((c) => (
-          <Card key={c.id}>
+        {mockClasses.map((c) => (
+          <Card key={c.id} sx={{ backgroundColor: "primary.contrastText"}}>
             <CardContent>
               <Typography variant="h6">{c.title}</Typography>
-              <Typography variant="body2">{pt.classes.weekDay}</Typography>
-              <Typography variant="body2">{pt.classes.schedule}</Typography>
-              <Typography variant="body2">{pt.classes.level}</Typography>
+              <Typography variant="body2">{c.classes.weekDay}</Typography>
+              <Typography variant="body2">{c.classes.schedule}</Typography>
+              <Typography variant="body2">{c.classes.level}</Typography>
             </CardContent>
           </Card>
         ))}

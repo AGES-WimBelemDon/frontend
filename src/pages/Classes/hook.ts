@@ -21,6 +21,54 @@ const levels = [
   "Avançado"
 ];
 
+const mockClasses = [
+  {
+    id: 1,
+    title: "Yoga para Iniciantes",
+    classes: {
+      weekDay: "Segunda-feira",
+      schedule: "08:00 - 09:00",
+      level: "Iniciante",
+    },
+  },
+  {
+    id: 2,
+    title: "Treino Funcional",
+    classes: {
+      weekDay: "Terça-feira",
+      schedule: "18:30 - 19:30",
+      level: "Intermediário",
+    },
+  },
+  {
+    id: 3,
+    title: "Aula de Dança",
+    classes: {
+      weekDay: "Quarta-feira",
+      schedule: "19:00 - 20:00",
+      level: "Todos os níveis",
+    },
+  },
+  {
+    id: 4,
+    title: "Pilates Avançado",
+    classes: {
+      weekDay: "Quinta-feira",
+      schedule: "07:00 - 08:00",
+      level: "Avançado",
+    },
+  },
+  {
+    id: 5,
+    title: "Cross Training",
+    classes: {
+      weekDay: "Sábado",
+      schedule: "10:00 - 11:30",
+      level: "Intermediário",
+    },
+  },
+];
+
 export function useClassesPage() {
   const { activities } = useActivities();
   const { isLoadingClasses, classesError, classes } = useClasses();
@@ -59,5 +107,6 @@ export function useClassesPage() {
     goTo,
     deviceSize,
     filteredClasses,
+    mockClasses,
   };
 }
