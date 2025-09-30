@@ -16,6 +16,10 @@ export function useRoutes() {
     navigate(route);
   }
 
+  function goBack() {
+    navigate(-1);
+  }
+
   function getPathParamId(previousParamName: string) {
     const pathSegments = window.location.pathname.split("/").filter(Boolean);
     const paramIndex = pathSegments.indexOf(previousParamName);
@@ -27,6 +31,7 @@ export function useRoutes() {
 
   return {
     goTo,
+    goBack,
     getPathParamId,
     allowedRoutes: [
       "/",
