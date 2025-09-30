@@ -1,13 +1,85 @@
 import type { Params } from "./type";
 
 export const portugueseTextMap = {
-  buttonCard: {
-    frequency: ({ percent }: Params<"percent">) => (
-      `Frequência: ${percent}%`
-    ),
+  activityList: {
+    title: "Lista de Atividades",
+    loadingActivities: "Carregando atividades...",
+    activitiesError: "Erro ao carregar atividades",
+    activitiesEmpty: "Nenhuma atividade encontrada.",
+    filters: {
+      name: {
+        title: "Nome",
+        placeholder: "Nome da Atividade",
+      },
+      area: {
+        title: "Área",
+        placeholder: "Selecione a Área",
+        sports: "Esportes",
+        gym: "Academia",
+        water: "Aquáticos",
+      },
+      frequency: {
+        title: "Frequência",
+        placeholder: "Selecione a Frequência",
+        daily: "Diária",
+        weekly: "Semanal",
+        monthly: "Mensal",
+      },
+    },
+    card: {
+      area: "Área:",
+      frequency: "Frequência:",
+      teacher: "Professor:",
+    },
   },
   dateInput: {
     selectDate: "Selecione a data",
+  },
+  filters: {
+    loading: "Carregando filtros...",
+    race: {
+      title: "Raça",
+      white: "Branca",
+      black: "Preta",
+      brown: "Parda",
+      yellow: "Asiática",
+      indigenous: "Indígena",
+      notDeclared: "Não Declarado",
+    },
+    gender: {
+      title: "Sexo",
+      male: "Masculino",
+      female: "Feminino",
+      other: "Outro",
+    },
+    socialPrograms: {
+      title: "Programas Sociais",
+      bolsaFamilia: "Bolsa Família",
+      bpcLoas: "BPC/LOAS",
+      tarifaSocialDeEnergia: "Tarifa Social de Energia",
+      auxilioGas: "Auxílio Gás",
+      programaEstadual: "Programa Estadual",
+      programaMunicipalViaCras: "Programa Municipal via CRAS",
+    },
+    employmentStatus: {
+      title: "Vínculo Empregatício",
+      employed: "Empregado",
+      unemployed: "Desempregado",
+      student: "Estudante",
+      other: "Outro",
+    },
+    educationLevel: {
+      title: "Nível de Escolaridade",
+      none: "Nenhum",
+      literate: "Alfabetizado",
+      incompleteElementary: "Fundamental Incompleto",
+      completeElementary: "Fundamental Completo",
+      incompleteHighSchool: "Ensino Médio Incompleto",
+      completeHighSchool: "Ensino Médio Completo",
+      incompleteHigher: "Superior Incompleto",
+      completeHigher: "Superior Completo",
+      posGraduation: "Pós-Graduação",
+    },
   },
   header: {
     goToHome: "Ir para a página inicial",
@@ -31,6 +103,9 @@ export const portugueseTextMap = {
   },
   frequencyCard: {
     absentDetails: "Adicionar Observação",
+    frequency: ({ percent }: Params<"percent">) => (
+      `Frequência: ${percent}%`
+    ),
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
@@ -54,6 +129,41 @@ export const portugueseTextMap = {
     email: "Email:",
     address: "Endereço:",
     editButton: "Editar",
+  },
+  studentRegistration: {
+    personalInformation: "Informações Pessoais",
+    name: "Nome",
+    namePlaceholder: "Nome completo",
+    dateOfBirth: "Data de Nascimento",
+    address: {
+      zipCode: "CEP",
+      zipCodePlaceholder: "xxxxxxxx",
+      street: "Logradouro",
+      number: "Número",
+      numberPlaceholder: "Número",
+      complement: "Complemento",
+      complementPlaceholder: "Apartamento, bloco, casa, etc.",
+    },
+    enrollmentDate: "Data de Cadastro",
+    documents: "Documentos",
+    registrationNumber: "Documento de Identidade (CPF)",
+    attachments: "Anexos",
+    attachMoreFiles: "Anexar mais documentos",
+    selectFiles: "Selecionar arquivo",
+    selectedFile: "Arquivo selecionado:",
+    fileCreatedAt: "Data de criação do arquivo:",
+    fileDescription: "Descrição do arquivo",
+    cancelFileSend: "Cancelar envio do arquivo",
+    addFileButton: "Adicionar arquivo",
+    toggleStudentStatusOn: "Ativar estudante",
+    toggleStudentStatusOff: "Desativar estudante",
+    details: "Detalhes",
+    schoolName: "Escola Atual",
+    schoolNamePlaceholder: "Digite a escola atual do Educando",
+    saveButton: "Salvar",
+    cancelButton: "Cancelar",
+    successMessage: "Estudante cadastrado com sucesso!",
+    errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
   },
   techDemo: {
     title: "Tech Demo",
@@ -82,5 +192,10 @@ export const portugueseTextMap = {
   userProfile: {
     login: "Conectar com Google",
     logout: "Sair",
+  },
+  users: {
+    title: "Gerenciar Usuários",
+    loadingUsers: "Carregando usuários...",
+    usersError: "Erro ao carregar usuários",
   },
 } as const;

@@ -9,8 +9,10 @@ const cards = [
   { title: "Realizar Chamada", goTo: "frequencias/atividades", disabled: false },
   { title: "Gerenciar Turmas", goTo: "turmas", disabled: true },
   { title: "Gerenciar Alunos", goTo: "alunos", disabled: true },
-  { title: "Atividades", goTo: "atividades", disabled: true },
+  { title: "Gerenciar Atividades", goTo: "atividades", disabled: false },
+  { title: "Gerenciar Usuários", goTo: "usuarios", disabled: false },
 ];
+
 
 export default function Home() {
   const { user } = useAuth();
@@ -45,7 +47,7 @@ export default function Home() {
       <Divider sx={{ my: 2, width: "100%" }} />
 
       <CardList>
-        {cards.map((card) => (
+        {cards.sort((card) => card.disabled ? 1 : -1 ).map((card) => (
           <TextCard
             key={card.title}
             title={card.title}

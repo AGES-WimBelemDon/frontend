@@ -27,10 +27,9 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
     text: "Página Inicial",
     icon: <Home />,
   },
-  "/cadastro": {
-    text: "Cadastro",
+  "/usuarios": {
+    text: "Usuários",
     icon: <AssignmentAdd />,
-    disabled: true,
   },
   "/alunos": {
     text: "Alunos",
@@ -44,7 +43,6 @@ const sidebarOptionsMapper: SidebarRouteMapper = {
   "/atividades": {
     text: "Atividades",
     icon: <AppRegistration />,
-    disabled: true,
   },
   ...(import.meta.env.DEV && {
     "/tech-demo": {
