@@ -23,14 +23,14 @@ export default function Classes() {
     levelFilter,
     setLevelFilter,
     levels,
-    mockClasses
+    filteredClasses,
   } = useClassesPage()
 
-  const {showToast} = useToast()
+  const { showToast } = useToast()
 
   useEffect(function handleShowErrorToast() {
     if (classesError) {
-      showToast ("Erro ao carregar turmas", "error")
+      showToast("Erro ao carregar turmas", "error")
     }
   }, [classesError, showToast])
 
@@ -76,11 +76,7 @@ export default function Classes() {
               {...params}
               label="Atividade"
               slotProps={{
-                inputLabel: {
-                  sx: {
-                    color: "text.primary",
-                  },
-                },
+                inputLabel: { sx: { color: "text.primary" } },
               }}
             />
           )}
@@ -94,11 +90,7 @@ export default function Classes() {
           onChange={(e) => setDayFilter(e.target.value)}
           fullWidth
           slotProps={{
-            inputLabel: {
-              sx: {
-                color: "text.primary"
-              }
-            }
+            inputLabel: { sx: { color: "text.primary" } },
           }}
         >
           <MenuItem value="">{pt.filters.all}</MenuItem>
@@ -116,11 +108,7 @@ export default function Classes() {
           onChange={(e) => setLevelFilter(e.target.value)}
           fullWidth
           slotProps={{
-            inputLabel: {
-              sx: {
-                color: "text.primary"
-              }
-            }
+            inputLabel: { sx: { color: "text.primary" } },
           }}
         >
           <MenuItem value="">{pt.filters.all}</MenuItem>
@@ -128,7 +116,6 @@ export default function Classes() {
             <MenuItem key={lvl} value={lvl}>
               {lvl}
             </MenuItem>
-
           ))}
         </TextField>
       </Box>
@@ -136,13 +123,13 @@ export default function Classes() {
       <br />
 
       <CardList>
-        {mockClasses.map((c) => (
-          <Card key={c.id} sx={{ backgroundColor: "primary.contrastText"}}>
+        {filteredClasses.map((c) => (
+          <Card key={c.id} sx={{ backgroundColor: "background.default" }}>
             <CardContent>
               <Typography variant="h6">{c.title}</Typography>
-              <Typography variant="body2">{c.classes.weekDay}</Typography>
-              <Typography variant="body2">{c.classes.schedule}</Typography>
-              <Typography variant="body2">{c.classes.level}</Typography>
+              <Typography variant="body2">{c.weekDay}</Typography>
+              <Typography variant="body2">{c.schedule}</Typography>
+              <Typography variant="body2">{c.level}</Typography>
             </CardContent>
           </Card>
         ))}
