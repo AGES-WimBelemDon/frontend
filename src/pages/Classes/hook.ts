@@ -38,9 +38,9 @@ export function useClassesPage() {
     }
     return classes.filter((c) => {
       return (
-        (!activityFilter || c.activityId === activityFilter) &&
-        (!dayFilter || c.weekDay === dayFilter) &&
-        (!levelFilter || c.level === levelFilter)
+        (!activityFilter || c.activityId === activityFilter)
+        && (!dayFilter || c.weekDay === dayFilter)
+        && (!levelFilter || c.level === levelFilter)
       );
     });
   }, [isLoadingClasses, classesError, classes, activityFilter, dayFilter, levelFilter]);

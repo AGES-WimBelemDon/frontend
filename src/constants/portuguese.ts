@@ -121,6 +121,8 @@ export const portugueseTextMap = {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
     loadingClasses: "Carregando turmas...",
     classesError: "Erro ao carregar turmas",
+    noClasses: "Nenhuma turma encontrada para esta atividade.",
+    goBack: "Voltar para Atividades",
   },
   sidebar: {
     openSidebar: "Abrir menu lateral",
