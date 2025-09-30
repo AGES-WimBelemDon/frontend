@@ -1,6 +1,6 @@
-import { Box, Select, Typography } from '@mui/material';
+import { Box, Select, Typography } from "@mui/material";
 
-import { useSelectInput } from './hook';
+import { useSelectInput } from "./hook";
 
 export function SelectInput({
   label,
@@ -28,15 +28,15 @@ export function SelectInput({
           input: {
             sx: {
               fontSize: 15,
-              color: 'black', 
-              '&::placeholder': {
-                color: 'grey.900', 
+              color: "black", 
+              "&::placeholder": {
+                color: "grey.900", 
                 opacity: 0.5,
               },
             },
           },
         }}
-        value={select ?? ''}
+        value={select ?? ""}
         onChange={(select) => setSelectInput(String(select.target.value), id)}
       >
         <option value=""></option>

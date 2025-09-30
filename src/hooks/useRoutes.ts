@@ -34,12 +34,12 @@ export function useRoutes() {
     goBack,
     getPathParamId,
     allowedRoutes: [
-      '/',
-      '/alunos/cadastro',
-      '/atividades',
-      '/frequencias/atividades',
-      '/tech-demo',
-      '/turmas',
+      "/",
+      "/alunos/cadastro",
+      "/atividades",
+      "/frequencias/atividades",
+      "/tech-demo",
+      "/turmas",
       "/usuarios",
     ],
   };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { useDateInput } from "../../components/Inputs/DateInput/hook";
 import type { FrequencyCardStudent } from "../../components/FrequencyCard/interface";
+import { useDateInput } from "../../components/Inputs/DateInput/hook";
 import { pt } from "../../constants";
 import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
@@ -42,7 +42,7 @@ export function useFrequencyCall() {
   };
 
   function registerCall() {
-    const date = getDate('1');
+    const date = getDate("1");
     
     if (!students) {
       return showToast(pt.frequencyCall.errorNoStudents, "error", true);
