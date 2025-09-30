@@ -199,6 +199,14 @@ export const portugueseTextMap = {
     successMessage: "Estudante cadastrado com sucesso!",
     errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
   },
+  students: {
+    title: "Educandos",
+    createNew: "Criar Novo Educando",
+    createResponsible: "Criar Responsável",
+    loadingStudents: "Carregando educandos...",
+    studentsError: "Erro ao carregar educandos",
+    noStudents: "Nenhum educando encontrado",
+  },
   techDemo: {
     title: "Tech Demo",
     fetching: "Atualizando...",

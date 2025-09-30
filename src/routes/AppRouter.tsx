@@ -9,6 +9,7 @@ import Home from "../pages/Home";
 import Layout from "../pages/Layout";
 import ResponsibleRegistration from "../pages/ResponsibleRegistration";
 import StudentRegistration from "../pages/StudentRegistration";
+import Students from "../pages/Students";
 import TechDemo from "../pages/TechDemo";
 import TechDemoMockAPI from "../pages/TechDemo/MockAPI.tsx";
 import Users from "../pages/Users";
@@ -19,6 +20,7 @@ function AppRouter() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="alunos" element={<Students />} />
           <Route path="alunos/cadastro" element={<StudentRegistration />} />
           <Route path="alunos/:id/responsaveis/cadastro" element={<ResponsibleRegistration />} />
           <Route path="atividades" element={<ActivityList />} />
