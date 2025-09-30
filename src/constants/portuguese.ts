@@ -130,10 +130,17 @@ export const portugueseTextMap = {
       `Navegar para a página ${to}`
     ),
   },
-  users: {
-    title: "Gerenciar Usuários",
-    loadingUsers: "Carregando usuários...",
-    usersError: "Erro ao carregar usuários",
+  personCard: {
+    userImageAlt: "Imagem do usuário",
+    name: "Nome:",
+    cpf: "CPF:",
+    birthDate: "Nascimento:",
+    civilState: "Estado Civil:",
+    nis: "NIS:",
+    phone: "Telefone:",
+    email: "Email:",
+    address: "Endereço:",
+    editButton: "Editar",
   },
   studentRegistration: {
     personalInformation: "Informações Pessoais",
@@ -197,5 +204,10 @@ export const portugueseTextMap = {
   userProfile: {
     login: "Conectar com Google",
     logout: "Sair",
+  },
+  users: {
+    title: "Gerenciar Usuários",
+    loadingUsers: "Carregando usuários...",
+    usersError: "Erro ao carregar usuários",
   },
 } as const;
