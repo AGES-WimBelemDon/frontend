@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api, endpoints } from "./api";
 import type { EducationLevel } from "./students";
 
 export type Race = 
@@ -34,7 +34,7 @@ export type EmploymentStatus =
 
 export async function getRacesFilter(): Promise<Race[]> {
   try {
-    const response = await api.get<Race[]>("/filtros/racas");
+    const response = await api.get<Race[]>(endpoints.filters.race);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -54,7 +54,7 @@ export async function getRacesFilter(): Promise<Race[]> {
 
 export async function getSocialProgramsFilter(): Promise<SocialProgram[]> {
   try {
-    const response = await api.get<SocialProgram[]>("/filtros/programas-sociais");
+    const response = await api.get<SocialProgram[]>(endpoints.filters.socialPrograms);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -74,7 +74,7 @@ export async function getSocialProgramsFilter(): Promise<SocialProgram[]> {
 
 export async function getGendersFilter(): Promise<Gender[]> {
   try {
-    const response = await api.get<Gender[]>("/filtros/generos");
+    const response = await api.get<Gender[]>(endpoints.filters.gender);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -91,7 +91,7 @@ export async function getGendersFilter(): Promise<Gender[]> {
 
 export async function getEmploymentStatusFilter(): Promise<EmploymentStatus[]> {
   try {
-    const response = await api.get<EmploymentStatus[]>("/filtros/situacoes-emprego");
+    const response = await api.get<EmploymentStatus[]>(endpoints.filters.employmentStatus);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -109,7 +109,7 @@ export async function getEmploymentStatusFilter(): Promise<EmploymentStatus[]> {
 
 export async function getStudentEducationLevelFilter(): Promise<EducationLevel[]> {
   try {
-    const response = await api.get<EducationLevel[]>("/filtros/educacao");
+    const response = await api.get<EducationLevel[]>(endpoints.filters.educationLevel);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production

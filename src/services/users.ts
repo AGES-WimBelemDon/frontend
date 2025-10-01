@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api, endpoints } from "./api";
 
 type User = {
   id: string;
@@ -11,7 +11,7 @@ type User = {
 
 export async function getUsers(): Promise<User[]> {
   try {
-    const response = await api.get<User[]>("/users");
+    const response = await api.get<User[]>(endpoints.users);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
