@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import { SidebarBurgerIcon } from "./BurgerIcon";
 import { sidebarOptionsMapper, type SidebarProps } from "./interface";
 import { pt } from "../../constants";
+import type { ValidRoute } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useSidebar } from "../../hooks/useSidebar";
 
@@ -25,7 +26,7 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
   } = useSidebar();
 
   const visibleRoutes = Object.keys(sidebarOptionsMapper)
-    .filter(route => allowedRoutes.includes(route));
+    .filter(route => allowedRoutes.includes(route as ValidRoute)) as ValidRoute[];
 
   const sidebarWidth = getSidebarWidth(deviceSize) === "100%" ? "100%"
     : `${getSidebarWidth(deviceSize)}px`;
@@ -60,7 +61,13 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
 
       <List sx={{ overflowY: "auto" }}>
         {visibleRoutes.map((route) => {
-          const { text, icon: Icon } = sidebarOptionsMapper[route];
+          const sidebarOptions = sidebarOptionsMapper[route];
+
+          if (!sidebarOptions) {
+            return null;
+          }
+
+          const { text, icon: Icon } = sidebarOptions;
 
           return (
             <ListItem key={route} disablePadding>
@@ -72,7 +79,6 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
                   }
                   navigate(route);
                 }}
-                disabled={sidebarOptionsMapper[route].disabled}
                 sx={{
                   backgroundColor: "grey.100",
                   borderRadius: ".7em",

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 
-type ValidRoute = "/"
+export type ValidRoute = 
+  | "/"
   | "/frequencias/atividades"
   | "/alunos"
   | "/atividades"
@@ -29,18 +30,20 @@ export function useRoutes() {
     return null;
   }
 
+  const allowedRoutes: ValidRoute[] = [
+    "/",
+    "/alunos",
+    "/atividades",
+    "/frequencias/atividades",
+    "/turmas",
+    "/usuarios",
+    "/tech-demo",
+  ];
+
   return {
     goTo,
     goBack,
     getPathParamId,
-    allowedRoutes: [
-      "/",
-      "/frequencias/atividades",
-      "/alunos",
-      "/atividades",
-      "/turmas",
-      "/usuarios",
-      "/tech-demo",
-    ],
+    allowedRoutes,
   };
 }

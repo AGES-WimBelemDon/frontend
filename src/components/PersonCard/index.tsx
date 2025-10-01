@@ -85,8 +85,8 @@ export function PersonCard({
       <Box
         sx={{
           display: "flex",
-          justifyContent: "flex-end",
           alignItems: "end",
+          justifyContent: "flex-end",
           paddingRight: 1.1,
           paddingBottom: 1.1,
           paddingTop: 1.1,

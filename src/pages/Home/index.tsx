@@ -5,13 +5,14 @@ import { CardList } from "../../components/CardList";
 import { sidebarOptionsMapper } from "../../components/Sidebar/interface";
 import { TextCard } from "../../components/TextCard";
 import { useAuth } from "../../hooks/useAuth";
+import type { ValidRoute } from "../../hooks/useRoutes";
 
-const cards = [
-  { title: "Realizar Chamada", goTo: "frequencias/atividades", disabled: false },
-  { title: "Gerenciar Alunos", goTo: "alunos", disabled: true },
-  { title: "Gerenciar Atividades", goTo: "atividades", disabled: false },
-  { title: "Gerenciar Turmas", goTo: "turmas", disabled: false },
-  { title: "Gerenciar Usuários", goTo: "usuarios", disabled: false },
+const cards: { title: string; goTo: ValidRoute }[] = [
+  { title: "Realizar Chamada", goTo: "/frequencias/atividades" },
+  { title: "Gerenciar Alunos", goTo: "/alunos" },
+  { title: "Gerenciar Atividades", goTo: "/atividades" },
+  { title: "Gerenciar Turmas", goTo: "/turmas" },
+  { title: "Gerenciar Usuários", goTo: "/usuarios" },
 ];
 
 export default function Home() {
@@ -47,14 +48,13 @@ export default function Home() {
       <Divider sx={{ my: 2, width: "100%" }} />
 
       <CardList>
-        {cards.sort((card) => card.disabled ? 1 : -1 ).map((card) => (
+        {cards.map((card) => (
           <TextCard
             key={card.title}
             title={card.title}
             theme="light"
             onClick={() => navigate(card.goTo)}
-            disabled={card.disabled}
-            icon={sidebarOptionsMapper[`/${card.goTo}`]?.icon}
+            icon={sidebarOptionsMapper[card.goTo]?.icon}
           />
         ))}
       </CardList>

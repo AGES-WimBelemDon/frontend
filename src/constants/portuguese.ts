@@ -124,6 +124,28 @@ export const portugueseTextMap = {
     noClasses: "Nenhuma turma encontrada para esta atividade.",
     goBack: "Voltar para Atividades",
   },
+  newResponsibleModal: {
+    title: "Cadastrar Responsável",
+    buttonText: "Adicionar Responsável",
+    inputs: {
+      name: "Nome",
+      cpf: "CPF",
+      birthDate: "Data de Nascimento",
+      civilState: "Estado Civil",
+      nis: "NIS",
+      address: "Endereço",
+      phone: "Telefone",
+      email: "Email"
+    },
+    placeholder: {
+      name: "Digite o nome do responsável",
+      cpf: "Digite o CPF do responsável",
+      nis: "Digite o NIS do responsável",
+      address: "Digite o endereço do responsável",
+      phone: "Digite o telefone do responsável",
+      email: "Digite o email do responsável"
+    }
+  },
   sidebar: {
     openSidebar: "Abrir menu lateral",
     listIcon: ({ to }: Params<"to">) => (
@@ -176,6 +198,14 @@ export const portugueseTextMap = {
     cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
     errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
+  },
+  students: {
+    title: "Educandos",
+    createNew: "Criar Novo Educando",
+    createResponsible: "Criar Responsável",
+    loadingStudents: "Carregando educandos...",
+    studentsError: "Erro ao carregar educandos",
+    noStudents: "Nenhum educando encontrado",
   },
   techDemo: {
     title: "Tech Demo",
