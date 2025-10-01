@@ -200,8 +200,8 @@ export default function StudentRegistration() {
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         >
-          {identityTypesOptions.map((opt) => (
-            <MenuItem key={opt} value={opt}>{opt}</MenuItem>
+          {identityTypesOptions?.map((identityType) => (
+            <MenuItem key={identityType.id} value={identityType.id}>{identityType.label}</MenuItem>
           ))}
         </TextField>
 

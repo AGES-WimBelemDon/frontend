@@ -26,7 +26,7 @@ import type {
 } from "../services/filters";
 import type { EducationLevel } from "../services/students";
 
-type FilterOption<T> = {
+export type FilterOption<T> = {
   id: T;
   label: string;
 };

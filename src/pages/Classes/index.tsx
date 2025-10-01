@@ -101,9 +101,9 @@ export default function Classes() {
           }}
         >
           <MenuItem value="">{pt.filters.all}</MenuItem>
-          {weekDaysOptions.map((weekDay) => (
-            <MenuItem key={weekDay} value={weekDay}>
-              {weekDay}
+          {weekDaysOptions?.map((weekDay) => (
+            <MenuItem key={weekDay.id} value={weekDay.id}>
+              {weekDay.label}
             </MenuItem>
           ))}
         </TextField>
@@ -119,9 +119,9 @@ export default function Classes() {
           }}
         >
           <MenuItem value="">{pt.filters.all}</MenuItem>
-          {levelOptions.map((level) => (
-            <MenuItem key={level} value={level}>
-              {level}
+          {levelOptions?.map((level) => (
+            <MenuItem key={level.id} value={level.id}>
+              {level.label}
             </MenuItem>
           ))}
         </TextField>
