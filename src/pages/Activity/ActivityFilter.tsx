@@ -64,6 +64,7 @@ export function ActivityFilter({
           onChange={(e: SelectChangeEvent) => onAreaChange(e.target.value)}
           displayEmpty
         >
+          {/* TODO: Fetch options from API */}
           <MenuItem value="all">{pt.activityList.filters.area.placeholder}</MenuItem>
           <MenuItem value="esportes">{pt.activityList.filters.area.sports}</MenuItem>
           <MenuItem value="academia">{pt.activityList.filters.area.gym}</MenuItem>
@@ -78,6 +79,7 @@ export function ActivityFilter({
           onChange={(e: SelectChangeEvent) => onFrequencyChange(e.target.value)}
           displayEmpty
         >
+          {/* TODO: Fetch options from API */}
           <MenuItem value="all">{pt.activityList.filters.frequency.placeholder}</MenuItem>
           <MenuItem value="diária">{pt.activityList.filters.frequency.daily}</MenuItem>
           <MenuItem value="semanal">{pt.activityList.filters.frequency.weekly}</MenuItem>

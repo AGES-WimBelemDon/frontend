@@ -12,7 +12,7 @@ import { useToast } from "../../hooks/useToast";
 export default function TechDemo() {
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const {openModal} = useNewResponsibleModal();
+  const { openModal } = useNewResponsibleModal();
 
   function showAPIInfo() {
     navigate("2?c2=4");
@@ -87,7 +87,9 @@ export default function TechDemo() {
           Abrir modal
         </Button>
       </Grid>
+
       <NewResponsibleModal />
+      
       <Outlet />
     </>
   );

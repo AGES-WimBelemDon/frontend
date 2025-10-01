@@ -24,9 +24,7 @@ function MockAPI() {
   }
 
   if (apiError) {
-    return (
-      <Typography color="error">{pt.techDemo.children.mockAPI.apiError({ message: apiError.message })}</Typography>
-    );
+    return <Typography color="error">{pt.techDemo.children.mockAPI.apiError({ message: apiError.message })}</Typography>;
   }
 
   return (

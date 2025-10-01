@@ -1,3 +1,3 @@
 export interface TestingProps {
-    dataCy: string;
+  dataCy: string;
 }
