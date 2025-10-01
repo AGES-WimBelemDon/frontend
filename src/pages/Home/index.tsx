@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { CardList } from "../../components/CardList";
 import { sidebarOptionsMapper } from "../../components/Sidebar/interface";
 import { TextCard } from "../../components/TextCard";
+import { pt } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
 import type { ValidRoute } from "../../hooks/useRoutes";
 
@@ -27,7 +28,7 @@ export default function Home() {
         fontWeight="bold"
         textAlign="center"
       >
-        Bem vindo(a) de volta
+        {pt.home.welcomeBack}
         {!user?.displayName
           ? "!"
           : (
