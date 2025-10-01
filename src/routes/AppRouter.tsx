@@ -22,7 +22,7 @@ function AppRouter() {
           <Route index element={<Home />} />
           <Route path="alunos" element={<Students />} />
           <Route path="alunos/cadastro" element={<StudentRegistration />} />
-          <Route path="alunos/:id/responsaveis/cadastro" element={<ResponsibleRegistration />} />
+          <Route path="alunos/:id/responsaveis" element={<ResponsibleRegistration />} />
           <Route path="atividades" element={<ActivityList />} />
           <Route path="frequencias/atividades" element={<Frequency />}/>
           <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>

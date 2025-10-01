@@ -10,74 +10,29 @@ import {
 } from "@mui/material";
 
 import { useNewResponsibleModal } from "./hook";
-import type { ResponsibleData } from "./interface/interface";
 import { pt } from "../../constants";
-import { useToast } from "../../hooks/useToast";
 import { DateInput } from "../Inputs/DateInput";
-import { useDateInput } from "../Inputs/DateInput/hook";
 import { SelectInput } from "../Inputs/SelectInput";
-import { useSelectInput } from "../Inputs/SelectInput/hook";
 import { TextInput } from "../Inputs/TextInput";
-import { useTextInput } from "../Inputs/TextInput/hook";
 
 export function NewResponsibleModal() {
-  const { showToast } = useToast();
-  const { getText } = useTextInput();
-  const { getSelect } = useSelectInput();
-  const { getDate } = useDateInput();
-  const { isOpen, closeModal } = useNewResponsibleModal();
+  const {
+    isOpen,
+    closeModal,
+    civilStateOptions,
+    addResponsible,
+  } = useNewResponsibleModal();
 
-  const setAllValues = (): ResponsibleData | undefined => {
-    const name = getText("1");
-    const cpf = getText("2");
-    const birthDate = getDate("1");
-    const civilState = getSelect("1");
-    const nis = getText("3");
-    const address = getText("4");
-    const phone = getText("5");
-    const email = getText("6");
-
-    if (
-      name != "" &&
-      cpf != "" &&
-      birthDate != "" &&
-      civilState != "" &&
-      nis != "" &&
-      address != "" &&
-      phone != "" &&
-      email != ""
-    ) {
-      return {
-        name,
-        cpf,
-        birthDate,
-        civilState,
-        nis,
-        address,
-        email,
-        phone,
-      };
-    }
-  };
-  const addResponsible = () => {
-    const responsible = setAllValues();
-    if (responsible) {
-      console.log(responsible);
-      showToast("Responsável adicionado com sucesso!", "success");
-      return closeModal();
-    }
-    showToast("Preencha todos os campos", "error");
-  };
   return (
     <Dialog
       open={isOpen}
-      onClose={() => closeModal()}
+      onClose={closeModal}
       fullWidth
       sx={{
         "& .MuiPaper-root": {
-          borderRadius: "16px",
-          padding: "16px",
-          backgroundColor: "#f9f9f9",
+          borderRadius: 2,
+          padding: 2,
+          backgroundColor: "grey.50",
           width: "100%",
         },
       }}
@@ -85,16 +40,16 @@ export function NewResponsibleModal() {
       <DialogTitle
         fontWeight="bold"
         fontSize={24}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        position="relative"
         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
           fontWeight: "bold",
           fontSize: 24,
         }}
       >
-        Cadastrar Responsável
+        {pt.newResponsibleModal.title}
         <IconButton
           onClick={closeModal}
           sx={{
@@ -110,76 +65,78 @@ export function NewResponsibleModal() {
 
       <DialogContent>
         <Box
-          sx={{
-            border: "2px solid",
-            borderColor: "primary.main",
-            borderRadius: 2,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            width: "100%",
-            padding: 2,
-            gap: 2,
-          }}
+          gap={2}
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+          border="2px solid"
+          borderColor="primary.main"
+          borderRadius={2}
+          width="100%"
+          padding={2}
         >
           <Box
-            sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}
+            gap={2}
+            flex={1}
+            display="flex"
+            flexDirection="column"
           >
             <TextInput
               label={pt.newResponsibleModal.inputs.name}
-              placeholder={pt.newResponsibleModal.placeholder.name}
+              placeholder={pt.newResponsibleModal.inputs.namePlaceholder}
               id="1"
             />
-            <DateInput id="1" label={pt.newResponsibleModal.inputs.birthDate}/>
+
+            <DateInput id="1" label={pt.newResponsibleModal.inputs.birthDate} />
+
             <TextInput
               label={pt.newResponsibleModal.inputs.nis}
-              placeholder={pt.newResponsibleModal.placeholder.nis}
+              placeholder={pt.newResponsibleModal.inputs.nisPlaceholder}
               id="3"
             />
+
             <TextInput
               label={pt.newResponsibleModal.inputs.phone}
-              placeholder={pt.newResponsibleModal.placeholder.phone}
+              placeholder={pt.newResponsibleModal.inputs.phonePlaceholder}
               id="5"
             />
           </Box>
           <Box
-            sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}
+            flex={1}
+            gap={2}
+            display="flex"
+            flexDirection="column"
           >
             <TextInput
               label={pt.newResponsibleModal.inputs.cpf}
-              placeholder={pt.newResponsibleModal.placeholder.cpf}
+              placeholder={pt.newResponsibleModal.inputs.cpfPlaceholder}
               id="2"
             />
+
             <SelectInput
               label={pt.newResponsibleModal.inputs.civilState}
-              options={[
-                "Solteiro(a)",
-                "Casado(a)",
-                "Divorciado(a)",
-                "Viuvo(a)",
-              ]}
+              options={civilStateOptions}
               id="1"
             />
 
             <TextInput
               label={pt.newResponsibleModal.inputs.address}
-              placeholder={pt.newResponsibleModal.placeholder.address}
+              placeholder={pt.newResponsibleModal.inputs.addressPlaceholder}
               id="4"
             />
 
             <TextInput
               label={pt.newResponsibleModal.inputs.email}
-              placeholder={pt.newResponsibleModal.placeholder.email}
+              placeholder={pt.newResponsibleModal.inputs.emailPlaceholder}
               id="6"
             />
           </Box>
         </Box>
       </DialogContent>
 
-      {/* 3. Ações */}
       <DialogActions>
-        <Button variant="contained" color="primary" onClick={addResponsible}>
-          Adicionar
+        <Button variant="contained" onClick={addResponsible}>
+          {pt.newResponsibleModal.buttonText}
         </Button>
       </DialogActions>
     </Dialog>
