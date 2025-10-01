@@ -81,7 +81,7 @@ export default function Classes() {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Atividade"
+              label={strings.classes.activity}
               slotProps={{
                 inputLabel: { sx: { color: "text.primary" } },
               }}

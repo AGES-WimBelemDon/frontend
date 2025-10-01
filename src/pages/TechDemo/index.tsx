@@ -38,8 +38,8 @@ export default function TechDemo() {
       </Grid>
 
       <Grid container spacing={2}>
-        <TextCard title="Home" theme="dark" />
-        <TextCard title="Home" theme="light" />
+        <TextCard title={strings.techDemo.home} theme="dark" />
+        <TextCard title={strings.techDemo.home} theme="light" />
       </Grid>
 
       <hr />
@@ -59,32 +59,32 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-success-button"
-          onClick={() => showToast("Teste de Toast", "success")}
+          onClick={() => showToast(strings.techDemo.buttons.testToast, "success")}
         >
-          Abrir toast de SUCESSO!
+          {strings.techDemo.buttons.openSuccessToast}
         </Button>
         <Button
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-error-button"
-          onClick={() => showToast("Teste de Toast fechável", "error", true)}
+          onClick={() => showToast(strings.techDemo.buttons.testCloseableToast, "error", true)}
         >
-          Abrir toast de ERRO!
+          {strings.techDemo.buttons.openErrorToast}
         </Button>
         <Button
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-info-button"
-          onClick={() => showToast("Teste de Toast fechável", "info", true)}
+          onClick={() => showToast(strings.techDemo.buttons.testCloseableToast, "info", true)}
         >
-          Abrir toast de INFO!
+          {strings.techDemo.buttons.openInfoToast}
         </Button>
         <Button
           variant="contained"
           color="primary"
           onClick={() => openModal()}
         >
-          Abrir modal
+          {strings.techDemo.buttons.openModal}
         </Button>
       </Grid>
 

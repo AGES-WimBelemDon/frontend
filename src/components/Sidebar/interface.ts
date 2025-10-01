@@ -11,36 +11,37 @@ import {
 import type { SvgIconComponent } from "@mui/icons-material";
 import type { SxProps } from "@mui/material";
 
+import { strings } from "../../constants";
 import type { ValidRoute } from "../../hooks/useRoutes";
 
 export const sidebarOptionsMapper: Partial<SidebarRouteMapper> = {
   "/": {
-    text: "Página Inicial",
+    text: strings.sidebar.home,
     icon: Home,
   },
   "/frequencias/atividades": {
-    text: "Frequência",
+    text: strings.sidebar.frequency,
     icon: Checklist,
   },
   "/alunos": {
-    text: "Alunos",
+    text: strings.sidebar.students,
     icon: PeopleAlt,
   },
   "/atividades": {
-    text: "Atividades",
+    text: strings.sidebar.activities,
     icon: AppRegistration,
   },
   "/turmas": {
-    text: "Turmas",
+    text: strings.sidebar.classes,
     icon: AssignmentAdd,
   },
   "/usuarios": {
-    text: "Usuários",
+    text: strings.sidebar.users,
     icon: Badge,
   },
   ...(import.meta.env.DEV && {
     "/tech-demo": {
-      text: "Tech Demo",
+      text: strings.sidebar.techDemo,
       icon: DeveloperBoard,
     }
   }),

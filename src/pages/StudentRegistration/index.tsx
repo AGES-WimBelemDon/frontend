@@ -231,7 +231,7 @@ export default function StudentRegistration() {
                       sx={{ flex: 1 }}
                       disabled
                     />
-                    <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>Editar</Button>
+                    <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>{strings.studentRegistration.editButton}</Button>
                   </Box>
                 </Box>
               ))}

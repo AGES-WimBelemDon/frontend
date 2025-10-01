@@ -41,6 +41,7 @@ export const portugueseTextMap = {
     weekDay: "Dia da semana",
     schedule: "Horário",
     level: "Nível",
+    activity: "Atividade",
   },
   dateInput: {
     selectDate: "Selecione a data",
@@ -163,6 +164,13 @@ export const portugueseTextMap = {
   },
   home: {
     welcomeBack: "Bem vindo(a) de volta",
+    cards: {
+      takeAttendance: "Realizar Chamada",
+      manageStudents: "Gerenciar Alunos",
+      manageActivities: "Gerenciar Atividades",
+      manageClasses: "Gerenciar Turmas",
+      manageUsers: "Gerenciar Usuários"
+    },
   },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
@@ -205,6 +213,13 @@ export const portugueseTextMap = {
     listIcon: ({ to }: Params<"to">) => (
       `Navegar para a página ${to}`
     ),
+    home: "Página Inicial",
+    frequency: "Frequência",
+    students: "Educandos",
+    activities: "Atividades",
+    classes: "Turmas",
+    users: "Usuários",
+    techDemo: "Tech Demo",
   },
   studentRegistration: {
     personalInformation: "Informações Pessoais",
@@ -236,6 +251,7 @@ export const portugueseTextMap = {
     details: "Detalhes",
     schoolName: "Escola Atual",
     schoolNamePlaceholder: "Digite a escola atual do Educando",
+    editButton: "Editar",
     saveButton: "Salvar",
     cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
@@ -260,6 +276,15 @@ export const portugueseTextMap = {
     title: "Tech Demo",
     fetching: "Atualizando...",
     showAPIInfo: "Mostrar informações da API",
+    buttons: {
+      openSuccessToast: "Abrir toast de SUCESSO!",
+      openErrorToast: "Abrir toast de ERRO!",
+      openInfoToast: "Abrir toast de INFO!",
+      openModal: "Abrir Modal",
+      testToast: "Teste de Toast",
+      testCloseableToast: "Teste de Toast fechável",
+    },
+    home: "Home",
     children: {
       mockAPI: {
         detail: ({ c2 }: Params<"c2">) => (

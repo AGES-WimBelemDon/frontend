@@ -9,11 +9,11 @@ import { useAuth } from "../../hooks/useAuth";
 import type { ValidRoute } from "../../hooks/useRoutes";
 
 const cards: { title: string; goTo: ValidRoute }[] = [
-  { title: "Realizar Chamada", goTo: "/frequencias/atividades" },
-  { title: "Gerenciar Alunos", goTo: "/alunos" },
-  { title: "Gerenciar Atividades", goTo: "/atividades" },
-  { title: "Gerenciar Turmas", goTo: "/turmas" },
-  { title: "Gerenciar Usuários", goTo: "/usuarios" },
+  { title: strings.home.cards.takeAttendance, goTo: "/frequencias/atividades" },
+  { title: strings.home.cards.manageStudents, goTo: "/alunos" },
+  { title: strings.home.cards.manageActivities, goTo: "/atividades" },
+  { title: strings.home.cards.manageClasses, goTo: "/turmas" },
+  { title: strings.home.cards.manageUsers, goTo: "/usuarios" },
 ];
 
 export default function Home() {

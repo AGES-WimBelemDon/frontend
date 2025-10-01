@@ -41,6 +41,7 @@ export const englishTextMap = {
     weekDay: "Weekday",
     schedule: "Schedule",
     level: "Level",
+    activity: "Activity",
   },
   dateInput: {
     selectDate: "Select date",
@@ -163,6 +164,13 @@ export const englishTextMap = {
   },
   home: {
     welcomeBack: "Welcome back",
+    cards: {
+      takeAttendance: "Take Attendance",
+      manageStudents: "Manage Students",
+      manageActivities: "Manage Activities",
+      manageClasses: "Manage Classes",
+      manageUsers: "Manage Users"
+    }
   },
   newResponsibleModal: {
     title: "Register Guardian",
@@ -205,6 +213,13 @@ export const englishTextMap = {
     listIcon: ({ to }: Params<"to">) => (
       `Navigate to ${to} page`
     ),
+    home: "Home",
+    frequency: "Frequency",
+    students: "Students",
+    activities: "Activities",
+    classes: "Classes",
+    users: "Users",
+    techDemo: "Tech Demo"
   },
   studentRegistration: {
     personalInformation: "Personal Information",
@@ -236,6 +251,7 @@ export const englishTextMap = {
     details: "Details",
     schoolName: "Current School",
     schoolNamePlaceholder: "Enter student's current school",
+    editButton: "Edit",
     saveButton: "Save",
     cancelButton: "Cancel",
     successMessage: "Student registered successfully!",
@@ -260,6 +276,15 @@ export const englishTextMap = {
     title: "Tech Demo",
     fetching: "Updating...",
     showAPIInfo: "Show API information",
+    buttons: {
+      openSuccessToast: "Open SUCCESS toast!",
+      openErrorToast: "Open ERROR toast!",
+      openInfoToast: "Open INFO toast!",
+      openModal: "Open modal",
+      testToast: "Test Toast",
+      testCloseableToast: "Test Closeable Toast"
+    },
+    home: "Home",
     children: {
       mockAPI: {
         detail: ({ c2 }: Params<"c2">) => (
