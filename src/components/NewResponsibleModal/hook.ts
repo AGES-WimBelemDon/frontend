@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router";
 
 import type { ResponsibleData } from "./interface";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useToast } from "../../hooks/useToast";
 import { useDateInput } from "../Inputs/DateInput/hook";
@@ -67,11 +67,11 @@ export function useNewResponsibleModal() {
     const responsible = getResponsibleFields();
     
     if (responsible) {
-      showToast(pt.newResponsibleModal.successMessage, "success");
+      showToast(strings.newResponsibleModal.successMessage, "success");
       return closeModal();
     }
 
-    showToast(pt.newResponsibleModal.pleaseFillAllFields, "error");
+    showToast(strings.newResponsibleModal.pleaseFillAllFields, "error");
   };
 
   return {

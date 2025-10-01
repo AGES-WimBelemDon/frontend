@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 import type { FrequencyCardProps } from "./interface";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function FrequencyCard({
@@ -50,7 +50,7 @@ export function FrequencyCard({
           fontSize={14}
           color="grey.900"
         >
-          {pt.frequencyCard.frequency({ percent: frequencyPercent.toString() })}
+          {strings.frequencyCard.frequency({ percent: frequencyPercent.toString() })}
         </Typography>
       </CardContent>
       <Box gap={2} display="flex" flexDirection="row">
@@ -64,7 +64,7 @@ export function FrequencyCard({
           }}
           size="medium"
         >
-          {isDesktop ? pt.frequencyCard.absentDetails : ""}
+          {isDesktop ? strings.frequencyCard.absentDetails : ""}
           <AddIcon />
         </Button>
         <Button

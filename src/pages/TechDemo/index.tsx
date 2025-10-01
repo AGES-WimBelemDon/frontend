@@ -6,7 +6,7 @@ import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hoo
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
 import { TextCard } from "../../components/TextCard";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 
 export default function TechDemo() {
@@ -20,7 +20,7 @@ export default function TechDemo() {
 
   return (
     <>
-      <PageTitle title={pt.techDemo.title} dataCy="tech-demo" />
+      <PageTitle title={strings.techDemo.title} dataCy="tech-demo" />
 
       <hr />
 
@@ -49,7 +49,7 @@ export default function TechDemo() {
         color="primary"
         data-cy="tech-demo-show-api-info-button"
       >
-        <Typography variant="body1">{pt.techDemo.showAPIInfo}</Typography>
+        <Typography variant="body1">{strings.techDemo.showAPIInfo}</Typography>
       </Button>
 
       <hr />

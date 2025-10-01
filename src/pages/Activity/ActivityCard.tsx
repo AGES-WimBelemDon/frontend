@@ -2,7 +2,7 @@ import { Edit } from "@mui/icons-material";
 import { Box, Typography, Button } from "@mui/material";
 
 import type { ActivityCardProps } from "./interface";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 
 export function ActivityCard({ content }: ActivityCardProps) {
   return (
@@ -24,7 +24,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
 
       <Box display="grid" gridTemplateColumns="1fr 2fr" gap={0.5}>
         <Typography variant="subtitle2" fontWeight="bold">
-          {pt.activityList.card.area}
+          {strings.activityList.card.area}
         </Typography>
         <Typography variant="subtitle2" fontWeight="bold" color="grey.600">
           {content.area}
@@ -32,7 +32,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
       </Box>
       <Box display="grid" gridTemplateColumns="1fr 2fr" gap={0.5}>
         <Typography variant="subtitle2" fontWeight="bold">
-          {pt.activityList.card.frequency}
+          {strings.activityList.card.frequency}
         </Typography>
         <Typography variant="subtitle2" fontWeight="bold" color="grey.600">
           {content.frequency}
@@ -40,7 +40,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
       </Box>
       <Box display="grid" gridTemplateColumns="1fr 2fr" gap={0.5}>
         <Typography variant="subtitle2" fontWeight="bold">
-          {pt.activityList.card.teacher}
+          {strings.activityList.card.teacher}
         </Typography>
         <Typography variant="subtitle2" fontWeight="bold" color="grey.600">
           {content.teacher}

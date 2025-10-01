@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 
 import { SidebarBurgerIcon } from "./BurgerIcon";
 import { sidebarOptionsMapper, type SidebarProps } from "./interface";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import type { ValidRoute } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useSidebar } from "../../hooks/useSidebar";
@@ -72,7 +72,7 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
           return (
             <ListItem key={route} disablePadding>
               <ListItemButton
-                aria-label={pt.sidebar.listIcon({ to: route })}
+                aria-label={strings.sidebar.listIcon({ to: route })}
                 onClick={() => {
                   if (isMobile) {
                     toggleSidebar();

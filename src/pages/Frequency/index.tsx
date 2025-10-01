@@ -3,7 +3,7 @@ import { CircularProgress, Typography } from "@mui/material";
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { TextCard } from "../../components/TextCard";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useActivities } from "../../hooks/useActivities";
 import { useRoutes } from "../../hooks/useRoutes";
 
@@ -15,18 +15,18 @@ export default function Frequency() {
     return (
       <>
         <CircularProgress />
-        <Typography>{pt.frequency.loadingActivities}</Typography>
+        <Typography>{strings.frequency.loadingActivities}</Typography>
       </>
     );
   }
 
   if (activitiesError || !activities) {
-    return <Typography color="error">{pt.frequency.activitiesError}</Typography>;
+    return <Typography color="error">{strings.frequency.activitiesError}</Typography>;
   }
 
   return (
     <>
-      <PageTitle title={pt.frequency.title} dataCy="frequency-page-title" />
+      <PageTitle title={strings.frequency.title} dataCy="frequency-page-title" />
       <CardList>
         {activities.map((c, index) => {
           const activityId = index + 1;

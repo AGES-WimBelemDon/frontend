@@ -5,7 +5,7 @@ import { Box, Button, Card, CardMedia, Typography } from "@mui/material";
 
 import type { PersonCardProps } from "./interface";
 import userImg from "../../assets/userImg.png";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function PersonCard(personCardProps: PersonCardProps) {
@@ -14,14 +14,14 @@ export function PersonCard(personCardProps: PersonCardProps) {
   const { isMobile } = useScreenSize();
 
   const dataEntries = [
-    { label: pt.personCard.name, value: cardData.name },
-    { label: pt.personCard.cpf, value: cardData.cpf },
-    { label: pt.personCard.birthDate, value: cardData.birthDate },
-    { label: pt.personCard.civilState, value: cardData.civilState },
-    { label: pt.personCard.nis, value: cardData.nis },
-    { label: pt.personCard.phone, value: cardData.phone },
-    { label: pt.personCard.email, value: cardData.email },
-    { label: pt.personCard.address, value: cardData.address },
+    { label: strings.personCard.name, value: cardData.name },
+    { label: strings.personCard.cpf, value: cardData.cpf },
+    { label: strings.personCard.birthDate, value: cardData.birthDate },
+    { label: strings.personCard.civilState, value: cardData.civilState },
+    { label: strings.personCard.nis, value: cardData.nis },
+    { label: strings.personCard.phone, value: cardData.phone },
+    { label: strings.personCard.email, value: cardData.email },
+    { label: strings.personCard.address, value: cardData.address },
   ]
 
   return (
@@ -41,7 +41,7 @@ export function PersonCard(personCardProps: PersonCardProps) {
         component="img"
         sx={{ width: "9vh", height: "100%", borderRadius: 3 }}
         image={userImg}
-        alt={pt.personCard.userImageAlt}
+        alt={strings.personCard.userImageAlt}
       />
       <Box
         gap={1.2}
@@ -96,7 +96,7 @@ export function PersonCard(personCardProps: PersonCardProps) {
             paddingX: 1.5,
           }}
         >
-          {pt.personCard.editButton}
+          {strings.personCard.editButton}
         </Button>
       </Box>
     </Card>

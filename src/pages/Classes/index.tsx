@@ -6,7 +6,7 @@ import { Box, Typography, TextField, MenuItem, Button, Card, CardContent, Autoco
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 
 export default function Classes() {
@@ -39,13 +39,13 @@ export default function Classes() {
     return (
       <>
         <CircularProgress />
-        <Typography>{pt.classes.loadingClasses}</Typography>
+        <Typography>{strings.classes.loadingClasses}</Typography>
       </>
     )
   }
 
   if (classesError) {
-    return <Typography color="error">{pt.classes.classesError}</Typography>
+    return <Typography color="error">{strings.classes.classesError}</Typography>
   }
 
   return(
@@ -57,14 +57,14 @@ export default function Classes() {
         alignItems="center"
         flexDirection={deviceSize === "mobile" ? "column" : "row"}
       >
-        <PageTitle title={pt.classes.title} dataCy="classes-page" />
+        <PageTitle title={strings.classes.title} dataCy="classes-page" />
         <Button
           disabled
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => goTo("/turmas", "/cadastro")}
         >
-          {pt.classes.createClass}
+          {strings.classes.createClass}
         </Button>
       </Box>
 
@@ -92,7 +92,7 @@ export default function Classes() {
  
         <TextField
           select
-          label={pt.classes.weekDay}
+          label={strings.classes.weekDay}
           value={dayFilter}
           onChange={(e) => setDayFilter(e.target.value)}
           fullWidth
@@ -100,7 +100,7 @@ export default function Classes() {
             inputLabel: { sx: { color: "text.primary" } },
           }}
         >
-          <MenuItem value="">{pt.filters.all}</MenuItem>
+          <MenuItem value="">{strings.filters.all}</MenuItem>
           {weekDaysOptions?.map((weekDay) => (
             <MenuItem key={weekDay.id} value={weekDay.id}>
               {weekDay.label}
@@ -110,7 +110,7 @@ export default function Classes() {
 
         <TextField
           select
-          label={pt.classes.level}
+          label={strings.classes.level}
           value={levelFilter}
           onChange={(e) => setLevelFilter(e.target.value)}
           fullWidth
@@ -118,7 +118,7 @@ export default function Classes() {
             inputLabel: { sx: { color: "text.primary" } },
           }}
         >
-          <MenuItem value="">{pt.filters.all}</MenuItem>
+          <MenuItem value="">{strings.filters.all}</MenuItem>
           {levelOptions?.map((level) => (
             <MenuItem key={level.id} value={level.id}>
               {level.label}

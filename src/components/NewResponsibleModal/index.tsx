@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import { useNewResponsibleModal } from "./hook";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { DateInput } from "../Inputs/DateInput";
 import { SelectInput } from "../Inputs/SelectInput";
 import { TextInput } from "../Inputs/TextInput";
@@ -49,7 +49,7 @@ export function NewResponsibleModal() {
           fontSize: 24,
         }}
       >
-        {pt.newResponsibleModal.title}
+        {strings.newResponsibleModal.title}
         <IconButton
           onClick={closeModal}
           sx={{
@@ -82,22 +82,22 @@ export function NewResponsibleModal() {
             flexDirection="column"
           >
             <TextInput
-              label={pt.newResponsibleModal.inputs.name}
-              placeholder={pt.newResponsibleModal.inputs.namePlaceholder}
+              label={strings.newResponsibleModal.inputs.name}
+              placeholder={strings.newResponsibleModal.inputs.namePlaceholder}
               id="1"
             />
 
-            <DateInput id="1" label={pt.newResponsibleModal.inputs.birthDate} />
+            <DateInput id="1" label={strings.newResponsibleModal.inputs.birthDate} />
 
             <TextInput
-              label={pt.newResponsibleModal.inputs.nis}
-              placeholder={pt.newResponsibleModal.inputs.nisPlaceholder}
+              label={strings.newResponsibleModal.inputs.nis}
+              placeholder={strings.newResponsibleModal.inputs.nisPlaceholder}
               id="3"
             />
 
             <TextInput
-              label={pt.newResponsibleModal.inputs.phone}
-              placeholder={pt.newResponsibleModal.inputs.phonePlaceholder}
+              label={strings.newResponsibleModal.inputs.phone}
+              placeholder={strings.newResponsibleModal.inputs.phonePlaceholder}
               id="5"
             />
           </Box>
@@ -108,26 +108,26 @@ export function NewResponsibleModal() {
             flexDirection="column"
           >
             <TextInput
-              label={pt.newResponsibleModal.inputs.cpf}
-              placeholder={pt.newResponsibleModal.inputs.cpfPlaceholder}
+              label={strings.newResponsibleModal.inputs.cpf}
+              placeholder={strings.newResponsibleModal.inputs.cpfPlaceholder}
               id="2"
             />
 
             <SelectInput
-              label={pt.newResponsibleModal.inputs.civilState}
+              label={strings.newResponsibleModal.inputs.civilState}
               options={civilStateOptions}
               id="1"
             />
 
             <TextInput
-              label={pt.newResponsibleModal.inputs.address}
-              placeholder={pt.newResponsibleModal.inputs.addressPlaceholder}
+              label={strings.newResponsibleModal.inputs.address}
+              placeholder={strings.newResponsibleModal.inputs.addressPlaceholder}
               id="4"
             />
 
             <TextInput
-              label={pt.newResponsibleModal.inputs.email}
-              placeholder={pt.newResponsibleModal.inputs.emailPlaceholder}
+              label={strings.newResponsibleModal.inputs.email}
+              placeholder={strings.newResponsibleModal.inputs.emailPlaceholder}
               id="6"
             />
           </Box>
@@ -136,7 +136,7 @@ export function NewResponsibleModal() {
 
       <DialogActions>
         <Button variant="contained" onClick={addResponsible}>
-          {pt.newResponsibleModal.buttonText}
+          {strings.newResponsibleModal.buttonText}
         </Button>
       </DialogActions>
     </Dialog>

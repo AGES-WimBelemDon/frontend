@@ -6,7 +6,7 @@ import { NewResponsibleModal } from "../../components/NewResponsibleModal";
 import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 
 export default function ResponsibleRegistration() {
   const { openModal } = useNewResponsibleModal();
@@ -20,26 +20,26 @@ export default function ResponsibleRegistration() {
     return (
       <>
         <CircularProgress />
-        <Typography>{pt.studentsResponsibles.loadingResponsibles}</Typography>
+        <Typography>{strings.studentsResponsibles.loadingResponsibles}</Typography>
       </>
     );
   }
 
   if (responsiblesError || !responsibles) {
-    return <Typography color="error">{pt.studentsResponsibles.responsiblesError}</Typography>;
+    return <Typography color="error">{strings.studentsResponsibles.responsiblesError}</Typography>;
   }
 
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <PageTitle title={pt.studentsResponsibles.title} dataCy="responsible-registration" />
+        <PageTitle title={strings.studentsResponsibles.title} dataCy="responsible-registration" />
         <Button
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
           onClick={openModal}
         >
-          {pt.studentsResponsibles.registerResponsible}
+          {strings.studentsResponsibles.registerResponsible}
         </Button>
       </Box>
 
@@ -48,7 +48,7 @@ export default function ResponsibleRegistration() {
         <Stack spacing={2}>
           {
             responsibles.length === 0 ? (
-              <Typography>{pt.studentsResponsibles.noResponsibles}</Typography>
+              <Typography>{strings.studentsResponsibles.noResponsibles}</Typography>
             ) : responsibles.map((responsible) => (
               <PersonCard
                 key={responsible.id}

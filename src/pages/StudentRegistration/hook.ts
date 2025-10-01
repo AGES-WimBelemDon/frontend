@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import type { Document } from "./interface";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 import { fetchAddress, type Address } from "../../services/address";
 import type { EmploymentStatus, Gender, Race, SocialProgram } from "../../services/filters";
@@ -85,7 +85,7 @@ export function useStudentRegistration() {
         throw new Error("No ID returned from student registration");
       }
 
-      showToast(pt.studentRegistration.successMessage, "success");
+      showToast(strings.studentRegistration.successMessage, "success");
 
       return newStudent.id;
     } catch (error) {
@@ -105,7 +105,7 @@ export function useStudentRegistration() {
         });
       })
       .catch(() => {
-        showToast(pt.studentRegistration.errorMessage, "error")
+        showToast(strings.studentRegistration.errorMessage, "error")
       });
   }
 

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 import { useStudentRegistration } from "./hook";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
 
@@ -58,15 +58,15 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          {pt.studentRegistration.personalInformation}
+          {strings.studentRegistration.personalInformation}
         </Typography>
 
         <TextField
           name="fullName"
-          label={pt.studentRegistration.name}
+          label={strings.studentRegistration.name}
           fullWidth
           margin="normal"
-          placeholder={pt.studentRegistration.namePlaceholder}
+          placeholder={strings.studentRegistration.namePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -74,7 +74,7 @@ export default function StudentRegistration() {
 
         <TextField
           name="dateOfBirth"
-          label={pt.studentRegistration.dateOfBirth}
+          label={strings.studentRegistration.dateOfBirth}
           fullWidth
           margin="normal"
           type="date"
@@ -85,9 +85,9 @@ export default function StudentRegistration() {
 
         <TextField
           name="gender"
-          label={pt.filters.gender.title}
+          label={strings.filters.gender.title}
           select={!!genderOptions}
-          defaultValue={!genderOptions ? pt.filters.loading : ""}
+          defaultValue={!genderOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -101,9 +101,9 @@ export default function StudentRegistration() {
 
         <TextField
           name="race"
-          label={pt.filters.race.title}
+          label={strings.filters.race.title}
           select={!!raceOptions}
-          defaultValue={!raceOptions ? pt.filters.loading : ""}
+          defaultValue={!raceOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -117,8 +117,8 @@ export default function StudentRegistration() {
 
         <TextField
           name="address.code"
-          label={pt.studentRegistration.address.zipCode}
-          placeholder={pt.studentRegistration.address.zipCodePlaceholder}
+          label={strings.studentRegistration.address.zipCode}
+          placeholder={strings.studentRegistration.address.zipCodePlaceholder}
           fullWidth
           margin="normal"
           type="number"
@@ -133,7 +133,7 @@ export default function StudentRegistration() {
           <>
             <TextField
               name="address.street"
-              label={pt.studentRegistration.address.street}
+              label={strings.studentRegistration.address.street}
               fullWidth
               margin="normal"
               value={address?.street}
@@ -148,16 +148,16 @@ export default function StudentRegistration() {
             />
             <TextField
               name="address.number"
-              label={pt.studentRegistration.address.number}
-              placeholder={pt.studentRegistration.address.numberPlaceholder}
+              label={strings.studentRegistration.address.number}
+              placeholder={strings.studentRegistration.address.numberPlaceholder}
               fullWidth
               margin="normal"
               slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
             />
             <TextField
               name="address.complement"
-              label={pt.studentRegistration.address.complement}
-              placeholder={pt.studentRegistration.address.complementPlaceholder}
+              label={strings.studentRegistration.address.complement}
+              placeholder={strings.studentRegistration.address.complementPlaceholder}
               fullWidth
               margin="normal"
               slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
@@ -167,7 +167,7 @@ export default function StudentRegistration() {
         
         <TextField
           name="enrollmentDate"
-          label={pt.studentRegistration.enrollmentDate}
+          label={strings.studentRegistration.enrollmentDate}
           fullWidth
           margin="normal"
           slotProps={{
@@ -187,12 +187,12 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          {pt.studentRegistration.documents}
+          {strings.studentRegistration.documents}
         </Typography>
 
         <TextField
           name="registrationNumber"
-          label={pt.studentRegistration.registrationNumber}
+          label={strings.studentRegistration.registrationNumber}
           placeholder="xxx.xxx.xxx-xx"
           fullWidth
           margin="normal"
@@ -209,7 +209,7 @@ export default function StudentRegistration() {
           fontWeight="bold"
           sx={{ mt: 2, mb: 1, color: "primary.main" }}
         >
-          {pt.studentRegistration.attachments}
+          {strings.studentRegistration.attachments}
         </Typography>
 
         <Box
@@ -249,7 +249,7 @@ export default function StudentRegistration() {
                 document.getElementById("fileInputUpload2")?.click();
               }}
             >
-              {pt.studentRegistration.attachMoreFiles}
+              {strings.studentRegistration.attachMoreFiles}
             </Button>
             <input
               id="fileInputUpload2"
@@ -288,7 +288,7 @@ export default function StudentRegistration() {
               fullWidth
               sx={{ mb: 2 }}
             >
-              {pt.studentRegistration.selectFiles}
+              {strings.studentRegistration.selectFiles}
               <input
                 id="fileInputUpload"
                 type="file"
@@ -310,12 +310,12 @@ export default function StudentRegistration() {
 
             {docForm.fileName && (
               <Typography variant="body2" sx={{ mb: 1 }}>
-                {pt.studentRegistration.selectedFile}{" "}{docForm.fileName}
+                {strings.studentRegistration.selectedFile}{" "}{docForm.fileName}
               </Typography>
             )}
 
             <TextField
-              label={pt.studentRegistration.fileCreatedAt}
+              label={strings.studentRegistration.fileCreatedAt}
               type="date"
               fullWidth
               margin="dense"
@@ -325,7 +325,7 @@ export default function StudentRegistration() {
               }}
             />
             <TextField
-              label={pt.studentRegistration.fileDescription}
+              label={strings.studentRegistration.fileDescription}
               fullWidth
               margin="dense"
               value={docForm.description}
@@ -352,7 +352,7 @@ export default function StudentRegistration() {
                   setShowUploader(false);
                 }}
               >
-                {pt.studentRegistration.cancelFileSend}
+                {strings.studentRegistration.cancelFileSend}
               </Button>
               <Button
                 onClick={handleAddDoc}
@@ -360,7 +360,7 @@ export default function StudentRegistration() {
                 disabled={!docForm.fileName}
                 sx={{ ml: "auto" }}
               >
-                {pt.studentRegistration.addFileButton}
+                {strings.studentRegistration.addFileButton}
               </Button>
             </Box>
           </Box>
@@ -378,7 +378,7 @@ export default function StudentRegistration() {
               borderRadius: 4,
             }}
           >
-            {pt.studentRegistration.toggleStudentStatusOn}
+            {strings.studentRegistration.toggleStudentStatusOn}
           </Button>
         )}
       </Grid>
@@ -395,14 +395,14 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          {pt.studentRegistration.details}
+          {strings.studentRegistration.details}
         </Typography>
         
         <TextField
           name="educationLevel"
-          label={pt.filters.educationLevel.title}
+          label={strings.filters.educationLevel.title}
           select={!!educationLevels}
-          defaultValue={!educationLevels ? pt.filters.loading : ""}
+          defaultValue={!educationLevels ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -416,10 +416,10 @@ export default function StudentRegistration() {
 
         <TextField
           name="schoolName"
-          label={pt.studentRegistration.schoolName}
+          label={strings.studentRegistration.schoolName}
           fullWidth
           margin="normal"
-          placeholder={pt.studentRegistration.schoolNamePlaceholder}
+          placeholder={strings.studentRegistration.schoolNamePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -427,9 +427,9 @@ export default function StudentRegistration() {
 
         <TextField
           name="socialProgram"
-          label={pt.filters.socialPrograms.title}
+          label={strings.filters.socialPrograms.title}
           select={!!socialProgramOptions}
-          defaultValue={!socialProgramOptions ? pt.filters.loading : ""}
+          defaultValue={!socialProgramOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -443,9 +443,9 @@ export default function StudentRegistration() {
 
         <TextField
           name="employmentStatus"
-          label={pt.filters.employmentStatus.title}
+          label={strings.filters.employmentStatus.title}
           select={!!employmentStatusOptions}
-          defaultValue={!employmentStatusOptions ? pt.filters.loading : ""}
+          defaultValue={!employmentStatusOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -466,7 +466,7 @@ export default function StudentRegistration() {
           }}
         >
           <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
-            {pt.studentRegistration.saveButton}
+            {strings.studentRegistration.saveButton}
           </Button>
           <Button
             variant="contained"
@@ -475,7 +475,7 @@ export default function StudentRegistration() {
             type="button"
             onClick={goBack}
           >
-            {pt.studentRegistration.cancelButton}
+            {strings.studentRegistration.cancelButton}
           </Button>
         </Box>
       </Grid>

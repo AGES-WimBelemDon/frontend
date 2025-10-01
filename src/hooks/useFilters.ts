@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { pt } from "../constants";
+import { strings } from "../constants";
 import { 
   getEmploymentStatusFilter, 
   getGendersFilter, 
@@ -31,7 +31,7 @@ export type FilterOption<T> = {
   label: string;
 };
 
-const raceFilterOptionsMap: Record<Race, keyof typeof pt.filters.race> = {
+const raceFilterOptionsMap: Record<Race, keyof typeof strings.filters.race> = {
   BRANCA: "white",
   PRETA: "black",
   PARDA: "brown",
@@ -40,13 +40,13 @@ const raceFilterOptionsMap: Record<Race, keyof typeof pt.filters.race> = {
   NA: "notDeclared",
 }
 
-const genderFilterOptionsMap: Record<Gender, keyof typeof pt.filters.gender> = {
+const genderFilterOptionsMap: Record<Gender, keyof typeof strings.filters.gender> = {
   MASCULINO: "male",
   FEMININO: "female",
   OUTRO: "other",
 }
 
-const socialProgramOptionsMap: Record<SocialProgram, keyof typeof pt.filters.socialPrograms> = {
+const socialProgramOptionsMap: Record<SocialProgram, keyof typeof strings.filters.socialPrograms> = {
   BOLSA_FAMILIA: "bolsaFamilia",
   BPC_LOAS: "bpcLoas",
   TARIFA_SOCIAL_DE_ENERGIA: "tarifaSocialDeEnergia",
@@ -55,14 +55,14 @@ const socialProgramOptionsMap: Record<SocialProgram, keyof typeof pt.filters.soc
   PROGRAMA_MUNICIPAL_VIA_CRAS: "programaMunicipalViaCras",
 }
 
-const employmentStatusFilterOptionsMap: Record<EmploymentStatus, keyof typeof pt.filters.employmentStatus> = {
+const employmentStatusFilterOptionsMap: Record<EmploymentStatus, keyof typeof strings.filters.employmentStatus> = {
   EMPREGADO: "employed",
   DESEMPREGADO: "unemployed",
   ESTUDANTE: "student",
   OUTRO: "other",
 }
 
-const educationLevelFilterOptionsMap: Record<EducationLevel, keyof typeof pt.filters.educationLevel> = {
+const educationLevelFilterOptionsMap: Record<EducationLevel, keyof typeof strings.filters.educationLevel> = {
   NENHUM: "none",
   ALFABETIZADO: "literate",
   FUNDAMENTAL_INCOMPLETO: "incompleteElementary",
@@ -74,19 +74,19 @@ const educationLevelFilterOptionsMap: Record<EducationLevel, keyof typeof pt.fil
   POS_GRADUACAO: "posGraduation",
 }
 
-const identityTypesFilterOptionsMap: Record<IdentityType, keyof typeof pt.filters.identityTypes> = {
+const identityTypesFilterOptionsMap: Record<IdentityType, keyof typeof strings.filters.identityTypes> = {
   RG: "rg",
   CPF: "cpf",
   CERTIDAO_NASCIMENTO: "birthCertificate",
 }
 
-const documentTypesFilterOptionsMap: Record<DocumentType, keyof typeof pt.filters.documentTypes> = {
+const documentTypesFilterOptionsMap: Record<DocumentType, keyof typeof strings.filters.documentTypes> = {
   COMPROVANTE_RESIDENCIA: "residenceProof",
   COMPROVANTE_RENDA: "incomeProof",
   OUTRO: "other",
 }
 
-const weekDaysFilterOptionsMap: Record<WeekDay, keyof typeof pt.filters.weekDays> = {
+const weekDaysFilterOptionsMap: Record<WeekDay, keyof typeof strings.filters.weekDays> = {
   SEGUNDA: "monday",
   TERCA: "tuesday",
   QUARTA: "wednesday",
@@ -96,14 +96,14 @@ const weekDaysFilterOptionsMap: Record<WeekDay, keyof typeof pt.filters.weekDays
   DOMINGO: "sunday",
 }
 
-const levelsFilterOptionsMap: Record<Level, keyof typeof pt.filters.levels> = {
+const levelsFilterOptionsMap: Record<Level, keyof typeof strings.filters.levels> = {
   INICIANTE: "beginner",
   INTERMEDIARIO: "intermediate",
   AVANCADO: "advanced",
   TODOS_NIVEIS: "allLevels",
 }
 
-const civilStatesFilterOptionsMap: Record<CivilState, keyof typeof pt.filters.civilStates> = {
+const civilStatesFilterOptionsMap: Record<CivilState, keyof typeof strings.filters.civilStates> = {
   SOLTEIRO: "single",
   CASADO: "married",
   DIVORCIADO: "divorced",
@@ -112,15 +112,15 @@ const civilStatesFilterOptionsMap: Record<CivilState, keyof typeof pt.filters.ci
 
 function filterOptionsMapper<
   T extends string,
-  U extends keyof typeof pt.filters
+  U extends keyof typeof strings.filters
 >(
   values: T[],
-  labelsMap: Record<T, keyof (typeof pt.filters)[U]>,
+  labelsMap: Record<T, keyof (typeof strings.filters)[U]>,
   section: U,
 ): FilterOption<T>[] {
   const mappedValues = values.map(value => {
     const key = labelsMap[value];
-    const val = pt.filters[section][key] as string;
+    const val = strings.filters[section][key] as string;
     return { id: value, label: val };
   });
   return [{ id: "null" as T, label: "" }, ...mappedValues];
@@ -128,10 +128,10 @@ function filterOptionsMapper<
 
 async function queryFunction<
   T extends string,
-  U extends keyof typeof pt.filters
+  U extends keyof typeof strings.filters
 >(
   callback: () => Promise<T[]>,
-  labelsMap: Record<T, keyof (typeof pt.filters)[U]>,
+  labelsMap: Record<T, keyof (typeof strings.filters)[U]>,
   section: U,
 ): Promise<FilterOption<T>[]> {
   const values = await callback();

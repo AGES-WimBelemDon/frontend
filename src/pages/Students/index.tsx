@@ -3,7 +3,7 @@ import { Box, Button, Card, CardContent, CircularProgress, Stack, Typography } f
 
 import { useStudentsPage } from "./hook";
 import { PageTitle } from "../../components/PageTitle";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 
 export default function Students() {
   const {
@@ -18,31 +18,31 @@ export default function Students() {
     return (
       <>
         <CircularProgress />
-        <Typography>{pt.students.loadingStudents}</Typography>
+        <Typography>{strings.students.loadingStudents}</Typography>
       </>
     );
   }
 
   if (studentsError) {
-    return <Typography color="error">{pt.students.studentsError}</Typography>;
+    return <Typography color="error">{strings.students.studentsError}</Typography>;
   }
 
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <PageTitle title={pt.students.title} dataCy="students" />
+        <PageTitle title={strings.students.title} dataCy="students" />
         <Button
           variant="contained"
           startIcon={<AddIcon />}
           onClick={handleCreateNewStudent}
         >
-          {pt.students.createNew}
+          {strings.students.createNew}
         </Button>
       </Box>
 
       {!students || students.length === 0 ? (
         <Typography variant="body1" color="text.secondary" textAlign="center">
-          {pt.students.noStudents}
+          {strings.students.noStudents}
         </Typography>
       ) : (
         <Stack spacing={2}>
@@ -59,7 +59,7 @@ export default function Students() {
                     startIcon={<PersonAddIcon />}
                     onClick={() => handleCreateResponsible(student.id)}
                   >
-                    {pt.students.createResponsible}
+                    {strings.students.createResponsible}
                   </Button>
                 </Box>
               </CardContent>
