@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { useActivities } from "../../hooks/useActivities";
 import { useRoutes } from "../../hooks/useRoutes";
 
-export function useActivityList() {
+export function useActivityPage() {
   const { goTo } = useRoutes();
 
   const [name, setName] = useState("");
