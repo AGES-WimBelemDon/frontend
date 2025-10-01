@@ -1,19 +1,17 @@
 import { Box, Select, Typography } from "@mui/material";
 
 import { useSelectInput } from "./hook";
+import type { SelectInputProps } from "./interface";
 
-export function SelectInput({
+export function SelectInput<T = string>({
   label,
   options,
   id,
-}: {
-  label: string;
-  options: string[];
-  id: string;
-}) {
+  placeholder = "",
+}: SelectInputProps<T>) {
   const { setSelectInput, searchParams } = useSelectInput();
 
-  const select = searchParams.get(`select${id}`);
+  const selectedValue = searchParams.get(`select${id}`);
 
   return (
     <Box sx={{paddingTop: 2}}>
@@ -36,13 +34,13 @@ export function SelectInput({
             },
           },
         }}
-        value={select ?? ""}
-        onChange={(select) => setSelectInput(String(select.target.value), id)}
+        value={selectedValue ?? ""}
+        onChange={(event) => setSelectInput(String(event.target.value), id)}
       >
-        <option value=""></option>
-        {options.map((option, i) => (
-          <option key={i} value={option}>
-            {option}
+        <option value="">{placeholder}</option>
+        {options?.map(({ id, label }) => (
+          <option key={String(id)} value={String(id)}>
+            {label}
           </option>
         ))}
       </Select>

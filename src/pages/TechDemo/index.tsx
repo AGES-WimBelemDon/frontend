@@ -6,13 +6,13 @@ import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hoo
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
 import { TextCard } from "../../components/TextCard";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 
 export default function TechDemo() {
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const {openModal} = useNewResponsibleModal();
+  const { openModal } = useNewResponsibleModal();
 
   function showAPIInfo() {
     navigate("2?c2=4");
@@ -20,7 +20,7 @@ export default function TechDemo() {
 
   return (
     <>
-      <PageTitle title={pt.techDemo.title} dataCy="tech-demo" />
+      <PageTitle title={strings.techDemo.title} dataCy="tech-demo" />
 
       <hr />
 
@@ -38,8 +38,8 @@ export default function TechDemo() {
       </Grid>
 
       <Grid container spacing={2}>
-        <TextCard title="Home" theme="dark" />
-        <TextCard title="Home" theme="light" />
+        <TextCard title={strings.techDemo.home} theme="dark" />
+        <TextCard title={strings.techDemo.home} theme="light" />
       </Grid>
 
       <hr />
@@ -49,7 +49,7 @@ export default function TechDemo() {
         color="primary"
         data-cy="tech-demo-show-api-info-button"
       >
-        <Typography variant="body1">{pt.techDemo.showAPIInfo}</Typography>
+        <Typography variant="body1">{strings.techDemo.showAPIInfo}</Typography>
       </Button>
 
       <hr />
@@ -59,35 +59,37 @@ export default function TechDemo() {
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-success-button"
-          onClick={() => showToast("Teste de Toast", "success")}
+          onClick={() => showToast(strings.techDemo.buttons.testToast, "success")}
         >
-          Abrir toast de SUCESSO!
+          {strings.techDemo.buttons.openSuccessToast}
         </Button>
         <Button
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-error-button"
-          onClick={() => showToast("Teste de Toast fechável", "error", true)}
+          onClick={() => showToast(strings.techDemo.buttons.testCloseableToast, "error", true)}
         >
-          Abrir toast de ERRO!
+          {strings.techDemo.buttons.openErrorToast}
         </Button>
         <Button
           variant="contained"
           color="primary"
           data-cy="tech-demo-show-toast-info-button"
-          onClick={() => showToast("Teste de Toast fechável", "info", true)}
+          onClick={() => showToast(strings.techDemo.buttons.testCloseableToast, "info", true)}
         >
-          Abrir toast de INFO!
+          {strings.techDemo.buttons.openInfoToast}
         </Button>
         <Button
           variant="contained"
           color="primary"
           onClick={() => openModal()}
         >
-          Abrir modal
+          {strings.techDemo.buttons.openModal}
         </Button>
       </Grid>
+
       <NewResponsibleModal />
+      
       <Outlet />
     </>
   );

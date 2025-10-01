@@ -2,7 +2,7 @@ import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router";
 
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { getTechDemo } from "../../services/tech-demo";
 
 function MockAPI() {
@@ -24,9 +24,7 @@ function MockAPI() {
   }
 
   if (apiError) {
-    return (
-      <Typography color="error">{pt.techDemo.children.mockAPI.apiError({ message: apiError.message })}</Typography>
-    );
+    return <Typography color="error">{strings.techDemo.children.mockAPI.apiError({ message: apiError.message })}</Typography>;
   }
 
   return (
@@ -38,8 +36,8 @@ function MockAPI() {
         <Typography data-cy="tech-demo-api-stargazers-count">✨ {data.stargazers_count}</Typography>
         <Typography data-cy="tech-demo-api-forks-count">🍴 {data.forks_count}</Typography>
       </Stack>
-      {isFetching && <Typography mt={1}>{pt.techDemo.fetching}</Typography>}
-      {c2 && <Typography variant="body2">{pt.techDemo.children.mockAPI.detail({ c2 })}</Typography>}
+      {isFetching && <Typography mt={1}>{strings.techDemo.fetching}</Typography>}
+      {c2 && <Typography variant="body2">{strings.techDemo.children.mockAPI.detail({ c2 })}</Typography>}
     </Stack>
   );
 }

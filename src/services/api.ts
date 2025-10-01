@@ -2,6 +2,25 @@ import axios, { type AxiosInstance } from "axios";
 
 import { getAuthToken } from "./auth.firebase";
 
+const endpoints = {
+  activities: "/activities",
+  classes: "/classes",
+  filters: {
+    race: "/filters/race",
+    gender: "/filters/gender",
+    socialPrograms: "/filters/social-program",
+    employmentStatus: "/filters/employment-status",
+    educationLevel: "/filters/education-level",
+    identityTypes: "/filters/identity-types",
+    documentTypes: "/filters/document-types",
+    weekDays: "/filters/week-days",
+    levels: "/filters/levels",
+    civilStates: "/filters/civil-states",
+  },
+  students: "/students",
+  users: "/users",
+}
+
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const axiosClient: AxiosInstance = axios.create({
@@ -36,4 +55,7 @@ axiosClient.interceptors.response.use(
   }
 );
 
-export { axiosClient as api };
+export {
+  axiosClient as api,
+  endpoints,
+};

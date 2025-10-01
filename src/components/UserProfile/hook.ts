@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 
 import { useNavigate } from "react-router";
 
-import { pt } from "../../constants";
+import { strings, setUserLocale, type SupportedLocale, getUserLocale } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useSidebar } from "../../hooks/useSidebar";
@@ -24,7 +24,7 @@ export function useUserProfile() {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const isSidebarOpened = sidebarState === "opened" || sidebarState === "opening";
-  const actionLabel = user ? pt.userProfile.logout : pt.userProfile.login;
+  const actionLabel = user ? strings.userProfile.logout : strings.userProfile.login;
   const showProfileName = user && (isAnimating || progressRef.current > 0);
   const profileNameMaxWidth = getSidebarWidth(deviceSize); 
 
@@ -112,6 +112,13 @@ export function useUserProfile() {
     };
   }, [sidebarState, user, sidebarAnimationDurationMs]);
 
+  const currentLocale = getUserLocale();
+  
+  function handleLanguageToggle() {
+    const newLocale: SupportedLocale = currentLocale === "pt-BR" ? "en-US" : "pt-BR";
+    setUserLocale(newLocale);
+  }
+
   return {
     actionLabel,
     user,
@@ -123,5 +130,7 @@ export function useUserProfile() {
     isMobile,
     isSidebarOpened,
     profileNameMaxWidth,
+    currentLocale,
+    handleLanguageToggle,
   };
 }

@@ -1,16 +1,37 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { pt } from "../constants";
-import { getEmploymentStatusFilter, getGendersFilter, getRacesFilter, getSocialProgramsFilter, getStudentEducationLevelFilter } from "../services/filters";
-import type { Race, Gender, SocialProgram, EmploymentStatus } from "../services/filters";
+import { strings } from "../constants";
+import { 
+  getEmploymentStatusFilter, 
+  getGendersFilter, 
+  getRacesFilter, 
+  getSocialProgramsFilter, 
+  getStudentEducationLevelFilter,
+  getIdentityTypesFilter,
+  getDocumentTypesFilter,
+  getWeekDaysFilter,
+  getLevelsFilter,
+  getCivilStatesFilter
+} from "../services/filters";
+import type { 
+  Race, 
+  Gender, 
+  SocialProgram, 
+  EmploymentStatus,
+  IdentityType,
+  DocumentType,
+  WeekDay,
+  Level,
+  CivilState
+} from "../services/filters";
 import type { EducationLevel } from "../services/students";
 
-type FilterOption<T> = {
+export type FilterOption<T> = {
   id: T;
   label: string;
 };
 
-const raceFilterOptionsMap: Record<Race, keyof typeof pt.filters.race> = {
+const raceFilterOptionsMap: Record<Race, keyof typeof strings.filters.race> = {
   BRANCA: "white",
   PRETA: "black",
   PARDA: "brown",
@@ -19,13 +40,13 @@ const raceFilterOptionsMap: Record<Race, keyof typeof pt.filters.race> = {
   NA: "notDeclared",
 }
 
-const genderFilterOptionsMap: Record<Gender, keyof typeof pt.filters.gender> = {
+const genderFilterOptionsMap: Record<Gender, keyof typeof strings.filters.gender> = {
   MASCULINO: "male",
   FEMININO: "female",
   OUTRO: "other",
 }
 
-const socialProgramOptionsMap: Record<SocialProgram, keyof typeof pt.filters.socialPrograms> = {
+const socialProgramOptionsMap: Record<SocialProgram, keyof typeof strings.filters.socialPrograms> = {
   BOLSA_FAMILIA: "bolsaFamilia",
   BPC_LOAS: "bpcLoas",
   TARIFA_SOCIAL_DE_ENERGIA: "tarifaSocialDeEnergia",
@@ -34,14 +55,14 @@ const socialProgramOptionsMap: Record<SocialProgram, keyof typeof pt.filters.soc
   PROGRAMA_MUNICIPAL_VIA_CRAS: "programaMunicipalViaCras",
 }
 
-const employmentStatusFilterOptionsMap: Record<EmploymentStatus, keyof typeof pt.filters.employmentStatus> = {
+const employmentStatusFilterOptionsMap: Record<EmploymentStatus, keyof typeof strings.filters.employmentStatus> = {
   EMPREGADO: "employed",
   DESEMPREGADO: "unemployed",
   ESTUDANTE: "student",
   OUTRO: "other",
 }
 
-const educationLevelFilterOptionsMap: Record<EducationLevel, keyof typeof pt.filters.educationLevel> = {
+const educationLevelFilterOptionsMap: Record<EducationLevel, keyof typeof strings.filters.educationLevel> = {
   NENHUM: "none",
   ALFABETIZADO: "literate",
   FUNDAMENTAL_INCOMPLETO: "incompleteElementary",
@@ -53,17 +74,53 @@ const educationLevelFilterOptionsMap: Record<EducationLevel, keyof typeof pt.fil
   POS_GRADUACAO: "posGraduation",
 }
 
+const identityTypesFilterOptionsMap: Record<IdentityType, keyof typeof strings.filters.identityTypes> = {
+  RG: "rg",
+  CPF: "cpf",
+  CERTIDAO_NASCIMENTO: "birthCertificate",
+}
+
+const documentTypesFilterOptionsMap: Record<DocumentType, keyof typeof strings.filters.documentTypes> = {
+  COMPROVANTE_RESIDENCIA: "residenceProof",
+  COMPROVANTE_RENDA: "incomeProof",
+  OUTRO: "other",
+}
+
+const weekDaysFilterOptionsMap: Record<WeekDay, keyof typeof strings.filters.weekDays> = {
+  SEGUNDA: "monday",
+  TERCA: "tuesday",
+  QUARTA: "wednesday",
+  QUINTA: "thursday",
+  SEXTA: "friday",
+  SABADO: "saturday",
+  DOMINGO: "sunday",
+}
+
+const levelsFilterOptionsMap: Record<Level, keyof typeof strings.filters.levels> = {
+  INICIANTE: "beginner",
+  INTERMEDIARIO: "intermediate",
+  AVANCADO: "advanced",
+  TODOS_NIVEIS: "allLevels",
+}
+
+const civilStatesFilterOptionsMap: Record<CivilState, keyof typeof strings.filters.civilStates> = {
+  SOLTEIRO: "single",
+  CASADO: "married",
+  DIVORCIADO: "divorced",
+  VIUVO: "widowed",
+}
+
 function filterOptionsMapper<
   T extends string,
-  U extends keyof typeof pt.filters
+  U extends keyof typeof strings.filters
 >(
   values: T[],
-  labelsMap: Record<T, keyof (typeof pt.filters)[U]>,
+  labelsMap: Record<T, keyof (typeof strings.filters)[U]>,
   section: U,
 ): FilterOption<T>[] {
   const mappedValues = values.map(value => {
     const key = labelsMap[value];
-    const val = pt.filters[section][key] as string;
+    const val = strings.filters[section][key] as string;
     return { id: value, label: val };
   });
   return [{ id: "null" as T, label: "" }, ...mappedValues];
@@ -71,10 +128,10 @@ function filterOptionsMapper<
 
 async function queryFunction<
   T extends string,
-  U extends keyof typeof pt.filters
+  U extends keyof typeof strings.filters
 >(
   callback: () => Promise<T[]>,
-  labelsMap: Record<T, keyof (typeof pt.filters)[U]>,
+  labelsMap: Record<T, keyof (typeof strings.filters)[U]>,
   section: U,
 ): Promise<FilterOption<T>[]> {
   const values = await callback();
@@ -112,17 +169,35 @@ export function useFilters() {
     staleTime: Infinity
   })
 
-  const identityTypesOptions = [
-    "RG",
-    "CPF",
-    "Certidão de Nascimento",
-  ];
+  const { data: identityTypesOptions } = useQuery({
+    queryKey: ["filters", "identityTypes"],
+    queryFn: () => queryFunction(getIdentityTypesFilter, identityTypesFilterOptionsMap, "identityTypes"),
+    staleTime: Infinity
+  })
 
-  const documentTypesOptions = [
-    "Comprovante de Residência",
-    "Comprovante de Renda",
-    "Outro",
-  ];
+  const { data: documentTypesOptions } = useQuery({
+    queryKey: ["filters", "documentTypes"],
+    queryFn: () => queryFunction(getDocumentTypesFilter, documentTypesFilterOptionsMap, "documentTypes"),
+    staleTime: Infinity
+  })
+
+  const { data: weekDaysOptions } = useQuery({
+    queryKey: ["filters", "weekDays"],
+    queryFn: () => queryFunction(getWeekDaysFilter, weekDaysFilterOptionsMap, "weekDays"),
+    staleTime: Infinity
+  })
+
+  const { data: levelOptions } = useQuery({
+    queryKey: ["filters", "levels"],
+    queryFn: () => queryFunction(getLevelsFilter, levelsFilterOptionsMap, "levels"),
+    staleTime: Infinity
+  })
+
+  const { data: civilStateOptions } = useQuery({
+    queryKey: ["filters", "civilStates"],
+    queryFn: () => queryFunction(getCivilStatesFilter, civilStatesFilterOptionsMap, "civilStates"),
+    staleTime: Infinity
+  })
 
   return {
     genderOptions,
@@ -132,5 +207,8 @@ export function useFilters() {
     documentTypesOptions,
     socialProgramOptions,
     employmentStatusOptions,
+    weekDaysOptions,
+    levelOptions,
+    civilStateOptions,
   };
 }

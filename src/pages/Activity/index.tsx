@@ -1,17 +1,19 @@
-import { Typography } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 
 import { ActivityCard } from "./ActivityCard";
 import { ActivityFilter } from "./ActivityFilter";
 import { useActivityList } from "./hook";
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { type Activity } from "../../services/activities";
 
 export default function ActivityList() {
   const {
     isLoadingActivities,
     activitiesError,
+    goTo,
     name,
     setName,
     area,
@@ -22,16 +24,31 @@ export default function ActivityList() {
   } = useActivityList();
 
   if (isLoadingActivities) {
-    return <Typography>{pt.activityList.loadingActivities}</Typography>;
+    return (
+      <>
+        <CircularProgress />
+        <Typography>{strings.activityList.loadingActivities}</Typography>
+      </>
+    );
   }
 
   if (activitiesError) {
-    return <Typography color="error">{pt.activityList.activitiesError}</Typography>;
+    return <Typography color="error">{strings.activityList.activitiesError}</Typography>;
   }
 
   return (
     <>
-      <PageTitle title={pt.activityList.title} dataCy="activity-list" />
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <PageTitle title={strings.activityList.title} dataCy="activity-list" />
+        <Button
+          disabled
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={() => goTo("/atividades", "/cadastro")}
+        >
+          {strings.activityList.createNew}
+        </Button>
+      </Box>
       <ActivityFilter
         name={name} onNameChange={setName}
         area={area} onAreaChange={setArea}
@@ -44,7 +61,7 @@ export default function ActivityList() {
             <ActivityCard key={activity.id} content={activity} />
           ))
         ) : (
-          <Typography>{pt.activityList.activitiesEmpty}</Typography>
+          <Typography>{strings.activityList.activitiesEmpty}</Typography>
         )}
       </CardList>
     </>

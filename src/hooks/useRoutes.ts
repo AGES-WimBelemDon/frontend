@@ -13,8 +13,8 @@ export type ValidRoute =
 export function useRoutes() {
   const navigate = useNavigate();
 
-  function goTo(route: ValidRoute | string) {
-    navigate(route);
+  function goTo(baseRoute: ValidRoute, path: string = "") {
+    navigate(`${baseRoute}${path}`);
   }
 
   function goBack() {

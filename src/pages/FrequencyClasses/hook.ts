@@ -22,6 +22,7 @@ export function useFrequencyClasses() {
   return {
     goTo,
     goBack,
+    activityId,
     activityTitle,
     classes: activityClasses,
     isLoadingClasses,

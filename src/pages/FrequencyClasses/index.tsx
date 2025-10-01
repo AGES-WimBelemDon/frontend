@@ -1,10 +1,10 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 
 import { useFrequencyClasses } from "./hook";
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { TextCard } from "../../components/TextCard";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 
 export default function FrequencyClasses() {
   const {
@@ -13,21 +13,27 @@ export default function FrequencyClasses() {
     isLoadingClasses,
     classesError,
     classes,
+    activityId,
     activityTitle,
   } = useFrequencyClasses();
 
   if (isLoadingClasses) {
-    return <Typography>{pt.frequencyClasses.loadingClasses}</Typography>;
+    return (
+      <>
+        <CircularProgress />
+        <Typography>{strings.frequencyClasses.loadingClasses}</Typography>
+      </>
+    );
   }
 
   if (classesError || !classes) {
-    return <Typography color="error">{pt.frequencyClasses.classesError}</Typography>;
+    return <Typography color="error">{strings.frequencyClasses.classesError}</Typography>;
   }
 
   return (
     <>
       <PageTitle
-        title={pt.frequencyClasses.title({ activity: activityTitle })}
+        title={strings.frequencyClasses.title({ activity: activityTitle })}
         dataCy="frequency-classes"
       />
       <CardList>
@@ -39,9 +45,9 @@ export default function FrequencyClasses() {
                 display="flex"
                 flexDirection="column"
               >
-                <Typography>{pt.frequencyClasses.noClasses}</Typography>
+                <Typography>{strings.frequencyClasses.noClasses}</Typography>
                 <Button variant="outlined" onClick={goBack}>
-                  {pt.frequencyClasses.goBack}
+                  {strings.frequencyClasses.goBack}
                 </Button>
               </Box>
             ) : classes.map((c, index) => {
@@ -50,7 +56,7 @@ export default function FrequencyClasses() {
                   key={c.id}
                   title={c.title}
                   theme={index === 0 ? "dark" : "light"}
-                  onClick={() => goTo(`${c.id}/chamada`)}
+                  onClick={() => goTo("/frequencias/atividades", `/${activityId}/turmas/${c.id}/chamada`)}
                 />
               );
             })

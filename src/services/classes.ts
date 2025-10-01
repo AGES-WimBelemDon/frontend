@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api, endpoints } from "./api";
 
 type ApiClass = {
   id: string;
@@ -11,7 +11,7 @@ type ApiClass = {
 
 export async function getClasses(): Promise<ApiClass[]> {
   try {
-    const response = await api.get<ApiClass[]>("/turmas");
+    const response = await api.get<ApiClass[]>(endpoints.classes);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production

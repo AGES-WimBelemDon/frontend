@@ -1,7 +1,7 @@
 import { Box, ButtonBase, Divider, Tooltip, Typography } from "@mui/material";
 
 import logo from "../../assets/logo.png";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useSidebar } from "../../hooks/useSidebar";
@@ -33,10 +33,10 @@ export function Header() {
             }}
           />
         )}
-        <Tooltip title={pt.header.goToHome} placement="right">
+        <Tooltip title={strings.header.goToHome} placement="right">
           <ButtonBase
             focusRipple
-            aria-label={pt.header.goToHome}
+            aria-label={strings.header.goToHome}
             data-cy="header-home-button"
             onClick={() => goTo("/")}
             sx={{
@@ -48,7 +48,7 @@ export function Header() {
             <Box
               component="img"
               src={logo}
-              alt={pt.header.logoAlt}
+              alt={strings.header.logoAlt}
               sx={{
                 height: { xs: 45, md: 60 },
                 width: { xs: 45, md: 60 },

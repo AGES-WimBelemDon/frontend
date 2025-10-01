@@ -1,9 +1,9 @@
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { TextCard } from "../../components/TextCard";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useActivities } from "../../hooks/useActivities";
 import { useRoutes } from "../../hooks/useRoutes";
 
@@ -12,16 +12,21 @@ export default function Frequency() {
   const { activities, isLoadingActivities, activitiesError } = useActivities();
 
   if (isLoadingActivities) {
-    return <Typography>{pt.frequency.loadingActivities}</Typography>;
+    return (
+      <>
+        <CircularProgress />
+        <Typography>{strings.frequency.loadingActivities}</Typography>
+      </>
+    );
   }
 
   if (activitiesError || !activities) {
-    return <Typography color="error">{pt.frequency.activitiesError}</Typography>;
+    return <Typography color="error">{strings.frequency.activitiesError}</Typography>;
   }
 
   return (
     <>
-      <PageTitle title={pt.frequency.title} dataCy="frequency-page-title" />
+      <PageTitle title={strings.frequency.title} dataCy="frequency-page-title" />
       <CardList>
         {activities.map((c, index) => {
           const activityId = index + 1;
@@ -30,7 +35,7 @@ export default function Frequency() {
               key={`${index}-${c.name}`}
               title={c.name}
               theme={index === 0 ? "dark" : "light"}
-              onClick={() => goTo(`${activityId}/turmas`)}
+              onClick={() => goTo("/frequencias/atividades", `/${activityId}/turmas`)}
             />
           );}
         )}

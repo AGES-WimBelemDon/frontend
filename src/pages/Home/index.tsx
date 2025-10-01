@@ -4,15 +4,16 @@ import { useNavigate } from "react-router";
 import { CardList } from "../../components/CardList";
 import { sidebarOptionsMapper } from "../../components/Sidebar/interface";
 import { TextCard } from "../../components/TextCard";
+import { strings } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
 import type { ValidRoute } from "../../hooks/useRoutes";
 
 const cards: { title: string; goTo: ValidRoute }[] = [
-  { title: "Realizar Chamada", goTo: "/frequencias/atividades" },
-  { title: "Gerenciar Alunos", goTo: "/alunos" },
-  { title: "Gerenciar Atividades", goTo: "/atividades" },
-  { title: "Gerenciar Turmas", goTo: "/turmas" },
-  { title: "Gerenciar Usuários", goTo: "/usuarios" },
+  { title: strings.home.cards.takeAttendance, goTo: "/frequencias/atividades" },
+  { title: strings.home.cards.manageStudents, goTo: "/alunos" },
+  { title: strings.home.cards.manageActivities, goTo: "/atividades" },
+  { title: strings.home.cards.manageClasses, goTo: "/turmas" },
+  { title: strings.home.cards.manageUsers, goTo: "/usuarios" },
 ];
 
 export default function Home() {
@@ -27,7 +28,7 @@ export default function Home() {
         fontWeight="bold"
         textAlign="center"
       >
-        Bem vindo(a) de volta
+        {strings.home.welcomeBack}
         {!user?.displayName
           ? "!"
           : (

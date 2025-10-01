@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api, endpoints } from "./api";
 
 export type Activity = {
   id: string;
@@ -10,7 +10,7 @@ export type Activity = {
 
 export async function getActivities(): Promise<Activity[]> {
   try {
-    const response = await api.get<Activity[]>("/atividades");
+    const response = await api.get<Activity[]>(endpoints.activities);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production

@@ -5,7 +5,7 @@ import { FrequencyCard } from "../../components/FrequencyCard";
 import type { FrequencyCardStudent } from "../../components/FrequencyCard/interface";
 import { DateInput } from "../../components/Inputs/DateInput";
 import { PageTitle } from "../../components/PageTitle";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 
 export function FrequencyCall() {
   const {
@@ -17,7 +17,7 @@ export function FrequencyCall() {
   } = useFrequencyCall();
 
   if (!students) {
-    return <Typography color="error">{pt.frequencyCall.studentsError}</Typography>;
+    return <Typography color="error">{strings.frequencyCall.studentsError}</Typography>;
   }
 
   return (
@@ -34,14 +34,14 @@ export function FrequencyCall() {
     >
       <PageTitle
         title={
-          pt.frequencyCall.title({
+          strings.frequencyCall.title({
             activity: activityTitle,
             classTitle: classTitle
           })}
         dataCy="frequency-call"
       />
 
-      <DateInput id="1" label={pt.dateInput.selectDate}/>
+      <DateInput id="1" label={strings.dateInput.selectDate}/>
       <Divider
         sx={{
           bgcolor: "primary.main",
@@ -76,7 +76,7 @@ export function FrequencyCall() {
             variant="contained"
             color="primary"
           >
-            {pt.frequencyCall.save}
+            {strings.frequencyCall.save}
           </Button>
         </List>
       </Box>

@@ -1,6 +1,6 @@
 import { Alert, Snackbar, Typography, type SnackbarOrigin } from "@mui/material";
 
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useToast } from "../../hooks/useToast";
 
@@ -29,7 +29,7 @@ export function Toast() {
         sx={{ width: "100%" }}
       >
         <Typography>  
-          {pt.toast[toast.severity]({ message: toast.message })}  
+          {strings.toast[toast.severity]({ message: toast.message })}  
         </Typography>
       </Alert>
     </Snackbar>

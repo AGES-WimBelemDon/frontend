@@ -2,29 +2,14 @@ import { useMemo, useState } from "react";
 
 import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
+import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
-
-const weekDays = [
-  "Segunda-feira",
-  "Terça-feira",
-  "Quarta-feira",
-  "Quinta-feira",
-  "Sexta-feira",
-  "Sábado",
-  "Domingo"
-];
-
-const levels = [
-  "Iniciante",
-  "Intermediário",
-  "Avançado",
-  "Todos os níveis",
-];
 
 export function useClassesPage() {
   const { activities } = useActivities();
   const { isLoadingClasses, classesError, classes } = useClasses();
+  const { weekDaysOptions, levelOptions } = useFilters();
   const { goTo } = useRoutes();
   const { deviceSize } = useScreenSize();
 
@@ -53,10 +38,10 @@ export function useClassesPage() {
     setActivityFilter,
     dayFilter,
     setDayFilter,
-    weekDays,
+    weekDaysOptions,
     levelFilter,
     setLevelFilter,
-    levels,
+    levelOptions,
     goTo,
     deviceSize,
     filteredClasses,

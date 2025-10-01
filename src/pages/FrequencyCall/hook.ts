@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import type { FrequencyCardStudent } from "../../components/FrequencyCard/interface";
 import { useDateInput } from "../../components/Inputs/DateInput/hook";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
 import { useRoutes } from "../../hooks/useRoutes";
@@ -45,14 +45,14 @@ export function useFrequencyCall() {
     const date = getDate("1");
     
     if (!students) {
-      return showToast(pt.frequencyCall.errorNoStudents, "error", true);
+      return showToast(strings.frequencyCall.errorNoStudents, "error", true);
     }
 
     if (!date) {
-      return showToast(pt.frequencyCall.errorNoDate, "error", true);
+      return showToast(strings.frequencyCall.errorNoDate, "error", true);
     }
 
-    return showToast(pt.frequencyCall.successSave, "success", true);
+    return showToast(strings.frequencyCall.successSave, "success", true);
   };
 
   return {

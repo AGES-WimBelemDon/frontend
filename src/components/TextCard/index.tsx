@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
   
 import type { ThemeStyle, TextCardProps } from "./interface";
-import { pt } from "../../constants";
+import { strings } from "../../constants";
 
 const themeStyle: Record<ThemeStyle, SxProps<Theme>> = {
   light: { backgroundColor: "background.default", color: "primary.main" },
@@ -41,7 +41,7 @@ export function TextCard({
         sx={{ height: "100%" }}
         onClick={onClick}
         disabled={disabled}
-        aria-label={pt.textCard.exploreHome}
+        aria-label={strings.textCard.exploreHome}
         data-cy="text-card-button"
       >
         <CardContent>

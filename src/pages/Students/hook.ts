@@ -2,15 +2,21 @@ import { useRoutes } from "../../hooks/useRoutes";
 import { useStudents } from "../../hooks/useStudents";
 
 export function useStudentsPage() {
-  const { isLoadingStudents, studentsError, students } = useStudents();
+  const {
+    isLoadingStudents,
+    studentsError,
+    students,
+    selectStudent,
+  } = useStudents();
   const { goTo } = useRoutes();
 
   function handleCreateNewStudent() {
-    goTo("cadastro");
+    goTo("/alunos", "/cadastro");
   };
 
   function handleCreateResponsible(studentId: string) {
-    goTo(`${studentId}/responsaveis/cadastro`);
+    selectStudent(studentId);
+    goTo("/alunos", `/${studentId}/responsaveis`);
   };
 
   return {

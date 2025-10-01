@@ -3,6 +3,7 @@ import type { Params } from "./type";
 export const portugueseTextMap = {
   activityList: {
     title: "Lista de Atividades",
+    createNew: "Criar Nova Atividade",
     loadingActivities: "Carregando atividades...",
     activitiesError: "Erro ao carregar atividades",
     activitiesEmpty: "Nenhuma atividade encontrada.",
@@ -40,6 +41,7 @@ export const portugueseTextMap = {
     weekDay: "Dia da semana",
     schedule: "Horário",
     level: "Nível",
+    activity: "Atividade",
   },
   dateInput: {
     selectDate: "Selecione a data",
@@ -90,10 +92,42 @@ export const portugueseTextMap = {
       completeHigher: "Superior Completo",
       posGraduation: "Pós-Graduação",
     },
-  },
-  header: {
-    goToHome: "Ir para a página inicial",
-    logoAlt: "Logotipo do WimBelemDon",
+    identityTypes: {
+      title: "Tipo de Documento",
+      rg: "RG",
+      cpf: "CPF",
+      birthCertificate: "Certidão de Nascimento",
+    },
+    documentTypes: {
+      title: "Tipo de Documento",
+      residenceProof: "Comprovante de Residência",
+      incomeProof: "Comprovante de Renda",
+      other: "Outro",
+    },
+    weekDays: {
+      title: "Dia da Semana",
+      monday: "Segunda-feira",
+      tuesday: "Terça-feira",
+      wednesday: "Quarta-feira",
+      thursday: "Quinta-feira",
+      friday: "Sexta-feira",
+      saturday: "Sábado",
+      sunday: "Domingo",
+    },
+    levels: {
+      title: "Nível",
+      beginner: "Iniciante",
+      intermediate: "Intermediário",
+      advanced: "Avançado",
+      allLevels: "Todos os níveis",
+    },
+    civilStates: {
+      title: "Estado Civil",
+      single: "Solteiro(a)",
+      married: "Casado(a)",
+      divorced: "Divorciado(a)",
+      widowed: "Viúvo(a)",
+    },
   },
   frequency: {
     title: "Realizar Chamada",
@@ -124,33 +158,43 @@ export const portugueseTextMap = {
     noClasses: "Nenhuma turma encontrada para esta atividade.",
     goBack: "Voltar para Atividades",
   },
+  header: {
+    goToHome: "Ir para a página inicial",
+    logoAlt: "Logotipo do WimBelemDon",
+  },
+  home: {
+    welcomeBack: "Bem vindo(a) de volta",
+    cards: {
+      takeAttendance: "Realizar Chamada",
+      manageStudents: "Gerenciar Alunos",
+      manageActivities: "Gerenciar Atividades",
+      manageClasses: "Gerenciar Turmas",
+      manageUsers: "Gerenciar Usuários"
+    },
+  },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
     buttonText: "Adicionar Responsável",
     inputs: {
       name: "Nome",
+      namePlaceholder: "Digite o nome do responsável",
       cpf: "CPF",
+      cpfPlaceholder: "Digite o CPF do responsável",
       birthDate: "Data de Nascimento",
+      birthDatePlaceholder: "Digite a data de nascimento do responsável",
       civilState: "Estado Civil",
+      civilStatePlaceholder: "Selecione o estado civil do responsável",
       nis: "NIS",
+      nisPlaceholder: "Digite o NIS do responsável",
       address: "Endereço",
+      addressPlaceholder: "Digite o endereço do responsável",
       phone: "Telefone",
-      email: "Email"
+      phonePlaceholder: "Digite o telefone do responsável",
+      email: "Email",
+      emailPlaceholder: "Digite o email do responsável",
     },
-    placeholder: {
-      name: "Digite o nome do responsável",
-      cpf: "Digite o CPF do responsável",
-      nis: "Digite o NIS do responsável",
-      address: "Digite o endereço do responsável",
-      phone: "Digite o telefone do responsável",
-      email: "Digite o email do responsável"
-    }
-  },
-  sidebar: {
-    openSidebar: "Abrir menu lateral",
-    listIcon: ({ to }: Params<"to">) => (
-      `Navegar para a página ${to}`
-    ),
+    successMessage: "Responsável adicionado com sucesso!",
+    pleaseFillAllFields: "Por favor, preencha todos os campos.",
   },
   personCard: {
     userImageAlt: "Imagem do usuário",
@@ -163,6 +207,19 @@ export const portugueseTextMap = {
     email: "Email:",
     address: "Endereço:",
     editButton: "Editar",
+  },
+  sidebar: {
+    openSidebar: "Abrir menu lateral",
+    listIcon: ({ to }: Params<"to">) => (
+      `Navegar para a página ${to}`
+    ),
+    home: "Página Inicial",
+    frequency: "Frequência",
+    students: "Educandos",
+    activities: "Atividades",
+    classes: "Turmas",
+    users: "Usuários",
+    techDemo: "Tech Demo",
   },
   studentRegistration: {
     personalInformation: "Informações Pessoais",
@@ -194,6 +251,7 @@ export const portugueseTextMap = {
     details: "Detalhes",
     schoolName: "Escola Atual",
     schoolNamePlaceholder: "Digite a escola atual do Educando",
+    editButton: "Editar",
     saveButton: "Salvar",
     cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
@@ -207,10 +265,26 @@ export const portugueseTextMap = {
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
   },
+  studentsResponsibles: {
+    title: "Responsáveis",
+    loadingResponsibles: "Carregando responsáveis...",
+    responsiblesError: "Erro ao carregar responsáveis",
+    noResponsibles: "Nenhum responsável encontrado",
+    registerResponsible: "Cadastrar Responsável",
+  },
   techDemo: {
     title: "Tech Demo",
     fetching: "Atualizando...",
     showAPIInfo: "Mostrar informações da API",
+    buttons: {
+      openSuccessToast: "Abrir toast de SUCESSO!",
+      openErrorToast: "Abrir toast de ERRO!",
+      openInfoToast: "Abrir toast de INFO!",
+      openModal: "Abrir Modal",
+      testToast: "Teste de Toast",
+      testCloseableToast: "Teste de Toast fechável",
+    },
+    home: "Home",
     children: {
       mockAPI: {
         detail: ({ c2 }: Params<"c2">) => (
@@ -234,6 +308,8 @@ export const portugueseTextMap = {
   userProfile: {
     login: "Conectar com Google",
     logout: "Sair",
+    switchToEnglish: "Mudar para Inglês",
+    switchToPortuguese: "Mudar para Português",
   },
   users: {
     title: "Gerenciar Usuários",
