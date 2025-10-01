@@ -8,7 +8,7 @@ const languageMaps = {
   "en-US": englishTextMap,
 } as const;
 
-function getUserLocale(): SupportedLocale {
+export function getUserLocale(): SupportedLocale {
   const savedLocale = localStorage.getItem("preferred-locale") as SupportedLocale;
   if (savedLocale && savedLocale in languageMaps) {
     return savedLocale;

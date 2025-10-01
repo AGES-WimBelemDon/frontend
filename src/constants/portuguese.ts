@@ -283,6 +283,8 @@ export const portugueseTextMap = {
   userProfile: {
     login: "Conectar com Google",
     logout: "Sair",
+    switchToEnglish: "Mudar para Inglês",
+    switchToPortuguese: "Mudar para Português",
   },
   users: {
     title: "Gerenciar Usuários",

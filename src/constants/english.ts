@@ -283,6 +283,8 @@ export const englishTextMap = {
   userProfile: {
     login: "Sign in with Google",
     logout: "Sign out",
+    switchToEnglish: "Switch to English",
+    switchToPortuguese: "Switch to Portuguese",
   },
   users: {
     title: "Manage Users",
