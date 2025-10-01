@@ -3,6 +3,7 @@ import type { Params } from "./type";
 export const portugueseTextMap = {
   activityList: {
     title: "Lista de Atividades",
+    createNew: "Criar Nova Atividade",
     loadingActivities: "Carregando atividades...",
     activitiesError: "Erro ao carregar atividades",
     activitiesEmpty: "Nenhuma atividade encontrada.",
@@ -90,10 +91,42 @@ export const portugueseTextMap = {
       completeHigher: "Superior Completo",
       posGraduation: "Pós-Graduação",
     },
-  },
-  header: {
-    goToHome: "Ir para a página inicial",
-    logoAlt: "Logotipo do WimBelemDon",
+    identityTypes: {
+      title: "Tipo de Documento",
+      rg: "RG",
+      cpf: "CPF",
+      birthCertificate: "Certidão de Nascimento",
+    },
+    documentTypes: {
+      title: "Tipo de Documento",
+      residenceProof: "Comprovante de Residência",
+      incomeProof: "Comprovante de Renda",
+      other: "Outro",
+    },
+    weekDays: {
+      title: "Dia da Semana",
+      monday: "Segunda-feira",
+      tuesday: "Terça-feira",
+      wednesday: "Quarta-feira",
+      thursday: "Quinta-feira",
+      friday: "Sexta-feira",
+      saturday: "Sábado",
+      sunday: "Domingo",
+    },
+    levels: {
+      title: "Nível",
+      beginner: "Iniciante",
+      intermediate: "Intermediário",
+      advanced: "Avançado",
+      allLevels: "Todos os níveis",
+    },
+    civilStates: {
+      title: "Estado Civil",
+      single: "Solteiro(a)",
+      married: "Casado(a)",
+      divorced: "Divorciado(a)",
+      widowed: "Viúvo(a)",
+    },
   },
   frequency: {
     title: "Realizar Chamada",
@@ -124,33 +157,36 @@ export const portugueseTextMap = {
     noClasses: "Nenhuma turma encontrada para esta atividade.",
     goBack: "Voltar para Atividades",
   },
+  header: {
+    goToHome: "Ir para a página inicial",
+    logoAlt: "Logotipo do WimBelemDon",
+  },
+  home: {
+    welcomeBack: "Bem vindo(a) de volta",
+  },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
     buttonText: "Adicionar Responsável",
     inputs: {
       name: "Nome",
+      namePlaceholder: "Digite o nome do responsável",
       cpf: "CPF",
+      cpfPlaceholder: "Digite o CPF do responsável",
       birthDate: "Data de Nascimento",
+      birthDatePlaceholder: "Digite a data de nascimento do responsável",
       civilState: "Estado Civil",
+      civilStatePlaceholder: "Selecione o estado civil do responsável",
       nis: "NIS",
+      nisPlaceholder: "Digite o NIS do responsável",
       address: "Endereço",
+      addressPlaceholder: "Digite o endereço do responsável",
       phone: "Telefone",
-      email: "Email"
+      phonePlaceholder: "Digite o telefone do responsável",
+      email: "Email",
+      emailPlaceholder: "Digite o email do responsável",
     },
-    placeholder: {
-      name: "Digite o nome do responsável",
-      cpf: "Digite o CPF do responsável",
-      nis: "Digite o NIS do responsável",
-      address: "Digite o endereço do responsável",
-      phone: "Digite o telefone do responsável",
-      email: "Digite o email do responsável"
-    }
-  },
-  sidebar: {
-    openSidebar: "Abrir menu lateral",
-    listIcon: ({ to }: Params<"to">) => (
-      `Navegar para a página ${to}`
-    ),
+    successMessage: "Responsável adicionado com sucesso!",
+    pleaseFillAllFields: "Por favor, preencha todos os campos.",
   },
   personCard: {
     userImageAlt: "Imagem do usuário",
@@ -163,6 +199,12 @@ export const portugueseTextMap = {
     email: "Email:",
     address: "Endereço:",
     editButton: "Editar",
+  },
+  sidebar: {
+    openSidebar: "Abrir menu lateral",
+    listIcon: ({ to }: Params<"to">) => (
+      `Navegar para a página ${to}`
+    ),
   },
   studentRegistration: {
     personalInformation: "Informações Pessoais",
@@ -206,6 +248,13 @@ export const portugueseTextMap = {
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
+  },
+  studentsResponsibles: {
+    title: "Responsáveis",
+    loadingResponsibles: "Carregando responsáveis...",
+    responsiblesError: "Erro ao carregar responsáveis",
+    noResponsibles: "Nenhum responsável encontrado",
+    registerResponsible: "Cadastrar Responsável",
   },
   techDemo: {
     title: "Tech Demo",
