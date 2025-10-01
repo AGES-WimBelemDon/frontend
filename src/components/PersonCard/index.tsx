@@ -3,31 +3,13 @@ import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Button, Card, CardMedia, Typography } from "@mui/material";
 
-import type { PersonCardData } from "./interface";
+import type { PersonCardProps } from "./interface";
 import userImg from "../../assets/userImg.png";
 import { pt } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
-export function PersonCard({
-  name,
-  cpf,
-  birthDate,
-  civilState,
-  nis,
-  phone,
-  email,
-  address,
-}: PersonCardData) {
-  const [cardData, setCardData] = useState<PersonCardData>({
-    name,
-    cpf,
-    birthDate,
-    civilState,
-    nis,
-    phone,
-    email,
-    address,
-  });
+export function PersonCard(personCardProps: PersonCardProps) {
+  const [cardData, setCardData] = useState<PersonCardProps>(personCardProps);
 
   const { isMobile } = useScreenSize();
 
@@ -83,51 +65,35 @@ export function PersonCard({
       </Box>
 
       <Box
-        sx={{
-          display: "flex",
-          alignItems: "end",
-          justifyContent: "flex-end",
-          paddingRight: 1.1,
-          paddingBottom: 1.1,
-          paddingTop: 1.1,
-        }}
+        display="flex"
+        alignItems="end"
+        justifyContent="flex-end"
+        padding={1}
       >
         <Button
           size="small"
           variant="contained"
+          fullWidth
           onClick={() =>
             setCardData({
               name: "New name",
               cpf: "New cpf",
-              birthDate: "new date",
-              civilState: "new state",
-              nis: "new nis",
-              phone: "New Phone",
+              birthDate: "New date",
+              civilState: "New state",
+              nis: "New nis",
+              phone: "New phone",
               email: "New email",
-              address: "New Address",
+              address: "New address",
             })
           }
-          endIcon={
-            <EditIcon
-              fontSize={isMobile ? undefined : "medium"}
-              sx={{ height: { xs: "0.8rem", sm: "100%"} }}
-            />
-          }
+          endIcon={<EditIcon />}
           sx={{
             textTransform: "none",
-            fontSize: { xs: 8, sm: 15 },
-            height: { xs: "1rem", sm: "1.8rem" },
-            width: { xs: "100%", sm: "100%" },
+            fontSize: 15,
+            fontWeight: "bold",
             borderRadius: 4,
-            padding: { xs: 0.4, sm: 1.5 },
-            fontWeight: 700,
-            bgcolor: "primary",
-            ":hover": { bgcolor: "primary.dark" },
-            ...(isMobile && {
-              "& > span": {
-                marginLeft: 0,
-              },
-            }),
+            paddingY: 0.5,
+            paddingX: 1.5,
           }}
         >
           {pt.personCard.editButton}
