@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
-import { Box, Typography, TextField, MenuItem, Button, Card, CardContent, Autocomplete } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
+import { Box, Typography, TextField, MenuItem, Button, Card, CardContent, Autocomplete, CircularProgress } from "@mui/material";
 
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
@@ -19,10 +20,10 @@ export default function Classes() {
     setActivityFilter,
     dayFilter,
     setDayFilter,
-    weekDays,
+    weekDaysOptions,
     levelFilter,
     setLevelFilter,
-    levels,
+    levelOptions,
     filteredClasses,
   } = useClassesPage()
 
@@ -35,7 +36,12 @@ export default function Classes() {
   }, [classesError, showToast])
 
   if (isLoadingClasses) {
-    return <Typography>{pt.classes.loadingClasses}</Typography>;
+    return (
+      <>
+        <CircularProgress />
+        <Typography>{pt.classes.loadingClasses}</Typography>
+      </>
+    )
   }
 
   if (classesError) {
@@ -53,9 +59,10 @@ export default function Classes() {
       >
         <PageTitle title={pt.classes.title} dataCy="classes-page" />
         <Button
+          disabled
           variant="contained"
-          color="secondary"
-          onClick={() => goTo("cadastro")}
+          startIcon={<AddIcon />}
+          onClick={() => goTo("/turmas", "/cadastro")}
         >
           {pt.classes.createClass}
         </Button>
@@ -94,7 +101,7 @@ export default function Classes() {
           }}
         >
           <MenuItem value="">{pt.filters.all}</MenuItem>
-          {weekDays.map((weekDay) => (
+          {weekDaysOptions.map((weekDay) => (
             <MenuItem key={weekDay} value={weekDay}>
               {weekDay}
             </MenuItem>
@@ -112,9 +119,9 @@ export default function Classes() {
           }}
         >
           <MenuItem value="">{pt.filters.all}</MenuItem>
-          {levels.map((lvl) => (
-            <MenuItem key={lvl} value={lvl}>
-              {lvl}
+          {levelOptions.map((level) => (
+            <MenuItem key={level} value={level}>
+              {level}
             </MenuItem>
           ))}
         </TextField>

@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 
 import { useFrequencyClasses } from "./hook";
 import { CardList } from "../../components/CardList";
@@ -13,11 +13,17 @@ export default function FrequencyClasses() {
     isLoadingClasses,
     classesError,
     classes,
+    activityId,
     activityTitle,
   } = useFrequencyClasses();
 
   if (isLoadingClasses) {
-    return <Typography>{pt.frequencyClasses.loadingClasses}</Typography>;
+    return (
+      <>
+        <CircularProgress />
+        <Typography>{pt.frequencyClasses.loadingClasses}</Typography>
+      </>
+    );
   }
 
   if (classesError || !classes) {
@@ -50,7 +56,7 @@ export default function FrequencyClasses() {
                   key={c.id}
                   title={c.title}
                   theme={index === 0 ? "dark" : "light"}
-                  onClick={() => goTo(`${c.id}/chamada`)}
+                  onClick={() => goTo("/frequencias/atividades", `/${activityId}/turmas/${c.id}/chamada`)}
                 />
               );
             })

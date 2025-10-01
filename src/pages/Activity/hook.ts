@@ -1,8 +1,11 @@
 import { useMemo, useState } from "react";
 
 import { useActivities } from "../../hooks/useActivities";
+import { useRoutes } from "../../hooks/useRoutes";
 
 export function useActivityList() {
+  const { goTo } = useRoutes();
+
   const [name, setName] = useState("");
   const [area, setArea] = useState("all");
   const [frequency, setFrequency] = useState("all");
@@ -31,6 +34,7 @@ export function useActivityList() {
   return {
     isLoadingActivities,
     activitiesError,
+    goTo,
     name,
     setName,
     area,

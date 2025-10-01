@@ -1,4 +1,5 @@
-import { Typography } from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 
 import { ActivityCard } from "./ActivityCard";
 import { ActivityFilter } from "./ActivityFilter";
@@ -12,6 +13,7 @@ export default function ActivityList() {
   const {
     isLoadingActivities,
     activitiesError,
+    goTo,
     name,
     setName,
     area,
@@ -22,7 +24,12 @@ export default function ActivityList() {
   } = useActivityList();
 
   if (isLoadingActivities) {
-    return <Typography>{pt.activityList.loadingActivities}</Typography>;
+    return (
+      <>
+        <CircularProgress />
+        <Typography>{pt.activityList.loadingActivities}</Typography>
+      </>
+    );
   }
 
   if (activitiesError) {
@@ -31,7 +38,17 @@ export default function ActivityList() {
 
   return (
     <>
-      <PageTitle title={pt.activityList.title} dataCy="activity-list" />
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <PageTitle title={pt.activityList.title} dataCy="activity-list" />
+        <Button
+          disabled
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={() => goTo("/atividades", "/cadastro")}
+        >
+          {pt.activityList.createNew}
+        </Button>
+      </Box>
       <ActivityFilter
         name={name} onNameChange={setName}
         area={area} onAreaChange={setArea}

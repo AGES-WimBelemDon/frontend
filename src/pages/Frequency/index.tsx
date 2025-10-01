@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
@@ -12,7 +12,12 @@ export default function Frequency() {
   const { activities, isLoadingActivities, activitiesError } = useActivities();
 
   if (isLoadingActivities) {
-    return <Typography>{pt.frequency.loadingActivities}</Typography>;
+    return (
+      <>
+        <CircularProgress />
+        <Typography>{pt.frequency.loadingActivities}</Typography>
+      </>
+    );
   }
 
   if (activitiesError || !activities) {
@@ -30,7 +35,7 @@ export default function Frequency() {
               key={`${index}-${c.name}`}
               title={c.name}
               theme={index === 0 ? "dark" : "light"}
-              onClick={() => goTo(`${activityId}/turmas`)}
+              onClick={() => goTo("/frequencias/atividades", `/${activityId}/turmas`)}
             />
           );}
         )}
