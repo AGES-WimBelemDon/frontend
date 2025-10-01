@@ -30,18 +30,20 @@ export function useRoutes() {
     return null;
   }
 
+  const allowedRoutes: ValidRoute[] = [
+    "/",
+    "/alunos",
+    "/atividades",
+    "/frequencias/atividades",
+    "/turmas",
+    "/usuarios",
+    "/tech-demo",
+  ];
+
   return {
     goTo,
     goBack,
     getPathParamId,
-    allowedRoutes: [
-      "/",
-      "/alunos",
-      "/atividades",
-      "/frequencias/atividades",
-      "/turmas",
-      "/usuarios",
-      "/tech-demo",
-    ],
+    allowedRoutes,
   };
 }

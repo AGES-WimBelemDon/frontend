@@ -13,7 +13,7 @@ import type { SxProps } from "@mui/material";
 
 import type { ValidRoute } from "../../hooks/useRoutes";
 
-export const sidebarOptionsMapper: SidebarRouteMapper = {
+export const sidebarOptionsMapper: Partial<SidebarRouteMapper> = {
   "/": {
     text: "Página Inicial",
     icon: Home,
@@ -47,7 +47,7 @@ export const sidebarOptionsMapper: SidebarRouteMapper = {
 };
 
 export type SidebarRouteMapper = {
-  [key in ValidRoute]?: {
+  [key in ValidRoute]: {
     text: string;
     icon: SvgIconComponent;
   }
