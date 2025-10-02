@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, CircularProgress, Stack, Typography } from "@mui/material";
 
-import { useStudentResponsible } from "./hook";
+import { useResponsibleRegistrationPage } from "./hook";
 import { NewResponsibleModal } from "../../components/NewResponsibleModal";
 import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hook";
 import { PageTitle } from "../../components/PageTitle";
@@ -14,7 +14,7 @@ export default function ResponsibleRegistration() {
     isLoadingResponsibles,
     responsiblesError,
     responsibles,
-  } = useStudentResponsible();
+  } = useResponsibleRegistrationPage();
 
   if (isLoadingResponsibles) {
     return (

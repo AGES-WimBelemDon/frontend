@@ -1,11 +1,11 @@
 import { Typography } from "@mui/material";
 
-import { useUsersHook } from "./hook";
+import { useUsersPage } from "./hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
 
 export default function Users() {
-  const { users, isLoadingUsers, usersError } = useUsersHook();
+  const { users, isLoadingUsers, usersError } = useUsersPage();
 
   if (isLoadingUsers) {
     return <Typography>{strings.users.loadingUsers}</Typography>;

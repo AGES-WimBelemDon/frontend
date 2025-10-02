@@ -3,7 +3,7 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 
 import { ActivityCard } from "./ActivityCard";
 import { ActivityFilter } from "./ActivityFilter";
-import { useActivityList } from "./hook";
+import { useActivityPage } from "./hook";
 import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
@@ -21,7 +21,7 @@ export default function ActivityList() {
     frequency,
     setFrequency,
     filteredActivities,
-  } = useActivityList();
+  } = useActivityPage();
 
   if (isLoadingActivities) {
     return (
