@@ -142,6 +142,6 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
     const response = await api.get<StudentResponsible[]>(`${endpoints.familyMembers}/student/${studentId}`);
     return response.data;
   } catch {
-      throw new Error("erro")
+    throw new Error("erro")
   }
 }
