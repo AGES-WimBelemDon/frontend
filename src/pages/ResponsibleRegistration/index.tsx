@@ -52,14 +52,20 @@ export default function ResponsibleRegistration() {
             ) : responsibles.map((responsible) => (
               <PersonCard
                 key={responsible.id}
-                name={responsible.name}
-                cpf={responsible.cpf}
-                birthDate={responsible.birthDate}
-                civilState={responsible.civilState}
-                nis={responsible.nis}
-                phone={responsible.phone}
-                email={responsible.email}
+                fullName={responsible.fullName}
+                socialName={responsible.socialName || ""}
+                registrationNumber={responsible.registrationNumber}
+                dateOfBirth={responsible.dateOfBirth}
+                nis={responsible.nis || ""}
+                phoneNumber={responsible.phoneNumber}
+                email={responsible.email || ""}
                 address={responsible.address}
+                relationship={responsible.relationship || ""}
+                race={responsible.race || ""}
+                gender={responsible.gender || ""}
+                educationLevel={responsible.educationLevel || ""}
+                socialPrograms={responsible.socialPrograms || ""}
+                employmentStatus={responsible.employmentStatus || ""}
               />
             ))}
         </Stack>

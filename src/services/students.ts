@@ -34,14 +34,20 @@ type ApiStudent = Student & {
 
 export type StudentResponsible = {
   id: string;
-  name: string;
-  cpf: string;
-  birthDate: string;
-  civilState: string;
-  nis: string;
-  phone: string;
-  email: string;
+  fullName: string;
+  socialName?: string;
+  registrationNumber: string;
+  dateOfBirth: string;
+  nis?: string;
+  phoneNumber: string;
+  email?: string;
   address: string;
+  relationship: string;
+  race?: string;
+  gender?: string;
+  educationLevel?: string;
+  socialPrograms?: string;
+  employmentStatus?: string;
 }
 
 export type StudentStatus = 

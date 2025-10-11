@@ -10,18 +10,23 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function PersonCard(personCardProps: PersonCardProps) {
   const [cardData, setCardData] = useState<PersonCardProps>(personCardProps);
-
   const { isMobile } = useScreenSize();
 
   const dataEntries = [
-    { label: strings.personCard.name, value: cardData.name },
-    { label: strings.personCard.cpf, value: cardData.cpf },
-    { label: strings.personCard.birthDate, value: cardData.birthDate },
-    { label: strings.personCard.civilState, value: cardData.civilState },
+    { label: strings.personCard.fullName, value: cardData.fullName },
+    { label: strings.personCard.socialName, value: cardData.socialName },
+    { label: strings.personCard.registrationNumber, value: cardData.registrationNumber },
+    { label: strings.personCard.dateOfBirth, value: cardData.dateOfBirth },
     { label: strings.personCard.nis, value: cardData.nis },
-    { label: strings.personCard.phone, value: cardData.phone },
+    { label: strings.personCard.phoneNumber, value: cardData.phoneNumber },
     { label: strings.personCard.email, value: cardData.email },
     { label: strings.personCard.address, value: cardData.address },
+    { label: strings.personCard.relationship, value: cardData.relationship },
+    { label: strings.personCard.race, value: cardData.race },
+    { label: strings.personCard.gender, value: cardData.gender },
+    { label: strings.personCard.educationLevel, value: cardData.educationLevel },
+    { label: strings.personCard.socialPrograms, value: cardData.socialPrograms },
+    { label: strings.personCard.employmentStatus, value: cardData.employmentStatus },
   ]
 
   return (
@@ -76,14 +81,20 @@ export function PersonCard(personCardProps: PersonCardProps) {
           fullWidth
           onClick={() =>
             setCardData({
-              name: "New name",
-              cpf: "New cpf",
-              birthDate: "New date",
-              civilState: "New state",
-              nis: "New nis",
-              phone: "New phone",
-              email: "New email",
-              address: "New address",
+              fullName: "New Full Name",
+              socialName: "New Social Name",
+              registrationNumber: "New CPF",
+              dateOfBirth: "New Date of Birth",
+              nis: "New NIS",
+              phoneNumber: "New Phone Number",
+              email: "New Email",
+              address: "New Address",
+              relationship: "New Relationship",
+              race: "New Race",
+              gender: "New Gender",
+              educationLevel: "New Education Level",
+              socialPrograms: "New Social Programs",
+              employmentStatus: "New Employment Status"
             })
           }
           endIcon={<EditIcon />}
