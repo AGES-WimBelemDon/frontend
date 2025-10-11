@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 
 import { useStudents } from "../../hooks/useStudents";
 
-export function useStudentResponsible() {
+export function useResponsibleRegistrationPage() {
   const { id } = useParams<{ id: string }>();
   const {
     selectStudent,
