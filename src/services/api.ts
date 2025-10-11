@@ -5,7 +5,15 @@ import { getAuthToken } from "./auth.firebase";
 const endpoints = {
   activities: "/activities",
   classes: "/classes",
-  familyMembers: "/family-member",
+  familyMembers: {
+    base: "/family-member",
+    byStudent: (studentId: string) => `/family-member/student/${studentId}`,
+    address: (familyMemberId: string) => `/family-member/${familyMemberId}/address`,
+  },
+  address: {
+    base: "/address",
+    byId: (addressId: string) => `/address/${addressId}`,
+  },
   filters: {
     race: "/filters/race",
     gender: "/filters/gender",

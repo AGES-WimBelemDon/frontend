@@ -5,6 +5,15 @@ export type Address = {
   complement?: string;
 }
 
+export interface AddressResponse {
+  id: string;
+  street: string;
+  city: string;
+  state: string;
+  cep: string;
+  neighborhood: string;
+}
+
 export async function fetchAddress(cep: string): Promise<Partial<Address> | null> {
   try {
     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
