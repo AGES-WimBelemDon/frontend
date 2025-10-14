@@ -1,3 +1,4 @@
+import { strings } from "../constants";
 import type { Address, AddressResponse } from "./address";
 import { api, endpoints } from "./api";
 import type { EmploymentStatus, Gender, Race, SocialProgram } from "./filters";
@@ -146,23 +147,32 @@ export async function getStudents(): Promise<StudentRecord[]> {
 export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent, "id">): Promise<StudentResponsible[]> {
   try {
     const response = await api.get<StudentResponsible[]>(endpoints.familyMembers.byStudent(studentId));
-    
+
     const responsiblesWithAddress = await Promise.all(
       response.data.map(async (responsible) => {
-        const addressResponse = await api.get<AddressResponse>(
-          endpoints.familyMembers.address(responsible.id)
-        );
-        const formattedAddress = `${addressResponse.data.street}, ${addressResponse.data.neighborhood} - ${addressResponse.data.city}/${addressResponse.data.state} - CEP: ${addressResponse.data.cep}`;
-        
-        return {
-          ...responsible,
-          address: formattedAddress
-        };
+        try {
+          const addressResponse = await api.get<AddressResponse>(
+            endpoints.familyMembers.address(responsible.id)
+          );
+          const formattedAddress = `${addressResponse.data.street}, ${addressResponse.data.neighborhood} - ${addressResponse.data.city}/${addressResponse.data.state} - CEP: ${addressResponse.data.cep}`;
+          
+          return {
+            ...responsible,
+            address: formattedAddress
+          };
+        } catch (addressError) {
+          console.error(`Erro ao buscar endereço do responsável ${responsible.id}:`, addressError);
+          return {
+            ...responsible,
+            address: responsible.address || "Endereço não disponível"
+          };
+        }
       })
     );
 
     return responsiblesWithAddress;
-  } catch {
-    throw new Error("erro")
+  } catch (error) {
+    console.error(strings.studentsResponsibles.responsiblesError, error);
+    return [];
   }
 }

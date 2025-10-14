@@ -18,9 +18,9 @@ export default function StudentRegistration() {
   const {
     genderOptions,
     raceOptions,
-    educationLevels,
+    educationLevelOptions,
     identityTypesOptions,
-    socialProgramOptions,
+    socialProgramsOptions,
     employmentStatusOptions,
   } = useFilters();
 
@@ -401,15 +401,15 @@ export default function StudentRegistration() {
         <TextField
           name="educationLevel"
           label={strings.filters.educationLevel.title}
-          select={!!educationLevels}
-          defaultValue={!educationLevels ? strings.filters.loading : ""}
+          select={!!educationLevelOptions}
+          defaultValue={!educationLevelOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         >
-          {educationLevels?.map(({ id, label }) => (
+          {educationLevelOptions?.map(({ id, label }) => (
             <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
@@ -428,15 +428,15 @@ export default function StudentRegistration() {
         <TextField
           name="socialProgram"
           label={strings.filters.socialPrograms.title}
-          select={!!socialProgramOptions}
-          defaultValue={!socialProgramOptions ? strings.filters.loading : ""}
+          select={!!socialProgramsOptions}
+          defaultValue={!socialProgramsOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         >
-          {socialProgramOptions?.map(({ id, label }) => (
+          {socialProgramsOptions?.map(({ id, label }) => (
             <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>

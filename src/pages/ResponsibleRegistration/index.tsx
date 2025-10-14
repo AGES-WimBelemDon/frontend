@@ -14,6 +14,7 @@ export default function ResponsibleRegistration() {
     isLoadingResponsibles,
     responsiblesError,
     responsibles,
+    studentId,
   } = useStudentResponsible();
 
   if (isLoadingResponsibles) {
@@ -70,7 +71,7 @@ export default function ResponsibleRegistration() {
             ))}
         </Stack>
       </Box>
-      <NewResponsibleModal />
+      <NewResponsibleModal studentId={studentId} />
     </>
   );
 }

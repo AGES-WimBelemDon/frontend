@@ -151,7 +151,7 @@ export function useFilters() {
     staleTime: Infinity
   })
   
-  const { data: socialProgramOptions } = useQuery({
+  const { data: socialProgramsOptions } = useQuery({
     queryKey: ["filters", "socialPrograms"],
     queryFn: () => queryFunction(getSocialProgramsFilter, socialProgramOptionsMap, "socialPrograms"),
     staleTime: Infinity
@@ -163,7 +163,7 @@ export function useFilters() {
     staleTime: Infinity
   })
 
-  const { data: educationLevels } = useQuery({
+  const { data: educationLevelOptions } = useQuery({
     queryKey: ["filters", "educationLevels"],
     queryFn: () => queryFunction(getStudentEducationLevelFilter, educationLevelFilterOptionsMap, "educationLevel"),
     staleTime: Infinity
@@ -202,10 +202,10 @@ export function useFilters() {
   return {
     genderOptions,
     raceOptions,
-    educationLevels,
+    educationLevelOptions,
     identityTypesOptions,
     documentTypesOptions,
-    socialProgramOptions,
+    socialProgramsOptions,
     employmentStatusOptions,
     weekDaysOptions,
     levelOptions,
