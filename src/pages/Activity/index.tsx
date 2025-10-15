@@ -17,7 +17,6 @@ export default function ActivityList() {
   const {
     isLoadingActivities,
     activitiesError,
-    goTo,
     name,
     setName,
     area,
