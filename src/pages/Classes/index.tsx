@@ -1,7 +1,23 @@
 import { useEffect } from "react";
 
-import { Add as AddIcon } from "@mui/icons-material";
-import { Box, Typography, TextField, MenuItem, Button, Card, CardContent, Autocomplete, CircularProgress } from "@mui/material";
+import {
+  Add as AddIcon,
+  Event,
+  AccessTime,
+} from "@mui/icons-material";
+import {
+  Box,
+  Typography,
+  TextField,
+  MenuItem,
+  Button,
+  Card,
+  CardContent,
+  Autocomplete,
+  CircularProgress,
+  FormControl,
+  FormLabel,
+} from "@mui/material";
 
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
@@ -18,22 +34,22 @@ export default function Classes() {
     activities,
     activityFilter,
     setActivityFilter,
-    dayFilter,
-    setDayFilter,
-    weekDaysOptions,
     levelFilter,
     setLevelFilter,
     levelOptions,
     filteredClasses,
-  } = useClassesPage()
+  } = useClassesPage();
 
-  const { showToast } = useToast()
+  const { showToast } = useToast();
 
-  useEffect(function handleShowErrorToast() {
-    if (classesError) {
-      showToast("Erro ao carregar turmas", "error")
-    }
-  }, [classesError, showToast])
+  useEffect(
+    function handleShowErrorToast() {
+      if (classesError) {
+        showToast("Erro ao carregar turmas", "error");
+      }
+    },
+    [classesError, showToast]
+  );
 
   if (isLoadingClasses) {
     return (
@@ -41,14 +57,18 @@ export default function Classes() {
         <CircularProgress />
         <Typography>{strings.classes.loadingClasses}</Typography>
       </>
-    )
+    );
   }
 
   if (classesError) {
-    return <Typography color="error">{strings.classes.classesError}</Typography>
+    return (
+      <Typography color="error">
+        {strings.classes.classesError}
+      </Typography>
+    );
   }
 
-  return(
+  return (
     <>
       <Box
         gap={2}
@@ -58,14 +78,6 @@ export default function Classes() {
         flexDirection={deviceSize === "mobile" ? "column" : "row"}
       >
         <PageTitle title={strings.classes.title} dataCy="classes-page" />
-        <Button
-          disabled
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => goTo("/turmas", "/cadastro")}
-        >
-          {strings.classes.createClass}
-        </Button>
       </Box>
 
       <Box
@@ -73,70 +85,109 @@ export default function Classes() {
         display="flex"
         flexDirection={deviceSize === "mobile" ? "column" : "row"}
       >
-        <Autocomplete
-          options={activities || []}
-          getOptionLabel={(option) => option.name}
-          value={activities?.find((a) => a.id === activityFilter) || null}
-          onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={strings.classes.activity}
-              slotProps={{
-                inputLabel: { sx: { color: "text.primary" } },
-              }}
-            />
-          )}
-          fullWidth
-        />
- 
-        <TextField
-          select
-          label={strings.classes.weekDay}
-          value={dayFilter}
-          onChange={(e) => setDayFilter(e.target.value)}
-          fullWidth
-          slotProps={{
-            inputLabel: { sx: { color: "text.primary" } },
-          }}
-        >
-          <MenuItem value="">{strings.filters.all}</MenuItem>
-          {weekDaysOptions?.map((weekDay) => (
-            <MenuItem key={weekDay.id} value={weekDay.id}>
-              {weekDay.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl fullWidth>
+          <FormLabel sx={{ mb: 1, color: "text.primary" }}>
+            {strings.classes.activity}
+          </FormLabel>
+          <Autocomplete
+            options={activities || []}
+            getOptionLabel={(option) => option.name}
+            value={activities?.find((a) => a.id === activityFilter) || null}
+            onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
+            renderInput={(params) => <TextField {...params} />}
+            fullWidth
+          />
+        </FormControl>
 
-        <TextField
-          select
-          label={strings.classes.level}
-          value={levelFilter}
-          onChange={(e) => setLevelFilter(e.target.value)}
-          fullWidth
-          slotProps={{
-            inputLabel: { sx: { color: "text.primary" } },
-          }}
-        >
-          <MenuItem value="">{strings.filters.all}</MenuItem>
-          {levelOptions?.map((level) => (
-            <MenuItem key={level.id} value={level.id}>
-              {level.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormControl fullWidth>
+          <FormLabel sx={{ mb: 1, color: "text.primary" }}>
+            {strings.classes.level}
+          </FormLabel>
+          <TextField
+            select
+            value={levelFilter}
+            onChange={(e) => setLevelFilter(e.target.value)}
+            fullWidth
+          >
+            <MenuItem value="">{strings.filters.all}</MenuItem>
+            {levelOptions?.map((level) => (
+              <MenuItem key={level.id} value={level.id}>
+                {level.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </FormControl>
       </Box>
 
-      <br />
+      <Box mt={2} mb={2}>
+        <Button
+          variant="outlined"
+          startIcon={<AddIcon />}
+          onClick={() => goTo("/turmas", "/cadastro")}
+          sx={{
+            borderWidth: 2,
+            borderRadius: 2,
+            borderColor: "primary.main",
+            fontWeight: "bold",
+          }}
+        >
+          {strings.classes.createClass}
+        </Button>
+      </Box>
 
       <CardList>
         {filteredClasses.map((c) => (
-          <Card key={c.id} sx={{ backgroundColor: "background.default" }}>
-            <CardContent>
-              <Typography variant="h6">{c.title}</Typography>
-              <Typography variant="body2">{c.weekDay}</Typography>
-              <Typography variant="body2">{c.schedule}</Typography>
-              <Typography variant="body2">{c.level}</Typography>
+          <Card
+            key={c.id}
+            sx={{
+              backgroundColor: "background.default",
+              borderRadius: 2,
+              border: "1px solid",
+              borderColor: "grey.400",
+              boxShadow: "none",
+              p: 2,
+            }}
+          >
+            <CardContent sx={{ p: 0 }}>
+              <Box display="flex" alignItems="center" gap={3} mb={1}>
+                <Box display="flex" alignItems="center" gap={0.5}>
+                  <Event sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    fontWeight= "bold"
+                  >
+                    {c.weekDay}
+                  </Typography>
+                </Box>
+
+                <Box display="flex" alignItems="center" gap={0.5}>
+                  <AccessTime sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    fontWeight= "bold"
+                  >
+                    {c.schedule}
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Typography
+                variant="h6"
+                color="primary.main"
+                fontWeight= "bold"
+                mb={1}
+              >
+                {c.title}
+              </Typography>
+
+              <Typography variant="body2" color="text.primary">
+                <strong>Nível:</strong> {c.level}
+              </Typography>
+              <Typography variant="body2" color="text.primary">
+                <strong>Responsável:</strong> {c.teacher}
+              </Typography>
             </CardContent>
           </Card>
         ))}
@@ -144,4 +195,3 @@ export default function Classes() {
     </>
   );
 }
-
