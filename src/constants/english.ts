@@ -33,6 +33,9 @@ export const englishTextMap = {
       teacher: "Teacher:",
     },
   },
+  anamnesis: {
+    title: "Anamnesis Form",
+  },
   classes: {
     title: "My Classes",
     loadingClasses: "Loading classes...",
