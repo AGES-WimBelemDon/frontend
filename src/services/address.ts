@@ -3,6 +3,9 @@ export type Address = {
   street: string;
   number: string;
   complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
 }
 
 export interface AddressResponse {
@@ -22,11 +25,13 @@ export async function fetchAddress(cep: string): Promise<Partial<Address> | null
     }
 
     const data = await response.json();
-
-    const street = [data.logradouro, data.complemento, data.bairro, data.localidade, data.uf]
     
     return {
-      street: street.filter(Boolean).join(", "),
+      neighborhood: data.bairro,
+      city: data.localidade,
+      state: data.uf,
+      street: data.logradouro,
+      complement: data.complemento,
     };
   } catch (error) {
     console.error("Error fetching address:", error);

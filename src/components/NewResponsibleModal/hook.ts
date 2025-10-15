@@ -1,11 +1,14 @@
 import { useState } from "react";
 
+import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
+
 
 import type { ResponsibleData } from "./interface";
 import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useToast } from "../../hooks/useToast";
+import { fetchAddress, type Address } from "../../services/address";
 import { createFamilyMember, createFamilyMemberAddress } from "../../services/family-members";
 import { useDateInput } from "../Inputs/DateInput/hook";
 import { useSelectInput } from "../Inputs/SelectInput/hook";
@@ -16,6 +19,7 @@ export function useNewResponsibleModal(studentId?: string) {
   const { getText } = useTextInput();
   const { getSelect } = useSelectInput();
   const { getDate } = useDateInput();
+  const [address, setAddress] = useState<Partial<Address> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<Partial<ResponsibleData>>({});
   const { 
@@ -41,6 +45,23 @@ export function useNewResponsibleModal(studentId?: string) {
     const params = new URLSearchParams();
     setSearchParams(params);
   };
+
+  function getAddressDetails() {
+    if (!address?.code) {
+      return Promise.resolve(null);
+    }
+  
+    if (address.code.length !== 8) {
+      return Promise.resolve(null);
+    }
+  
+    fetchAddress(address.code).then(setAddress);
+  }
+    
+  useQuery({
+    queryKey: ["address", address?.code],
+    queryFn: getAddressDetails,
+  })
   
   function getResponsibleFields(): ResponsibleData | undefined {
     const fullName = getText("responsible-fullName");
@@ -63,28 +84,6 @@ export function useNewResponsibleModal(studentId?: string) {
     const cep = getText("responsible-cep");
     const number = getText("responsible-number");
     const complement = getText("responsible-complement");
-    console.log("Fetched fields:", {
-      fullName,
-      socialName,
-      registrationNumber,
-      dateOfBirth,
-      nis,
-      phoneNumber,
-      email,
-      relationship,
-      race,
-      gender,
-      educationLevel,
-      socialPrograms,
-      employmentStatus,
-      street,
-      neighborhood,
-      city,
-      state,
-      cep,
-      number,
-      complement,
-    });
 
     if (
       fullName !== "" &&
@@ -210,6 +209,8 @@ export function useNewResponsibleModal(studentId?: string) {
     addResponsible,
     isSubmitting,
     formData,
+    address,
+    setAddress,
     updateField,
     clearForm,
   };
