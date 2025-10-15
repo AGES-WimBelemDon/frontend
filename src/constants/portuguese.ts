@@ -4,6 +4,8 @@ export const portugueseTextMap = {
   activityList: {
     title: "Lista de Atividades",
     createNew: "Criar Nova Atividade",
+    newActivity: "Nova Atividade",
+    activityName: "Nome da Atividade",
     loadingActivities: "Carregando atividades...",
     activitiesError: "Erro ao carregar atividades",
     activitiesEmpty: "Nenhuma atividade encontrada.",
@@ -315,5 +317,11 @@ export const portugueseTextMap = {
     title: "Gerenciar Usuários",
     loadingUsers: "Carregando usuários...",
     usersError: "Erro ao carregar usuários",
+  },
+  newActivityModal: {
+    title: "Nova Atividade",
+    textFieldTitle: "Nome da Atividade",
+    textFieldPlaceholder: "Insira o nome",
+    buttonText: "Cadastrar",
   },
 } as const;
