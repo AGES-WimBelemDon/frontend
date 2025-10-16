@@ -1,5 +1,6 @@
 import { Edit } from "@mui/icons-material";
 import { Box, Typography, Button, IconButton } from "@mui/material";
+
 import type { ActivityCardProps } from "./interface";
 import { strings } from "../../constants";
 
