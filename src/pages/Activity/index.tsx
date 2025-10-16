@@ -16,10 +16,6 @@ export default function ActivityList() {
     goTo,
     name,
     setName,
-    area,
-    setArea,
-    frequency,
-    setFrequency,
     filteredActivities,
   } = useActivityPage();
 
@@ -33,28 +29,36 @@ export default function ActivityList() {
   }
 
   if (activitiesError) {
-    return <Typography color="error">{strings.activityList.activitiesError}</Typography>;
+    return (
+      <Typography color="error">
+        {strings.activityList.activitiesError}
+      </Typography>
+    );
   }
 
   return (
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <PageTitle title={strings.activityList.title} dataCy="activity-list" />
-        <Button
-          disabled
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => goTo("/atividades", "/cadastro")}
-        >
-          {strings.activityList.createNew}
-        </Button>
       </Box>
-      <ActivityFilter
-        name={name} onNameChange={setName}
-        area={area} onAreaChange={setArea}
-        frequency={frequency} onFrequencyChange={setFrequency}
-      />
+      <ActivityFilter name={name} onNameChange={setName} />
       <br />
+      <Button
+        disabled
+        variant="outlined"
+        startIcon={<AddIcon />}
+        onClick={() => goTo("/atividades", "/cadastro")}
+        sx={{
+          borderWidth: 2,
+          borderRadius: 2,
+          borderColor: "primary.main",
+          fontWeight: "bold",
+          mb: 3,
+        }}
+      >
+        {strings.activityList.createNew}
+      </Button>
+
       <CardList>
         {filteredActivities.length > 0 ? (
           filteredActivities.map((activity: Activity) => (
