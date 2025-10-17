@@ -183,7 +183,7 @@ export default function Classes() {
               </Typography>
 
               <Typography variant="body2" color="text.primary">
-                <strong>Nível:</strong> {c.level}
+                <strong>{strings....}</strong> {c.level}
               </Typography>
               <Typography variant="body2" color="text.primary">
                 <strong>Responsável:</strong> {c.teacher}
