@@ -15,12 +15,13 @@ export async function getClasses(): Promise<ApiClass[]> {
     const response = await api.get<ApiClass[]>(endpoints.classes);
     return response.data;
   } catch {
+    // TODO: This should only work for development, remove in production
     let id = 0;
     const mockResponse = await Promise.resolve({
       data: [
         {
           id: (++id).toString(),
-          title: "Yoga para Iniciantes",
+          title: "Yoga Iniciante",
           weekDay: "Seg, Qua",
           schedule: "08:00 - 09:00",
           level: "Iniciante",
@@ -47,7 +48,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         },
         {
           id: (++id).toString(),
-          title: "Tênis para Iniciantes",
+          title: "Tênis Iniciante",
           weekDay: "Ter",
           schedule: "18:30 - 19:30",
           level: "Iniciante",
@@ -62,6 +63,24 @@ export async function getClasses(): Promise<ApiClass[]> {
           level: "Avançado",
           activityId: "2",
           teacher: "Professor E"
+        },
+        {
+          id: (++id).toString(),
+          title: "Programação",
+          weekDay: "Sab",
+          schedule: "10:00 - 11:30",
+          level: "Intermediário",
+          activityId: "8",
+          teacher: "Professora F"
+        },
+        {
+          id: (++id).toString(),
+          title: "Culinária Básica",
+          weekDay: "Sab",
+          schedule: "10:00 - 11:30",
+          level: "Iniciante",
+          activityId: "8",
+          teacher: "Professora G"
         }
       ],
     });

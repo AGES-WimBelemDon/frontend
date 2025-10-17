@@ -183,10 +183,10 @@ export default function Classes() {
               </Typography>
 
               <Typography variant="body2" color="text.primary">
-                <strong>{strings....}</strong> {c.level}
+                <strong>{strings.classes.card.level} </strong> {c.level}
               </Typography>
               <Typography variant="body2" color="text.primary">
-                <strong>Responsável:</strong> {c.teacher}
+                <strong>{strings.classes.card.teacher} </strong> {c.teacher}
               </Typography>
             </CardContent>
           </Card>
