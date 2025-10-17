@@ -13,7 +13,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
         borderColor: "grey.300",
         borderRadius: 2,
         p: 2,
-        backgroundColor: "white",
+        backgroundColor: "background.default",
         boxShadow: "0px 1px 4px rgba(0,0,0,0.1)",
         display: "flex",
         flexDirection: "column",
@@ -21,7 +21,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
       }}
     >
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography variant="subtitle1" fontWeight="bold" color="teal">
+        <Typography variant="subtitle1" fontWeight="bold">
           {content.name}
         </Typography>
         <IconButton size="small" color="primary">
@@ -32,14 +32,8 @@ export function ActivityCard({ content }: ActivityCardProps) {
         variant="outlined"
         fullWidth
         sx={{
-          borderColor: "teal",
-          color: "teal",
           fontWeight: "bold",
           textTransform: "none",
-          "&:hover": {
-            backgroundColor: "rgba(0,128,128,0.05)",
-            borderColor: "teal",
-          },
         }}
       >
         {strings.activityList.viewClasses}
