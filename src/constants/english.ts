@@ -123,7 +123,6 @@ export const englishTextMap = {
       beginner: "Beginner",
       intermediate: "Intermediate",
       advanced: "Advanced",
-      allLevels: "All Levels",
     },
     civilStates: {
       title: "Civil Status",

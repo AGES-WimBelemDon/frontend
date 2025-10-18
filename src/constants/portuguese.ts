@@ -123,7 +123,6 @@ export const portugueseTextMap = {
       beginner: "Iniciante",
       intermediate: "Intermediário",
       advanced: "Avançado",
-      allLevels: "Todos os níveis",
     },
     civilStates: {
       title: "Estado Civil",
