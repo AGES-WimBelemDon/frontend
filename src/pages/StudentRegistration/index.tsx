@@ -231,7 +231,7 @@ export default function StudentRegistration() {
                       sx={{ flex: 1 }}
                       disabled
                     />
-                    <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>{strings.studentRegistration.editButton}</Button>
+                    <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>{strings.genericActions.edit}</Button>
                   </Box>
                 </Box>
               ))}
@@ -466,7 +466,7 @@ export default function StudentRegistration() {
           }}
         >
           <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
-            {strings.studentRegistration.saveButton}
+            {strings.genericActions.save}
           </Button>
           <Button
             variant="contained"
@@ -475,7 +475,7 @@ export default function StudentRegistration() {
             type="button"
             onClick={goBack}
           >
-            {strings.studentRegistration.cancelButton}
+            {strings.genericActions.cancel}
           </Button>
         </Box>
       </Grid>

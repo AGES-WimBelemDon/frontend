@@ -76,7 +76,7 @@ export function FrequencyCall() {
             variant="contained"
             color="primary"
           >
-            {strings.frequencyCall.save}
+            {strings.genericActions.save}
           </Button>
         </List>
       </Box>

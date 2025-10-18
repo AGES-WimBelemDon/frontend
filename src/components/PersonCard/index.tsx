@@ -107,7 +107,7 @@ export function PersonCard(personCardProps: PersonCardProps) {
             paddingX: 1.5,
           }}
         >
-          {strings.personCard.editButton}
+          {strings.genericActions.edit}
         </Button>
       </Box>
     </Card>

@@ -138,7 +138,6 @@ export const portugueseTextMap = {
     title: ({ activity, classTitle }: Params<"activity" | "classTitle">) => (
       `Chamada - ${activity} - ${classTitle}`
     ),
-    save: "Salvar",
     loadingStudents: "Carregando estudantes...",
     studentsError: "Erro ao carregar estudantes",
     errorNoStudents: "Erro ao salvar a chamada, estudantes não encontrados",
@@ -161,6 +160,14 @@ export const portugueseTextMap = {
   header: {
     goToHome: "Ir para a página inicial",
     logoAlt: "Logotipo do WimBelemDon",
+  },
+  genericActions: {
+    cancel: "Cancelar",
+    delete: "Excluir",
+    edit: "Editar",
+    loading: "Carregando...",
+    save: "Salvar",
+    viewDetails: "Ver Detalhes",
   },
   home: {
     welcomeBack: "Bem vindo(a) de volta",
@@ -237,7 +244,6 @@ export const portugueseTextMap = {
     phoneNumber: "Telefone:",
     email: "Email:",
     address: "Endereço:",
-    editButton: "Editar",
     fullName: "Nome completo:",
     socialName: "Nome social:",
     dateOfBirth: "Data de nascimento:",
@@ -291,9 +297,6 @@ export const portugueseTextMap = {
     details: "Detalhes",
     schoolName: "Escola Atual",
     schoolNamePlaceholder: "Digite a escola atual do Educando",
-    editButton: "Editar",
-    saveButton: "Salvar",
-    cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
     errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
   },

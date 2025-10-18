@@ -138,7 +138,6 @@ export const englishTextMap = {
     title: ({ activity, classTitle }: Params<"activity" | "classTitle">) => (
       `Attendance - ${activity} - ${classTitle}`
     ),
-    save: "Save",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     errorNoStudents: "Error saving attendance, students not found",
@@ -157,6 +156,14 @@ export const englishTextMap = {
     classesError: "Error loading classes",
     noClasses: "No classes found for this activity.",
     goBack: "Back to Activities",
+  },
+  genericActions: {
+    cancel: "Cancel",
+    delete: "Delete",
+    edit: "Edit",
+    loading: "Loading...",
+    save: "Save",
+    viewDetails: "View Details",
   },
   header: {
     goToHome: "Go to home page",
@@ -245,7 +252,6 @@ export const englishTextMap = {
     educationLevel: "Education Level:",
     socialPrograms: "Social Programs:",
     employmentStatus: "Employment Status:",
-    editButton: "Edit",
   },
   sidebar: {
     openSidebar: "Open sidebar menu",
@@ -290,9 +296,6 @@ export const englishTextMap = {
     details: "Details",
     schoolName: "Current School",
     schoolNamePlaceholder: "Enter student's current school",
-    editButton: "Edit",
-    saveButton: "Save",
-    cancelButton: "Cancel",
     successMessage: "Student registered successfully!",
     errorMessage: "Error registering student. Please try again.",
   },
