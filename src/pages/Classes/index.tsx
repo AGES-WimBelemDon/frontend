@@ -9,7 +9,6 @@ import {
   Box,
   Typography,
   TextField,
-  MenuItem,
   Button,
   Card,
   CardContent,
@@ -29,7 +28,7 @@ export default function Classes() {
   const {
     isLoadingClasses,
     classesError,
-    deviceSize,
+    isMobile,
     goTo,
     activities,
     activityFilter,
@@ -70,128 +69,127 @@ export default function Classes() {
 
   return (
     <>
-      <Box
-        gap={2}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        flexDirection={deviceSize === "mobile" ? "column" : "row"}
-      >
-        <PageTitle title={strings.classes.title} dataCy="classes-page" />
-      </Box>
+      <PageTitle title={strings.classes.title} dataCy="classes-page" />
 
       <Box
-        gap={2}
+        gap={3}
         display="flex"
-        flexDirection={deviceSize === "mobile" ? "column" : "row"}
+        flexDirection="column"
       >
-        <FormControl fullWidth>
-          <FormLabel sx={{ mb: 1, color: "text.primary" }}>
-            {strings.classes.activity}
-          </FormLabel>
-          <Autocomplete
-            options={activities || []}
-            getOptionLabel={(option) => option.name}
-            value={activities?.find((a) => a.id === activityFilter) || null}
-            onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
-            renderInput={(params) => <TextField {...params} />}
-            fullWidth
-          />
-        </FormControl>
-
-        <FormControl fullWidth>
-          <FormLabel sx={{ mb: 1, color: "text.primary" }}>
-            {strings.classes.level}
-          </FormLabel>
-          <TextField
-            select
-            value={levelFilter}
-            onChange={(e) => setLevelFilter(e.target.value)}
-            fullWidth
+        <Box
+          gap={2}
+          display="flex"
+          flexDirection={isMobile ? "column" : "row"}
+        >
+          <FormControl fullWidth
+            sx={{
+              gap: 1,
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
-            <MenuItem value="">{strings.filters.all}</MenuItem>
-            {levelOptions?.map((level) => (
-              <MenuItem key={level.id} value={level.id}>
-                {level.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </FormControl>
-      </Box>
+            <FormLabel>
+              <Typography color="primary">
+                {strings.classes.activity}
+              </Typography>
+            </FormLabel>
+            <Autocomplete
+              options={activities || []}
+              getOptionLabel={(option) => option.name}
+              value={activities?.find((a) => a.id === activityFilter) || null}
+              onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </FormControl>
+          <FormControl fullWidth
+            sx={{
+              gap: 1,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <FormLabel>
+              <Typography color="primary">
+                {strings.classes.level}
+              </Typography>
+            </FormLabel>
+            <Autocomplete
+              options={levelOptions || []}
+              getOptionLabel={(option) => option.label}
+              value={levelOptions?.find((l) => l.id === levelFilter) || null}
+              onChange={(_, newValue) => setLevelFilter(newValue?.id || "")}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </FormControl>
+        </Box>
 
-      <Box mt={2} mb={2}>
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
           onClick={() => goTo("/turmas", "/cadastro")}
           sx={{
-            borderWidth: 2,
-            borderRadius: 2,
-            borderColor: "primary.main",
-            fontWeight: "bold",
+            alignSelf: isMobile ? "auto" : "flex-start",
           }}
         >
-          {strings.classes.createClass}
+          <Typography fontWeight="bold" variant="button">
+            {strings.classes.createClass}
+          </Typography>
         </Button>
+
+        <CardList>
+          {filteredClasses.map((c) => (
+            <Card
+              key={c.id}
+              sx={{
+                backgroundColor: "background.default",
+                borderRadius: 2,
+                border: "1px solid",
+                borderColor: "grey.400",
+                boxShadow: "none",
+              }}
+            >
+              <CardContent>
+                <Box display="flex" alignItems="center" gap={3} mb={1}>
+                  <Box display="flex" alignItems="center" gap={0.5}>
+                    <Event sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      fontWeight= "bold"
+                    >
+                      {c.weekDay}
+                    </Typography>
+                  </Box>
+                  <Box display="flex" alignItems="center" gap={0.5}>
+                    <AccessTime sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      fontWeight= "bold"
+                    >
+                      {c.schedule}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Typography
+                  variant="h6"
+                  color="primary.main"
+                  fontWeight= "bold"
+                  mb={1}
+                >
+                  {c.title}
+                </Typography>
+                <Typography variant="body2" color="text.primary">
+                  <strong>{strings.classes.card.level}</strong>{" "}{c.level}
+                </Typography>
+                <Typography variant="body2" color="text.primary">
+                  <strong>{strings.classes.card.teacher}</strong>{" "}{c.teacher}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </CardList>
       </Box>
-
-      <CardList>
-        {filteredClasses.map((c) => (
-          <Card
-            key={c.id}
-            sx={{
-              backgroundColor: "background.default",
-              borderRadius: 2,
-              border: "1px solid",
-              borderColor: "grey.400",
-              boxShadow: "none",
-              p: 2,
-            }}
-          >
-            <CardContent sx={{ p: 0 }}>
-              <Box display="flex" alignItems="center" gap={3} mb={1}>
-                <Box display="flex" alignItems="center" gap={0.5}>
-                  <Event sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
-                  <Typography
-                    variant="body2"
-                    color="text.primary"
-                    fontWeight= "bold"
-                  >
-                    {c.weekDay}
-                  </Typography>
-                </Box>
-
-                <Box display="flex" alignItems="center" gap={0.5}>
-                  <AccessTime sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
-                  <Typography
-                    variant="body2"
-                    color="text.primary"
-                    fontWeight= "bold"
-                  >
-                    {c.schedule}
-                  </Typography>
-                </Box>
-              </Box>
-
-              <Typography
-                variant="h6"
-                color="primary.main"
-                fontWeight= "bold"
-                mb={1}
-              >
-                {c.title}
-              </Typography>
-
-              <Typography variant="body2" color="text.primary">
-                <strong>{strings.classes.card.level} </strong> {c.level}
-              </Typography>
-              <Typography variant="body2" color="text.primary">
-                <strong>{strings.classes.card.teacher} </strong> {c.teacher}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))}
-      </CardList>
     </>
   );
 }
