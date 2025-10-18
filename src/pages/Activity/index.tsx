@@ -48,7 +48,7 @@ export default function ActivityList() {
           startIcon={<AddIcon />}
           onClick={() => goTo("/atividades", "/cadastro")}
           sx={{
-            alignSelf: "flex-end",
+            alignSelf: "flex-start",
           }}
         >
           <Typography fontWeight="bold" variant="button">
