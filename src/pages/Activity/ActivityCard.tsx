@@ -8,17 +8,15 @@ export function ActivityCard({ content }: ActivityCardProps) {
   return (
     <Box
       key={content.id}
-      sx={{
-        border: "1px solid",
-        borderColor: "grey.300",
-        borderRadius: 2,
-        p: 2,
-        backgroundColor: "background.default",
-        boxShadow: "0px 1px 4px rgba(0,0,0,0.1)",
-        display: "flex",
-        flexDirection: "column",
-        gap: 1.5,
-      }}
+      gap={1.5}
+      display="flex"
+      flexDirection="column"
+      padding={2}
+      bgcolor="background.default"
+      border="1px solid"
+      borderRadius={2}
+      borderColor="grey.300"
+      boxShadow="0px 1px 4px rgba(0,0,0,0.1)"
     >
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="subtitle1" fontWeight="bold">

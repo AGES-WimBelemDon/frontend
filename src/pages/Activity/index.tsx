@@ -38,36 +38,34 @@ export default function ActivityList() {
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <PageTitle title={strings.activityList.title} dataCy="activity-list" />
-      </Box>
-      <ActivityFilter name={name} onNameChange={setName} />
-      <br />
-      <Button
-        disabled
-        variant="outlined"
-        startIcon={<AddIcon />}
-        onClick={() => goTo("/atividades", "/cadastro")}
-        sx={{
-          borderWidth: 2,
-          borderRadius: 2,
-          borderColor: "primary.main",
-          fontWeight: "bold",
-          mb: 3,
-        }}
-      >
-        {strings.activityList.createNew}
-      </Button>
+      <PageTitle title={strings.activityList.title} dataCy="activity-list" />
+      
+      <Box gap={3} display="flex" flexDirection="column">
+        <ActivityFilter name={name} onNameChange={setName} />
+        
+        <Button
+          variant="outlined"
+          startIcon={<AddIcon />}
+          onClick={() => goTo("/atividades", "/cadastro")}
+          sx={{
+            alignSelf: "flex-end",
+          }}
+        >
+          <Typography fontWeight="bold" variant="button">
+            {strings.activityList.createNew}
+          </Typography>
+        </Button>
 
-      <CardList>
-        {filteredActivities.length > 0 ? (
-          filteredActivities.map((activity: Activity) => (
-            <ActivityCard key={activity.id} content={activity} />
-          ))
-        ) : (
-          <Typography>{strings.activityList.activitiesEmpty}</Typography>
-        )}
-      </CardList>
+        <CardList>
+          {filteredActivities.length > 0 ? (
+            filteredActivities.map((activity: Activity) => (
+              <ActivityCard key={activity.id} content={activity} />
+            ))
+          ) : (
+            <Typography>{strings.activityList.activitiesEmpty}</Typography>
+          )}
+        </CardList>
+      </Box>
     </>
   );
 }
