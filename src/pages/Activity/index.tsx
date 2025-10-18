@@ -14,6 +14,7 @@ export default function ActivityList() {
     isLoadingActivities,
     activitiesError,
     goTo,
+    isMobile,
     name,
     setName,
     filteredActivities,
@@ -48,7 +49,7 @@ export default function ActivityList() {
           startIcon={<AddIcon />}
           onClick={() => goTo("/atividades", "/cadastro")}
           sx={{
-            alignSelf: "flex-start",
+            alignSelf: isMobile ? "auto" : "flex-start",
           }}
         >
           <Typography fontWeight="bold" variant="button">
