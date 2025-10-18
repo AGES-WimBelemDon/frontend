@@ -13,17 +13,14 @@ import {
 } from "@mui/material";
 
 import { useNewResponsibleModal } from "./hook";
+import type { NewResponsibleModalProps } from "./interface";
 import { strings } from "../../constants";
-
-
-type NewResponsibleModalProps = {
-  studentId?: string;
-};
 
 export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
   const {
     isOpen,
     closeModal,
+    isMobile,
     raceOptions,
     genderOptions,
     educationLevelOptions,
@@ -67,7 +64,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
           onClick={closeModal}
           sx={{
             position: "absolute",
-            right: 2,
+            right: 0,
             top: "50%",
             transform: "translateY(-90%)",
           }}
@@ -76,169 +73,169 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
         </IconButton>
       </DialogTitle>
 
-      <DialogContent>
-        <Typography variant="h6" fontWeight="bold" mb={1}>
+      <DialogContent
+        sx={{
+          gap: 1,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Typography variant="h6" fontWeight="bold">
           {strings.newResponsibleModal.personalInformation}
         </Typography>
         <Box
           gap={2}
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
+          display="grid"
+          gridTemplateColumns={isMobile ? "1fr" : "1fr 1fr"}
           border="2px solid"
           borderColor="primary.main"
           borderRadius={2}
           width="100%"
           padding={2}
-          mb={2}
         >
-          <Box gap={2} flex={1} display="flex" flexDirection="column">
-            <TextField
-              label={strings.newResponsibleModal.inputs.name}
-              placeholder={strings.newResponsibleModal.inputs.namePlaceholder}
-              id="responsible-fullName"
-              name="responsible-fullName"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            />
-            <TextField
-              label={strings.newResponsibleModal.inputs.socialName}
-              placeholder={strings.newResponsibleModal.inputs.socialNamePlaceholder}
-              id="responsible-socialName"
-              name="responsible-socialName"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            />
-            <TextField
-              label={strings.newResponsibleModal.inputs.registrationNumber}
-              placeholder={strings.newResponsibleModal.inputs.registrationNumberPlaceholder}
-              id="responsible-registrationNumber"
-              name="responsible-registrationNumber"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            />
-            <TextField 
-              id="responsible-dateOfBirth"
-              label={strings.newResponsibleModal.inputs.birthDate} 
-              name="responsible-dateOfBirth"
-              type="date"
-              
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            />
+          <TextField
+            label={strings.newResponsibleModal.inputs.name}
+            placeholder={strings.newResponsibleModal.inputs.namePlaceholder}
+            id="responsible-fullName"
+            name="responsible-fullName"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          />
+          <TextField
+            label={strings.newResponsibleModal.inputs.socialName}
+            placeholder={strings.newResponsibleModal.inputs.socialNamePlaceholder}
+            id="responsible-socialName"
+            name="responsible-socialName"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          />
+          <TextField
+            label={strings.newResponsibleModal.inputs.registrationNumber}
+            placeholder={strings.newResponsibleModal.inputs.registrationNumberPlaceholder}
+            id="responsible-registrationNumber"
+            name="responsible-registrationNumber"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          />
+          <TextField 
+            id="responsible-dateOfBirth"
+            label={strings.newResponsibleModal.inputs.birthDate} 
+            name="responsible-dateOfBirth"
+            type="date"
             
-            <TextField
-              label={strings.newResponsibleModal.inputs.nis}
-              placeholder={strings.newResponsibleModal.inputs.nisPlaceholder}
-              id="responsible-nis"
-              name="responsible-nis"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            />
-            <TextField
-              label={strings.newResponsibleModal.inputs.phone}
-              placeholder={strings.newResponsibleModal.inputs.phonePlaceholder}
-              id="responsible-phoneNumber"
-              name="responsible-phoneNumber"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            />
-            <TextField
-              label={strings.newResponsibleModal.inputs.employmentStatus}
-              select={!!employmentStatusOptions}
-              id="responsible-employmentStatus"
-              name="responsible-employmentStatus"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            >
-              {employmentStatusOptions?.map(({ id, label }) => (
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          />
+          
+          <TextField
+            label={strings.newResponsibleModal.inputs.nis}
+            placeholder={strings.newResponsibleModal.inputs.nisPlaceholder}
+            id="responsible-nis"
+            name="responsible-nis"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          />
+          <TextField
+            label={strings.newResponsibleModal.inputs.phone}
+            placeholder={strings.newResponsibleModal.inputs.phonePlaceholder}
+            id="responsible-phoneNumber"
+            name="responsible-phoneNumber"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          />
+          <TextField
+            label={strings.newResponsibleModal.inputs.employmentStatus}
+            select={!!employmentStatusOptions}
+            id="responsible-employmentStatus"
+            name="responsible-employmentStatus"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          >
+            {employmentStatusOptions?.map(({ id, label }) => (
 
-                <MenuItem key={id} value={id}>{label}</MenuItem>
-              ))}
-            </TextField>
-          </Box>
-          <Box flex={1} gap={2} display="flex" flexDirection="column">
-            <TextField
-              label={strings.newResponsibleModal.inputs.email}
-              placeholder={strings.newResponsibleModal.inputs.emailPlaceholder}
-              id="responsible-email"
-              name="responsible-email"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            />
-            <TextField
-              label={strings.newResponsibleModal.inputs.relationship}
-              placeholder={strings.newResponsibleModal.inputs.relationshipPlaceholder}
-              id="responsible-relationship"
-              name="responsible-relationship"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            />
-            <TextField
-              label={strings.newResponsibleModal.inputs.race}
-              select={!!raceOptions}
-              id="responsible-race"
-              name="responsible-race"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            >
-              {raceOptions?.map(({ id, label }) => (
-                <MenuItem key={id} value={id}>{label}</MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              label={strings.newResponsibleModal.inputs.gender}
-              select={!!genderOptions}
-              id="responsible-gender"
-              name="responsible-gender"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            >
-              {genderOptions?.map(({ id, label }) => (
-                <MenuItem key={id} value={id}>{label}</MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              label={strings.newResponsibleModal.inputs.educationLevel}
-              select={!!educationLevelOptions}
-              id="responsible-educationLevel"
-              name="responsible-educationLevel"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            >
-              {educationLevelOptions?.map(({ id, label }) => (
-                <MenuItem key={id} value={id}>{label}</MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              label={strings.newResponsibleModal.inputs.socialPrograms}
-              select={!!socialProgramsOptions}
-              id="responsible-socialPrograms"
-              name="responsible-socialPrograms"
-              slotProps={{
-                inputLabel: { sx: { color: "primary.main" }, shrink: true },
-              }}
-            >
-              {socialProgramsOptions?.map(({ id, label }) => (
-                <MenuItem key={id} value={id}>{label}</MenuItem>
-              ))}
-            </TextField>
-          </Box>
+              <MenuItem key={id} value={id}>{label}</MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            label={strings.newResponsibleModal.inputs.email}
+            placeholder={strings.newResponsibleModal.inputs.emailPlaceholder}
+            id="responsible-email"
+            name="responsible-email"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          />
+          <TextField
+            label={strings.newResponsibleModal.inputs.relationship}
+            placeholder={strings.newResponsibleModal.inputs.relationshipPlaceholder}
+            id="responsible-relationship"
+            name="responsible-relationship"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          />
+          <TextField
+            label={strings.newResponsibleModal.inputs.race}
+            select={!!raceOptions}
+            id="responsible-race"
+            name="responsible-race"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          >
+            {raceOptions?.map(({ id, label }) => (
+              <MenuItem key={id} value={id}>{label}</MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            label={strings.newResponsibleModal.inputs.gender}
+            select={!!genderOptions}
+            id="responsible-gender"
+            name="responsible-gender"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          >
+            {genderOptions?.map(({ id, label }) => (
+              <MenuItem key={id} value={id}>{label}</MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            label={strings.newResponsibleModal.inputs.educationLevel}
+            select={!!educationLevelOptions}
+            id="responsible-educationLevel"
+            name="responsible-educationLevel"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          >
+            {educationLevelOptions?.map(({ id, label }) => (
+              <MenuItem key={id} value={id}>{label}</MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            label={strings.newResponsibleModal.inputs.socialPrograms}
+            select={!!socialProgramsOptions}
+            id="responsible-socialPrograms"
+            name="responsible-socialPrograms"
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
+          >
+            {socialProgramsOptions?.map(({ id, label }) => (
+              <MenuItem key={id} value={id}>{label}</MenuItem>
+            ))}
+          </TextField>
         </Box>
 
-        <Typography variant="h6" fontWeight="bold" mb={1}>
+        <Typography variant="h6" fontWeight="bold">
           {strings.newResponsibleModal.addressInformation}
         </Typography>
         <Box
@@ -347,13 +344,15 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
         </Box>
       </DialogContent>
 
-      <DialogActions>
+      <DialogActions sx={{ paddingX: 3, paddingBottom: 2 }}>
         <Button
           variant="contained"
           onClick={addResponsible}
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Salvando..." : strings.newResponsibleModal.buttonText}
+          {isSubmitting
+            ? strings.genericActions.loading
+            : strings.newResponsibleModal.buttonText}
         </Button>
       </DialogActions>
     </Dialog>

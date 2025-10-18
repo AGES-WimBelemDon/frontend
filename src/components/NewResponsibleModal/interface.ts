@@ -1,3 +1,7 @@
+export interface NewResponsibleModalProps {
+  studentId?: string;
+};
+
 export type ResponsibleData = {
   fullName: string;
   socialName?: string;

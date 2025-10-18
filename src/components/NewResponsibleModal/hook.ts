@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router";
 import type { ResponsibleData } from "./interface";
 import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
+import { useScreenSize } from "../../hooks/useScreenSize";
 import { useToast } from "../../hooks/useToast";
 import { fetchAddress, type Address } from "../../services/address";
 import { createFamilyMember, createFamilyMemberAddress } from "../../services/family-members";
@@ -17,6 +18,7 @@ import { useTextInput } from "../Inputs/TextInput/hook";
 export function useNewResponsibleModal(studentId?: string) {
   const { showToast } = useToast();
   const { getText } = useTextInput();
+  const { isMobile } = useScreenSize();
   const { getSelect } = useSelectInput();
   const { getDate } = useDateInput();
   const [address, setAddress] = useState<Partial<Address> | null>(null);
@@ -200,6 +202,7 @@ export function useNewResponsibleModal(studentId?: string) {
     isOpen,
     openModal,
     closeModal,
+    isMobile,
     civilStateOptions,
     raceOptions,
     genderOptions,
