@@ -16,21 +16,8 @@ export async function login(token: string): Promise<UserResponse> {
     const response = await api.post<UserResponse>(endpoints.users.login, { token });
     return response.data;
   } catch (error) {
-    // TODO: Remove this once backend logic is in place
-    const mockUser: UserResponse = {
-      id: 1,
-      fullName: "Tenista",
-      email: "tenista@wimbelemdon.com.br",
-      status: "ATIVO",
-      role: {
-        id: 1,
-        name: "Admin",
-        description: "Administrator role",
-      },
-    }
-    return mockUser;
     console.error("API Error in login:", error);
-    throw new Error("Error logging in user");
+    throw error;
   }
 }
 
