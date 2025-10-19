@@ -2,9 +2,11 @@ import { useMemo, useState } from "react";
 
 import { useActivities } from "../../hooks/useActivities";
 import { useRoutes } from "../../hooks/useRoutes";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function useActivityPage() {
   const { goTo } = useRoutes();
+  const { isMobile } = useScreenSize();
 
   const [name, setName] = useState("");
   const [area, setArea] = useState("all");
@@ -35,6 +37,7 @@ export function useActivityPage() {
     isLoadingActivities,
     activitiesError,
     goTo,
+    isMobile,
     name,
     setName,
     area,
