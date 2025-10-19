@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router";
 import type { ClassesModalData } from "./interface";
 import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
+import { useUsers } from "../../hooks/useUsers";
 import { useSelectInput } from "../Inputs/SelectInput/hook";
 import { useTextInput } from "../Inputs/TextInput/hook";
 
@@ -14,6 +15,7 @@ export function useClassesModal() {
   const { getText } = useTextInput();
   const { getSelect } = useSelectInput();
   const { students, isLoadingStudents, studentsError } = useStudents();
+  const { users, isLoadingUsers, usersError } = useUsers()
   const [nameStudent, setNameStudent] = useState("");
   const [nameTeacher, setNameTeacher] = useState("");
   const [role, setRole] = useState("");
@@ -67,9 +69,27 @@ export function useClassesModal() {
     if (isLoadingStudents || studentsError || !students) {
       return []
     }
-    return students
-  }, [isLoadingStudents, studentsError, students]
-  )
+    return students.filter((student) => {
+      const nameMatch =
+        nameStudent === "" ||
+        student.fullName.toLowerCase().includes(nameStudent.toLowerCase());
+      return nameMatch;
+    })
+  }, [isLoadingStudents, studentsError, students, nameStudent])
+
+  const filtredUsers = useMemo(() => {
+    if (isLoadingUsers || usersError || !users) {
+      return []
+    }
+    return users.filter((user) => {
+      const nameMatch =
+        nameTeacher === "" ||
+        user.full_name.toLowerCase().includes(nameTeacher.toLowerCase());
+      return nameMatch;
+    })
+
+  }, [isLoadingUsers, usersError, users, nameTeacher])
+
 
   return {
     isOpen,
@@ -82,6 +102,7 @@ export function useClassesModal() {
     closeModal,
     createClass,
     openClassesModal,
-    filtredStudents
+    filtredStudents,
+    filtredUsers
   }
 }

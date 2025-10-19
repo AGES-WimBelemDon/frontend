@@ -13,15 +13,17 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 interface FilterProps {
   label: string;
   name: string;
+  placeholder: string;
   onChange: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function Filters({
   label,
   name,
+  placeholder,
   onChange
 }: FilterProps) {
-  const { isDesktop, isMobile } = useScreenSize();
+  const { isMobile } = useScreenSize();
 
   const filterBoxStyle: SxProps = {
     width: "100%",
@@ -35,12 +37,12 @@ export function Filters({
     <CardList>
       <Box
         sx={filterBoxStyle}
-        gridColumn={!isMobile && !isDesktop ? "span 2" : 1}
+        gridColumn={"span 2"}
       >
         <Typography>{label}</Typography>
         <TextField
           variant="outlined"
-          placeholder={`Insira o nome do ${label.toLowerCase}`}
+          placeholder={isMobile ? `${placeholder}` : `Insira o nome do ${placeholder}`}
           fullWidth
           value={name}
           onChange={(e) => onChange(e.target.value)}

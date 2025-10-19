@@ -51,7 +51,7 @@ export default function Students() {
               <CardContent sx={{ backgroundColor: "background.default" }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                   <Typography variant="h6" component="h2">
-                    {student.name}
+                    {student.fullName}
                   </Typography>
                   <Button
                     variant="outlined"

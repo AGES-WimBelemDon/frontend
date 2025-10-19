@@ -1,7 +1,6 @@
 import React from "react";
 
 import {
-  CheckBox,
   RadioButtonChecked,
   RadioButtonUnchecked,
 } from "@mui/icons-material";
@@ -41,6 +40,7 @@ export function ClassesModal() {
     setNameStudent,
     setNameTeacher,
     filtredStudents,
+    filtredUsers
   } = useClassesModal();
 
   const [personName, setPersonName] = React.useState<string[]>([]);
@@ -48,13 +48,6 @@ export function ClassesModal() {
 
   const days = ["S", "T", "Q", "Q", "S", "S", "D"];
   const level = ["Iniciante", "Intermediário", "Avançado"];
-  const professores = [
-    "Professora A",
-    "Professor B",
-    "Professora C",
-    "Professor D",
-  ];
-  const alunos = ["Aluna A", "Aluno B", "Aluna C", "Aluno D"];
 
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
@@ -216,56 +209,35 @@ export function ClassesModal() {
               ))}
             </FormGroup>
 
+            <Filters label="Estudantes" name={nameStudent} onChange={setNameStudent} placeholder="Estudante" />
+
+            {filtredStudents.length > 0 &&
+              filtredStudents?.map((student) => (
+                <FormControlLabel sx={{ width: "100%", maxWidth: 360 }}
+                  key={student.id}
+                  label={student.fullName}
+                  control={<Checkbox sx={{ color: theme.palette.primary.main }} />}
+                />
+              ))}
+            <Filters label="Professores" name={nameTeacher} onChange={setNameTeacher} placeholder="Professor" />
             <FormControl>
               <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                name="radio-buttons-group"
+                sx={{ width: "100%", maxWidth: 360 }}
+
               >
-                {professores.map((professor) => (
-                  <FormControlLabel
-                    key={professor}
-                    value={professor}
-                    control={
-                      <Radio sx={{ color: theme.palette.primary.main }} />
-                    }
-                    label={professor}
-                  />
-                ))}
+                {filtredUsers.length > 0 &&
+                  filtredUsers?.map((user) => (
+                    <>
+                      <FormControlLabel
+                        key={user.id}
+                        label={user.full_name}
+                        value={user.full_name}
+                        control={<Radio sx={{ color: theme.palette.primary.main }} />}
+                      />
+                    </>
+                  ))}
               </RadioGroup>
             </FormControl>
-
-            <FormGroup>
-              {alunos.map((aluno, index) => (
-                <FormControlLabel
-                  key={`${aluno}${index}`}
-                  label={aluno}
-                  value={aluno}
-                  control={
-                    <Checkbox
-                      icon={<RadioButtonUnchecked />}
-                      checkedIcon={<RadioButtonChecked />}
-                      sx={{ color: theme.palette.primary.main }}
-                    />
-                  }
-                />
-              ))}
-            </FormGroup>
-
-            <FormControl sx={{ width: "100%", display: "flex" }}>
-              <Filters label="Estudantes" name={nameStudent} onChange={setNameStudent} />
-              {filtredStudents?.map((student) => (
-                <FormControlLabel
-                  key={`${student.id}`}
-                  label={student.name}
-                  value={student.name}
-                  control={<CheckBox />}
-                />
-              ))}
-
-
-            </FormControl>
-
-            <Filters label="Professores" name={nameTeacher} onChange={setNameTeacher} />
           </Box>
         </Box>
       </DialogContent>
@@ -275,6 +247,6 @@ export function ClassesModal() {
           {"Cadastrar"}
         </Button>
       </DialogActions>
-    </Dialog>
+    </Dialog >
   );
 }
