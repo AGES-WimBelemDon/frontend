@@ -46,7 +46,7 @@ export function useUserProfile() {
   }
 
   useLayoutEffect(function animateNameWithSidebar() {
-    const name = user?.displayName;
+    const name = user?.fullName;
     if (!name) {
       return;
     }
