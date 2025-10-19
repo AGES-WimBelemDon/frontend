@@ -81,9 +81,9 @@ export function useLogin() {
     setIsLoggingIn(true);
     
     try {
-      const token = await loginWithGoogle();
+      const user = await loginWithGoogle();
 
-      await loginApi(token);
+      await loginApi(user.token);
 
       await refreshAuth();
     } catch (error) {
