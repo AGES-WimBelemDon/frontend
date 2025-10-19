@@ -4,9 +4,9 @@ import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { TextCard } from "../../components/TextCard";
 import { strings } from "../../constants";
-import { useRoutes } from "../../hooks/useRoutes";
-import { useAvailableClasses } from "../../hooks/useAvailableClasses";
 import { useAuth } from "../../hooks/useAuth";
+import { useAvailableClasses } from "../../hooks/useAvailableClasses";
+import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Frequency() {
   const { goTo } = useRoutes();
@@ -42,7 +42,7 @@ export default function Frequency() {
     let errorMessage: string = strings.frequency.activitiesError;
     
     if (status === 400) {
-      errorMessage = `Bad Request: ${errorData?.message || 'Invalid request format'}`;
+      errorMessage = `Bad Request: ${errorData?.message || "Invalid request format"}`;
     } else if (status === 404) {
       errorMessage = "User with the specified ID was not found.";
     } else if (status === 500) {
@@ -77,4 +77,4 @@ export default function Frequency() {
     </>
   );
 }
-''
+""

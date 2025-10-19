@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getAvailableClasses } from "../services/frequency";
 import { useAuth } from "./useAuth";
+import { getAvailableClasses } from "../services/frequency";
 
 export function useAvailableClasses() {
   const { user, isLoadingAuth } = useAuth();
