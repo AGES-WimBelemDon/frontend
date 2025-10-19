@@ -3,6 +3,10 @@
  * These types should be kept in sync with backend DTOs.
  */
 
+export type GetUsersParams = {
+  status?: UserStatus;
+}
+
 export type UserStatus = "ATIVO" | "INATIVO";
 
 export type UserRole = {
