@@ -206,6 +206,22 @@ export const englishTextMap = {
       manageUsers: "Manage Users"
     }
   },
+  login: {
+    title: "Login",
+    loginWithGoogle: "Login with Google",
+    loggingIn: "Logging in...",
+    logoAlt: "Logo",
+    errors: {
+      invalidToken: "Invalid sign-in token. Please try again.",
+      notRegistered: "Your account is not registered in the system.",
+      inactive: "Your account is not active. Please contact an administrator.",
+      popupClosed: "Sign-in was cancelled before completion.",
+      popupBlocked: "The sign-in popup was blocked by your browser.",
+      popupCancelled: "Another sign-in attempt was in progress.",
+      network: "Network error during sign-in. Check your connection and try again.",
+      generic: "We couldn't sign you in. Please try again.",
+    }
+  },
   newResponsibleModal: {
     title: "Register Guardian",
     buttonText: "Add Guardian",
@@ -432,6 +448,42 @@ export const englishTextMap = {
     title: "Manage Users",
     loadingUsers: "Loading users...",
     usersError: "Error loading users",
+    registerNew: "Register New User",
+    table: {
+      id: "ID",
+      name: "Name",
+      email: "Email",
+      status: "Status",
+      role: "Role",
+      actions: "Actions",
+    },
+    status: {
+      active: "Active",
+      inactive: "Inactive",
+    },
+    actions: {
+      edit: "Edit",
+      activate: "Activate",
+      deactivate: "Deactivate",
+    },
+    footer: {
+      showing: ({ count, total }: Params<"count" | "total">) => `Showing ${count} of ${total} ${total === "1" ? "user" : "users"}`,
+      updatedAt: ({ when }: Params<"when">) => (
+        `Updated at ${when}`
+      )
+    },
+    inputs: {
+      name: "Colaborator Name",
+      namePlaceholder: "Full Name",
+      email: "Email",
+      emailPlaceholder: "full.name@wimbelemdon.com.br",
+      register: "Register",
+    },
+    toasts: {
+      enabled: "User activated successfully",
+      disabled: "User deactivated successfully",
+      toggleError: "Couldn't update user status. Please try again.",
+    },
   },
   newActivityModal: {
     title: "New Activity",
