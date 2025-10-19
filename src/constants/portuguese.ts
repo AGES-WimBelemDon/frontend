@@ -197,6 +197,16 @@ export const portugueseTextMap = {
     successMessage: "Responsável adicionado com sucesso!",
     pleaseFillAllFields: "Por favor, preencha todos os campos.",
   },
+  classesModal: {
+    title: "Cadastrar Turma",
+    inputs: {
+      classDay: "Dia da Turma",
+      classTime: "Horário da turma",
+      level: "Nível",
+      addStudent: "Adicionar Estudante",
+      addStudentPlaceholder: "Digite o nome do aluno"
+    }
+  },
   personCard: {
     userImageAlt: "Imagem do usuário",
     name: "Nome:",
