@@ -20,7 +20,7 @@ export function useFrequencyCall() {
   const activityId = getPathParamId("atividades");
   const activityTitle = !activityId ? ""
     : getActivityTitleById(activityId);
-  
+
   const classId = getPathParamId("turmas");
   const classTitle = !classId ? ""
     : getClassTitleById(classId);
@@ -29,7 +29,12 @@ export function useFrequencyCall() {
 
   useEffect(() => {
     if (apiStudents) {
-      setStudents(apiStudents.map(apiStudent => ({ ...apiStudent, isPresent: true })));
+      setStudents(apiStudents.map(apiStudent => ({
+        id: apiStudent.id,
+        name: apiStudent.fullName,
+        frequencyPercent: 0,
+        isPresent: true
+      })));
     }
   }, [apiStudents]);
 
@@ -43,7 +48,7 @@ export function useFrequencyCall() {
 
   function registerCall() {
     const date = getDate("1");
-    
+
     if (!students) {
       return showToast(strings.frequencyCall.errorNoStudents, "error", true);
     }
