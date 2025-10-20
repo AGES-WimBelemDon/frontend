@@ -66,7 +66,7 @@ export function ClassesModal() {
     const style = {
       width: 30,
       height: 30,
-      borderRadius: 2,
+      borderRadius: 5,
       bgcolor: "primary.main",
       color: "primary.contrastText",
       display: "flex",
@@ -82,7 +82,7 @@ export function ClassesModal() {
       <Box
         sx={{
           ...style,
-          bgcolor: "background.paper",
+          bgcolor: "background.default",
           color: "text.primary",
         }}
       >
@@ -111,7 +111,7 @@ export function ClassesModal() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        position="relative"
+        position="relative" 
       >
         {"Cadastrar Turma"}
         <IconButton
@@ -178,7 +178,7 @@ export function ClassesModal() {
                   checkedIcon={<RadioButtonChecked />}
                 />
               }
-              label="Turma Ativa"
+              label="Atividade Recorrente"
             />
 
             <InputLabel
@@ -196,14 +196,16 @@ export function ClassesModal() {
                   icon={<DaysCalendarIcon text={day} checked={isChecked} />}
                   sx={{
                     color: theme.palette.primary.main,
-                    border: 1,
-                    borderColor: isChecked
-                      ? theme.palette.background.default
-                      : theme.palette.background.paper,
-                    borderRadius: 2,
+                      borderColor: isChecked
+                      ? theme.palette.primary.main
+                      : theme.palette.primary.main,
+
+                    borderRadius: 5,
                     padding: 1,
                     gap: 1,
                     margin: 0.1,
+                  
+                    
                   }}
                 />
               ))}
