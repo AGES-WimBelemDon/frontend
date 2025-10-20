@@ -196,7 +196,7 @@ export function ClassesModal() {
                   icon={<DaysCalendarIcon text={day} checked={isChecked} />}
                   sx={{
                     color: theme.palette.primary.main,
-                      borderColor: isChecked
+                    borderColor: isChecked
                       ? theme.palette.primary.main
                       : theme.palette.primary.main,
 
