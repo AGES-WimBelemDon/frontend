@@ -43,6 +43,10 @@ export const englishTextMap = {
     schedule: "Schedule",
     level: "Level",
     activity: "Activity",
+    card: {
+      level: "Level:",
+      teacher: "Teacher:"
+    },
   },
   dateInput: {
     selectDate: "Select date",
@@ -120,7 +124,6 @@ export const englishTextMap = {
       beginner: "Beginner",
       intermediate: "Intermediate",
       advanced: "Advanced",
-      allLevels: "All Levels",
     },
     civilStates: {
       title: "Civil Status",

@@ -7,6 +7,7 @@ type ApiClass = {
   schedule: string;
   level: string;
   activityId: string;
+  teacher: string; 
 };
 
 export async function getClasses(): Promise<ApiClass[]> {
@@ -20,53 +21,68 @@ export async function getClasses(): Promise<ApiClass[]> {
       data: [
         {
           id: (++id).toString(),
-          title: "Yoga para Iniciantes",
-          weekDay: "Segunda-feira",
+          title: "Yoga Iniciante",
+          weekDay: "Seg, Qua",
           schedule: "08:00 - 09:00",
           level: "Iniciante",
           activityId: "7",
+          teacher: "Professora A"
         },
         {
           id: (++id).toString(),
           title: "Yoga Intermediário",
-          weekDay: "Segunda-feira",
+          weekDay: "Ter, Qui",
           schedule: "09:00 - 10:00",
           level: "Intermediário",
           activityId: "7",
+          teacher: "Professor B"
         },
         {
           id: (++id).toString(),
-          title: "Bate-papo semanal",
-          weekDay: "Quarta-feira",
+          title: "Bate-papo Semanal",
+          weekDay: "Sex",
           schedule: "19:00 - 20:00",
           level: "Todos os níveis",
           activityId: "1",
+          teacher: "Professora C"
         },
         {
           id: (++id).toString(),
-          title: "Tênis para Iniciantes",
-          weekDay: "Terça-feira",
+          title: "Tênis Iniciante",
+          weekDay: "Ter",
           schedule: "18:30 - 19:30",
-          level: "Intermediário",
+          level: "Iniciante",
           activityId: "2",
+          teacher: "Professor D"
         },
         {
           id: (++id).toString(),
           title: "Tênis Avançado",
-          weekDay: "Quinta-feira",
+          weekDay: "Qui",
           schedule: "07:00 - 08:00",
           level: "Avançado",
           activityId: "2",
+          teacher: "Professor E"
         },
         {
           id: (++id).toString(),
           title: "Programação",
-          weekDay: "Sábado",
+          weekDay: "Sab",
           schedule: "10:00 - 11:30",
           level: "Intermediário",
           activityId: "8",
+          teacher: "Professora F"
         },
-      ]
+        {
+          id: (++id).toString(),
+          title: "Culinária Básica",
+          weekDay: "Sab",
+          schedule: "10:00 - 11:30",
+          level: "Iniciante",
+          activityId: "8",
+          teacher: "Professora G"
+        }
+      ],
     });
     return mockResponse.data;
   }

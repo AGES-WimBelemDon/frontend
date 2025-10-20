@@ -100,7 +100,6 @@ const levelsFilterOptionsMap: Record<Level, keyof typeof strings.filters.levels>
   INICIANTE: "beginner",
   INTERMEDIARIO: "intermediate",
   AVANCADO: "advanced",
-  TODOS_NIVEIS: "allLevels",
 }
 
 const civilStatesFilterOptionsMap: Record<CivilState, keyof typeof strings.filters.civilStates> = {
@@ -123,7 +122,7 @@ function filterOptionsMapper<
     const val = strings.filters[section][key] as string;
     return { id: value, label: val };
   });
-  return [{ id: "null" as T, label: "" }, ...mappedValues];
+  return mappedValues;
 }
 
 async function queryFunction<

@@ -43,6 +43,10 @@ export const portugueseTextMap = {
     schedule: "Horário",
     level: "Nível",
     activity: "Atividade",
+    card: {
+      level: "Nível:",
+      teacher: "Responsável:"
+    },
   },
   dateInput: {
     selectDate: "Selecione a data",
@@ -120,7 +124,6 @@ export const portugueseTextMap = {
       beginner: "Iniciante",
       intermediate: "Intermediário",
       advanced: "Avançado",
-      allLevels: "Todos os níveis",
     },
     civilStates: {
       title: "Estado Civil",
