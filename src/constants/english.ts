@@ -245,6 +245,27 @@ export const englishTextMap = {
     successMessage: "Responsible added successfully!",
     pleaseFillAllFields: "Please fill in all required fields.",
   },
+
+  editResponsibleModal: {
+    title: "Edit Responsible",
+    personalInformation: "Personal Information",
+    addressInformation: "Address",
+    inputs: {
+      name: "Full Name",
+      socialName: "Social Name",
+      registrationNumber: "Registration Number",
+      birthDate: "Date of Birth",
+      nis: "NIS",
+      phone: "Phone Number",
+      email: "Email",
+      relationship: "Relationship",
+      race: "Race/Color",
+      gender: "Gender",
+      educationLevel: "Education Level",
+      socialPrograms: "Social Programs",
+      employmentStatus: "Employment Status",
+    },
+  },
   personCard: {
     userImageAlt: "User image",
     fullName: "Full Name:",
