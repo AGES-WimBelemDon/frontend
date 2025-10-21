@@ -1,12 +1,15 @@
+import { useState } from "react";
+
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Typography, Button, IconButton, TextField } from "@mui/material";
 
 import { strings } from "../../constants";
+import { useToast } from "../../hooks/useToast";
 import { theme } from "../../styles/theme";
 
 type NewActivityModalProps = {
-    isOpen: boolean;
-    setModalOpen: (open: boolean) => void;
+  isOpen: boolean;
+  setModalOpen: (open: boolean) => void;
 };
 
 const BACKGROUND_STYLE = {
@@ -16,10 +19,8 @@ const BACKGROUND_STYLE = {
   left: "0",
   right: "0",
   backdropFilter: "blur(6px)",
-  display: "flex" as const,
-  justifyContent: "center" as const,
-  alignItems: "center" as const,
   zIndex: "1000",
+  alignContent: "center"
 };
 
 const MODAL_STYLE = {
@@ -27,7 +28,7 @@ const MODAL_STYLE = {
   width: 621,
   height: 191,
   borderRadius: 12,
-  boxShadow: "0 4px 20px rgba(0,0,0,.25)",
+  margin: "auto",
   display: "flex" as const,
   flexDirection: "column" as const,
   justifyContent: "center" as const,
@@ -36,11 +37,42 @@ const MODAL_STYLE = {
 };
 
 export function NewActivityModal({ isOpen, setModalOpen }: NewActivityModalProps) {
+  const { showToast } = useToast();
+  const [name, setName] = useState("");
+  const [, setError] = useState<string>("");
+
   if (!isOpen) return null;
+  const validate = () => {
+    const onlyLettersRegex = /^[A-Za-zÀ-ÿ\s]+$/;
+
+    if (!name.trim()) {
+      setError("Campo obrigatório");
+      showToast(strings.newResponsibleModal.pleaseFillAllFields, "error", true);
+      return false;
+    }
+    if (!onlyLettersRegex.test(name)) {
+      setError("Use apenas letras (sem números ou símbolos)");
+      showToast(strings.newActivityModal.numberSymbolError, "error", true);
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    showToast(strings.newActivityModal.sucessToast, "success", true);
+    setModalOpen(false);
+  };
 
   return (
     <div style={BACKGROUND_STYLE}>
-      <div style={MODAL_STYLE}>
+      <form
+        style={MODAL_STYLE}
+        onSubmit={handleSubmit}
+      >
         <Box
           sx={{
             display: "flex",
@@ -77,7 +109,9 @@ export function NewActivityModal({ isOpen, setModalOpen }: NewActivityModalProps
             {strings.newActivityModal.textFieldTitle}
           </Typography>
           <TextField
-            placeholder= {strings.newActivityModal.textFieldPlaceholder}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={strings.newActivityModal.textFieldPlaceholder}
             InputProps={{
               sx: {
                 width: 561,
@@ -96,6 +130,8 @@ export function NewActivityModal({ isOpen, setModalOpen }: NewActivityModalProps
           }}>
           <Button
             variant="contained"
+            type="submit"
+            onClick={validate}
             sx={{
               width: 100,
               height: 37,
@@ -107,7 +143,7 @@ export function NewActivityModal({ isOpen, setModalOpen }: NewActivityModalProps
             {strings.newActivityModal.buttonText}
           </Button>
         </Box>
-      </div>
+      </form>
     </div>
   );
 }

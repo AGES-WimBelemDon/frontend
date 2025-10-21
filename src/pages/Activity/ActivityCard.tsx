@@ -17,7 +17,7 @@ export function ActivityCard({ content }: ActivityCardProps) {
         <Typography fontWeight="bold" variant="subtitle1">
           {content.name}
         </Typography>
-        <Button variant="contained" sx={{ aspectRatio: "4/4", padding: 0.5 }}>
+        <Button variant="contained" sx={{ aspectRatio: "4/4", padding: 0.5, maxWidth: "2em" }}>
           <Edit sx={{ width: 0.75 }} />
         </Button>
       </Box>
