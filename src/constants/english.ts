@@ -3,10 +3,11 @@ import type { Params } from "./type";
 export const englishTextMap = {
   activityList: {
     title: "Activity List",
-    createNew: "Create New Activity",
+    createNew: "New Activity",
     loadingActivities: "Loading activities...",
     activitiesError: "Error loading activities",
     activitiesEmpty: "No activities found.",
+    viewClasses: "Show Classes",
     filters: {
       name: {
         title: "Name",
@@ -45,6 +46,10 @@ export const englishTextMap = {
     schedule: "Schedule",
     level: "Level",
     activity: "Activity",
+    card: {
+      level: "Level:",
+      teacher: "Teacher:"
+    },
   },
   dateInput: {
     selectDate: "Select date",
@@ -122,7 +127,6 @@ export const englishTextMap = {
       beginner: "Beginner",
       intermediate: "Intermediate",
       advanced: "Advanced",
-      allLevels: "All Levels",
     },
     civilStates: {
       title: "Civil Status",

@@ -1,7 +1,22 @@
 import { useEffect } from "react";
 
-import { Add as AddIcon } from "@mui/icons-material";
-import { Box, Typography, TextField, MenuItem, Button, Card, CardContent, Autocomplete, CircularProgress } from "@mui/material";
+import {
+  Add as AddIcon,
+  Event,
+  AccessTime,
+} from "@mui/icons-material";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Autocomplete,
+  CircularProgress,
+  FormControl,
+  FormLabel,
+} from "@mui/material";
 
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
@@ -13,27 +28,27 @@ export default function Classes() {
   const {
     isLoadingClasses,
     classesError,
-    deviceSize,
+    isMobile,
     goTo,
     activities,
     activityFilter,
     setActivityFilter,
-    dayFilter,
-    setDayFilter,
-    weekDaysOptions,
     levelFilter,
     setLevelFilter,
     levelOptions,
     filteredClasses,
-  } = useClassesPage()
+  } = useClassesPage();
 
-  const { showToast } = useToast()
+  const { showToast } = useToast();
 
-  useEffect(function handleShowErrorToast() {
-    if (classesError) {
-      showToast("Erro ao carregar turmas", "error")
-    }
-  }, [classesError, showToast])
+  useEffect(
+    function handleShowErrorToast() {
+      if (classesError) {
+        showToast("Erro ao carregar turmas", "error");
+      }
+    },
+    [classesError, showToast]
+  );
 
   if (isLoadingClasses) {
     return (
@@ -41,107 +56,140 @@ export default function Classes() {
         <CircularProgress />
         <Typography>{strings.classes.loadingClasses}</Typography>
       </>
-    )
+    );
   }
 
   if (classesError) {
-    return <Typography color="error">{strings.classes.classesError}</Typography>
+    return (
+      <Typography color="error">
+        {strings.classes.classesError}
+      </Typography>
+    );
   }
 
-  return(
+  return (
     <>
+      <PageTitle title={strings.classes.title} dataCy="classes-page" />
+
       <Box
-        gap={2}
+        gap={3}
         display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        flexDirection={deviceSize === "mobile" ? "column" : "row"}
+        flexDirection="column"
       >
-        <PageTitle title={strings.classes.title} dataCy="classes-page" />
+        <Box
+          gap={2}
+          display="flex"
+          flexDirection={isMobile ? "column" : "row"}
+        >
+          <FormControl fullWidth
+            sx={{
+              gap: 1,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <FormLabel>
+              <Typography color="primary">
+                {strings.classes.activity}
+              </Typography>
+            </FormLabel>
+            <Autocomplete
+              options={activities || []}
+              getOptionLabel={(option) => option.name}
+              value={activities?.find((a) => a.id === activityFilter) || null}
+              onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </FormControl>
+          <FormControl fullWidth
+            sx={{
+              gap: 1,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <FormLabel>
+              <Typography color="primary">
+                {strings.classes.level}
+              </Typography>
+            </FormLabel>
+            <Autocomplete
+              options={levelOptions || []}
+              getOptionLabel={(option) => option.label}
+              value={levelOptions?.find((l) => l.id === levelFilter) || null}
+              onChange={(_, newValue) => setLevelFilter(newValue?.id || "")}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </FormControl>
+        </Box>
+
         <Button
-          disabled
-          variant="contained"
+          variant="outlined"
           startIcon={<AddIcon />}
           onClick={() => goTo("/turmas", "/cadastro")}
+          sx={{
+            alignSelf: isMobile ? "auto" : "flex-start",
+          }}
         >
-          {strings.classes.createClass}
+          <Typography fontWeight="bold" variant="button">
+            {strings.classes.createClass}
+          </Typography>
         </Button>
-      </Box>
 
-      <Box
-        gap={2}
-        display="flex"
-        flexDirection={deviceSize === "mobile" ? "column" : "row"}
-      >
-        <Autocomplete
-          options={activities || []}
-          getOptionLabel={(option) => option.name}
-          value={activities?.find((a) => a.id === activityFilter) || null}
-          onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={strings.classes.activity}
-              slotProps={{
-                inputLabel: { sx: { color: "text.primary" } },
+        <CardList>
+          {filteredClasses.map((c) => (
+            <Card
+              key={c.id}
+              sx={{
+                backgroundColor: "background.default",
+                borderRadius: 2,
+                border: "1px solid",
+                borderColor: "grey.400",
+                boxShadow: "none",
               }}
-            />
-          )}
-          fullWidth
-        />
- 
-        <TextField
-          select
-          label={strings.classes.weekDay}
-          value={dayFilter}
-          onChange={(e) => setDayFilter(e.target.value)}
-          fullWidth
-          slotProps={{
-            inputLabel: { sx: { color: "text.primary" } },
-          }}
-        >
-          <MenuItem value="">{strings.filters.all}</MenuItem>
-          {weekDaysOptions?.map((weekDay) => (
-            <MenuItem key={weekDay.id} value={weekDay.id}>
-              {weekDay.label}
-            </MenuItem>
+            >
+              <CardContent>
+                <Box display="flex" alignItems="center" gap={3} mb={1}>
+                  <Box display="flex" alignItems="center" gap={0.5}>
+                    <Event sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      fontWeight= "bold"
+                    >
+                      {c.weekDay}
+                    </Typography>
+                  </Box>
+                  <Box display="flex" alignItems="center" gap={0.5}>
+                    <AccessTime sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      fontWeight= "bold"
+                    >
+                      {c.schedule}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Typography
+                  variant="h6"
+                  color="primary.main"
+                  fontWeight= "bold"
+                  mb={1}
+                >
+                  {c.title}
+                </Typography>
+                <Typography variant="body2" color="text.primary">
+                  <strong>{strings.classes.card.level}</strong>{" "}{c.level}
+                </Typography>
+                <Typography variant="body2" color="text.primary">
+                  <strong>{strings.classes.card.teacher}</strong>{" "}{c.teacher}
+                </Typography>
+              </CardContent>
+            </Card>
           ))}
-        </TextField>
-
-        <TextField
-          select
-          label={strings.classes.level}
-          value={levelFilter}
-          onChange={(e) => setLevelFilter(e.target.value)}
-          fullWidth
-          slotProps={{
-            inputLabel: { sx: { color: "text.primary" } },
-          }}
-        >
-          <MenuItem value="">{strings.filters.all}</MenuItem>
-          {levelOptions?.map((level) => (
-            <MenuItem key={level.id} value={level.id}>
-              {level.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        </CardList>
       </Box>
-
-      <br />
-
-      <CardList>
-        {filteredClasses.map((c) => (
-          <Card key={c.id} sx={{ backgroundColor: "background.default" }}>
-            <CardContent>
-              <Typography variant="h6">{c.title}</Typography>
-              <Typography variant="body2">{c.weekDay}</Typography>
-              <Typography variant="body2">{c.schedule}</Typography>
-              <Typography variant="body2">{c.level}</Typography>
-            </CardContent>
-          </Card>
-        ))}
-      </CardList>
     </>
   );
 }
-

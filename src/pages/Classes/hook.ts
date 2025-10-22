@@ -11,7 +11,7 @@ export function useClassesPage() {
   const { isLoadingClasses, classesError, classes } = useClasses();
   const { weekDaysOptions, levelOptions } = useFilters();
   const { goTo } = useRoutes();
-  const { deviceSize } = useScreenSize();
+  const { isMobile } = useScreenSize();
 
   const [activityFilter, setActivityFilter] = useState<string | null>(null);
   const [dayFilter, setDayFilter] = useState("");
@@ -43,7 +43,7 @@ export function useClassesPage() {
     setLevelFilter,
     levelOptions,
     goTo,
-    deviceSize,
+    isMobile,
     filteredClasses,
   };
 }
