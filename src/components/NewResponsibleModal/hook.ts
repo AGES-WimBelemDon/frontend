@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
-
 
 import type { ResponsibleData } from "./interface";
 import { strings } from "../../constants";
@@ -11,16 +10,11 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 import { useToast } from "../../hooks/useToast";
 import { fetchAddress, type Address } from "../../services/address";
 import { createFamilyMember, createFamilyMemberAddress } from "../../services/family-members";
-import { useDateInput } from "../Inputs/DateInput/hook";
-import { useSelectInput } from "../Inputs/SelectInput/hook";
-import { useTextInput } from "../Inputs/TextInput/hook";
 
 export function useNewResponsibleModal(studentId?: string) {
   const { showToast } = useToast();
-  const { getText } = useTextInput();
   const { isMobile } = useScreenSize();
-  const { getSelect } = useSelectInput();
-  const { getDate } = useDateInput();
+  const queryClient = useQueryClient();
   const [address, setAddress] = useState<Partial<Address> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<Partial<ResponsibleData>>({});
@@ -57,80 +51,65 @@ export function useNewResponsibleModal(studentId?: string) {
       return Promise.resolve(null);
     }
   
-    fetchAddress(address.code).then(setAddress);
+    return fetchAddress(address.code).then((addressData) => {
+      if (addressData) {
+        setAddress(prev => ({ ...prev, ...addressData }));
+      }
+      return addressData;
+    });
   }
     
   useQuery({
     queryKey: ["address", address?.code],
     queryFn: getAddressDetails,
+    enabled: !!address?.code && address.code.length === 8,
   })
   
-  function getResponsibleFields(): ResponsibleData | undefined {
-    const fullName = getText("responsible-fullName");
-    const socialName = getText("responsible-socialName");
-    const registrationNumber = getText("responsible-registrationNumber");
-    const dateOfBirth = getDate("responsible-dateOfBirth");
-    const nis = getText("responsible-nis");
-    const phoneNumber = getText("responsible-phoneNumber");
-    const email = getText("responsible-email");
-    const relationship = getText("responsible-relationship");
-    const race = getSelect("responsible-race");
-    const gender = getSelect("responsible-gender");
-    const educationLevel = getSelect("responsible-educationLevel");
-    const socialPrograms = getSelect("responsible-socialPrograms");
-    const employmentStatus = getSelect("responsible-employmentStatus");
-    const street = getText("responsible-street");
-    const neighborhood = getText("responsible-neighborhood");
-    const city = getText("responsible-city");
-    const state = getText("responsible-state");
-    const cep = getText("responsible-cep");
-    const number = getText("responsible-number");
-    const complement = getText("responsible-complement");
+  async function addResponsible(e : React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const familyMemberData = Object.fromEntries(formData.entries()) as ResponsibleData;
+    
+    console.log("== Form data:", familyMemberData);
+    console.log("== Address state:", address);
 
-    if (
-      fullName !== "" &&
-      registrationNumber !== "" &&
-      dateOfBirth !== "" &&
-      phoneNumber !== "" &&
-      relationship !== "" &&
-      street !== "" &&
-      neighborhood !== "" &&
-      city !== "" &&
-      state !== "" &&
-      cep !== "" &&
-      number !== ""
-    ) {
-      return {
-        fullName,
-        socialName: socialName || undefined,
-        registrationNumber,
-        dateOfBirth,
-        nis: nis || undefined,
-        phoneNumber,
-        email: email || undefined,
-        relationship,
-        race: race || undefined,
-        gender: gender || undefined,
-        educationLevel: educationLevel || undefined,
-        socialPrograms: socialPrograms || undefined,
-        employmentStatus: employmentStatus || undefined,
-        street,
-        neighborhood,
-        city,
-        state,
-        cep,
-        number,
-        complement: complement || undefined,
-      };
+    if(!familyMemberData.fullName){
+      showToast(strings.newResponsibleModal.requiredFields.fullName, "error");
+      return;
     }
-  };
-  
-  async function addResponsible() {
-    const responsible = getResponsibleFields();
-    console.log("Responsible fields:", responsible);
 
-    if (!responsible) {
-      showToast(strings.newResponsibleModal.pleaseFillAllFields, "error");
+    if(!familyMemberData.registrationNumber){
+      showToast(strings.newResponsibleModal.requiredFields.registrationNumber, "error");
+      return;
+    }
+
+    if(!familyMemberData.dateOfBirth){
+      showToast(strings.newResponsibleModal.requiredFields.birthDate, "error");
+      return;
+    }
+
+    if(!familyMemberData.phoneNumber){
+      showToast(strings.newResponsibleModal.requiredFields.phone, "error");
+      return;
+    }
+
+    if(!familyMemberData.relationship){
+      showToast(strings.newResponsibleModal.requiredFields.relationship, "error");
+      return;
+    }
+
+    if(!address?.code || address.code.length !== 8){
+      showToast(strings.newResponsibleModal.requiredFields.cep, "error");
+      return;
+    }
+
+    if(!address?.number){
+      showToast(strings.newResponsibleModal.requiredFields.number, "error");
+      return;
+    }
+
+    if(!address?.street || !address?.city || !address?.state || !address?.neighborhood){
+      showToast("Por favor, aguarde o carregamento do endereço completo", "error");
       return;
     }
 
@@ -142,41 +121,50 @@ export function useNewResponsibleModal(studentId?: string) {
     setIsSubmitting(true);
 
     try {
-      const familyMemberData = {
-        fullName: responsible.fullName,
-        relationship: responsible.relationship,
-        phoneNumber: responsible.phoneNumber,
+      const familyMemberPayload = {
+        fullName: familyMemberData.fullName,
+        relationship: familyMemberData.relationship,
+        phoneNumber: familyMemberData.phoneNumber,
         studentIds: [parseInt(studentId)],
-        dateOfBirth: responsible.dateOfBirth,
-        registrationNumber: responsible.registrationNumber,
-        ...(responsible.socialName && { socialName: responsible.socialName }),
-        ...(responsible.gender && { gender: responsible.gender }),
-        ...(responsible.educationLevel && { educationLevel: responsible.educationLevel }),
-        ...(responsible.socialPrograms && { socialPrograms: responsible.socialPrograms }),
-        ...(responsible.email && responsible.email.includes("@") && responsible.email.includes(".") && { email: responsible.email }),
-        ...(responsible.race && { race: responsible.race }),
-        ...(responsible.employmentStatus && { employmentStatus: responsible.employmentStatus }),
-        ...(responsible.nis && { nis: responsible.nis }),
+        socialName: familyMemberData.socialName || undefined,
+        gender: familyMemberData.gender || undefined,
+        educationLevel: familyMemberData.educationLevel || undefined,
+        dateOfBirth: familyMemberData.dateOfBirth,
+        socialPrograms: familyMemberData.socialPrograms || undefined,
+        registrationNumber: familyMemberData.registrationNumber,
+        email: familyMemberData.email || undefined,
+        race: familyMemberData.race || undefined,
+        employmentStatus: familyMemberData.employmentStatus || undefined,
+        nis: familyMemberData.nis || undefined,
       };
 
-      console.log("Sending family member data:", JSON.stringify(familyMemberData, null, 2));
-      const familyMemberResponse = await createFamilyMember(familyMemberData);
+      console.log("Creating family member with payload:", familyMemberPayload);
 
-      const addressData = {
-        street: responsible.street,
-        neighborhood: responsible.neighborhood,
-        city: responsible.city,
-        state: responsible.state,
-        cep: responsible.cep,
-        number: responsible.number,
-        ...(responsible.complement && { complement: responsible.complement }),
+      const familyMemberResponse = await createFamilyMember(familyMemberPayload);
+      console.log("Family member created with ID:", familyMemberResponse.id);
+
+      const addressPayload = {
+        street: address.street!,
+        neighborhood: address.neighborhood!,
+        city: address.city!,
+        state: address.state!,
+        cep: address.code!,
+        number: address.number!,
+        complement: address.complement || undefined,
       };
 
-      console.log("Sending address data:", JSON.stringify(addressData, null, 2));
-      console.log("Family member ID:", familyMemberResponse.id);
-      await createFamilyMemberAddress(familyMemberResponse.id, addressData);
+      console.log("Creating address with payload:", addressPayload);
+
+      await createFamilyMemberAddress(familyMemberResponse.id, addressPayload);
+      console.log("Address created successfully");
 
       showToast(strings.newResponsibleModal.successMessage, "success");
+    
+      await queryClient.invalidateQueries({ 
+        queryKey: ["responsibles", studentId] 
+      });
+
+      setAddress(null);
       closeModal();
     } catch (error) {
       console.error("Error creating responsible:", error);
@@ -184,7 +172,7 @@ export function useNewResponsibleModal(studentId?: string) {
       if (error instanceof Error && "response" in error) {
         console.error("API Response:", (error as { response?: { data: unknown } }).response?.data);
       }
-      showToast("Error creating responsible. Please try again.", "error");
+      showToast("Erro ao criar responsável. Por favor, tente novamente.", "error");
     } finally {
       setIsSubmitting(false);
     }

@@ -1,4 +1,3 @@
-import { strings } from "../constants";
 import type { Address, AddressResponse } from "./address";
 import { api, endpoints } from "./api";
 import type { EmploymentStatus, Gender, Race, SocialProgram } from "./filters";
@@ -172,7 +171,11 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
 
     return responsiblesWithAddress;
   } catch (error) {
-    console.error(strings.studentsResponsibles.responsiblesError, error);
-    return [];
+    // Usa mock apenas em desenvolvimento
+    if (import.meta.env.DEV) {
+      console.warn("API falhou, usando dados mockados");
+      // TODO: Adicionar dados mockados aqui
+    }
+    throw error; // Re-lança o erro em produção
   }
 }
