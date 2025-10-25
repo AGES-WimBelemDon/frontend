@@ -16,6 +16,7 @@ const endpoints = {
     weekDays: "/filters/week-days",
     levels: "/filters/levels",
     civilStates: "/filters/civil-states",
+    schoolYear: "/filters/school-year",
   },
   students: {
     base: "/students",

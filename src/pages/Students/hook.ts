@@ -21,14 +21,13 @@ export function useStudentsPage() {
 
   function handleEditStudents(studentId: string) {
     selectStudent(studentId);
-    goTo("/alunos", `/${studentId}/editar`);
+    goTo("/alunos", "/cadastro");
   };
 
-  function formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("pt-BR");
+  function formatDate(date: string): string {
+    return new Date(date).toLocaleDateString("pt-BR");
   }
-
+  
   return {
     isLoadingStudents,
     studentsError,

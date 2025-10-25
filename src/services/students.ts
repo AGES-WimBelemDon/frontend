@@ -1,24 +1,25 @@
 import type { AddressResponse } from "./address";
 import { api, endpoints } from "./api";
-import type { EmploymentStatus, Gender, Race, SocialProgram } from "./filters";
+import type { EmploymentStatus, Gender, Race, SocialPrograms } from "./filters";
 
 
 export type Student = {
   id: string;
   address: AddressResponse;
   fullName: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   registrationNumber: string;
-  enrollmentDate: Date;
-  disenrollmentDate?: Date;
+  enrollmentDate: string;
+  disenrollmentDate?: string;
   status: StudentStatus;
   level: SchoolYear;
   socialName?: string;
+  schoolYear?: string;
   race?: Race;
   schoolName?: string;
   schoolShift?: string;
-  schoolYear?: EducationLevel;
-  socialProgram?: SocialProgram;
+  educationLevel?: EducationLevel;
+  socialPrograms?: SocialPrograms;
   gender?: Gender;
   employmentStatus?: EmploymentStatus;
   gradeGap?: boolean;
@@ -68,11 +69,23 @@ export type EducationLevel =
 ;
 
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
+  console.log("Registering student:", student);
   try {
     const response = await api.post(endpoints.students.base, student);
+    console.log("Registered student response:", response.data);
     return response.data;
   } catch {
     throw new Error("Error registering student");
+  }
+}
+
+export async function registerAddress(studentId: string, address: Partial<AddressResponse>): Promise<Pick<AddressResponse, "id">> {
+  console.log("Registering address for student ID:", studentId, "with address data:", address);
+  try {
+    const response = await api.post(endpoints.students.address(studentId), address);
+    return response.data;
+  } catch {
+    throw new Error("Error registering address");
   }
 }
 
@@ -114,9 +127,9 @@ export async function getStudents(): Promise<Student[]> {
           id: (++id).toString(),
           address: {} as AddressResponse,
           fullName: "Leonardo Mallet",
-          dateOfBirth: new Date("2008-01-01"),
+          dateOfBirth: "2008-01-01",
           registrationNumber: "REG-001",
-          enrollmentDate: new Date("2020-02-01"),
+          enrollmentDate: "2020-02-01",
           status: "ATIVO" as StudentStatus,
           level: "FUNDAMENTAL_1" as SchoolYear,
         },
@@ -124,9 +137,9 @@ export async function getStudents(): Promise<Student[]> {
           id: (++id).toString(),
           address: {} as AddressResponse,
           fullName: "João Pedro",
-          dateOfBirth: new Date("2009-03-04"),
+          dateOfBirth: "2009-03-04",
           registrationNumber: "REG-002",
-          enrollmentDate: new Date("2021-03-01"),
+          enrollmentDate: "2021-03-01",
           status: "ATIVO" as StudentStatus,
           level: "FUNDAMENTAL_1" as SchoolYear,
         },
@@ -134,9 +147,9 @@ export async function getStudents(): Promise<Student[]> {
           id: (++id).toString(),
           address: {} as AddressResponse,
           fullName: "Pedro Henrique",
-          dateOfBirth: new Date("2010-05-10"),
+          dateOfBirth: "2010-05-10",
           registrationNumber: "REG-003",
-          enrollmentDate: new Date("2022-04-01"),
+          enrollmentDate: "2022-04-01",
           status: "ATIVO" as StudentStatus,
           level: "FUNDAMENTAL_1" as SchoolYear,
         },
@@ -144,9 +157,9 @@ export async function getStudents(): Promise<Student[]> {
           id: (++id).toString(),
           address: {} as AddressResponse,
           fullName: "Thiago Camargo",
-          dateOfBirth: new Date("2007-07-21"),
+          dateOfBirth: "2007-07-21",
           registrationNumber: "REG-004",
-          enrollmentDate: new Date("2019-08-01"),
+          enrollmentDate: "2019-08-01",
           status: "ATIVO" as StudentStatus,
           level: "FUNDAMENTAL_2" as SchoolYear,
         },
@@ -154,9 +167,9 @@ export async function getStudents(): Promise<Student[]> {
           id: (++id).toString(),
           address: {} as AddressResponse,
           fullName: "Paulo Camargo",
-          dateOfBirth: new Date("2006-09-15"),
+          dateOfBirth: "2006-09-15",
           registrationNumber: "REG-005",
-          enrollmentDate: new Date("2018-02-01"),
+          enrollmentDate: "2018-02-01",
           status: "ATIVO" as StudentStatus,
           level: "ENSINO_MEDIO_1" as SchoolYear,
         },
@@ -164,9 +177,9 @@ export async function getStudents(): Promise<Student[]> {
           id: (++id).toString(),
           address: {} as AddressResponse,
           fullName: "Mayara Cardi",
-          dateOfBirth: new Date("2005-11-30"),
+          dateOfBirth: "2005-11-30",
           registrationNumber: "REG-006",
-          enrollmentDate: new Date("2017-03-01"),
+          enrollmentDate: "2017-03-01",
           status: "ATIVO" as StudentStatus,
           level: "ENSINO_MEDIO_1" as SchoolYear,
         },

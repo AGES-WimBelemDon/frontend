@@ -15,6 +15,8 @@ export interface AddressResponse {
   state: string;
   cep: string;
   neighborhood: string;
+  number?: string;
+  complement?: string;
 }
 
 export function formatAddress(address: Address): string {

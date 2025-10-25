@@ -29,7 +29,7 @@ export function useFrequencyCall() {
 
   useEffect(() => {
     if (apiStudents) {
-      setStudents(apiStudents.map(apiStudent => ({ ...apiStudent, isPresent: true })));
+      //setStudents(apiStudents.map(apiStudent => ({ apiStudent, isPresent: true })));
     }
   }, [apiStudents]);
 
