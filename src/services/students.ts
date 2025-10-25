@@ -1,15 +1,11 @@
-import type { Address } from "./address";
+import type { AddressResponse } from "./address";
 import { api, endpoints } from "./api";
 import type { EmploymentStatus, Gender, Race, SocialProgram } from "./filters";
 
-type StudentRecord = {
-  id: string;
-  name: string;
-  frequencyPercent: number;
-};
 
 export type Student = {
-  address: Address;
+  id: string;
+  address: AddressResponse;
   fullName: string;
   dateOfBirth: Date;
   registrationNumber: string;
@@ -73,7 +69,7 @@ export type EducationLevel =
 
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
   try {
-    const response = await api.post(endpoints.students, student);
+    const response = await api.post(endpoints.students.base, student);
     return response.data;
   } catch {
     throw new Error("Error registering student");
@@ -92,10 +88,23 @@ export async function addStudentDocument<Doc>(studentId: Pick<ApiStudent, "id">,
   }
 }
 
-export async function getStudents(): Promise<StudentRecord[]> {
+export async function getStudents(): Promise<Student[]> {
   try {
-    const response = await api.get<StudentRecord[]>(endpoints.students);
-    return response.data;
+    const response = await api.get<Student[]>(endpoints.students.base);
+    console.log("Fetched students:", response.data);
+    const studentsWithAddress = await Promise.all(
+      response.data.map(async (student) => {
+        try {
+          const addressResponse = await api.get<AddressResponse>(endpoints.students.address(student.id));
+          return { ...student, address: addressResponse.data };
+        } catch {
+          console.error(`Error fetching address for student ID ${student.id}`);
+          return { ...student, address: student.address ?? ({} as AddressResponse) };
+        }
+      })
+    );
+    console.log("Students with addresses:", studentsWithAddress);
+    return studentsWithAddress;
   } catch {
     // TODO: This should only work for development, remove in production
     let id = 0;
@@ -103,37 +112,67 @@ export async function getStudents(): Promise<StudentRecord[]> {
       data: [
         {
           id: (++id).toString(),
-          name: "Leonardo Mallet",
-          frequencyPercent: 90,
+          address: {} as AddressResponse,
+          fullName: "Leonardo Mallet",
+          dateOfBirth: new Date("2008-01-01"),
+          registrationNumber: "REG-001",
+          enrollmentDate: new Date("2020-02-01"),
+          status: "ATIVO" as StudentStatus,
+          level: "FUNDAMENTAL_1" as SchoolYear,
         },
         {
           id: (++id).toString(),
-          name: "João Pedro",
-          frequencyPercent: 60,
+          address: {} as AddressResponse,
+          fullName: "João Pedro",
+          dateOfBirth: new Date("2009-03-04"),
+          registrationNumber: "REG-002",
+          enrollmentDate: new Date("2021-03-01"),
+          status: "ATIVO" as StudentStatus,
+          level: "FUNDAMENTAL_1" as SchoolYear,
         },
         {
           id: (++id).toString(),
-          name: "Pedro Henrique",
-          frequencyPercent: 40,
+          address: {} as AddressResponse,
+          fullName: "Pedro Henrique",
+          dateOfBirth: new Date("2010-05-10"),
+          registrationNumber: "REG-003",
+          enrollmentDate: new Date("2022-04-01"),
+          status: "ATIVO" as StudentStatus,
+          level: "FUNDAMENTAL_1" as SchoolYear,
         },
         {
           id: (++id).toString(),
-          name: "Thiago Camargo",
-          frequencyPercent: 55,
+          address: {} as AddressResponse,
+          fullName: "Thiago Camargo",
+          dateOfBirth: new Date("2007-07-21"),
+          registrationNumber: "REG-004",
+          enrollmentDate: new Date("2019-08-01"),
+          status: "ATIVO" as StudentStatus,
+          level: "FUNDAMENTAL_2" as SchoolYear,
         },
         {
           id: (++id).toString(),
-          name: "Paulo Camargo",
-          frequencyPercent: 55,
+          address: {} as AddressResponse,
+          fullName: "Paulo Camargo",
+          dateOfBirth: new Date("2006-09-15"),
+          registrationNumber: "REG-005",
+          enrollmentDate: new Date("2018-02-01"),
+          status: "ATIVO" as StudentStatus,
+          level: "ENSINO_MEDIO_1" as SchoolYear,
         },
         {
           id: (++id).toString(),
-          name: "Mayara Cardi",
-          frequencyPercent: 55,
+          address: {} as AddressResponse,
+          fullName: "Mayara Cardi",
+          dateOfBirth: new Date("2005-11-30"),
+          registrationNumber: "REG-006",
+          enrollmentDate: new Date("2017-03-01"),
+          status: "ATIVO" as StudentStatus,
+          level: "ENSINO_MEDIO_1" as SchoolYear,
         },
       ],
     });
-    return mockResponse.data;
+    return mockResponse.data as Student[];
   }
 }
 

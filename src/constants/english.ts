@@ -300,7 +300,7 @@ export const englishTextMap = {
   students: {
     title: "Students",
     createNew: "Add Student",
-    createResponsible: "Add Guardian",
+    createResponsible: "View Guardians",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     noStudents: "No students found",

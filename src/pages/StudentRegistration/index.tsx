@@ -11,6 +11,7 @@ import { useStudentRegistration } from "./hook";
 import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 export default function StudentRegistration() {
   const { goBack } = useRoutes();
@@ -23,6 +24,8 @@ export default function StudentRegistration() {
     socialProgramOptions,
     employmentStatusOptions,
   } = useFilters();
+
+  const isMobile = useScreenSize().isMobile;
 
   const {
     documents,
@@ -42,7 +45,7 @@ export default function StudentRegistration() {
       sx={{
         gap: 4,
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
       }}
       onSubmit={handleSubmit}
     >
@@ -126,6 +129,18 @@ export default function StudentRegistration() {
           onChange={(e) => setAddress({ ...address, code: e.target.value })}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            htmlInput: {
+              sx: {
+                "&::-webkit-inner-spin-button, &::-webkit-outer-spin-button": {
+                  "webkitAppearance": "none",
+                  margin: 0,
+                },
+                "&[type=number]": {
+                  "-moz-appearance": "textfield",
+                },
+              },
+              onWheel: (e: React.WheelEvent<HTMLInputElement>) => e.currentTarget.blur(),
+            }
           }}
         />
 
@@ -215,26 +230,20 @@ export default function StudentRegistration() {
         <Box
           sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: "auto", mb: 2 }}
         >
-          {documents.map(() => (
-            <Box
-              sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: "auto", mb: 2 }}
-            >
-              {documents.map((doc) => (
-                <Box key={doc.id} mb={1.25}>
-                  <Typography variant="caption" color="primary.main" sx={{ mb: 0.5 }}>
-                    {doc.documentType}
-                  </Typography>
-                  <Box display="flex" gap={1.25}>
-                    <TextField
-                      value={doc.fileName}
-                      size="small"
-                      sx={{ flex: 1 }}
-                      disabled
-                    />
-                    <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>{strings.studentRegistration.editButton}</Button>
-                  </Box>
-                </Box>
-              ))}
+          {documents.map((doc) => (
+            <Box key={doc.id} mb={1.25}>
+              <Typography variant="caption" color="primary.main" sx={{ mb: 0.5 }}>
+                {doc.documentType}
+              </Typography>
+              <Box display="flex" gap={1.25}>
+                <TextField
+                  value={doc.fileName}
+                  size="small"
+                  sx={{ flex: 1 }}
+                  disabled
+                />
+                <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>{strings.studentRegistration.editButton}</Button>
+              </Box>
             </Box>
           ))}
         </Box>

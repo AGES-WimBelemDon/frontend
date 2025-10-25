@@ -178,7 +178,7 @@ export const portugueseTextMap = {
   },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
-    buttonText: "Adicionar Responsável",
+    buttonText: "Ver Responsável",
     inputs: {
       name: "Nome",
       namePlaceholder: "Digite o nome do responsável",
@@ -300,7 +300,7 @@ export const portugueseTextMap = {
   students: {
     title: "Educandos",
     createNew: "Adicionar Educando",
-    createResponsible: "Adicionar Responsável",
+    createResponsible: "Ver Responsáveis",
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",

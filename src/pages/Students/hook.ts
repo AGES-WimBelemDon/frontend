@@ -24,6 +24,11 @@ export function useStudentsPage() {
     goTo("/alunos", `/${studentId}/editar`);
   };
 
+  function formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("pt-BR");
+  }
+
   return {
     isLoadingStudents,
     studentsError,
@@ -31,5 +36,6 @@ export function useStudentsPage() {
     handleCreateNewStudent,
     handleCreateResponsible,
     handleEditStudents,
+    formatDate,
   };
 }

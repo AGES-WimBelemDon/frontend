@@ -17,7 +17,12 @@ const endpoints = {
     levels: "/filters/levels",
     civilStates: "/filters/civil-states",
   },
-  students: "/students",
+  students: {
+    base: "/students",
+    byId: (studentId: string) => `/students/${studentId}`,
+    byCpf: (cpf: string) => `/students/cpf/${cpf}`,
+    address: (studentId: string) => `/students/${studentId}/address`,
+  },
   users: "/users",
 }
 

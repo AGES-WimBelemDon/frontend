@@ -11,6 +11,7 @@ import { useStudentEdition } from "./hook";
 import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 export default function StudentEdition() {
   const { goBack } = useRoutes();
@@ -36,13 +37,15 @@ export default function StudentEdition() {
     setAddress,
   } = useStudentEdition();
 
+  const isMobile = useScreenSize().isMobile;
+
   return (
     <Box
       component="form"
       sx={{
         gap: 4,
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
       }}
       onSubmit={handleSubmit}
     >
