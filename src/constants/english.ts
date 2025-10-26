@@ -109,6 +109,7 @@ export const englishTextMap = {
       incomeProof: "Proof of Income",
       other: "Other",
     },
+
     weekDays: {
       title: "Week Day",
       monday: "Monday",
@@ -199,6 +200,28 @@ export const englishTextMap = {
     },
     successMessage: "Guardian added successfully!",
     pleaseFillAllFields: "Please fill in all fields.",
+  },
+  classesModal: {
+    recurring: "Recurring Activity",
+    inputs: {
+      classLevel: "Class Level",
+      classTime: "Class Time",
+      level: "Level",
+      searchTeacher: "Search Teacher",
+      searchStudent: "Search Student",
+
+    },
+    buttons: {
+      next: "Next",
+      back: "Back",
+      create: "Create"
+    },
+    steps: {
+      data: "Data",
+      teacher: "Teachers",
+      Student: "Educandos"
+    }
+
   },
   personCard: {
     userImageAlt: "User image",
