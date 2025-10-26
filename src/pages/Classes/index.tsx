@@ -140,6 +140,7 @@ export default function Classes() {
           {filteredClasses.map((c) => (
             <Card
               key={c.id}
+              onClick={() => goTo("/turmas", `/detalhes/${c.id}`)}
               sx={{
                 backgroundColor: "background.default",
                 borderRadius: 2,

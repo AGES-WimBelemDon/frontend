@@ -48,6 +48,16 @@ export const portugueseTextMap = {
       teacher: "Responsável:"
     },
   },
+  classDetails: {
+    loading: "Carregando turma...",
+    errorLoading: "Não foi possível carregar os dados da turma.",
+    classNotFound: "Turma não encontrada.",
+    editClass: "Editar Turma",
+    professor: "Responsável",
+    level: "Nível",
+    frequency: "Frequência",
+    noStudents: "Nenhum aluno cadastrado nesta turma.",
+  },
   dateInput: {
     selectDate: "Selecione a data",
   },

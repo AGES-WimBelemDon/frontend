@@ -48,6 +48,16 @@ export const englishTextMap = {
       teacher: "Teacher:"
     },
   },
+  classDetails: {
+    loading: "Loading class details...",
+    errorLoading: "Error loading class data.",
+    classNotFound: "Class not found.",
+    editClass: "Edit Class",
+    professor: "Teacher",
+    level: "Level",
+    frequency: "Frequency",
+    noStudents: "Class does not have students.",
+  },
   dateInput: {
     selectDate: "Select date",
   },
