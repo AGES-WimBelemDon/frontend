@@ -3,14 +3,10 @@ import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Typography, Button, IconButton, TextField } from "@mui/material";
 
+import type { NewActivityModalProps } from "./interface";
 import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 import { theme } from "../../styles/theme";
-
-type NewActivityModalProps = {
-  isOpen: boolean;
-  setModalOpen: (open: boolean) => void;
-};
 
 const BACKGROUND_STYLE = {
   position: "fixed" as const,
