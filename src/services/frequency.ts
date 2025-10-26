@@ -21,7 +21,6 @@ export async function getAvailableClasses(userId: string): Promise<AvailableClas
   return response.data.classes;
 }
 
-// General Attendance Types
 export type GeneralAttendanceStudent = {
   studentId: number;
   studentName: string;
@@ -45,7 +44,6 @@ export type UpdateGeneralAttendanceRequest = {
   }[];
 };
 
-// General Attendance API functions
 export async function getGeneralAttendance(date: string): Promise<GeneralAttendanceResponse> {
   const response = await api.get<GeneralAttendanceResponse>(`/frequency/general-attendance?date=${date}`);
   return response.data;

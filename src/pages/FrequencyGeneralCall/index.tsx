@@ -67,11 +67,10 @@ export function FrequencyGeneralCall() {
             overflowY: "auto"
           }}>
             {students.map((student) => {
-              // Converter o formato para o FrequencyCard
               const cardStudent: FrequencyCardStudent = {
                 id: student.studentId.toString(),
                 name: student.studentName,
-                frequencyPercent: 0, // A chamada geral não precisa mostrar porcentagem
+                frequencyPercent: 0,
                 isPresent: student.status === "PRESENTE",
               };
 

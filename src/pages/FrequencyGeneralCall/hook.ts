@@ -14,7 +14,6 @@ export function useFrequencyGeneralCall() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentDate, setCurrentDate] = useState<string>("");
 
-  // Função para formatar data no formato YYYY-MM-DD
   const formatDate = (date: Date): string => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -22,13 +21,11 @@ export function useFrequencyGeneralCall() {
     return `${year}-${month}-${day}`;
   };
 
-  // Carregar dados da chamada geral
   const loadGeneralAttendance = useCallback(async (date: string) => {
     setIsLoading(true);
     try {
       const response = await getGeneralAttendance(date);
       
-      // Filtrar apenas estudantes com generalAttendanceAllowed = true
       const allowedStudents = response.studentList.filter(
         student => student.generalAttendanceAllowed
       );
@@ -51,14 +48,12 @@ export function useFrequencyGeneralCall() {
     }
   }, [showToast]);
 
-  // Carregar dados ao montar o componente (data atual)
   useEffect(() => {
     const today = formatDate(new Date());
     setDate(today, "1");
     loadGeneralAttendance(today);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Observar mudanças na data
   useEffect(() => {
     const date = getDate("1");
     if (date && date !== currentDate) {
@@ -67,7 +62,6 @@ export function useFrequencyGeneralCall() {
     }
   }, [getDate("1"), currentDate, loadGeneralAttendance]);
 
-  // Atualizar presença de um estudante
   function updatePresence(studentId: number, present: boolean) {
     setStudents((prevList) =>
       prevList.map((student) =>
@@ -78,7 +72,6 @@ export function useFrequencyGeneralCall() {
     );
   }
 
-  // Salvar chamada
   async function registerCall() {
     const date = getDate("1");
     
