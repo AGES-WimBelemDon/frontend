@@ -7,12 +7,12 @@ import {
   Grid,
 } from "@mui/material";
 
-import { useStudentRegistration } from "./hook";
+import { useStudentEdition } from "./hook";
 import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
 
-export default function StudentRegistration() {
+export default function StudentEdition() {
   const { goBack } = useRoutes();
   
   const {
@@ -34,7 +34,7 @@ export default function StudentRegistration() {
     handleSubmit,
     address,
     setAddress,
-  } = useStudentRegistration();
+  } = useStudentEdition();
 
   return (
     <Box
@@ -58,15 +58,15 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          {strings.studentRegistration.personalInformation}
+          {strings.studentEdition.personalInformation}
         </Typography>
 
         <TextField
           name="fullName"
-          label={strings.studentRegistration.name}
+          label={strings.studentEdition.name}
           fullWidth
           margin="normal"
-          placeholder={strings.studentRegistration.namePlaceholder}
+          placeholder={strings.studentEdition.namePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -74,7 +74,7 @@ export default function StudentRegistration() {
 
         <TextField
           name="dateOfBirth"
-          label={strings.studentRegistration.dateOfBirth}
+          label={strings.studentEdition.dateOfBirth}
           fullWidth
           margin="normal"
           type="date"
@@ -117,8 +117,8 @@ export default function StudentRegistration() {
 
         <TextField
           name="address.code"
-          label={strings.studentRegistration.address.zipCode}
-          placeholder={strings.studentRegistration.address.zipCodePlaceholder}
+          label={strings.studentEdition.address.zipCode}
+          placeholder={strings.studentEdition.address.zipCodePlaceholder}
           fullWidth
           margin="normal"
           type="number"
@@ -133,7 +133,7 @@ export default function StudentRegistration() {
           <>
             <TextField
               name="address.street"
-              label={strings.studentRegistration.address.street}
+              label={strings.studentEdition.address.street}
               fullWidth
               margin="normal"
               value={address?.street}
@@ -148,16 +148,16 @@ export default function StudentRegistration() {
             />
             <TextField
               name="address.number"
-              label={strings.studentRegistration.address.number}
-              placeholder={strings.studentRegistration.address.numberPlaceholder}
+              label={strings.studentEdition.address.number}
+              placeholder={strings.studentEdition.address.numberPlaceholder}
               fullWidth
               margin="normal"
               slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
             />
             <TextField
               name="address.complement"
-              label={strings.studentRegistration.address.complement}
-              placeholder={strings.studentRegistration.address.complementPlaceholder}
+              label={strings.studentEdition.address.complement}
+              placeholder={strings.studentEdition.address.complementPlaceholder}
               fullWidth
               margin="normal"
               slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
@@ -167,7 +167,7 @@ export default function StudentRegistration() {
         
         <TextField
           name="enrollmentDate"
-          label={strings.studentRegistration.enrollmentDate}
+          label={strings.studentEdition.enrollmentDate}
           fullWidth
           margin="normal"
           slotProps={{
@@ -187,12 +187,12 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          {strings.studentRegistration.documents}
+          {strings.studentEdition.documents}
         </Typography>
 
         <TextField
           name="registrationNumber"
-          label={strings.studentRegistration.registrationNumber}
+          label={strings.studentEdition.registrationNumber}
           placeholder="xxx.xxx.xxx-xx"
           fullWidth
           margin="normal"
@@ -209,7 +209,7 @@ export default function StudentRegistration() {
           fontWeight="bold"
           sx={{ mt: 2, mb: 1, color: "primary.main" }}
         >
-          {strings.studentRegistration.attachments}
+          {strings.studentEdition.attachments}
         </Typography>
 
         <Box
@@ -231,7 +231,7 @@ export default function StudentRegistration() {
                       sx={{ flex: 1 }}
                       disabled
                     />
-                    <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>{strings.studentRegistration.editButton}</Button>
+                    <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>{strings.studentEdition.editButton}</Button>
                   </Box>
                 </Box>
               ))}
@@ -249,7 +249,7 @@ export default function StudentRegistration() {
                 document.getElementById("fileInputUpload2")?.click();
               }}
             >
-              {strings.studentRegistration.attachMoreFiles}
+              {strings.studentEdition.attachMoreFiles}
             </Button>
             <input
               id="fileInputUpload2"
@@ -288,7 +288,7 @@ export default function StudentRegistration() {
               fullWidth
               sx={{ mb: 2 }}
             >
-              {strings.studentRegistration.selectFiles}
+              {strings.studentEdition.selectFiles}
               <input
                 id="fileInputUpload"
                 type="file"
@@ -310,12 +310,12 @@ export default function StudentRegistration() {
 
             {docForm.fileName && (
               <Typography variant="body2" sx={{ mb: 1 }}>
-                {strings.studentRegistration.selectedFile}{" "}{docForm.fileName}
+                {strings.studentEdition.selectedFile}{" "}{docForm.fileName}
               </Typography>
             )}
 
             <TextField
-              label={strings.studentRegistration.fileCreatedAt}
+              label={strings.studentEdition.fileCreatedAt}
               type="date"
               fullWidth
               margin="dense"
@@ -325,7 +325,7 @@ export default function StudentRegistration() {
               }}
             />
             <TextField
-              label={strings.studentRegistration.fileDescription}
+              label={strings.studentEdition.fileDescription}
               fullWidth
               margin="dense"
               value={docForm.description}
@@ -352,7 +352,7 @@ export default function StudentRegistration() {
                   setShowUploader(false);
                 }}
               >
-                {strings.studentRegistration.cancelFileSend}
+                {strings.studentEdition.cancelFileSend}
               </Button>
               <Button
                 onClick={handleAddDoc}
@@ -360,10 +360,26 @@ export default function StudentRegistration() {
                 disabled={!docForm.fileName}
                 sx={{ ml: "auto" }}
               >
-                {strings.studentRegistration.addFileButton}
+                {strings.studentEdition.addFileButton}
               </Button>
             </Box>
           </Box>
+        )}
+
+        {(
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{
+              color: "primary.contrastText",
+              borderColor: "primary.main",
+              bgcolor: "error.main",
+              fontWeight: 500,
+              borderRadius: 4,
+            }}
+          >
+            {strings.studentEdition.toggleStudentStatusOff}
+          </Button>
         )}
       </Grid>
 
@@ -379,7 +395,7 @@ export default function StudentRegistration() {
             borderColor: "primary.main",
           }}
         >
-          {strings.studentRegistration.details}
+          {strings.studentEdition.details}
         </Typography>
         
         <TextField
@@ -400,10 +416,10 @@ export default function StudentRegistration() {
 
         <TextField
           name="schoolName"
-          label={strings.studentRegistration.schoolName}
+          label={strings.studentEdition.schoolName}
           fullWidth
           margin="normal"
-          placeholder={strings.studentRegistration.schoolNamePlaceholder}
+          placeholder={strings.studentEdition.schoolNamePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -450,7 +466,7 @@ export default function StudentRegistration() {
           }}
         >
           <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
-            {strings.studentRegistration.saveButton}
+            {strings.studentEdition.saveButton}
           </Button>
           <Button
             variant="contained"
@@ -459,7 +475,7 @@ export default function StudentRegistration() {
             type="button"
             onClick={goBack}
           >
-            {strings.studentRegistration.cancelButton}
+            {strings.studentEdition.cancelButton}
           </Button>
         </Box>
       </Grid>

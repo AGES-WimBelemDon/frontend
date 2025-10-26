@@ -19,11 +19,17 @@ export function useStudentsPage() {
     goTo("/alunos", `/${studentId}/responsaveis`);
   };
 
+  function handleEditStudents(studentId: string) {
+    selectStudent(studentId);
+    goTo("/alunos", `/${studentId}/editar`);
+  };
+
   return {
     isLoadingStudents,
     studentsError,
     students,
     handleCreateNewStudent,
     handleCreateResponsible,
+    handleEditStudents,
   };
 }
