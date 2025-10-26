@@ -20,3 +20,37 @@ export async function getAvailableClasses(userId: string): Promise<AvailableClas
   const response = await api.get<AvailableClassesResponse>(`/frequency/available-classes/${userId}`);
   return response.data.classes;
 }
+
+// General Attendance Types
+export type GeneralAttendanceStudent = {
+  studentId: number;
+  studentName: string;
+  status: "PRESENTE" | "AUSENTE";
+  generalAttendanceAllowed: boolean;
+  observation: string | null;
+};
+
+export type GeneralAttendanceResponse = {
+  date: string;
+  studentList: GeneralAttendanceStudent[];
+};
+
+export type UpdateGeneralAttendanceRequest = {
+  date: string;
+  studentList: {
+    studentId: number;
+    status: "PRESENTE" | "AUSENTE";
+    generalAttendanceAllowed: boolean;
+    observation?: string;
+  }[];
+};
+
+// General Attendance API functions
+export async function getGeneralAttendance(date: string): Promise<GeneralAttendanceResponse> {
+  const response = await api.get<GeneralAttendanceResponse>(`/frequency/general-attendance?date=${date}`);
+  return response.data;
+}
+
+export async function updateGeneralAttendance(data: UpdateGeneralAttendanceRequest): Promise<void> {
+  await api.patch("/frequency/general-attendance", data);
+}

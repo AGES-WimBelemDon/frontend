@@ -158,6 +158,17 @@ export const englishTextMap = {
     noClasses: "No classes found for this activity.",
     goBack: "Back to Activities",
   },
+  frequencyGeneralCall: {
+    title: "General Attendance",
+    save: "Save",
+    loadingStudents: "Loading students...",
+    studentsError: "Error loading students",
+    errorNoStudents: "Error saving attendance, students not found",
+    errorNoDate: "Error saving attendance, please enter a date",
+    successSave: "Attendance saved successfully",
+    errorInvalidDate: "Invalid date format",
+    errorServer: "An unexpected internal server error occurred",
+  },
   header: {
     goToHome: "Go to home page",
     logoAlt: "WimBelemDon logo",
