@@ -14,7 +14,6 @@ export default function ClassDetails() {
   const {
     goTo,
     classData,
-    activityName,
     students,
     isLoadingClasses,
     classesError,
@@ -62,7 +61,7 @@ export default function ClassDetails() {
         gap={2}
       >
         <Typography variant="h5" fontWeight="bold" color="primary.main">
-          {activityName} {classData.level}
+          {classData.title}
         </Typography>
 
         <Button
