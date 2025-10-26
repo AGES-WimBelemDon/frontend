@@ -36,11 +36,11 @@ export default function Frequency() {
   }
 
   if (availableClassesError) {
-    const error = availableClassesError as any;
-    const status = error?.response?.status;
-    const errorData = error?.response?.data;
+    const error = availableClassesError as unknown as { response?: { status?: number; data?: { message?: string } } };
+    const status = error.response?.status;
+    const errorData = error.response?.data;
     let errorMessage: string = strings.frequency.activitiesError;
-    
+
     if (status === 400) {
       errorMessage = `Bad Request: ${errorData?.message || "Invalid request format"}`;
     } else if (status === 404) {
@@ -48,7 +48,7 @@ export default function Frequency() {
     } else if (status === 500) {
       errorMessage = "An unexpected internal server error occurred.";
     }
-    
+
     return <Typography color="error">{errorMessage}</Typography>;
   }
 
@@ -61,14 +61,14 @@ export default function Frequency() {
         {classes.map((classItem, index) => {
           const { classId, className, isGeral, activity } = classItem;
           const displayTitle = isGeral ? "Chamada Geral" : className;
-          
+
           return (
             <TextCard
               key={classId}
               title={displayTitle}
               theme={index === 0 ? "dark" : "light"}
               onClick={() => {
-                goTo("/frequencias/atividades", `/${activity.activityId}/turmas/${classId}/chamada`);
+                void goTo("/frequencias/atividades", `/${activity.activityId}/turmas/${classId}/chamada`);
               }}
             />
           );
@@ -77,4 +77,3 @@ export default function Frequency() {
     </>
   );
 }
-""

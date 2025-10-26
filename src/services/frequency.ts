@@ -1,4 +1,5 @@
 import { api } from "./api";
+import { FrequencyStatus, NoteTypes } from "../components/FrequencyCard/interface";
 
 export type AvailableClass = {
   classId: number;
@@ -17,16 +18,25 @@ export type AvailableClassesResponse = {
 };
 
 export async function getAvailableClasses(userId: string): Promise<AvailableClass[]> {
-  const response = await api.get<AvailableClassesResponse>(`/frequency/available-classes/${userId}`);
-  return response.data.classes;
+  try {
+    const response = await api.get<AvailableClassesResponse>(
+      `/frequency/available-classes/${userId}`
+    );
+
+    return response.data.classes;
+  } catch (error) {
+    console.error("API Error:", error);
+
+    return []
+  }
 }
 
 export type GeneralAttendanceStudent = {
   studentId: number;
   studentName: string;
-  status: "PRESENTE" | "AUSENTE";
+  status: FrequencyStatus;
   generalAttendanceAllowed: boolean;
-  observation: string | null;
+  observation: NoteTypes | null;
 };
 
 export type GeneralAttendanceResponse = {
@@ -51,4 +61,47 @@ export async function getGeneralAttendance(date: string): Promise<GeneralAttenda
 
 export async function updateGeneralAttendance(data: UpdateGeneralAttendanceRequest): Promise<void> {
   await api.patch("/frequency/general-attendance", data);
+}
+
+export type ClassStudent = {
+  studentId: number;
+  studentName: string;
+  frequencyPercent: number;
+  isPresent: boolean;
+}
+
+export type ClassStudentResponse = {
+  studentId: number;
+  frequencyId: number;
+  studentFullName: string;
+  attendancePercetage: number;
+  status: FrequencyStatus;
+  notes: NoteTypes;
+}
+
+export type ClassAttendence = {
+  classId: number;
+  date: string;
+  studentList: ClassStudentResponse[]
+} 
+
+export async function getAttendanceClass(classId: number, date: string): Promise<ClassAttendence> {
+  const response  = await api.get<ClassAttendence>("/frequency/class-attendance", {
+    params: {
+      classId: classId,
+      date: date
+    }
+  })
+  return response.data;
+}
+
+export async function registerAttendanceClass(body: ClassAttendence): Promise<ClassAttendence> {
+  const response =  await api.post<ClassAttendence>("/frequency/class-attendance", body);
+  return response.data;
+}
+
+
+export async function updateAttendanceClass(body: ClassAttendence): Promise<ClassAttendence> {
+  const respose = await api.patch("/frequency/class-attendance", body);
+  return respose.data;
 }

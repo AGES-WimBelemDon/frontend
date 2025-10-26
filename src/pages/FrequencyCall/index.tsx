@@ -59,11 +59,12 @@ export function FrequencyCall() {
         {students.map((item: FrequencyCardStudent) => (
           <ListItem key={item.id} sx={{ paddingX: 0 }}>
             <FrequencyCard
-              id={item.id}
+              id={String(item.id)}
               name={item.name}
               frequencyPercent={item.frequencyPercent}
               isPresent={item.isPresent}
               onChangePresence={(present) => updatePresence(item.id, present)}
+              notes={item.notes}
             />
           </ListItem>
         ))}

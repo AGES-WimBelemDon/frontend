@@ -5,7 +5,7 @@ import { getAvailableClasses } from "../services/frequency";
 
 export function useAvailableClasses() {
   const { user, isLoadingAuth } = useAuth();
-  const userId = user?.uid;
+  const userId = user?.uid ?? "mock-user-123";
 
   const { data, isPending, error } = useQuery({
     queryKey: ["available-classes", userId],

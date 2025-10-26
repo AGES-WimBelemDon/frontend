@@ -11,7 +11,7 @@ import {
   Button,
 } from "@mui/material";
 
-import type { FrequencyCardProps } from "./interface";
+import { FrequencyStatus, type FrequencyCardProps } from "./interface";
 import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
@@ -71,7 +71,7 @@ export function FrequencyCard({
           size="medium"
           color="success"
           variant={isPresent ? "contained" : "outlined"}
-          onClick={() => onChangePresence(true)}
+          onClick={() => onChangePresence(FrequencyStatus.PRESENTE)}
         >
           <CheckIcon />
         </Button>
@@ -79,7 +79,7 @@ export function FrequencyCard({
           size="medium"
           color="error"
           variant={!isPresent ? "contained" : "outlined"}
-          onClick={() => onChangePresence(false)}
+          onClick={() => onChangePresence(FrequencyStatus.AUSENTE)}
         >
           <CloseIcon />
         </Button>

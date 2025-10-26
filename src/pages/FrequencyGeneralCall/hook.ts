@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 
 import type { GeneralCallStudent } from "./interface";
+import type { FrequencyStatus } from "../../components/FrequencyCard/interface";
 import { useDateInput } from "../../components/Inputs/DateInput/hook";
 import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
@@ -16,8 +17,8 @@ export function useFrequencyGeneralCall() {
 
   const formatDate = (date: Date): string => {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
@@ -25,23 +26,26 @@ export function useFrequencyGeneralCall() {
     setIsLoading(true);
     try {
       const response = await getGeneralAttendance(date);
-      
+
       const allowedStudents = response.studentList.filter(
-        student => student.generalAttendanceAllowed
+        (student) => student.generalAttendanceAllowed
       );
-      
+
       setStudents(allowedStudents);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error loading general attendance:", error);
-      
-      if (error.response?.status === 404) {
+
+      // Use optional chaining e type guard para unknown
+      const status = (error as { response?: { status?: number } })?.response?.status;
+
+      if (status === 404) {
         showToast(strings.frequencyGeneralCall.errorInvalidDate, "error", true);
-      } else if (error.response?.status === 500) {
+      } else if (status === 500) {
         showToast(strings.frequencyGeneralCall.errorServer, "error", true);
       } else {
         showToast(strings.frequencyGeneralCall.studentsError, "error", true);
       }
-      
+
       setStudents([]);
     } finally {
       setIsLoading(false);
@@ -51,22 +55,22 @@ export function useFrequencyGeneralCall() {
   useEffect(() => {
     const today = formatDate(new Date());
     setDate(today, "1");
-    loadGeneralAttendance(today);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    void loadGeneralAttendance(today);
+  }, [setDate, loadGeneralAttendance]);
 
   useEffect(() => {
     const date = getDate("1");
     if (date && date !== currentDate) {
       setCurrentDate(date);
-      loadGeneralAttendance(date);
+      void loadGeneralAttendance(date);
     }
-  }, [getDate("1"), currentDate, loadGeneralAttendance]);
+  }, [getDate, currentDate, loadGeneralAttendance]);
 
-  function updatePresence(studentId: number, present: boolean) {
+  function updatePresence(studentId: number, present: FrequencyStatus) {
     setStudents((prevList) =>
       prevList.map((student) =>
-        student.studentId === studentId 
-          ? { ...student, status: present ? "PRESENTE" : "AUSENTE" } 
+        student.studentId === studentId
+          ? { ...student, status: present }
           : student
       )
     );
@@ -74,7 +78,7 @@ export function useFrequencyGeneralCall() {
 
   async function registerCall() {
     const date = getDate("1");
-    
+
     if (!students || students.length === 0) {
       return showToast(strings.frequencyGeneralCall.errorNoStudents, "error", true);
     }
@@ -84,11 +88,11 @@ export function useFrequencyGeneralCall() {
     }
 
     setIsLoading(true);
-    
+
     try {
       await updateGeneralAttendance({
         date,
-        studentList: students.map(student => ({
+        studentList: students.map((student) => ({
           studentId: student.studentId,
           status: student.status,
           generalAttendanceAllowed: student.generalAttendanceAllowed,
@@ -97,12 +101,14 @@ export function useFrequencyGeneralCall() {
       });
 
       showToast(strings.frequencyGeneralCall.successSave, "success", true);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error saving general attendance:", error);
-      
-      if (error.response?.status === 404) {
+
+      const status = (error as { response?: { status?: number } })?.response?.status;
+
+      if (status === 404) {
         showToast(strings.frequencyGeneralCall.errorInvalidDate, "error", true);
-      } else if (error.response?.status === 500) {
+      } else if (status === 500) {
         showToast(strings.frequencyGeneralCall.errorServer, "error", true);
       } else {
         showToast(strings.frequencyGeneralCall.studentsError, "error", true);
