@@ -79,7 +79,7 @@ export async function getQuestions(formId: string): Promise<Question[]> {
   }
 }
 
-export async function postAnamnese(submission: AnamneseSubmission): Promise<any> {
+export async function postAnamnese(submission: AnamneseSubmission): Promise<{ id: string }> {
   try {
     const response = await api.post(endpoints.anamnese, submission);
     return response.data;
@@ -87,6 +87,6 @@ export async function postAnamnese(submission: AnamneseSubmission): Promise<any>
     console.error("Error posting anamnese:", error);
     // Mock a successful response for development
     const newId = (Math.random() * 1000).toFixed(0).toString();
-    return Promise.resolve({ success: true, id: newId, message: "Anamnese submitted successfully (mocked)." });
+    return Promise.resolve({ id: newId });
   }
 }

@@ -6,6 +6,7 @@ import {
   getAnamneseFormsByStudent,
   getQuestions,
   postAnamnese,
+  type AnamneseSubmission,
   type AnamneseFormInfo,
   type Question,
 } from "../services/anamnese";
@@ -52,7 +53,7 @@ export const useAnamneseForm = () => {
       })),
     };
 
-    const result = await postAnamnese(submission as any);
+    const result = await postAnamnese(submission as AnamneseSubmission);
     if (isCreating && result) {
       setIsCreating(false);
       // Navigate to the newly created form
