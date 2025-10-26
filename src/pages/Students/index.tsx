@@ -1,4 +1,4 @@
-import { Add as AddIcon, PersonAdd as PersonAddIcon } from "@mui/icons-material";
+import { Add as AddIcon, PersonAdd as PersonAddIcon, Mode as ModeIcon } from "@mui/icons-material";
 import { Box, Button, Card, CardContent, CircularProgress, Stack, Typography } from "@mui/material";
 
 import { useStudentsPage } from "./hook";
@@ -12,6 +12,7 @@ export default function Students() {
     students,
     handleCreateNewStudent,
     handleCreateResponsible,
+    handleEditStudents,
   } = useStudentsPage();
 
   if (isLoadingStudents) {
@@ -31,10 +32,18 @@ export default function Students() {
     <>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <PageTitle title={strings.students.title} dataCy="students" />
+      </Box>
+
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Button
-          variant="contained"
+          variant="outlined"
           startIcon={<AddIcon />}
           onClick={handleCreateNewStudent}
+          sx={{
+            fontWeight: "bold",
+            border: "2px solid",
+            borderRadius: 2
+          }}
         >
           {strings.students.createNew}
         </Button>
@@ -47,20 +56,40 @@ export default function Students() {
       ) : (
         <Stack spacing={2}>
           {students.map((student) => (
-            <Card key={student.id} variant="outlined">
+            <Card key={student.id} variant="outlined" sx={{ borderRadius: 2, border: "1px solid" }}>
               <CardContent sx={{ backgroundColor: "background.default" }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                   <Typography variant="h6" component="h2">
                     {student.fullName}
                   </Typography>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    startIcon={<PersonAddIcon />}
-                    onClick={() => handleCreateResponsible(student.id)}
-                  >
-                    {strings.students.createResponsible}
-                  </Button>
+                  <Box display="flex" gap={1}>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      startIcon={<ModeIcon />}
+                      onClick={() => handleEditStudents(student.id)}
+                      sx={{
+                        fontWeight: "bold",
+                        border: "2px solid",
+                        borderRadius: 2
+                      }}
+                    >
+                      {strings.students.editStudent}
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      startIcon={<PersonAddIcon />}
+                      onClick={() => handleCreateResponsible(student.id)}
+                      sx={{
+                        fontWeight: "bold",
+                        border: "2px solid",
+                        borderRadius: 2
+                      }}
+                    >
+                      {strings.students.createResponsible}
+                    </Button>
+                  </Box>
                 </Box>
               </CardContent>
             </Card>
