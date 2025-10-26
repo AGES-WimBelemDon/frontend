@@ -1,75 +1,74 @@
-import { Box, Button } from "@mui/material";
-import { useParams } from "react-router";
+import { Box, Button, Select, MenuItem, TextField, FormControl, InputLabel } from "@mui/material";
+import dayjs from "dayjs";
 
-import { TextInput } from "../../../components/Inputs/TextInput";
 import { PageTitle } from "../../../components/PageTitle";
 import { strings } from "../../../constants";
+import { useAnamneseForm } from "../../../hooks/useAnamneseForm";
 import { useScreenSize } from "../../../hooks/useScreenSize";
 
 const AnamnesisForm = () => {
-  const forms: { id: number; questions: string[] }[] = [
-    {
-      id: 1,
-      questions: [
-        "Pergunta 1",
-        "Pergunta 2",
-        "Pergunta 3",
-        "Pergunta 4",
-        "Pergunta 5",
-        "Pergunta 6",
-        "Pergunta 7",
-        "Pergunta 8",
-      ],
-    },
-    {
-      id: 2,
-      questions: [
-        "Pergunta 8",
-        "Pergunta 9",
-        "Pergunta 10",
-        "Pergunta 11",
-        "Pergunta 12",
-        "Pergunta 13",
-        "Pergunta 14",
-      ],
-    },
-  ];
-
-  const formId = useParams().id;
-  const form = forms.find((f) => f.id.toString() === formId);
+  const {
+    forms,
+    questions,
+    formId,
+    responses,
+    isCreating,
+    handleResponseChange,
+    handleSubmit,
+    handleCreateNew,
+    handleFormChange,
+  } = useAnamneseForm();
   const { isDesktop, isMobile } = useScreenSize();
   const gridCols = isMobile ? 1 : isDesktop ? 3 : 2;
 
   return (
     <>
       <PageTitle title={strings.anamnesis.title} dataCy="anamnesis-form" />
-      {form ? (
-        <form>
+      <Box display={"flex"} justifyContent={"end"} alignItems={"center"} gap={2} marginBottom={3}>
+        <FormControl variant="standard" sx={{ minWidth: 150 }}>
+          <InputLabel>{strings.anamnesis.previousForms}</InputLabel>
+          <Select value={formId || ""} onChange={(e) => handleFormChange(e.target.value)}>
+            {forms.map((form) => (
+              <MenuItem key={form.id} value={form.id}>
+                {dayjs(form.date).format("DD/MM/YYYY")}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Button variant="outlined" onClick={handleCreateNew}>{strings.anamnesis.createNew}</Button>
+      </Box>
+
+      {(formId || isCreating) ? (
+        <form onSubmit={handleSubmit}>
           <Box
             display={"grid"}
             gridTemplateColumns={`repeat(${gridCols}, 1fr)`}
             gap={5}
           >
-            {form?.questions.map((question, index) => (
-              <TextInput
-                key={`${form.id}-${index}`}
-                id={`${form.id}-${index}`}
-                label={question}
+            {questions.map((question) => (
+              <TextField
+                key={question.id}
+                id={question.id}
+                label={question.statement}
+                variant="standard"
+                value={responses[question.id] || ""}
+                onChange={(e) => handleResponseChange(question.id, e.target.value)}
               />
             ))}
           </Box>
           <Box display={"flex"} gap={2} justifyContent={"end"} marginTop={5}>
-            <Button variant="outlined">Pular</Button>
+            <Button variant="outlined">{strings.anamnesis.skip}</Button>
             <Button variant="contained" type="submit">
-              Salvar
+              {strings.anamnesis.save}
             </Button>
           </Box>
         </form>
       ) : (
-        <p>O Formulário que você está procurando não existe!</p>
+        <p>{strings.anamnesis.selectOrCreate}</p>
       )}
     </>
   );
 };
 
 export default AnamnesisForm;
+

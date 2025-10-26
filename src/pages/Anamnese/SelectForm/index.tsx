@@ -21,7 +21,7 @@ const SelectForm = () => {
             key={card.id}
             title={card.title}
             theme="light"
-            onClick={() => navigate(`form/:${card.id}`)}
+            onClick={() => navigate(`form/${card.id}`)}
           />
         ))}
       </CardList>
