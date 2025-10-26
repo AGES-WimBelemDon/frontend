@@ -201,13 +201,25 @@ export const portugueseTextMap = {
     pleaseFillAllFields: "Por favor, preencha todos os campos.",
   },
   classesModal: {
-    title: "Cadastrar Turma",
+    recurring: "Atividade Recorrente",
     inputs: {
+      classLevel: "Nível da Turma",
       classDay: "Dia da Turma",
       classTime: "Horário da turma",
       level: "Nível",
-      addStudent: "Adicionar Estudante",
-      addStudentPlaceholder: "Digite o nome do aluno"
+      addStudentPlaceholder: "Digite o nome do aluno",
+      searchTeacher: "Pesquisar Professor",
+      searchStudent: "Pesquisar Educando",
+    },
+    buttons: {
+      next: "Próximo",
+      back: "Voltar",
+      create: "Cadastrar"
+    },
+    steps: {
+      data: "Dados",
+      teacher: "Professor",
+      Student: "Educando"
     }
   },
   personCard: {

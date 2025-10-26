@@ -87,3 +87,12 @@ export async function getClasses(): Promise<ApiClass[]> {
     return mockResponse.data;
   }
 }
+
+export async function createClasses(data: ApiClass): Promise<number | null> {
+  try {
+    const response = await api.post(endpoints.classes, data)
+    return response.status;
+  } catch {
+    return null;
+  }
+}
