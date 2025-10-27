@@ -62,7 +62,6 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
       anchor="left"
       open={isSidebarOpen}
     >
-      {/* Header com X e Logo */}
       <Box
         sx={{
           display: "flex",
@@ -103,8 +102,7 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
           />
         )}
       </Box>
-
-      {/* Divisória azul */}
+      
       {isSidebarOpen && (
         <Divider
           sx={{
