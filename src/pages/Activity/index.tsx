@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Add as AddIcon } from "@mui/icons-material";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 
@@ -8,12 +6,12 @@ import { ActivityFilter } from "./ActivityFilter";
 import { useActivityPage } from "./hook";
 import { CardList } from "../../components/CardList";
 import { NewActivityModal } from "../../components/NewActivityModal";
+import { useNewActivityModal } from "../../components/NewActivityModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
 import { type Activity } from "../../services/activities";
 
 export default function ActivityList() {
-  const [openModal, setOpenModal] = useState(false)
   const {
     isLoadingActivities,
     activitiesError,
@@ -25,6 +23,13 @@ export default function ActivityList() {
     setFrequency,
     filteredActivities,
   } = useActivityPage();
+
+  const {
+    isOpen,
+    openModal,
+    closeModal,
+    handleSubmit,
+  } = useNewActivityModal();
 
   if (isLoadingActivities) {
     return (
@@ -46,7 +51,7 @@ export default function ActivityList() {
         <Button
           variant="contained"
           startIcon={<AddIcon />}
-          onClick={() => setOpenModal(true)}
+          onClick={openModal}
         >
           {strings.activityList.createNew}
         </Button>
@@ -66,11 +71,11 @@ export default function ActivityList() {
           <Typography>{strings.activityList.activitiesEmpty}</Typography>
         )}
       </CardList>
-      <div>
-        <NewActivityModal 
-          isOpen={openModal}
-          setModalOpen={setOpenModal}/>
-      </div>
+      <NewActivityModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        handleSubmit={handleSubmit}
+      />
     </>
   );
 }

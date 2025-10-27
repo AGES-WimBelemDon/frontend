@@ -1,4 +1,5 @@
 export interface NewActivityModalProps {
   isOpen: boolean;
-  setModalOpen(open: boolean): void;
+  closeModal(): void;
+  handleSubmit(e: React.FormEvent<HTMLFormElement>): void;
 };

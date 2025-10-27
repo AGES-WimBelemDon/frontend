@@ -1,149 +1,80 @@
-import { useState } from "react";
-
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Typography, Button, IconButton, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 
 import type { NewActivityModalProps } from "./interface";
 import { strings } from "../../constants";
-import { useToast } from "../../hooks/useToast";
-import { theme } from "../../styles/theme";
 
-export function NewActivityModal({ isOpen, setModalOpen }: NewActivityModalProps) {
-  const { showToast } = useToast();
-  const [name, setName] = useState("");
-  const [, setError] = useState<string>("");
-
-  if (!isOpen) {
-    return null;
-  }
-
-  function validate() {
-    const onlyLettersRegex = /^[A-Za-zÀ-ÿ\s]+$/;
-
-    if (!name.trim()) {
-      setError("Campo obrigatório");
-      showToast(strings.newResponsibleModal.pleaseFillAllFields, "error", true);
-      return false;
-    }
-
-    if (!onlyLettersRegex.test(name)) {
-      setError("Use apenas letras (sem números ou símbolos)");
-      showToast(strings.newActivityModal.numberSymbolError, "error", true);
-      return false;
-    }
-    
-    setError("");
-    return true;
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!validate()) {
-      return;
-    }
-
-    showToast(strings.newActivityModal.sucessToast, "success", true);
-    setModalOpen(false);
-  }
-
+export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivityModalProps) {
   return (
-    <Box style={{
-      position: "fixed",
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backdropFilter: "blur(6px)",
-      zIndex: 1000,
-      alignContent: "center"
-    }}>
-      <Box
-        component="form"
-        style={{
-          backgroundColor: theme.palette.background.default,
-          width: 621,
-          height: 191,
-          borderRadius: 12,
-          margin: "auto",
-          gap: 16,
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-        onSubmit={handleSubmit}
+    <Dialog
+      open={isOpen}
+      onClose={closeModal}
+      fullWidth
+      sx={{
+        "& .MuiPaper-root": {
+          borderRadius: 2,
+          padding: 2,
+          backgroundColor: "grey.50",
+          width: "100%",
+        },
+      }}
+    >
+      <DialogTitle
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        position="relative"
       >
-        <Box
+        {strings.newActivityModal.title}
+
+        <IconButton
+          onClick={closeModal}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: 561,
-            height: 42
+            position: "absolute",
+            right: 2, 
+            top: "50%",
+            transform: "translateY(-90%)",
+            color: "primary.main",
           }}
         >
-          <Typography variant="h6" fontWeight="bold">
-            {strings.newActivityModal.title}
-          </Typography>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
 
-          <IconButton
-            onClick={() => setModalOpen(false)}
-            sx={{ color: "primary.main" }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Box>
+      <DialogContent sx={{ paddingBottom: 1 }}>
         <Box
-          sx={{
-            width: 561,
-            height: 57
-          }}>
-          <Typography
-            variant="caption"
-            sx={{
-              color: "primary.main",
-              fontWeight: "regular",
-              fontSize: 12,
-            }}>
-            {strings.newActivityModal.textFieldTitle}
-          </Typography>
+          id="activityForm"
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ mt: 1 }}
+        >
           <TextField
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder={strings.newActivityModal.textFieldPlaceholder}
-            slotProps={{
-              input: {
-                sx: {
-                  width: 561,
-                  height: 37
-                },
-              }
-            }}
+            required
+            name="activityName"
+            label={strings.newActivityModal.textFieldTitle}
+            fullWidth
           />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            width: 561,
-            height: 52
-          }}>
-          <Button
-            variant="contained"
-            type="submit"
-            sx={{
-              width: 100,
-              height: 37,
-              backgroundColor: "primary.main",
-              fontWeight: "bold",
-              fontSize: 14,
-              textTransform: "none"
-            }}>
-            {strings.newActivityModal.buttonText}
-          </Button>
-        </Box>
-      </Box>
-    </Box>
+      </DialogContent>
+      
+      <DialogActions sx={{ paddingX: 3 }}>
+        <Button
+          variant="contained"
+          type="submit"
+          form="activityForm"
+        >
+          {strings.newActivityModal.buttonText}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
