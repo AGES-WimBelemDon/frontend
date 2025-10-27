@@ -3,7 +3,9 @@ import type { Params } from "./type";
 export const englishTextMap = {
   activityList: {
     title: "Activity List",
-    createNew: "New Activity",
+    createNew: "Create New Activity",
+    newActivity: "New Activity",
+    activityName: "Activity Name",
     loadingActivities: "Loading activities...",
     activitiesError: "Error loading activities",
     activitiesEmpty: "No activities found.",
@@ -356,5 +358,14 @@ export const englishTextMap = {
     title: "Manage Users",
     loadingUsers: "Loading users...",
     usersError: "Error loading users",
+  },
+  newActivityModal: {
+    title: "New Activity",
+    textFieldTitle: "Activity Name",
+    textFieldPlaceholder: "Insert name",
+    buttonText: "Register",
+    successToast: ({ activityName }: Params<"activityName">) => (
+      `Activity "${activityName}" registered!`
+    ),
   },
 } as const;
