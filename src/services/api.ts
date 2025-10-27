@@ -24,9 +24,9 @@ const endpoints = {
   },
   students: {
     base: "/students",
-    byId: (studentId: string) => `/students/${studentId}`,
+    byId: (studentId: number) => `/students/${studentId}`,
     byCpf: (cpf: string) => `/students/cpf/${cpf}`,
-    address: (studentId: string) => `/students/${studentId}/address`,
+    address: (studentId: number) => `/students/${studentId}/address`,
   },
   users: "/users",
 }

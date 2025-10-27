@@ -25,6 +25,7 @@ function AppRouter() {
           <Route index element={<Home />} />
           <Route path="alunos" element={<Students />} />
           <Route path="alunos/cadastro" element={<StudentRegistration />} />
+          <Route path="alunos/:id/editar" element={<StudentRegistration />} />
           <Route path="alunos/:id/responsaveis" element={<ResponsibleRegistration />} />
           <Route path="anamnese" element={<SelectForm />} />
           <Route path="anamnese/form/:id" element={<AnamnesisForm />} />

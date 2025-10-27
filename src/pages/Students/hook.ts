@@ -14,14 +14,14 @@ export function useStudentsPage() {
     goTo("/alunos", "/cadastro");
   };
 
-  function handleCreateResponsible(studentId: string) {
+  function handleCreateResponsible(studentId: number) {
     selectStudent(studentId);
     goTo("/alunos", `/${studentId}/responsaveis`);
   };
 
-  function handleEditStudents(studentId: string) {
+  function handleEditStudents(studentId: number) {
     selectStudent(studentId);
-    goTo("/alunos", "/cadastro");
+    goTo("/alunos", `/${studentId}/editar`);
   };
 
   function formatDate(date: string): string {

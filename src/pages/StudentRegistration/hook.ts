@@ -56,44 +56,36 @@ export function useStudentRegistration() {
     setShowUploader(false);
   };
 
-  async function registerStudent(studentData: Partial<Student>, addressData: Partial<Address>): Promise<string | undefined> {
+  async function registerStudent(studentData: Partial<Student>, addressData: Partial<Address>): Promise<number> {
     try {
       if (!studentData.fullName) {
-        showToast(strings.studentRegistration.errors.fullNameRequired, "error");
-        return;
+        throw new Error(strings.studentRegistration.errors.fullNameRequired);
       }
 
       if (!studentData.dateOfBirth || studentData.dateOfBirth === undefined) {
-        showToast(strings.studentRegistration.errors.dateOfBirthRequired, "error");
-        return;
+        throw new Error(strings.studentRegistration.errors.dateOfBirthRequired);
       }
 
       if (!studentData.registrationNumber) {
-        showToast(strings.studentRegistration.errors.registrationNumberRequired, "error");
-        return;
+        throw new Error(strings.studentRegistration.errors.registrationNumberRequired);
       }
 
       if (!studentData.schoolYear) {
-        showToast(strings.studentRegistration.errors.schoolYearRequired, "error");
-        return;
+        throw new Error(strings.studentRegistration.errors.schoolYearRequired);
       }
 
       if (!studentData.gender) {
-        showToast(strings.studentRegistration.errors.genderRequired, "error");
-        return;
+        throw new Error(strings.studentRegistration.errors.genderRequired);
       }
       // if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
-      //   showToast(strings.studentRegistration.errors.enrollmentDateRequired, "error");
-      //   return;
+      //   throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
       // }
       if (!addressData.code) {
-        showToast(strings.studentRegistration.errors.addressCepRequired, "error");
-        return;
+        throw new Error(strings.studentRegistration.errors.addressCepRequired);
       }
 
       if (!addressData.number) {
-        showToast(strings.studentRegistration.errors.addressNumberRequired, "error");
-        return;
+        throw new Error(strings.studentRegistration.errors.addressNumberRequired);
       }
 
       const newStudent = await apiRegisterStudent(studentData);
@@ -141,8 +133,8 @@ export function useStudentRegistration() {
         });
         goBack();
       })
-      .catch(() => {
-        showToast(strings.studentRegistration.errorMessage, "error")
+      .catch((error) => {
+        showToast(error.message, "error");
       });
   }
 

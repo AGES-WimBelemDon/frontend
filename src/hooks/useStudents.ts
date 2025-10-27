@@ -2,10 +2,13 @@ import { useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
+import { useRoutes } from "./useRoutes";
 import { getStudentResponsibles as apiGetStudentResponsibles, getStudents } from "../services/students";
 
 export function useStudents() {
-  const [currentStudentId, setCurrentStudentId] = useState<string | null>(null);
+  const { getPathParamId } = useRoutes();
+  const studentId = getPathParamId("alunos");
+  const [currentStudentId, setCurrentStudentId] = useState<number | null>(studentId ? Number(studentId) : null);
 
   const { isPending, error, data } = useQuery({
     queryKey: ["students"],

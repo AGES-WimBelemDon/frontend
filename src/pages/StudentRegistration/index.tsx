@@ -15,6 +15,7 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 
 export default function StudentRegistration() {
   const { goBack } = useRoutes();
+  const { isMobile } = useScreenSize();
   
   const {
     genderOptions,
@@ -24,8 +25,6 @@ export default function StudentRegistration() {
     socialProgramsOptions,
     employmentStatusOptions
   } = useFilters();
-
-  const isMobile = useScreenSize().isMobile;
 
   const {
     documents,

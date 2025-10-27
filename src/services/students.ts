@@ -4,7 +4,7 @@ import type { EmploymentStatus, Gender, Race, SocialPrograms } from "./filters";
 
 
 export type Student = {
-  id: string;
+  id: number;
   address: AddressResponse;
   fullName: string;
   dateOfBirth: string;
@@ -26,11 +26,11 @@ export type Student = {
 }
 
 type ApiStudent = Student & {
-  id: string;
+  id: number;
 }
 
 export type StudentResponsible = {
-  id: string;
+  id: number;
   name: string;
   cpf: string;
   birthDate: string;
@@ -79,7 +79,7 @@ export async function registerStudent(student: Partial<Student>): Promise<Pick<A
   }
 }
 
-export async function registerAddress(studentId: string, address: Partial<AddressResponse>): Promise<Pick<AddressResponse, "id">> {
+export async function registerAddress(studentId: number, address: Partial<AddressResponse>): Promise<Pick<AddressResponse, "id">> {
   console.log("Registering address for student ID:", studentId, "with address data:", address);
   try {
     const response = await api.post(endpoints.students.address(studentId), address);
@@ -122,7 +122,7 @@ export async function getStudents(): Promise<Student[]> {
     const mockResponse = await Promise.resolve({
       data: [
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "João Pedro",
           dateOfBirth: "2006-07-20",
           registrationNumber: "2023002",
@@ -142,7 +142,7 @@ export async function getStudents(): Promise<Student[]> {
           } as AddressResponse,
         },
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "Pedro Henrique",
           dateOfBirth: "2007-01-05",
           registrationNumber: "2023003",
@@ -162,7 +162,7 @@ export async function getStudents(): Promise<Student[]> {
           } as AddressResponse,
         },
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "Ana Beatriz",
           dateOfBirth: "2008-04-12",
           registrationNumber: "2023004",
@@ -182,7 +182,7 @@ export async function getStudents(): Promise<Student[]> {
           } as AddressResponse,
         },
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "Carla Souza",
           dateOfBirth: "2009-11-02",
           registrationNumber: "2023005",
@@ -202,7 +202,7 @@ export async function getStudents(): Promise<Student[]> {
           } as AddressResponse,
         },
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "Felipe Ramos",
           dateOfBirth: "2004-09-18",
           registrationNumber: "2023006",
@@ -222,7 +222,7 @@ export async function getStudents(): Promise<Student[]> {
           } as AddressResponse,
         },
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "Marina Costa",
           dateOfBirth: "2010-06-25",
           registrationNumber: "2023007",
@@ -242,7 +242,7 @@ export async function getStudents(): Promise<Student[]> {
           } as AddressResponse,
         },
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "Gustavo Lima",
           dateOfBirth: "2003-02-14",
           registrationNumber: "2023008",
@@ -262,7 +262,7 @@ export async function getStudents(): Promise<Student[]> {
           } as AddressResponse,
         },
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "Renata Almeida",
           dateOfBirth: "2005-12-30",
           registrationNumber: "2023009",
@@ -282,7 +282,7 @@ export async function getStudents(): Promise<Student[]> {
           } as AddressResponse,
         },
         {
-          id: `${++id}`,
+          id: ++id,
           fullName: "Thiago Nunes",
           dateOfBirth: "2002-01-09",
           registrationNumber: "2023010",
@@ -317,7 +317,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
     const mockResponse = await Promise.resolve({
       data: [
         {
-          id: `${++id}`,
+          id: ++id,
           name: "Leonardo Scheidt",
           cpf: "123.456.789-00",
           birthDate: "1990-05-15",
@@ -328,7 +328,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
           address: "Rua A, 123, São Paulo, SP",
         },
         {
-          id: `${++id}`,
+          id: ++id,
           name: "Maria Silva",
           cpf: "987.654.321-00",
           birthDate: "1985-10-22",
@@ -339,7 +339,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
           address: "Avenida B, 456, Rio de Janeiro, RJ",
         },
         {
-          id: `${++id}`,
+          id: ++id,
           name: "Carlos Oliveira",
           cpf: "111.222.333-44",
           birthDate: "1978-03-08",
