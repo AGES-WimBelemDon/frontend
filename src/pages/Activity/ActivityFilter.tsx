@@ -1,13 +1,7 @@
-import type React from "react";
-
 import { Box, TextField, Typography } from "@mui/material";
 
 import { strings } from "../../constants";
-
-interface ActivityFilterProps {
-  name: string;
-  onNameChange: React.Dispatch<React.SetStateAction<string>>;
-}
+import type { ActivityFilterProps } from "./interface";
 
 export function ActivityFilter({ name, onNameChange }: ActivityFilterProps) {
 
