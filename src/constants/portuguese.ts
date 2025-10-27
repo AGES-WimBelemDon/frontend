@@ -377,6 +377,8 @@ export const portugueseTextMap = {
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
     editStudent: "Editar Educando",
+    birthday: ({ date }: Params<"date">) => `Aniversário: ${date}`,
+    registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
   },
   studentsResponsibles: {
     title: "Responsáveis",

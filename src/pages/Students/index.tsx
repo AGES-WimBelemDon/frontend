@@ -71,10 +71,10 @@ export default function Students() {
                       {student.fullName}
                     </Typography>
                     <Typography variant="body1" component="h2" fontWeight="semi-bold">
-                      {"Aniversário: " + formatDate(student.dateOfBirth)}
+                      {strings.students.birthday({ date: formatDate(student.dateOfBirth) })}
                     </Typography>
                     <Typography variant="body1" component="h2" fontWeight="semi-bold">
-                      {student.registrationNumber ? `CPF: ${student.registrationNumber}` : ""}
+                      {student.registrationNumber ? strings.students.registrationNumber({ registrationNumber: student.registrationNumber }) : ""}
                     </Typography>
                   </Box>
                   <Box 

@@ -378,6 +378,8 @@ export const englishTextMap = {
     studentsError: "Error loading students",
     noStudents: "No students found",
     editStudent: "Edit Student",
+    birthday: ({ date }: Params<"date">) => `Birthday: ${date}`,
+    registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
   },
   studentsResponsibles: {
     title: "Guardians",
