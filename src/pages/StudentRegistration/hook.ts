@@ -106,14 +106,22 @@ export function useStudentRegistration() {
     }
   }
 
-  function filterByPrefix<T extends Record<string, unknown>>(formData: FormData, prefix: string): Partial<T> {
+  function filterByPrefix<T extends Record<string, unknown>>(
+    formData: FormData,
+    prefix: string
+  ): Partial<T> {
     const entries = Array.from(formData.entries());
-    const filteredEntries = entries
-      .filter(([key, value]) => key.startsWith(prefix) && Boolean(value));
-    const reducedEntries = filteredEntries.reduce((acc, [key, value]) => {
-      acc[key] = value;
-      return acc;
-    }, {} as Record<string, unknown>);
+    const filteredEntries = entries.filter(
+      ([key, value]) => key.startsWith(prefix) && Boolean(value)
+    );
+    const reducedEntries = filteredEntries.reduce(
+      (acc, [key, value]) => {
+        const newKey = key.replace(prefix, "");
+        acc[newKey] = value;
+        return acc;
+      },
+      {} as Record<string, unknown>
+    );
     return reducedEntries as Partial<T>;
   }
 
