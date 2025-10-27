@@ -283,7 +283,7 @@ const ClassesModal: React.FC = () => {
 
         {activeStep === 1 && (
           <Box display="flex" flexDirection="column" gap={2}   >
-            <Filters label={strings.classesModal.inputs.searchTeacher} name={nameTeacher} onChange={setNameTeacher} placeholder="Pesquisar Professor" />
+            <Filters label={strings.classesModal.inputs.assignTeacher} name={nameTeacher} onChange={setNameTeacher} placeholder={strings.classesModal.inputs.searchTeacher} />
             <FormControl sx={{ overflow: "auto", minHeight: 125, maxHeight: 250 }}>
               {filtredUsers.length > 0 &&
                 filtredUsers.map((user) => (
@@ -313,7 +313,7 @@ const ClassesModal: React.FC = () => {
         )}
         {activeStep === 2 && (
           <Box display="flex" flexDirection="column" gap={0.5} >
-            <Filters label={strings.classesModal.inputs.searchTeacher} name={nameStudent} onChange={setNameStudent} placeholder="Pesquisar Aluno" />
+            <Filters label={strings.classesModal.inputs.addStudent} name={nameStudent} onChange={setNameStudent} placeholder={strings.classesModal.inputs.searchStudent} />
             <FormControl sx={{ overflow: "auto", minHeight: 125, maxHeight: 250 }}>
               {filtredStudents.length > 0 &&
                 filtredStudents.map((student) => (

@@ -208,7 +208,9 @@ export const portugueseTextMap = {
       endTime: "Horário de Término",
       level: "Nível",
       searchTeacher: "Pesquisar Professor",
+      assignTeacher: "Atribuir Professor",
       searchStudent: "Pesquisar Educando",
+      addStudent: "Adicionar Educando"
     },
     buttons: {
       next: "Próximo",

@@ -210,7 +210,9 @@ export const englishTextMap = {
       endTime: "End Time",
       level: "Level",
       searchTeacher: "Search Teacher",
+      assignTeacher: "Assign Teacher",
       searchStudent: "Search Student",
+      addStudent: "Add Student"
 
     },
     buttons: {

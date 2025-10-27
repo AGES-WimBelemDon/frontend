@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 
 import { CardList } from "../../components/CardList";
-import { useScreenSize } from "../../hooks/useScreenSize";
 
 interface FilterProps {
   label: string;
@@ -23,7 +22,6 @@ export function Filters({
   placeholder,
   onChange
 }: FilterProps) {
-  const { isMobile } = useScreenSize();
 
   const filterBoxStyle: SxProps = {
     width: "100%",
@@ -42,7 +40,7 @@ export function Filters({
         <Typography>{label}</Typography>
         <TextField
           variant="outlined"
-          placeholder={isMobile ? `${placeholder}` : `Insira o nome do ${placeholder}`}
+          placeholder={placeholder}
           fullWidth
           value={name}
           onChange={(e) => onChange(e.target.value)}
