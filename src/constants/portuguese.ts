@@ -204,10 +204,9 @@ export const portugueseTextMap = {
     recurring: "Atividade Recorrente",
     inputs: {
       classLevel: "Nível da Turma",
-      classDay: "Dia da Turma",
-      classTime: "Horário da turma",
+      startTime: "Horário de Início",
+      endTime: "Horário de Término",
       level: "Nível",
-      addStudentPlaceholder: "Digite o nome do aluno",
       searchTeacher: "Pesquisar Professor",
       searchStudent: "Pesquisar Educando",
     },

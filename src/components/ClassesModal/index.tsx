@@ -32,6 +32,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Filters } from "./filters";
 import { useClassesModal, type IClassesModalForm } from "./hook";
 import { strings } from "../../constants";
+import { useScreenSize } from "../../hooks/useScreenSize";
 import { theme } from "../../styles/theme";
 
 const ClassesModal: React.FC = () => {
@@ -40,7 +41,8 @@ const ClassesModal: React.FC = () => {
       level: "",
       recurring: false,
       weekDays: [],
-      time: null,
+      startTime: null,
+      endTime: null,
     },
   });
 
@@ -60,6 +62,7 @@ const ClassesModal: React.FC = () => {
     setSelectedTeachers
   } = useClassesModal();
 
+  const { isMobile } = useScreenSize();
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -131,6 +134,7 @@ const ClassesModal: React.FC = () => {
         },
       }}
     >
+
       <DialogTitle
         fontWeight="bold"
         fontSize={22}
@@ -244,18 +248,36 @@ const ClassesModal: React.FC = () => {
               )}
             />
 
-            <InputLabel sx={{ color: theme.palette.text.primary }}>{strings.classesModal.inputs.classTime}</InputLabel>
-            <Controller
-              name="time"
-              control={control}
-              render={({ field }) => (
-                <TimePicker
-                  {...field}
-                  ampm={false}
-                  sx={{ borderRadius: 1, color: theme.palette.background.default }}
+            <Box sx={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 1, }}>
+              <Box sx={{ flex: 1, }}>
+                <InputLabel sx={{ color: theme.palette.text.primary }}> {strings.classesModal.inputs.startTime} </InputLabel>
+                <Controller
+                  name="startTime"
+                  control={control}
+                  render={({ field }) => (
+                    <TimePicker
+                      {...field}
+                      ampm={false}
+                      sx={{ width: "100%", borderRadius: 1, color: theme.palette.background.default }}
+                    />
+                  )}
                 />
-              )}
-            />
+              </Box>
+              <Box sx={{ flex: 1 }}>
+                <InputLabel sx={{ color: theme.palette.text.primary }}>{strings.classesModal.inputs.endTime}</InputLabel>
+                <Controller
+                  name="endTime"
+                  control={control}
+                  render={({ field }) => (
+                    <TimePicker
+                      {...field}
+                      ampm={false}
+                      sx={{ width: "100%", borderRadius: 1, color: theme.palette.background.default }}
+                    />
+                  )}
+                />
+              </Box>
+            </Box>
           </Box>
         )}
 

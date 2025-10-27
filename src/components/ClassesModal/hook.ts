@@ -14,7 +14,8 @@ export interface IClassesModalForm {
   level: string;
   recurring: boolean;
   weekDays: string[];
-  time: Dayjs | null;
+  startTime: Dayjs | null;
+  endTime: Dayjs | null;
 }
 
 interface UseClassesModalReturn {

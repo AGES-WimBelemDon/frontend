@@ -94,7 +94,7 @@ export default function TechDemo() {
           color="primary"
           onClick={() => openClassesModal()}
         >
-          Abrir Modal de Turmas
+          {strings.classes.createClass}
         </Button>
       </Grid>
 

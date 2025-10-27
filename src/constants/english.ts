@@ -202,10 +202,12 @@ export const englishTextMap = {
     pleaseFillAllFields: "Please fill in all fields.",
   },
   classesModal: {
+    title: "Create Class",
     recurring: "Recurring Activity",
     inputs: {
       classLevel: "Class Level",
-      classTime: "Class Time",
+      startTime: "Start Time",
+      endTime: "End Time",
       level: "Level",
       searchTeacher: "Search Teacher",
       searchStudent: "Search Student",
