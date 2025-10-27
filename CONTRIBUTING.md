@@ -754,8 +754,8 @@ This project uses modern web development tools and libraries to build a performa
 |---|---|---|
 | [MUI](https://mui.com/) | 7.3.1 | Material UI components and icons |
 | [Emotion](https://emotion.sh/docs/introduction) | 11.14.x | Styled components and CSS-in-JS support |
-| mui/x-date-pickers | 8.14.1 | Ui Design for date and time selection |
-| Dayjs | 1.11.18 | Date Formating |
+| [mui/x-date-pickers](https://mui.com/x/react-date-pickers/) | 8.14.1 | Ui Design for date and time selection |
+| [Dayjs](https://day.js.org/) | 1.11.18 | Date Formating |
 
 ### Build & Tooling
 | Technology | Version | Purpose / Description |
