@@ -272,8 +272,6 @@ const ClassesModal: React.FC = () => {
                     sx={{ borderBottom: "1px solid " + theme.palette.grey[300] }}
                     control={
                       <Checkbox
-                        icon={<RadioButtonUnchecked />}
-                        checkedIcon={<RadioButtonChecked />}
                         sx={{ color: theme.palette.primary.main }}
                         checked={selectedTeachers.includes(user.id)}
                         onChange={() => {
