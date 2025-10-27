@@ -7,8 +7,7 @@ import { strings } from "../../constants";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
 import { fetchAddress, type Address } from "../../services/address";
-import type { EmploymentStatus, Gender, Race, SocialPrograms } from "../../services/filters";
-import { addStudentDocument, registerAddress , registerStudent as apiRegisterStudent, type SchoolYear, type Student } from "../../services/students";
+import { addStudentDocument, registerAddress , registerStudent as apiRegisterStudent, type Student } from "../../services/students";
 
 export function useStudentRegistration() {
   const { showToast } = useToast()
@@ -57,75 +56,52 @@ export function useStudentRegistration() {
     setShowUploader(false);
   };
 
-  async function registerStudent(studentLikeObject: {
-    [k: string]: FormDataEntryValue;
-  }): Promise<string | undefined> {
+  async function registerStudent(studentData: Partial<Student>, addressData: Partial<Address>): Promise<string | undefined> {
     try {
-      
-      const student: Partial<Student> = {
-        fullName: studentLikeObject.fullName as string,
-        dateOfBirth: studentLikeObject.dateOfBirth as string,
-        registrationNumber: studentLikeObject.registrationNumber as string,
-        // enrollmentDate: studentLikeObject.enrollmentDate as string,
-        race: studentLikeObject.race as Race,
-        schoolName: studentLikeObject.schoolName as string,
-        schoolYear: studentLikeObject.schoolYear as SchoolYear,
-        socialName: studentLikeObject.socialName as string,
-        socialPrograms: studentLikeObject.socialPrograms as SocialPrograms, 
-        gender: studentLikeObject.gender as Gender,
-        employmentStatus: studentLikeObject.employmentStatus as EmploymentStatus,
-      }
-      const addressData = {
-        cep: studentLikeObject.cep as string,
-        street: studentLikeObject.street as string,
-        number: studentLikeObject.number as string,
-        complement: studentLikeObject.complement as string,
-        city: studentLikeObject.city as string,
-        state: studentLikeObject.state as string,
-        neighborhood: studentLikeObject.neighborhood as string
-      };
-      console.log("Student to register:", student);
-      console.log("Address to register:", addressData);
-
-      if(!student.fullName) {
+      if (!studentData.fullName) {
         showToast(strings.studentRegistration.errors.fullNameRequired, "error");
         return;
       }
-      if (!student.dateOfBirth || student.dateOfBirth === undefined) {
+
+      if (!studentData.dateOfBirth || studentData.dateOfBirth === undefined) {
         showToast(strings.studentRegistration.errors.dateOfBirthRequired, "error");
         return;
       }
-      if (!student.registrationNumber) {
+
+      if (!studentData.registrationNumber) {
         showToast(strings.studentRegistration.errors.registrationNumberRequired, "error");
         return;
       }
-      if (!student.schoolYear) {
+
+      if (!studentData.schoolYear) {
         showToast(strings.studentRegistration.errors.schoolYearRequired, "error");
         return;
       }
-      if (!student.gender) {
+
+      if (!studentData.gender) {
         showToast(strings.studentRegistration.errors.genderRequired, "error");
         return;
       }
-      // if (!student.enrollmentDate || student.enrollmentDate === undefined) {
+      // if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
       //   showToast(strings.studentRegistration.errors.enrollmentDateRequired, "error");
       //   return;
       // }
-      if (!addressData.cep) {
+      if (!addressData.code) {
         showToast(strings.studentRegistration.errors.addressCepRequired, "error");
         return;
       }
+
       if (!addressData.number) {
         showToast(strings.studentRegistration.errors.addressNumberRequired, "error");
         return;
       }
 
-      const newStudent = await apiRegisterStudent(student);
-      const studentAddress = await registerAddress(newStudent.id, addressData);
-
+      const newStudent = await apiRegisterStudent(studentData);
       if (!newStudent.id) {
         throw new Error("No ID returned from student registration");
       }
+      
+      const studentAddress = await registerAddress(newStudent.id, addressData);
       if (!studentAddress.id) {
         throw new Error("No ID returned from address registration");
       }
@@ -138,12 +114,24 @@ export function useStudentRegistration() {
     }
   }
 
+  function filterByPrefix<T extends Record<string, unknown>>(formData: FormData, prefix: string): Partial<T> {
+    const entries = Array.from(formData.entries());
+    const filteredEntries = entries
+      .filter(([key, value]) => key.startsWith(prefix) && Boolean(value));
+    const reducedEntries = filteredEntries.reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {} as Record<string, unknown>);
+    return reducedEntries as Partial<T>;
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const studentData = Object.fromEntries(formData.entries());
-    
-    registerStudent(studentData)
+    const studentData = filterByPrefix<Student>(formData, "student.");
+    const addressData = filterByPrefix<Address>(formData, "address.");
+
+    registerStudent(studentData, addressData)
       .then((studentId) => {
         if (!studentId) {
           throw new Error("Student ID is undefined");
@@ -170,4 +158,3 @@ export function useStudentRegistration() {
     setAddress,
   }
 }
-

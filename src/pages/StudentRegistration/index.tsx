@@ -13,7 +13,6 @@ import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
-
 export default function StudentRegistration() {
   const { goBack } = useRoutes();
   
@@ -67,7 +66,7 @@ export default function StudentRegistration() {
 
         <TextField
           required
-          name="fullName"
+          name="student.fullName"
           label={strings.studentRegistration.name}
           fullWidth
           margin="normal"
@@ -77,7 +76,7 @@ export default function StudentRegistration() {
           }}
         />
         <TextField
-          name="socialName"
+          name="student.socialName"
           label={strings.studentRegistration.socialName}
           fullWidth
           margin="normal"
@@ -89,7 +88,7 @@ export default function StudentRegistration() {
 
         <TextField
           required
-          name="dateOfBirth"
+          name="student.dateOfBirth"
           label={strings.studentRegistration.dateOfBirth}
           fullWidth
           margin="normal"
@@ -102,7 +101,7 @@ export default function StudentRegistration() {
 
         <TextField
           required
-          name="gender"
+          name="student.gender"
           label={strings.filters.gender.title}
           select={!!genderOptions}
           defaultValue={!genderOptions ? strings.filters.loading : ""}
@@ -119,7 +118,7 @@ export default function StudentRegistration() {
 
         <TextField
           required
-          name="race"
+          name="student.race"
           label={strings.filters.race.title}
           select={!!raceOptions}
           defaultValue={!raceOptions ? strings.filters.loading : ""}
@@ -135,7 +134,7 @@ export default function StudentRegistration() {
         </TextField>
     
         <TextField
-          name="enrollmentDate"
+          name="student.enrollmentDate"
           label={strings.studentRegistration.enrollmentDate}
           fullWidth
           margin="normal"
@@ -160,7 +159,7 @@ export default function StudentRegistration() {
         </Typography>
         <TextField
           required
-          name="registrationNumber"
+          name="student.registrationNumber"
           label={strings.studentRegistration.registrationNumber}
           placeholder="xxx.xxx.xxx-xx"
           fullWidth
@@ -346,7 +345,7 @@ export default function StudentRegistration() {
         
         <TextField
           required
-          name="schoolYear"
+          name="student.schoolYear"
           label={strings.filters.schoolYear.title}
           select={!!schoolYearOptions}
           defaultValue={!schoolYearOptions ? strings.filters.loading : ""}
@@ -362,7 +361,7 @@ export default function StudentRegistration() {
         </TextField>
 
         <TextField
-          name="schoolName"
+          name="student.schoolName"
           label={strings.studentRegistration.schoolName}
           fullWidth
           margin="normal"
@@ -373,7 +372,7 @@ export default function StudentRegistration() {
         />
 
         <TextField
-          name="socialPrograms"
+          name="student.socialPrograms"
           label={strings.filters.socialPrograms.title}
           select={!!socialProgramsOptions}
           defaultValue={!socialProgramsOptions ? strings.filters.loading : ""}
@@ -389,7 +388,7 @@ export default function StudentRegistration() {
         </TextField>
 
         <TextField
-          name="employmentStatus"
+          name="student.employmentStatus"
           label={strings.filters.employmentStatus.title}
           select={!!employmentStatusOptions}
           defaultValue={!employmentStatusOptions ? strings.filters.loading : employmentStatusOptions.find(option => option.id.toLowerCase() === "estudante")?.id || ""}
@@ -420,7 +419,7 @@ export default function StudentRegistration() {
 
         <TextField
           required
-          name="cep"
+          name="address.code"
           label={strings.studentRegistration.address.zipCode}
           placeholder={strings.studentRegistration.address.zipCodePlaceholder}
           fullWidth
@@ -437,7 +436,7 @@ export default function StudentRegistration() {
         {address?.street && (
           <>
             <TextField
-              name="street"
+              name="address.street"
               label={strings.studentRegistration.address.street}
               fullWidth
               margin="normal"
@@ -454,7 +453,7 @@ export default function StudentRegistration() {
             <TextField
               required
               
-              name="number"
+              name="address.number"
               label={strings.studentRegistration.address.number}
               placeholder={strings.studentRegistration.address.numberPlaceholder}
               fullWidth
@@ -464,7 +463,7 @@ export default function StudentRegistration() {
               }}
             />
             <TextField
-              name="state"
+              name="address.state"
               label={strings.studentRegistration.address.state}
               value={address?.state}
               fullWidth
@@ -479,7 +478,7 @@ export default function StudentRegistration() {
               }}
             />
             <TextField
-              name="city"
+              name="address.city"
               label={strings.studentRegistration.address.city}
               value={address?.city}
               fullWidth
@@ -495,7 +494,7 @@ export default function StudentRegistration() {
             />
             
             <TextField
-              name="neighborhood"
+              name="address.neighborhood"
               label={strings.studentRegistration.address.neighborhood}
               value={address?.neighborhood}
               fullWidth
@@ -511,7 +510,7 @@ export default function StudentRegistration() {
             />
             
             <TextField
-              name="complement"
+              name="address.complement"
               label={strings.studentRegistration.address.complement}
               value={address?.complement}
               placeholder={strings.studentRegistration.address.complementPlaceholder}
