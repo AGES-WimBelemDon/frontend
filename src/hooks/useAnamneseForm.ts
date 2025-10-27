@@ -9,7 +9,7 @@ import {
   type AnamneseSubmission,
   type AnamneseFormInfo,
   type Question,
-} from "../services/anamnese";
+} from "../services/anamnesis";
 
 export const useAnamneseForm = () => {
   const { studentId, formId } = useParams<{ studentId: string; formId: string }>();

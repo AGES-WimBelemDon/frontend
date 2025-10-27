@@ -70,7 +70,7 @@ const mockQuestionSets: { [key: string]: Question[] } = {
 export async function getQuestions(formId: string): Promise<Question[]> {
   try {
     // TODO: This endpoint is a placeholder, replace with the actual endpoint
-    const response = await api.get<Question[]>(`${endpoints.anamnese}/${formId}/questions`);
+    const response = await api.get<Question[]>(`${endpoints.anamnesis}/${formId}/questions`);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -81,7 +81,7 @@ export async function getQuestions(formId: string): Promise<Question[]> {
 
 export async function postAnamnese(submission: AnamneseSubmission): Promise<{ id: string }> {
   try {
-    const response = await api.post(endpoints.anamnese, submission);
+    const response = await api.post(endpoints.anamnesis, submission);
     return response.data;
   } catch (error) {
     console.error("Error posting anamnese:", error);

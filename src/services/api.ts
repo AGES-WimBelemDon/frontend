@@ -4,7 +4,7 @@ import { getAuthToken } from "./auth.firebase";
 
 const endpoints = {
   activities: "/activities",
-  anamnese: "/anamnesis",
+  anamnesis: "/anamnesis",
   classes: "/classes",
   filters: {
     race: "/filters/race",
