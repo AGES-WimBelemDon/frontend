@@ -261,8 +261,8 @@ export function ClassesModal() {
               {filteredTeachers.map((teacher) => (
                 <FormControlLabel
                   key={teacher.id}
-                  label={teacher.full_name}
-                  value={teacher.full_name}
+                  label={teacher.fullName}
+                  value={teacher.fullName}
                   sx={{ borderBottom: "1px solid", borderBottomColor: "grey.300" }}
                   control={
                     <Checkbox
