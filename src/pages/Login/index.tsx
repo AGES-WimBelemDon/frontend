@@ -63,6 +63,7 @@ export default function Login() {
         startIcon={<GoogleIcon />}
         onClick={onGoogleLogin}
         disabled={isLoggingIn}
+        data-cy="login-button"
         aria-label={isLoggingIn ? strings.login.loggingIn : strings.login.loginWithGoogle}
         aria-busy={isLoggingIn}
         title={strings.login.loginWithGoogle}

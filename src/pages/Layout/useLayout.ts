@@ -3,13 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 
 import { AuthContext } from "../../contexts/Auth/AuthContext";
-import type { LocationState } from "../../hooks/useRoutes";
+// import type { LocationState } from "../../hooks/useRoutes";
 
 export function useLayout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, isLoadingAuth } = useContext(AuthContext);
-  const [isVerifying, setIsVerifying] = useState(true);
+  const [isVerifying, setIsVerifying] = useState(false);
 
   useEffect(
     function verifyAuthEffect() {
@@ -20,11 +20,12 @@ export function useLayout() {
 
         if (!user) {
           console.warn("No authenticated user found, redirecting to login");
-          const state: LocationState = { from: location };
-          navigate("/login", {
-            replace: true,
-            state,
-          });
+          // TODO: Enable login redirection when login is implemented on backend
+          // const state: LocationState = { from: location };
+          // navigate("/login", {
+          //   replace: true,
+          //   state,
+          // });
           return;
         }
 
