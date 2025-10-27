@@ -344,6 +344,7 @@ export const portugueseTextMap = {
       openErrorToast: "Abrir toast de ERRO!",
       openInfoToast: "Abrir toast de INFO!",
       openModal: "Abrir Modal",
+      openClassesModal: "Abrir Modal de Turma",
       testToast: "Teste de Toast",
       testCloseableToast: "Teste de Toast fechável",
     },

@@ -331,7 +331,7 @@ const ClassesModal: React.FC = () => {
           </Button>
         )}
         <Button variant="contained" onClick={handleNext}>
-          {activeStep === steps.length - 1 ? "Cadastrar" : "Próximo"}
+          {activeStep === steps.length - 1 ? strings.classesModal.buttons.create : strings.classesModal.buttons.next}
         </Button>
       </DialogActions>
     </Dialog>
