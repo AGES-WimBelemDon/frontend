@@ -1,6 +1,8 @@
-import BlockIcon from "@mui/icons-material/Block";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import EditIcon from "@mui/icons-material/Edit";
+import {
+  Block as BlockIcon,
+  CheckCircleOutline as CheckCircleOutlineIcon,
+  Edit as EditIcon,
+} from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -47,16 +49,20 @@ export default function Users() {
   return (
     <>
       <PageTitle title={strings.users.title} dataCy="users-page-title" />
+      
+      <Box
+        component="form"
+        onSubmit={registerUser}
+        width="100%"
+        gap={3}
+        display="flex"
+        flexDirection="column"
+      >
+        <Typography variant="h6" component="h2">
+          {strings.users.registerNew}
+        </Typography>
 
-      <Box component="form" onSubmit={registerUser} sx={{
-        gap: 2,
-        display: "grid",
-        gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr auto" },
-        alignItems: "center",
-        mt: 2,
-        mb: 2,
-      }}>
-        <FormControl required variant="outlined">
+        <FormControl fullWidth required variant="outlined">
           <InputLabel htmlFor="name">{strings.users.inputs.name}</InputLabel>
           <OutlinedInput
             id="name"
@@ -70,7 +76,7 @@ export default function Users() {
           />
         </FormControl>
 
-        <FormControl required variant="outlined">
+        <FormControl fullWidth required variant="outlined">
           <InputLabel htmlFor="email">{strings.users.inputs.email}</InputLabel>
           <OutlinedInput
             id="email"
@@ -91,7 +97,7 @@ export default function Users() {
           variant="contained"
           color="primary"
           data-cy="create-user-submit"
-          sx={{ justifySelf: { xs: "stretch", sm: "start" } }}
+          sx={{ alignSelf: "flex-start" }}
         >
           {strings.users.inputs.register}
         </Button>

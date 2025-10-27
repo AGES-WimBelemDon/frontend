@@ -17,7 +17,7 @@ export async function login(token: string): Promise<UserResponse> {
     return response.data;
   } catch (error) {
     console.error("API Error in login:", error);
-    throw error;
+    throw new Error("Error logging in user");
   }
 }
 
@@ -28,7 +28,8 @@ export async function getUsers({
     const endpoint = status ? `${endpoints.users.getAll}?status=${status}` : endpoints.users.getAll;
     const response = await api.get<UserResponse[]>(endpoint);
     return response.data;
-  } catch {
+  } catch (error) {
+    console.error("API Error in getUsers:", error);
     // TODO: This should only work for development, remove in production
     let id = 0;
     const mockResponse = await Promise.resolve({

@@ -6,6 +6,7 @@ export type ValidRoute =
   | "/alunos"
   | "/anamnese"
   | "/atividades"
+  | "/login"
   | "/turmas"
   | "/usuarios"
   | "/tech-demo"
@@ -41,6 +42,7 @@ export function useRoutes() {
     "/atividades",
     "/anamnese",
     "/frequencias/atividades",
+    "/login",
     "/turmas",
     "/usuarios",
     "/tech-demo",

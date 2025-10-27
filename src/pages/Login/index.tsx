@@ -42,7 +42,7 @@ export default function Login() {
         src={logo}
         alt={strings.login.logoAlt}
         sx={{
-          width: { xs: "200px", sm: "300px", md: "380px" },
+          width: { xs: "300px", sm: "350px", md: "400px" },
           height: "auto",
           marginBottom: 4,
         }}
@@ -64,6 +64,7 @@ export default function Login() {
           paddingY: 1.5,
           fontSize: "1rem",
           textTransform: "none",
+          width: { xs: "80%", sm: "60%", md: "40%" },
           minWidth: { xs: 240, sm: 340, md: 460 },
         }}
       >
