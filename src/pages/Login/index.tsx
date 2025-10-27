@@ -33,7 +33,7 @@ export default function Login() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: (theme) => 
+        background: (theme) =>
           `linear-gradient(to bottom right, ${theme.palette.secondary.main}4D, ${theme.palette.primary.main}4D)`,
       }}
     >
@@ -45,9 +45,16 @@ export default function Login() {
           width: { xs: "300px", sm: "350px", md: "400px" },
           height: "auto",
           marginBottom: 4,
+          transformOrigin: "50% 50%",
+          "@keyframes spin": {
+            "0%": { transform: "rotate(0deg)" },
+            "100%": { transform: "rotate(360deg)" },
+          },
+          animation: isLoggingIn ? "spin 5s linear infinite" : "none",
+          animationDelay: "200ms",
         }}
       />
-      
+
       <Button
         type="button"
         variant="contained"
