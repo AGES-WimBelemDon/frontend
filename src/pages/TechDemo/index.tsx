@@ -99,8 +99,8 @@ export default function TechDemo() {
       </Grid>
 
       <NewResponsibleModal />
-
       <ClassesModal />
+
       <Outlet />
     </>
   );
