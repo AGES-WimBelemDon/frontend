@@ -109,7 +109,6 @@ export const englishTextMap = {
       incomeProof: "Proof of Income",
       other: "Other",
     },
-
     weekDays: {
       title: "Week Day",
       monday: "Monday",
