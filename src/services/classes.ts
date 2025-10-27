@@ -10,6 +10,15 @@ type ApiClass = {
   teacher: string; 
 };
 
+export async function createClasses(data: ApiClass): Promise<number | null> {
+  try {
+    const response = await api.post(endpoints.classes, data)
+    return response.status;
+  } catch {
+    return null;
+  }
+}
+
 export async function getClasses(): Promise<ApiClass[]> {
   try {
     const response = await api.get<ApiClass[]>(endpoints.classes);

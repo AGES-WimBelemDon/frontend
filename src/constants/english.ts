@@ -202,6 +202,33 @@ export const englishTextMap = {
     successMessage: "Guardian added successfully!",
     pleaseFillAllFields: "Please fill in all fields.",
   },
+  classesModal: {
+    title: "Create Class",
+    recurring: "Recurring Activity",
+    inputs: {
+      classLevel: "Class Level",
+      startTime: "Start Time",
+      endTime: "End Time",
+      level: "Level",
+      searchTeacher: "Search Teacher",
+      assignTeacher: "Assign Teacher",
+      searchStudent: "Search Student",
+      addStudent: "Add Student",
+    },
+    buttons: {
+      next: "Next",
+      back: "Back",
+      create: "Create",
+    },
+    steps: {
+      data: "Data",
+      teacher: "Teachers",
+      student: "Educandos",
+    },
+    createSuccessMessage: "Class created successfully!",
+    createErrorFillAllFields: "Please fill in all fields.",
+    createErrorGeneric: "Error creating class. Please try again.",
+  },
   personCard: {
     userImageAlt: "User image",
     name: "Name:",
@@ -324,6 +351,7 @@ export const englishTextMap = {
       openErrorToast: "Open ERROR toast!",
       openInfoToast: "Open INFO toast!",
       openModal: "Open modal",
+      openClassesModal: "Create Class Modal",
       testToast: "Test Toast",
       testCloseableToast: "Test Closeable Toast"
     },
