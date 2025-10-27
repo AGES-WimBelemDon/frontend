@@ -1,16 +1,16 @@
-import { useNavigate } from "react-router";
-
+import type { FormCard } from "./interface";
 import { CardList } from "../../../components/CardList";
 import { PageTitle } from "../../../components/PageTitle";
 import { TextCard } from "../../../components/TextCard";
 import { strings } from "../../../constants";
+import { useRoutes } from "../../../hooks/useRoutes";
 
-const SelectForm = () => {
-  const cards: { id: number; title: string }[] = [
+export default function SelectForm() {
+  const cards: FormCard[] = [
     { id: 1, title: "Psico" },
     { id: 2, title: "Serviço Social" },
   ];
-  const navigate = useNavigate();
+  const { goTo } = useRoutes();
 
   return (
     <>
@@ -21,12 +21,10 @@ const SelectForm = () => {
             key={card.id}
             title={card.title}
             theme="light"
-            onClick={() => navigate(`form/${card.id}`)}
+            onClick={() => goTo("/anamnese", `/form/${card.id}`)}
           />
         ))}
       </CardList>
     </>
   );
 };
-
-export default SelectForm;
