@@ -20,8 +20,14 @@ const endpoints = {
     weekDays: "/filters/week-days",
     levels: "/filters/levels",
     civilStates: "/filters/civil-states",
+    schoolYear: "/filters/school-year",
   },
-  students: "/students",
+  students: {
+    base: "/students",
+    byId: (studentId: number) => `/students/${studentId}`,
+    byCpf: (cpf: string) => `/students/cpf/${cpf}`,
+    address: (studentId: number) => `/students/${studentId}/address`,
+  },
   users: "/users",
 }
 

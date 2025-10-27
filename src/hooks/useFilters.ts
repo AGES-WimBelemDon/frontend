@@ -11,12 +11,13 @@ import {
   getDocumentTypesFilter,
   getWeekDaysFilter,
   getLevelsFilter,
-  getCivilStatesFilter
+  getCivilStatesFilter,
+  getSchoolYearsFilter
 } from "../services/filters";
 import type { 
   Race, 
   Gender, 
-  SocialProgram, 
+  SocialPrograms, 
   EmploymentStatus,
   IdentityType,
   DocumentType,
@@ -24,7 +25,7 @@ import type {
   Level,
   CivilState
 } from "../services/filters";
-import type { EducationLevel } from "../services/students";
+import type { EducationLevel, SchoolYear } from "../services/students";
 
 export type FilterOption<T> = {
   id: T;
@@ -46,7 +47,7 @@ const genderFilterOptionsMap: Record<Gender, keyof typeof strings.filters.gender
   OUTRO: "other",
 }
 
-const socialProgramOptionsMap: Record<SocialProgram, keyof typeof strings.filters.socialPrograms> = {
+const socialProgramOptionsMap: Record<SocialPrograms, keyof typeof strings.filters.socialPrograms> = {
   BOLSA_FAMILIA: "bolsaFamilia",
   BPC_LOAS: "bpcLoas",
   TARIFA_SOCIAL_DE_ENERGIA: "tarifaSocialDeEnergia",
@@ -109,6 +110,16 @@ const civilStatesFilterOptionsMap: Record<CivilState, keyof typeof strings.filte
   VIUVO: "widowed",
 }
 
+const schoolYearFilterOptionsMap: Record<SchoolYear, keyof typeof strings.filters.schoolYear> = {
+  EDUCACAO_INFANTIL: "infantileEducation",
+  FUNDAMENTAL_1: "elementary1",
+  FUNDAMENTAL_2: "elementary2",
+  ENSINO_MEDIO_1: "highSchool1",
+  ENSINO_MEDIO_2: "highSchool2",
+  ENSINO_MEDIO_3: "highSchool3",
+  EJA: "eja",
+}
+
 function filterOptionsMapper<
   T extends string,
   U extends keyof typeof strings.filters
@@ -150,7 +161,7 @@ export function useFilters() {
     staleTime: Infinity
   })
   
-  const { data: socialProgramOptions } = useQuery({
+  const { data: socialProgramsOptions } = useQuery({
     queryKey: ["filters", "socialPrograms"],
     queryFn: () => queryFunction(getSocialProgramsFilter, socialProgramOptionsMap, "socialPrograms"),
     staleTime: Infinity
@@ -198,16 +209,23 @@ export function useFilters() {
     staleTime: Infinity
   })
 
+  const { data: schoolYearOptions } = useQuery({
+    queryKey: ["filters", "schoolYears"],
+    queryFn: () => queryFunction(getSchoolYearsFilter, schoolYearFilterOptionsMap, "schoolYear"),
+    staleTime: Infinity
+  })
+
   return {
     genderOptions,
     raceOptions,
     educationLevels,
     identityTypesOptions,
     documentTypesOptions,
-    socialProgramOptions,
+    socialProgramsOptions,
     employmentStatusOptions,
     weekDaysOptions,
     levelOptions,
     civilStateOptions,
+    schoolYearOptions,
   };
 }

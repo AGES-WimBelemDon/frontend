@@ -32,8 +32,8 @@ export function useClassesModal() {
   const isOpen = searchParams.get("action") === "open-classes-modal";
 
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
-  const [selectedTeachers, setSelectedTeachers] = useState<string[]>([]);
+  const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
+  const [selectedTeachers, setSelectedTeachers] = useState<number[]>([]);
   
   const { control, getValues, reset } = useForm<ClassesModalForm>({
     defaultValues: {

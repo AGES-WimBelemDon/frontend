@@ -13,6 +13,7 @@ export default function Students() {
     handleCreateNewStudent,
     handleCreateResponsible,
     handleEditStudents,
+    formatDate,
   } = useStudentsPage();
 
   if (isLoadingStudents) {
@@ -58,11 +59,30 @@ export default function Students() {
           {students.map((student) => (
             <Card key={student.id} variant="outlined" sx={{ borderRadius: 2, border: "1px solid" }}>
               <CardContent sx={{ backgroundColor: "background.default" }}>
-                <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <Typography variant="h6" component="h2">
-                    {student.fullName}
-                  </Typography>
-                  <Box display="flex" gap={1}>
+                <Box 
+                  display="flex" 
+                  flexDirection={{ xs: "column", md: "row" }}
+                  justifyContent="space-between" 
+                  alignItems={{ xs: "flex-start", md: "center" }}
+                  gap={2}
+                >
+                  <Box display="flex" flexDirection="column">
+                    <Typography variant="h6" component="h2" fontWeight="bold">
+                      {student.fullName}
+                    </Typography>
+                    <Typography variant="body1" component="h2" fontWeight="semi-bold">
+                      {strings.students.birthday({ date: formatDate(student.dateOfBirth) })}
+                    </Typography>
+                    <Typography variant="body1" component="h2" fontWeight="semi-bold">
+                      {student.registrationNumber ? strings.students.registrationNumber({ registrationNumber: student.registrationNumber }) : ""}
+                    </Typography>
+                  </Box>
+                  <Box 
+                    display="flex" 
+                    flexDirection={{ xs: "column", sm: "row" }}
+                    gap={1}
+                    width={{ xs: "100%", md: "auto" }}
+                  >
                     <Button
                       variant="outlined"
                       color="primary"
@@ -71,7 +91,8 @@ export default function Students() {
                       sx={{
                         fontWeight: "bold",
                         border: "2px solid",
-                        borderRadius: 2
+                        borderRadius: 2,
+                        width: { xs: "100%", sm: "auto" }
                       }}
                     >
                       {strings.students.editStudent}
@@ -79,15 +100,17 @@ export default function Students() {
                     <Button
                       variant="outlined"
                       color="secondary"
+                      size="small"
                       startIcon={<PersonAddIcon />}
                       onClick={() => handleCreateResponsible(student.id)}
                       sx={{
                         fontWeight: "bold",
                         border: "2px solid",
-                        borderRadius: 2
+                        borderRadius: 2,
+                        width: { xs: "100%", sm: "auto" }
                       }}
                     >
-                      {strings.students.createResponsible}
+                      {strings.students.viewResponsible}
                     </Button>
                   </Box>
                 </Box>

@@ -11,7 +11,6 @@ import FrequencyClasses from "../pages/FrequencyClasses";
 import Home from "../pages/Home";
 import Layout from "../pages/Layout";
 import ResponsibleRegistration from "../pages/ResponsibleRegistration";
-import StudentEdition from "../pages/StudentEdition";
 import StudentRegistration from "../pages/StudentRegistration";
 import Students from "../pages/Students";
 import TechDemo from "../pages/TechDemo";
@@ -26,7 +25,7 @@ function AppRouter() {
           <Route index element={<Home />} />
           <Route path="alunos" element={<Students />} />
           <Route path="alunos/cadastro" element={<StudentRegistration />} />
-          <Route path="alunos/:id/editar" element={<StudentEdition />} />
+          <Route path="alunos/:id/editar" element={<StudentRegistration />} />
           <Route path="alunos/:id/responsaveis" element={<ResponsibleRegistration />} />
           <Route path="anamnese" element={<SelectForm />} />
           <Route path="anamnese/form/:id" element={<AnamnesisForm />} />

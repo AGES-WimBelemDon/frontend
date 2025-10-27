@@ -152,6 +152,16 @@ export const portugueseTextMap = {
       divorced: "Divorciado(a)",
       widowed: "Viúvo(a)",
     },
+    schoolYear: {
+      title: "Ano Escolar",
+      infantileEducation: "Educação Infantil",
+      elementary1: "Fundamental 1",
+      elementary2: "Fundamental 2",
+      highSchool1: "Ensino Médio 1",
+      highSchool2: "Ensino Médio 2",
+      highSchool3: "Ensino Médio 3",
+      eja: "EJA",
+    },
   },
   frequency: {
     title: "Realizar Chamada",
@@ -198,7 +208,7 @@ export const portugueseTextMap = {
   },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
-    buttonText: "Adicionar Responsável",
+    buttonText: "Ver Responsável",
     inputs: {
       name: "Nome",
       namePlaceholder: "Digite o nome do responsável",
@@ -274,9 +284,15 @@ export const portugueseTextMap = {
   studentRegistration: {
     personalInformation: "Informações Pessoais",
     name: "Nome",
+    socialName: "Nome social",
     namePlaceholder: "Nome completo",
+    socialNamePlaceholder: "Nome social",
     dateOfBirth: "Data de Nascimento",
     address: {
+      title: "Endereço",
+      state: "Estado",
+      city: "Cidade",
+      neighborhood: "Bairro",
       zipCode: "CEP",
       zipCodePlaceholder: "xxxxxxxx",
       street: "Logradouro",
@@ -306,6 +322,16 @@ export const portugueseTextMap = {
     cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
     errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
+    errors: {
+      fullNameRequired: "O nome completo do estudante é obrigatório",
+      dateOfBirthRequired: "A data de nascimento do estudante é obrigatória",
+      registrationNumberRequired: "O número de documento do estudante é obrigatório",
+      schoolYearRequired: "O nível de escolaridade do estudante é obrigatório",
+      genderRequired: "O gênero do estudante é obrigatório",
+      enrollmentDateRequired: "A data de cadastro do estudante é obrigatória",
+      addressCepRequired: "O CEP do endereço do estudante é obrigatório",
+      addressNumberRequired: "O número do endereço do estudante é obrigatório",
+    },
   },
   studentEdition: {
     personalInformation: "Informações Pessoais",
@@ -346,11 +372,13 @@ export const portugueseTextMap = {
   students: {
     title: "Educandos",
     createNew: "Adicionar Educando",
-    createResponsible: "Adicionar Responsável",
+    viewResponsible: "Ver Responsáveis",
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
     editStudent: "Editar Educando",
+    birthday: ({ date }: Params<"date">) => `Aniversário: ${date}`,
+    registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
   },
   studentsResponsibles: {
     title: "Responsáveis",
