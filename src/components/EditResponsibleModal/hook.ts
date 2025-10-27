@@ -27,35 +27,35 @@ export function useEditResponsibleModal({
 
 
         setFormData({
-        fullName: data.fullName || "",
-        socialName: data.socialName || "",
-        registrationNumber: data.registrationNumber || "",
-        dateOfBirth: data.dateOfBirth || "",
-        nis: data.nis || "",
-        phoneNumber: data.phoneNumber || "",
-        email: data.email || "",
-        relationship: data.relationship || "",
-        race: data.race || "",
-        gender: data.gender || "",
-        educationLevel: data.educationLevel || "",
-        socialPrograms: data.socialPrograms || "",
-        employmentStatus: data.employmentStatus || "",
-      });
+          fullName: data.fullName || "",
+          socialName: data.socialName || "",
+          registrationNumber: data.registrationNumber || "",
+          dateOfBirth: data.dateOfBirth || "",
+          nis: data.nis || "",
+          phoneNumber: data.phoneNumber || "",
+          email: data.email || "",
+          relationship: data.relationship || "",
+          race: data.race || "",
+          gender: data.gender || "",
+          educationLevel: data.educationLevel || "",
+          socialPrograms: data.socialPrograms || "",
+          employmentStatus: data.employmentStatus || "",
+        });
 
-      setAddress({
-        street: addressData.street || "",
-        neighborhood: addressData.neighborhood || "",
-        city: addressData.city || "",
-        state: addressData.state || "",
-        cep: addressData.cep || "",
-        number: addressData.number || "",
-        complement: addressData.complement || "",
-      });
-    } catch {
-      console.error("Erro ao carregar dados do responsável:", "error");
-      showToast("Erro ao carregar os dados do responsável.", "error");
+        setAddress({
+          street: addressData.street || "",
+          neighborhood: addressData.neighborhood || "",
+          city: addressData.city || "",
+          state: addressData.state || "",
+          cep: addressData.cep || "",
+          number: addressData.number || "",
+          complement: addressData.complement || "",
+        });
+      } catch {
+        console.error("Erro ao carregar dados do responsável:", "error");
+        showToast("Erro ao carregar os dados do responsável.", "error");
+      }
     }
-  }
 
     fetchResponsibleData();
   }, [responsibleId, showToast]);
