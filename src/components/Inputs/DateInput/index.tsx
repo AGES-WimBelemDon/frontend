@@ -76,7 +76,7 @@ export function DateInput({ id, label }: { id: string, label: string }) {
         {label}
       </Typography>
       <Box sx={{ display: "flex", gap: { xs: 1, sm: 1.5 }, alignItems: "flex-end", flexWrap: "wrap" }}>
-        <Box sx={{ display: "flex", flexDirection: "column", minWidth: { xs: "70px", sm: "70px" } }}>
+        <Box sx={{ display: "flex", flexDirection: "column", flex: { xs: 1, sm: 0 }, minWidth: { xs: "0", sm: "70px" } }}>
           <Typography 
             fontSize={13} 
             color="grey.600" 
@@ -94,7 +94,7 @@ export function DateInput({ id, label }: { id: string, label: string }) {
             }}
             displayEmpty
             sx={{
-              width: { xs: "70px", sm: "70px" },
+              width: "100%",
               height: "40px",
               borderRadius: 1.5,
               fontSize: 14,
@@ -125,7 +125,7 @@ export function DateInput({ id, label }: { id: string, label: string }) {
           </Select>
         </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "column", minWidth: { xs: "70px", sm: "70px" } }}>
+        <Box sx={{ display: "flex", flexDirection: "column", flex: { xs: 1, sm: 0 }, minWidth: { xs: "0", sm: "70px" } }}>
           <Typography 
             fontSize={13} 
             color="grey.600" 
@@ -154,7 +154,7 @@ export function DateInput({ id, label }: { id: string, label: string }) {
             }}
             displayEmpty
             sx={{
-              width: { xs: "70px", sm: "70px" },
+              width: "100%",
               height: "40px",
               borderRadius: 1.5,
               fontSize: 14,
@@ -185,7 +185,7 @@ export function DateInput({ id, label }: { id: string, label: string }) {
           </Select>
         </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "column", minWidth: { xs: "90px", sm: "90px" } }}>
+        <Box sx={{ display: "flex", flexDirection: "column", flex: { xs: 1, sm: 0 }, minWidth: { xs: "0", sm: "90px" } }}>
           <Typography 
             fontSize={13} 
             color="grey.600" 
@@ -214,7 +214,7 @@ export function DateInput({ id, label }: { id: string, label: string }) {
             }}
             displayEmpty
             sx={{
-              width: { xs: "90px", sm: "90px" },
+              width: "100%",
               height: "40px",
               borderRadius: 1.5,
               fontSize: 14,
