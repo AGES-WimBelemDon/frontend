@@ -3,7 +3,9 @@ import type { Params } from "./type";
 export const portugueseTextMap = {
   activityList: {
     title: "Lista de Atividades",
-    createNew: "Nova Atividade",
+    createNew: "Criar Nova Atividade",
+    newActivity: "Nova Atividade",
+    activityName: "Nome da Atividade",
     loadingActivities: "Carregando atividades...",
     activitiesError: "Erro ao carregar atividades",
     activitiesEmpty: "Nenhuma atividade encontrada.",
@@ -210,6 +212,32 @@ export const portugueseTextMap = {
     successMessage: "Responsável adicionado com sucesso!",
     pleaseFillAllFields: "Por favor, preencha todos os campos.",
   },
+  classesModal: {
+    recurring: "Atividade Recorrente",
+    inputs: {
+      classLevel: "Nível da Turma",
+      startTime: "Horário de Início",
+      endTime: "Horário de Término",
+      level: "Nível",
+      searchTeacher: "Pesquisar Professor",
+      assignTeacher: "Atribuir Professor",
+      searchStudent: "Pesquisar Educando",
+      addStudent: "Adicionar Educando",
+    },
+    buttons: {
+      next: "Próximo",
+      back: "Voltar",
+      create: "Cadastrar",
+    },
+    steps: {
+      data: "Dados",
+      teacher: "Professor",
+      student: "Educando",
+    },
+    createSuccessMessage: "Turma criada com sucesso!",
+    createErrorFillAllFields: "Por favor, preencha todos os campos.",
+    createErrorGeneric: "Erro ao criar turma. Por favor, tente novamente.",
+  },
   personCard: {
     userImageAlt: "Imagem do usuário",
     name: "Nome:",
@@ -332,6 +360,7 @@ export const portugueseTextMap = {
       openErrorToast: "Abrir toast de ERRO!",
       openInfoToast: "Abrir toast de INFO!",
       openModal: "Abrir Modal",
+      openClassesModal: "Abrir Modal de Turma",
       testToast: "Teste de Toast",
       testCloseableToast: "Teste de Toast fechável",
     },
@@ -366,5 +395,14 @@ export const portugueseTextMap = {
     title: "Gerenciar Usuários",
     loadingUsers: "Carregando usuários...",
     usersError: "Erro ao carregar usuários",
+  },
+  newActivityModal: {
+    title: "Nova Atividade",
+    textFieldTitle: "Nome da Atividade",
+    textFieldPlaceholder: "Insira o nome",
+    buttonText: "Cadastrar",
+    successToast: ({ activityName }: Params<"activityName">) => (
+      `Atividade "${activityName}" cadastrada!`
+    ),
   },
 } as const;

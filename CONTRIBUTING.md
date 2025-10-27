@@ -747,12 +747,15 @@ This project uses modern web development tools and libraries to build a performa
 | [TanStack React Query](https://tanstack.com/query/latest/docs/framework/react/installation) | 5.84.2 | Data fetching, caching, and state management |
 | [Axios](https://axios-http.com/) | 1.11.0 | HTTP client for API requests |
 | [Firebase](https://firebase.google.com/) | 12.1.0 | Backend services used for authentication |
+| [React-Hook-Form](https://react-hook-form.com/) | 7.65.0 | Form Validation |
 
 ### UI & Styling
 | Technology | Version | Purpose / Description |
 |---|---|---|
 | [MUI](https://mui.com/) | 7.3.1 | Material UI components and icons |
 | [Emotion](https://emotion.sh/docs/introduction) | 11.14.x | Styled components and CSS-in-JS support |
+| [mui/x-date-pickers](https://mui.com/x/react-date-pickers/) | 8.14.1 | Ui Design for date and time selection |
+| [Dayjs](https://day.js.org/) | 1.11.18 | Date Formating |
 
 ### Build & Tooling
 | Technology | Version | Purpose / Description |

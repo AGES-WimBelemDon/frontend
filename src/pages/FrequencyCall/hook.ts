@@ -29,7 +29,7 @@ export function useFrequencyCall() {
         id: apiStudent.id,
         name: apiStudent.name,
         frequencyPercent: apiStudent.frequency,
-        isPresent: true
+        isPresent: true,
       })));
     }
   }, [apiStudents]);
