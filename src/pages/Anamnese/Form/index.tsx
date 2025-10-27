@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 
 import { PageTitle } from "../../../components/PageTitle";
 import { strings } from "../../../constants";
-import { useAnamneseForm } from "../../../hooks/useAnamneseForm";
+import { useAnamneseForm } from "./useAnamneseForm";
 import { useScreenSize } from "../../../hooks/useScreenSize";
 
 const AnamnesisForm = () => {
