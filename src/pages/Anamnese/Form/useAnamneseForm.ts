@@ -11,22 +11,22 @@ import {
   type Question,
 } from "../../../services/anamnesis";
 
-export const useAnamneseForm = () => {
+export function useAnamneseForm() {
   const { studentId, formId } = useParams<{ studentId: string; formId: string }>();
   const navigate = useNavigate();
 
   const [forms, setForms] = useState<AnamneseFormInfo[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [responses, setResponses] = useState<{ [key: string]: string }>({});
+  const [responses, setResponses] = useState<Record<string, string>>({});
   const [isCreating, setIsCreating] = useState(formId === "new");
 
-  useEffect(() => {
+  useEffect(function fetchStudentForms() {
     if (studentId) {
       getAnamneseFormsByStudent(studentId).then(setForms);
     }
   }, [studentId]);
-
-  useEffect(() => {
+  
+  useEffect(function fetchQuestions() {
     if (formId && formId !== "new" && !isCreating) {
       getQuestions(formId).then(setQuestions);
     } else {
@@ -36,13 +36,15 @@ export const useAnamneseForm = () => {
     }
   }, [formId, isCreating]);
 
-  const handleResponseChange = (questionId: string, value: string) => {
+  function handleResponseChange(questionId: string, value: string) {
     setResponses((prev) => ({ ...prev, [questionId]: value }));
-  };
+  }
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (!formId && !isCreating) return;
+    if (!formId && !isCreating) {
+      return;
+    }
 
     const submission = {
       formId: isCreating ? undefined : formId,
@@ -57,21 +59,21 @@ export const useAnamneseForm = () => {
     if (isCreating && result) {
       setIsCreating(false);
       // Navigate to the newly created form
-      navigate(`/students/${studentId}/anamnese/${result.id}`, { replace: true });
+      navigate(`/alunos/${studentId}/anamnese/${result.id}`, { replace: true });
     }
     // TODO: Add toast notification on success/error
-  };
+  }
 
-  const handleCreateNew = () => {
+  function handleCreateNew() {
     setIsCreating(true);
-  };
+  }
 
-  const handleFormChange = (newFormId: string) => {
+  function handleFormChange(newFormId: string) {
     if (newFormId) {
       setIsCreating(false);
-      navigate(`/students/${studentId}/anamnese/${newFormId}`);
+      navigate(`/alunos/${studentId}/anamnese/${newFormId}`);
     }
-  };
+  }
 
   return {
     forms,

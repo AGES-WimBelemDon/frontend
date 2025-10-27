@@ -1,10 +1,10 @@
 import { Box, Button, Select, MenuItem, TextField, FormControl, InputLabel } from "@mui/material";
 import dayjs from "dayjs";
 
+import { useAnamneseForm } from "./useAnamneseForm";
+import { CardList } from "../../../components/CardList";
 import { PageTitle } from "../../../components/PageTitle";
 import { strings } from "../../../constants";
-import { useAnamneseForm } from "./useAnamneseForm";
-import { useScreenSize } from "../../../hooks/useScreenSize";
 
 const AnamnesisForm = () => {
   const {
@@ -18,33 +18,35 @@ const AnamnesisForm = () => {
     handleCreateNew,
     handleFormChange,
   } = useAnamneseForm();
-  const { isDesktop, isMobile } = useScreenSize();
-  const gridCols = isMobile ? 1 : isDesktop ? 3 : 2;
 
   return (
     <>
       <PageTitle title={strings.anamnesis.title} dataCy="anamnesis-form" />
-      <Box display={"flex"} justifyContent={"end"} alignItems={"center"} gap={2} marginBottom={3}>
-        <FormControl variant="standard" sx={{ minWidth: 150 }}>
-          <InputLabel>{strings.anamnesis.previousForms}</InputLabel>
-          <Select value={formId || ""} onChange={(e) => handleFormChange(e.target.value)}>
-            {forms.map((form) => (
-              <MenuItem key={form.id} value={form.id}>
-                {dayjs(form.date).format("DD/MM/YYYY")}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+      <Box
+        gap={2}
+        display="flex"
+        alignItems="center"
+        justifyContent="end"
+        marginBottom={3}
+      >
+        {forms.length > 0 && (
+          <FormControl variant="standard" sx={{ minWidth: 150 }}>
+            <InputLabel>{strings.anamnesis.previousForms}</InputLabel>
+            <Select value={formId || ""} onChange={(e) => handleFormChange(e.target.value)}>
+              {forms.map((form) => (
+                <MenuItem key={form.id} value={form.id}>
+                  {dayjs(form.date).format("DD/MM/YYYY")}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
         <Button variant="outlined" onClick={handleCreateNew}>{strings.anamnesis.createNew}</Button>
       </Box>
 
       {(formId || isCreating) ? (
-        <form onSubmit={handleSubmit}>
-          <Box
-            display={"grid"}
-            gridTemplateColumns={`repeat(${gridCols}, 1fr)`}
-            gap={5}
-          >
+        <Box component="form" onSubmit={handleSubmit}>
+          <CardList rowGap={5} columnGap={5}>
             {questions.map((question) => (
               <TextField
                 key={question.id}
@@ -55,14 +57,19 @@ const AnamnesisForm = () => {
                 onChange={(e) => handleResponseChange(question.id, e.target.value)}
               />
             ))}
-          </Box>
-          <Box display={"flex"} gap={2} justifyContent={"end"} marginTop={5}>
+          </CardList>
+          <Box
+            gap={2}
+            display="flex"
+            justifyContent="end"
+            marginTop={5}
+          >
             <Button variant="outlined">{strings.anamnesis.skip}</Button>
             <Button variant="contained" type="submit">
               {strings.anamnesis.save}
             </Button>
           </Box>
-        </form>
+        </Box>
       ) : (
         <p>{strings.anamnesis.selectOrCreate}</p>
       )}
