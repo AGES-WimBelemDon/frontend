@@ -7,9 +7,7 @@ import { strings } from "../../constants";
 export function UserProfile() {
   const {
     actionLabel,
-    user,
     handleSignOut,
-    handleSignIn,
     isLoadingAuth,
     showProfileName,
     displayedName,
@@ -39,7 +37,7 @@ export function UserProfile() {
             <IconButton
               aria-label={actionLabel}
               data-cy="header-profile-button"
-              onClick={user ? handleSignOut : handleSignIn}
+              onClick={handleSignOut}
               loading={isLoadingAuth}
               disabled={isLoadingAuth}
             >

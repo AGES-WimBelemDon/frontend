@@ -1,5 +1,7 @@
 describe("tech demo test", () => {
   beforeEach(() => {
+    cy.visit("/login");
+    cy.dataCy("login-button").click();
     cy.visit("/tech-demo");
   });
 
@@ -24,6 +26,9 @@ describe("tech demo test", () => {
 describe("tech demo API info", () => {
   beforeEach(() => {
     cy.interceptOrMock("getTechDemo", "GET", "**/repos/tanstack/query", "tech-demo.json");
+
+    cy.visit("/login");
+    cy.dataCy("login-button").click();
 
     cy.visit("/tech-demo");
     cy.dataCy("tech-demo-show-api-info-button").click();

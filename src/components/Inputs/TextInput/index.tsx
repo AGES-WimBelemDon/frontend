@@ -10,7 +10,7 @@ export function TextInput({
   id,
 }: {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   id: string;
 }) {
   const { setText, searchParams } = useTextInput();
@@ -41,7 +41,7 @@ export function TextInput({
         width: "100%",
       }}
     >
-      <Typography fontSize={16} fontWeight="bold">
+      <Typography fontSize={16}>
         {label}
       </Typography>
       <TextField
@@ -54,11 +54,11 @@ export function TextInput({
           input: {
             sx: {
               fontSize: 15,
-              color: "black", 
+              color: "black",
               "&::placeholder": {
-                color: "grey.900", 
+                color: "grey.900",
                 opacity: 0.5,
-               
+
               },
             },
           },

@@ -5,6 +5,8 @@ import { ActivityCard } from "./ActivityCard";
 import { ActivityFilter } from "./ActivityFilter";
 import { useActivityPage } from "./hook";
 import { CardList } from "../../components/CardList";
+import { NewActivityModal } from "../../components/NewActivityModal";
+import { useNewActivityModal } from "../../components/NewActivityModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
 import { type Activity } from "../../services/activities";
@@ -13,12 +15,18 @@ export default function ActivityList() {
   const {
     isLoadingActivities,
     activitiesError,
-    goTo,
     isMobile,
     name,
     setName,
     filteredActivities,
   } = useActivityPage();
+
+  const {
+    isOpen,
+    openModal,
+    closeModal,
+    handleSubmit,
+  } = useNewActivityModal();
 
   if (isLoadingActivities) {
     return (
@@ -47,7 +55,7 @@ export default function ActivityList() {
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          onClick={() => goTo("/atividades", "/cadastro")}
+          onClick={openModal}
           sx={{
             alignSelf: isMobile ? "auto" : "flex-start",
           }}
@@ -67,6 +75,11 @@ export default function ActivityList() {
           )}
         </CardList>
       </Box>
+      <NewActivityModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        handleSubmit={handleSubmit}
+      />
     </>
   );
 }

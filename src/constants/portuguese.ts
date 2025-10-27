@@ -6,7 +6,9 @@ export const portugueseTextMap = {
   },
   activityList: {
     title: "Lista de Atividades",
-    createNew: "Nova Atividade",
+    createNew: "Criar Nova Atividade",
+    newActivity: "Nova Atividade",
+    activityName: "Nome da Atividade",
     loadingActivities: "Carregando atividades...",
     activitiesError: "Erro ao carregar atividades",
     activitiesEmpty: "Nenhuma atividade encontrada.",
@@ -37,6 +39,14 @@ export const portugueseTextMap = {
       teacher: "Professor:",
     },
   },
+  anamnesis: {
+    title: "Formulário de Anamnese",
+    createNew: "Criar novo formulário",
+    previousForms: "Formulários Anteriores",
+    skip: "Pular",
+    save: "Salvar",
+    selectOrCreate: "Selecione um formulário ou crie um novo.",
+  },
   classes: {
     title: "Minhas Turmas",
     loadingClasses: "Carregando turmas...",
@@ -50,6 +60,16 @@ export const portugueseTextMap = {
       level: "Nível:",
       teacher: "Responsável:"
     },
+  },
+  classDetails: {
+    loading: "Carregando turma...",
+    errorLoading: "Não foi possível carregar os dados da turma.",
+    classNotFound: "Turma não encontrada.",
+    editClass: "Editar Turma",
+    professor: "Responsável",
+    level: "Nível",
+    frequency: "Frequência",
+    noStudents: "Nenhum aluno cadastrado nesta turma.",
   },
   dateInput: {
     selectDate: "Selecione a data",
@@ -138,6 +158,16 @@ export const portugueseTextMap = {
       divorced: "Divorciado(a)",
       widowed: "Viúvo(a)",
     },
+    schoolYear: {
+      title: "Ano Escolar",
+      infantileEducation: "Educação Infantil",
+      elementary1: "Fundamental 1",
+      elementary2: "Fundamental 2",
+      highSchool1: "Ensino Médio 1",
+      highSchool2: "Ensino Médio 2",
+      highSchool3: "Ensino Médio 3",
+      eja: "EJA",
+    },
   },
   frequency: {
     title: "Realizar Chamada",
@@ -185,9 +215,25 @@ export const portugueseTextMap = {
       manageUsers: "Gerenciar Usuários"
     },
   },
+  login: {
+    title: "Login",
+    loginWithGoogle: "Entrar com Google",
+    loggingIn: "Entrando...",
+    logoAlt: "Logo",
+    errors: {
+      invalidToken: "Token de login inválido. Tente novamente.",
+      notRegistered: "Sua conta não está registrada no sistema.",
+      inactive: "Sua conta não está ativa. Entre em contato com um administrador.",
+      popupClosed: "O login foi cancelado antes de finalizar.",
+      popupBlocked: "O pop-up de login foi bloqueado pelo navegador.",
+      popupCancelled: "Outra tentativa de login já estava em andamento.",
+      network: "Erro de rede durante o login. Verifique sua conexão e tente novamente.",
+      generic: "Não foi possível fazer login. Tente novamente.",
+    }
+  },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
-    buttonText: "Adicionar Responsável",
+    buttonText: "Ver Responsável",
     inputs: {
       name: "Nome",
       namePlaceholder: "Digite o nome do responsável",
@@ -208,6 +254,32 @@ export const portugueseTextMap = {
     },
     successMessage: "Responsável adicionado com sucesso!",
     pleaseFillAllFields: "Por favor, preencha todos os campos.",
+  },
+  classesModal: {
+    recurring: "Atividade Recorrente",
+    inputs: {
+      classLevel: "Nível da Turma",
+      startTime: "Horário de Início",
+      endTime: "Horário de Término",
+      level: "Nível",
+      searchTeacher: "Pesquisar Professor",
+      assignTeacher: "Atribuir Professor",
+      searchStudent: "Pesquisar Educando",
+      addStudent: "Adicionar Educando",
+    },
+    buttons: {
+      next: "Próximo",
+      back: "Voltar",
+      create: "Cadastrar",
+    },
+    steps: {
+      data: "Dados",
+      teacher: "Professor",
+      student: "Educando",
+    },
+    createSuccessMessage: "Turma criada com sucesso!",
+    createErrorFillAllFields: "Por favor, preencha todos os campos.",
+    createErrorGeneric: "Erro ao criar turma. Por favor, tente novamente.",
   },
   personCard: {
     userImageAlt: "Imagem do usuário",
@@ -238,9 +310,15 @@ export const portugueseTextMap = {
   studentRegistration: {
     personalInformation: "Informações Pessoais",
     name: "Nome",
+    socialName: "Nome social",
     namePlaceholder: "Nome completo",
+    socialNamePlaceholder: "Nome social",
     dateOfBirth: "Data de Nascimento",
     address: {
+      title: "Endereço",
+      state: "Estado",
+      city: "Cidade",
+      neighborhood: "Bairro",
       zipCode: "CEP",
       zipCodePlaceholder: "xxxxxxxx",
       street: "Logradouro",
@@ -270,6 +348,16 @@ export const portugueseTextMap = {
     cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
     errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
+    errors: {
+      fullNameRequired: "O nome completo do estudante é obrigatório",
+      dateOfBirthRequired: "A data de nascimento do estudante é obrigatória",
+      registrationNumberRequired: "O número de documento do estudante é obrigatório",
+      schoolYearRequired: "O nível de escolaridade do estudante é obrigatório",
+      genderRequired: "O gênero do estudante é obrigatório",
+      enrollmentDateRequired: "A data de cadastro do estudante é obrigatória",
+      addressCepRequired: "O CEP do endereço do estudante é obrigatório",
+      addressNumberRequired: "O número do endereço do estudante é obrigatório",
+    },
   },
   studentEdition: {
     personalInformation: "Informações Pessoais",
@@ -310,11 +398,13 @@ export const portugueseTextMap = {
   students: {
     title: "Educandos",
     createNew: "Adicionar Educando",
-    createResponsible: "Adicionar Responsável",
+    viewResponsible: "Ver Responsáveis",
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
     editStudent: "Editar Educando",
+    birthday: ({ date }: Params<"date">) => `Aniversário: ${date}`,
+    registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
   },
   studentsResponsibles: {
     title: "Responsáveis",
@@ -332,6 +422,7 @@ export const portugueseTextMap = {
       openErrorToast: "Abrir toast de ERRO!",
       openInfoToast: "Abrir toast de INFO!",
       openModal: "Abrir Modal",
+      openClassesModal: "Abrir Modal de Turma",
       testToast: "Teste de Toast",
       testCloseableToast: "Teste de Toast fechável",
     },
@@ -366,5 +457,48 @@ export const portugueseTextMap = {
     title: "Gerenciar Usuários",
     loadingUsers: "Carregando usuários...",
     usersError: "Erro ao carregar usuários",
+    registerNew: "Registrar Novo Usuário",
+    table: {
+      id: "ID",
+      name: "Nome",
+      email: "Email",
+      status: "Status",
+      role: "Papel",
+      actions: "Ações",
+    },
+    status: {
+      active: "Ativo",
+      inactive: "Inativo",
+    },
+    actions: {
+      edit: "Editar",
+      activate: "Ativar",
+      deactivate: "Desativar",
+    },
+    footer: {
+      showing: ({ count, total }: Params<"count"  | "total">) => `Mostrando ${count} de ${total} ${total === "1" ? "usuário" : "usuários"}`,
+      updatedAt: ({ when }: Params<"when">) => `Atualizado em ${when}`
+    },
+    inputs: {
+      name: "Nome do Colaborador",
+      namePlaceholder: "Nome Completo",
+      email: "Email",
+      emailPlaceholder: "nome.completo@wimbelemdon.com.br",
+      register: "Cadastrar",
+    },
+    toasts: {
+      enabled: "Usuário ativado com sucesso",
+      disabled: "Usuário desativado com sucesso",
+      toggleError: "Não foi possível atualizar o status do usuário. Tente novamente.",
+    },
+  },
+  newActivityModal: {
+    title: "Nova Atividade",
+    textFieldTitle: "Nome da Atividade",
+    textFieldPlaceholder: "Insira o nome",
+    buttonText: "Cadastrar",
+    successToast: ({ activityName }: Params<"activityName">) => (
+      `Atividade "${activityName}" cadastrada!`
+    ),
   },
 } as const;

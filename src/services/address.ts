@@ -3,6 +3,24 @@ export type Address = {
   street: string;
   number: string;
   complement?: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+}
+
+export interface AddressResponse {
+  id: string;
+  street: string;
+  city: string;
+  state: string;
+  cep: string;
+  neighborhood: string;
+  number?: string;
+  complement?: string;
+}
+
+export function formatAddress(address: Address): string {
+  return `${address.street}, ${address.number}${address.complement ? `, ${address.complement}` : ""} - ${address.neighborhood}, ${address.city} - ${address.state}, ${address.code}`;
 }
 
 export async function fetchAddress(cep: string): Promise<Partial<Address> | null> {
@@ -13,11 +31,13 @@ export async function fetchAddress(cep: string): Promise<Partial<Address> | null
     }
 
     const data = await response.json();
-
-    const street = [data.logradouro, data.complemento, data.bairro, data.localidade, data.uf]
     
     return {
-      street: street.filter(Boolean).join(", "),
+      neighborhood: data.bairro,
+      city: data.localidade,
+      state: data.uf,
+      street: data.logradouro,
+      complement: data.complemento,
     };
   } catch (error) {
     console.error("Error fetching address:", error);

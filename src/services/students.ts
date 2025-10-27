@@ -1,39 +1,36 @@
-import type { Address } from "./address";
+import type { AddressResponse } from "./address";
 import { api, endpoints } from "./api";
-import type { EmploymentStatus, Gender, Race, SocialProgram } from "./filters";
+import type { EmploymentStatus, Gender, Race, SocialPrograms } from "./filters";
 
-type StudentRecord = {
-  id: string;
-  name: string;
-  frequencyPercent: number;
-};
 
 export type Student = {
-  address: Address;
+  id: number;
+  address: AddressResponse;
   fullName: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   registrationNumber: string;
-  enrollmentDate: Date;
-  disenrollmentDate?: Date;
+  enrollmentDate: string;
+  disenrollmentDate?: string;
   status: StudentStatus;
   level: SchoolYear;
   socialName?: string;
+  schoolYear?: string;
   race?: Race;
   schoolName?: string;
   schoolShift?: string;
-  schoolYear?: EducationLevel;
-  socialProgram?: SocialProgram;
+  educationLevel?: EducationLevel;
+  socialPrograms?: SocialPrograms;
   gender?: Gender;
   employmentStatus?: EmploymentStatus;
   gradeGap?: boolean;
 }
 
 type ApiStudent = Student & {
-  id: string;
+  id: number;
 }
 
 export type StudentResponsible = {
-  id: string;
+  id: number;
   name: string;
   cpf: string;
   birthDate: string;
@@ -44,12 +41,12 @@ export type StudentResponsible = {
   address: string;
 }
 
-export type StudentStatus = 
+export type StudentStatus =
   | "ATIVO"
   | "INATIVO"
-;
+  ;
 
-export type SchoolYear = 
+export type SchoolYear =
   | "EDUCACAO_INFANTIL"
   | "FUNDAMENTAL_1"
   | "FUNDAMENTAL_2"
@@ -57,7 +54,7 @@ export type SchoolYear =
   | "ENSINO_MEDIO_2"
   | "ENSINO_MEDIO_3"
   | "EJA"
-;
+  ;
 
 export type EducationLevel =
   | "NENHUM"
@@ -69,14 +66,23 @@ export type EducationLevel =
   | "SUPERIOR_INCOMPLETO"
   | "SUPERIOR_COMPLETO"
   | "POS_GRADUACAO"
-;
+  ;
 
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
   try {
-    const response = await api.post(endpoints.students, student);
+    const response = await api.post(endpoints.students.base, student);
     return response.data;
   } catch {
     throw new Error("Error registering student");
+  }
+}
+
+export async function registerAddress(studentId: number, address: Partial<AddressResponse>): Promise<Pick<AddressResponse, "id">> {
+  try {
+    const response = await api.post(endpoints.students.address(studentId), address);
+    return response.data;
+  } catch {
+    throw new Error("Error registering address");
   }
 }
 
@@ -92,48 +98,209 @@ export async function addStudentDocument<Doc>(studentId: Pick<ApiStudent, "id">,
   }
 }
 
-export async function getStudents(): Promise<StudentRecord[]> {
+export async function getStudents(): Promise<Student[]> {
   try {
-    const response = await api.get<StudentRecord[]>(endpoints.students);
-    return response.data;
+    const response = await api.get<Student[]>(endpoints.students.base);
+    const studentsWithAddress = await Promise.all(
+      response.data.map(async (student) => {
+        try {
+          const addressResponse = await api.get<AddressResponse>(endpoints.students.address(student.id));
+          return { ...student, address: addressResponse.data };
+        } catch {
+          console.error(`Error fetching address for student ID ${student.id}`);
+          return { ...student, address: student.address ?? ({} as AddressResponse) };
+        }
+      })
+    );
+    return studentsWithAddress;
   } catch {
     // TODO: This should only work for development, remove in production
     let id = 0;
     const mockResponse = await Promise.resolve({
       data: [
         {
-          id: (++id).toString(),
-          name: "Leonardo Mallet",
-          frequencyPercent: 90,
+          id: ++id,
+          fullName: "João Pedro",
+          dateOfBirth: "2006-07-20",
+          registrationNumber: "2023002",
+          enrollmentDate: "2023-02-01",
+          status: "ATIVO" as StudentStatus,
+          level: "ENSINO_MEDIO_2" as SchoolYear,
+          address: {
+            id: "1",
+            cep: "01400-000",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Jardim Paulista",
+            street: "Avenida Brasil",
+            number: "456",
+            complement: "",
+            code: "01400-000",
+          } as AddressResponse,
         },
         {
-          id: (++id).toString(),
-          name: "João Pedro",
-          frequencyPercent: 60,
+          id: ++id,
+          fullName: "Pedro Henrique",
+          dateOfBirth: "2007-01-05",
+          registrationNumber: "2023003",
+          enrollmentDate: "2023-03-10",
+          status: "ATIVO" as StudentStatus,
+          level: "ENSINO_MEDIO_1" as SchoolYear,
+          address: {
+            id: "2",
+            cep: "01300-000",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Consolação",
+            street: "Rua Augusta",
+            number: "789",
+            complement: "Casa 2",
+            code: "01300-000",
+          } as AddressResponse,
         },
         {
-          id: (++id).toString(),
-          name: "Pedro Henrique",
-          frequencyPercent: 40,
+          id: ++id,
+          fullName: "Ana Beatriz",
+          dateOfBirth: "2008-04-12",
+          registrationNumber: "2023004",
+          enrollmentDate: "2023-04-05",
+          status: "ATIVO" as StudentStatus,
+          level: "FUNDAMENTAL_2" as SchoolYear,
+          address: {
+            id: "3",
+            cep: "02000-100",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Tatuapé",
+            street: "Travessa das Laranjeiras",
+            number: "21",
+            complement: "Casa",
+            code: "02000-100",
+          } as AddressResponse,
         },
         {
-          id: (++id).toString(),
-          name: "Thiago Camargo",
-          frequencyPercent: 55,
+          id: ++id,
+          fullName: "Carla Souza",
+          dateOfBirth: "2009-11-02",
+          registrationNumber: "2023005",
+          enrollmentDate: "2023-05-20",
+          status: "ATIVO" as StudentStatus,
+          level: "FUNDAMENTAL_1" as SchoolYear,
+          address: {
+            id: "4",
+            cep: "03000-200",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Brás",
+            street: "Rua do Comércio",
+            number: "350",
+            complement: "Bloco B",
+            code: "03000-200",
+          } as AddressResponse,
         },
         {
-          id: (++id).toString(),
-          name: "Paulo Camargo",
-          frequencyPercent: 55,
+          id: ++id,
+          fullName: "Felipe Ramos",
+          dateOfBirth: "2004-09-18",
+          registrationNumber: "2023006",
+          enrollmentDate: "2022-12-10",
+          status: "ATIVO" as StudentStatus,
+          level: "ENSINO_MEDIO_3" as SchoolYear,
+          address: {
+            id: "5",
+            cep: "04000-300",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Itaim Bibi",
+            street: "Avenida Central",
+            number: "1020",
+            complement: "Sala 12",
+            code: "04000-300",
+          } as AddressResponse,
         },
         {
-          id: (++id).toString(),
-          name: "Mayara Cardi",
-          frequencyPercent: 55,
+          id: ++id,
+          fullName: "Marina Costa",
+          dateOfBirth: "2010-06-25",
+          registrationNumber: "2023007",
+          enrollmentDate: "2023-06-01",
+          status: "ATIVO" as StudentStatus,
+          level: "FUNDAMENTAL_1" as SchoolYear,
+          address: {
+            id: "6",
+            cep: "05000-400",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Vila Nova",
+            street: "Rua do Sol",
+            number: "77",
+            complement: "Apartamento 7",
+            code: "05000-400",
+          } as AddressResponse,
+        },
+        {
+          id: ++id,
+          fullName: "Gustavo Lima",
+          dateOfBirth: "2003-02-14",
+          registrationNumber: "2023008",
+          enrollmentDate: "2021-08-23",
+          status: "ATIVO" as StudentStatus,
+          level: "ENSINO_MEDIO_2" as SchoolYear,
+          address: {
+            id: "7",
+            cep: "06000-500",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Centro",
+            street: "Praça da Matriz",
+            number: "1",
+            complement: "",
+            code: "06000-500",
+          } as AddressResponse,
+        },
+        {
+          id: ++id,
+          fullName: "Renata Almeida",
+          dateOfBirth: "2005-12-30",
+          registrationNumber: "2023009",
+          enrollmentDate: "2023-01-20",
+          status: "ATIVO" as StudentStatus,
+          level: "ENSINO_MEDIO_1" as SchoolYear,
+          address: {
+            id: "8",
+            cep: "07000-600",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Jardim das Flores",
+            street: "Rua das Acácias",
+            number: "410",
+            complement: "Casa",
+            code: "07000-600",
+          } as AddressResponse,
+        },
+        {
+          id: ++id,
+          fullName: "Thiago Nunes",
+          dateOfBirth: "2002-01-09",
+          registrationNumber: "2023010",
+          enrollmentDate: "2020-03-11",
+          status: "INATIVO" as StudentStatus,
+          level: "ENSINO_MEDIO_2" as SchoolYear,
+          address: {
+            id: "9",
+            cep: "08000-700",
+            city: "São Paulo",
+            state: "SP",
+            neighborhood: "Zona Rural",
+            street: "Estrada Velha",
+            number: "999",
+            complement: "Sitio",
+            code: "08000-700",
+          } as AddressResponse,
         },
       ],
     });
-    return mockResponse.data;
+    return mockResponse.data as Student[];
   }
 }
 
@@ -147,7 +314,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
     const mockResponse = await Promise.resolve({
       data: [
         {
-          id: (++id).toString(),
+          id: ++id,
           name: "Leonardo Scheidt",
           cpf: "123.456.789-00",
           birthDate: "1990-05-15",
@@ -158,7 +325,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
           address: "Rua A, 123, São Paulo, SP",
         },
         {
-          id: (++id).toString(),
+          id: ++id,
           name: "Maria Silva",
           cpf: "987.654.321-00",
           birthDate: "1985-10-22",
@@ -169,7 +336,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
           address: "Avenida B, 456, Rio de Janeiro, RJ",
         },
         {
-          id: (++id).toString(),
+          id: ++id,
           name: "Carlos Oliveira",
           cpf: "111.222.333-44",
           birthDate: "1978-03-08",

@@ -1,13 +1,22 @@
 import { createContext } from "react";
 
-import type { User } from "firebase/auth";
+import type { UserResponse } from "../../types/user.types";
 
-type AuthContextType = {
-  user: User | null;
+export type AuthUser = UserResponse & {
+  firebaseToken: string;
+  photoURL: string | null;
+};
+
+export type AuthContextType = {
+  user: AuthUser | null;
   isLoadingAuth: boolean;
+  refreshAuth: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   isLoadingAuth: true,
+  refreshAuth: async function refreshAuth() {
+    return Promise.resolve();
+  },
 });

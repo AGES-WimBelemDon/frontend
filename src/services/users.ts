@@ -1,73 +1,104 @@
 import { api, endpoints } from "./api";
+import type { UserRegister, UserResponse, UserDetailed, GetUsersParams } from "../types/user.types";
 
-type User = {
-  id: string;
-  full_name: string;
-  phone: number;
-  access: string;
-  formation: string;
-  email: string;
+export async function registerUser(user: UserRegister): Promise<UserResponse> {
+  try {
+    const response = await api.post<UserResponse>(endpoints.users.register, user);
+    return response.data;
+  } catch (error) {
+    console.error("API Error in registerUser:", error);
+    throw new Error("Error registering user");
+  }
 }
 
-export async function getUsers(): Promise<User[]> {
+export async function login(token: string): Promise<UserResponse> {
   try {
-    const response = await api.get<User[]>(endpoints.users);
+    const response = await api.post<UserResponse>(endpoints.users.login, { token });
     return response.data;
-  } catch {
+  } catch (error) {
+    // TODO: Remove this once backend logic is in place
+    const mockUser: UserResponse = {
+      id: 1,
+      fullName: "Tenista",
+      email: "tenista@wimbelemdon.com.br",
+      status: "ATIVO",
+      role: {
+        id: 1,
+        name: "Admin",
+        description: "Administrator role",
+      },
+    }
+    return mockUser;
+    console.error("API Error in login:", error);
+    throw new Error("Error logging in user");
+  }
+}
+
+export async function getUsers({
+  status,
+}: GetUsersParams): Promise<UserResponse[]> {
+  try {
+    const endpoint = status ? `${endpoints.users.getAll}?status=${status}` : endpoints.users.getAll;
+    const response = await api.get<UserResponse[]>(endpoint);
+    return response.data;
+  } catch (error) {
+    console.error("API Error in getUsers:", error);
     // TODO: This should only work for development, remove in production
     let id = 0;
     const mockResponse = await Promise.resolve({
       data: [
         {
-          "id": (++id).toString(),
-          "full_name": "Roberto Almeida da Silva",
-          "phone": 5511987654321,
-          "access": "admin",
-          "formation": "Educação Física com especialização em Gestão de Projetos Sociais",
-          "email": "roberto.silva@saquecerto.org"
-        },
+          id: id++,
+          fullName: "John Doe",
+          email: "john.doe@example.com",
+          status: "ATIVO",
+          role: {
+            id: 1,
+            name: "Admin",
+            description: "Administrator role",
+          },
+        } as UserResponse,
         {
-          "id": (++id).toString(),
-          "full_name": "Mariana Gonçalves Pereira",
-          "phone": 5521998765432,
-          "access": "coordenador",
-          "formation": "Pedagogia",
-          "email": "mariana.pereira@saquecerto.org"
-        },
-        {
-          "id": (++id).toString(),
-          "full_name": "Carlos Eduardo Lima",
-          "phone": 5531987654323,
-          "access": "instrutor",
-          "formation": "Ex-atleta profissional de Tênis, Certificação CBT Nível 3",
-          "email": "carlos.lima@saquecerto.org"
-        },
-        {
-          "id": (++id).toString(),
-          "full_name": "Juliana Santos Costa",
-          "phone": 5551998765434,
-          "access": "instrutor",
-          "formation": "Educação Física",
-          "email": "juliana.costa@saquecerto.org"
-        },
-        {
-          "id": (++id).toString(),
-          "full_name": "Fernanda Oliveira",
-          "phone": 5541987654325,
-          "access": "psicologo",
-          "formation": "Psicologia com especialização em Psicologia do Esporte",
-          "email": "fernanda.oliveira@saquecerto.org"
-        },
-        {
-          "id": (++id).toString(),
-          "full_name": "Lucas Martins Rodrigues",
-          "phone": 5561998765436,
-          "access": "administrativo",
-          "formation": "Administração de Empresas",
-          "email": "lucas.rodrigues@saquecerto.org"
-        },
+          id: id++,
+          fullName: "Jane Smith",
+          email: "jane.smith@example.com",
+          status: "INATIVO",
+          role: {
+            id: 2,
+            name: "User",
+            description: "Regular user role",
+          },
+        } as UserResponse,
       ],
     });
     return mockResponse.data;
+  }
+}
+
+export async function getUserById(userId: number): Promise<UserDetailed> {
+  try {
+    const response = await api.get<UserDetailed>(endpoints.users.getById(userId));
+    return response.data;
+  } catch (error) {
+    console.error("API Error in getUserById:", error);
+    throw new Error("Error fetching user");
+  }
+}
+
+export async function disableUser(userId: number): Promise<void> {
+  try {
+    await api.patch(endpoints.users.disable(userId));
+  } catch (error) {
+    console.error("API Error in disableUser:", error);
+    throw new Error("Error disabling user");
+  }
+}
+
+export async function enableUser(userId: number): Promise<void> {
+  try {
+    await api.patch(endpoints.users.enable(userId));
+  } catch (error) {
+    console.error("API Error in enableUser:", error);
+    throw new Error("Error enabling user");
   }
 }

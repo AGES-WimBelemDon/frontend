@@ -6,7 +6,9 @@ export const englishTextMap = {
   },
   activityList: {
     title: "Activity List",
-    createNew: "New Activity",
+    createNew: "Create New Activity",
+    newActivity: "New Activity",
+    activityName: "Activity Name",
     loadingActivities: "Loading activities...",
     activitiesError: "Error loading activities",
     activitiesEmpty: "No activities found.",
@@ -37,6 +39,14 @@ export const englishTextMap = {
       teacher: "Teacher:",
     },
   },
+  anamnesis: {
+    title: "Anamnesis Form",
+    createNew: "Create new form",
+    previousForms: "Previous Forms",
+    skip: "Skip",
+    save: "Save",
+    selectOrCreate: "Select a form or create a new one.",
+  },
   classes: {
     title: "My Classes",
     loadingClasses: "Loading classes...",
@@ -50,6 +60,16 @@ export const englishTextMap = {
       level: "Level:",
       teacher: "Teacher:"
     },
+  },
+  classDetails: {
+    loading: "Loading class details...",
+    errorLoading: "Error loading class data.",
+    classNotFound: "Class not found.",
+    editClass: "Edit Class",
+    professor: "Teacher",
+    level: "Level",
+    frequency: "Frequency",
+    noStudents: "Class does not have students.",
   },
   dateInput: {
     selectDate: "Select date",
@@ -138,6 +158,16 @@ export const englishTextMap = {
       divorced: "Divorced",
       widowed: "Widowed",
     },
+    schoolYear: {
+      title: "School Year",
+      infantileEducation: "Infantile Education",
+      elementary1: "Elementary 1",
+      elementary2: "Elementary 2",
+      highSchool1: "High School 1",
+      highSchool2: "High School 2",
+      highSchool3: "High School 3",
+      eja: "EJA",
+    },
   },
   frequency: {
     title: "Take Attendance",
@@ -185,6 +215,22 @@ export const englishTextMap = {
       manageUsers: "Manage Users"
     }
   },
+  login: {
+    title: "Login",
+    loginWithGoogle: "Login with Google",
+    loggingIn: "Logging in...",
+    logoAlt: "Logo",
+    errors: {
+      invalidToken: "Invalid sign-in token. Please try again.",
+      notRegistered: "Your account is not registered in the system.",
+      inactive: "Your account is not active. Please contact an administrator.",
+      popupClosed: "Sign-in was cancelled before completion.",
+      popupBlocked: "The sign-in popup was blocked by your browser.",
+      popupCancelled: "Another sign-in attempt was in progress.",
+      network: "Network error during sign-in. Check your connection and try again.",
+      generic: "We couldn't sign you in. Please try again.",
+    }
+  },
   newResponsibleModal: {
     title: "Register Guardian",
     buttonText: "Add Guardian",
@@ -208,6 +254,33 @@ export const englishTextMap = {
     },
     successMessage: "Guardian added successfully!",
     pleaseFillAllFields: "Please fill in all fields.",
+  },
+  classesModal: {
+    title: "Create Class",
+    recurring: "Recurring Activity",
+    inputs: {
+      classLevel: "Class Level",
+      startTime: "Start Time",
+      endTime: "End Time",
+      level: "Level",
+      searchTeacher: "Search Teacher",
+      assignTeacher: "Assign Teacher",
+      searchStudent: "Search Student",
+      addStudent: "Add Student",
+    },
+    buttons: {
+      next: "Next",
+      back: "Back",
+      create: "Create",
+    },
+    steps: {
+      data: "Data",
+      teacher: "Teachers",
+      student: "Educandos",
+    },
+    createSuccessMessage: "Class created successfully!",
+    createErrorFillAllFields: "Please fill in all fields.",
+    createErrorGeneric: "Error creating class. Please try again.",
   },
   personCard: {
     userImageAlt: "User image",
@@ -238,9 +311,15 @@ export const englishTextMap = {
   studentRegistration: {
     personalInformation: "Personal Information",
     name: "Name",
+    socialName: "Social Name",
+    socialNamePlaceholder: "Social name",
     namePlaceholder: "Full name",
     dateOfBirth: "Date of Birth",
     address: {
+      title: "Address",
+      state: "State",
+      city: "City",
+      neighborhood: "Neighborhood",
       zipCode: "ZIP Code",
       zipCodePlaceholder: "xxxxxxxx",
       street: "Street",
@@ -270,6 +349,16 @@ export const englishTextMap = {
     cancelButton: "Cancel",
     successMessage: "Student registered successfully!",
     errorMessage: "Error registering student. Please try again.",
+    errors: {
+      fullNameRequired: "Student full name is required",
+      dateOfBirthRequired: "Student date of birth is required",
+      registrationNumberRequired: "Student registration number is required",
+      schoolYearRequired: "Student school year is required",
+      genderRequired: "Student gender is required",
+      enrollmentDateRequired: "Student enrollment date is required",
+      addressCepRequired: "Student address ZIP code is required",
+      addressNumberRequired: "Student address number is required",
+    },
   },
   studentEdition: {
     personalInformation: "Personal Information",
@@ -310,11 +399,13 @@ export const englishTextMap = {
   students: {
     title: "Students",
     createNew: "Add Student",
-    createResponsible: "Add Guardian",
+    viewResponsible: "View Guardians",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     noStudents: "No students found",
     editStudent: "Edit Student",
+    birthday: ({ date }: Params<"date">) => `Birthday: ${date}`,
+    registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
   },
   studentsResponsibles: {
     title: "Guardians",
@@ -332,6 +423,7 @@ export const englishTextMap = {
       openErrorToast: "Open ERROR toast!",
       openInfoToast: "Open INFO toast!",
       openModal: "Open modal",
+      openClassesModal: "Create Class Modal",
       testToast: "Test Toast",
       testCloseableToast: "Test Closeable Toast"
     },
@@ -366,5 +458,50 @@ export const englishTextMap = {
     title: "Manage Users",
     loadingUsers: "Loading users...",
     usersError: "Error loading users",
+    registerNew: "Register New User",
+    table: {
+      id: "ID",
+      name: "Name",
+      email: "Email",
+      status: "Status",
+      role: "Role",
+      actions: "Actions",
+    },
+    status: {
+      active: "Active",
+      inactive: "Inactive",
+    },
+    actions: {
+      edit: "Edit",
+      activate: "Activate",
+      deactivate: "Deactivate",
+    },
+    footer: {
+      showing: ({ count, total }: Params<"count" | "total">) => `Showing ${count} of ${total} ${total === "1" ? "user" : "users"}`,
+      updatedAt: ({ when }: Params<"when">) => (
+        `Updated at ${when}`
+      )
+    },
+    inputs: {
+      name: "Colaborator Name",
+      namePlaceholder: "Full Name",
+      email: "Email",
+      emailPlaceholder: "full.name@wimbelemdon.com.br",
+      register: "Register",
+    },
+    toasts: {
+      enabled: "User activated successfully",
+      disabled: "User deactivated successfully",
+      toggleError: "Couldn't update user status. Please try again.",
+    },
+  },
+  newActivityModal: {
+    title: "New Activity",
+    textFieldTitle: "Activity Name",
+    textFieldPlaceholder: "Insert name",
+    buttonText: "Register",
+    successToast: ({ activityName }: Params<"activityName">) => (
+      `Activity "${activityName}" registered!`
+    ),
   },
 } as const;
