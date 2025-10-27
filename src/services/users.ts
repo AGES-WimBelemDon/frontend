@@ -9,9 +9,18 @@ export type User = {
   email: string;
 }
 
-export async function getUsers(): Promise<User[]> {
+export type UserStatus = "ATIVO" | "INATIVO";
+
+type GetUsersParams = {
+  status?: UserStatus;
+}
+
+export async function getUsers({
+  status,
+}: GetUsersParams): Promise<User[]> {
   try {
-    const response = await api.get<User[]>(`${endpoints.users}?status=INATIVO`);
+    const endpoint = status ? `${endpoints.users}?status=${status}` : endpoints.users;
+    const response = await api.get<User[]>(endpoint);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
