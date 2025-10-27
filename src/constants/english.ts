@@ -285,12 +285,12 @@ export const englishTextMap = {
   studentRegistration: {
     personalInformation: "Personal Information",
     name: "Name",
-    socialName:"Social Name",
-    socialNamePlaceholder:"Social name",
+    socialName: "Social Name",
+    socialNamePlaceholder: "Social name",
     namePlaceholder: "Full name",
     dateOfBirth: "Date of Birth",
     address: {
-      title:"Address",
+      title: "Address",
       state: "State",
       city: "City",
       neighborhood: "Neighborhood",
@@ -373,7 +373,7 @@ export const englishTextMap = {
   students: {
     title: "Students",
     createNew: "Add Student",
-    createResponsible: "View Guardians",
+    viewResponsible: "View Guardians",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     noStudents: "No students found",

@@ -286,10 +286,10 @@ export const portugueseTextMap = {
     name: "Nome",
     socialName: "Nome social",
     namePlaceholder: "Nome completo",
-    socialNamePlaceholder:"Nome social",
+    socialNamePlaceholder: "Nome social",
     dateOfBirth: "Data de Nascimento",
     address: {
-      title:"Endereço",
+      title: "Endereço",
       state: "Estado",
       city: "Cidade",
       neighborhood: "Bairro",
@@ -372,7 +372,7 @@ export const portugueseTextMap = {
   students: {
     title: "Educandos",
     createNew: "Adicionar Educando",
-    createResponsible: "Ver Responsáveis",
+    viewResponsible: "Ver Responsáveis",
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",

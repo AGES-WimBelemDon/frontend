@@ -110,7 +110,7 @@ export default function Students() {
                         width: { xs: "100%", sm: "auto" }
                       }}
                     >
-                      {strings.students.createResponsible}
+                      {strings.students.viewResponsible}
                     </Button>
                   </Box>
                 </Box>
