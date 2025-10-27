@@ -20,6 +20,7 @@ import {
 
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
+import ClassesModal from "../../components/ClassesModal";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
@@ -29,7 +30,6 @@ export default function Classes() {
     isLoadingClasses,
     classesError,
     isMobile,
-    goTo,
     activities,
     activityFilter,
     setActivityFilter,
@@ -37,7 +37,8 @@ export default function Classes() {
     setLevelFilter,
     levelOptions,
     filteredClasses,
-    handleClassClick
+    handleClassClick,
+    openClassesModal,
   } = useClassesPage();
 
   const { showToast } = useToast();
@@ -129,7 +130,7 @@ export default function Classes() {
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          onClick={() => goTo("/turmas", "/cadastro")}
+          onClick={openClassesModal}
           sx={{
             alignSelf: isMobile ? "auto" : "flex-start",
           }}
@@ -194,6 +195,8 @@ export default function Classes() {
           ))}
         </CardList>
       </Box>
+
+      <ClassesModal />
     </>
   );
 }
