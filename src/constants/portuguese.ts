@@ -364,8 +364,8 @@ export const portugueseTextMap = {
     textFieldTitle: "Nome da Atividade",
     textFieldPlaceholder: "Insira o nome",
     buttonText: "Cadastrar",
-    sucessToast: "Cadastro realizado com sucesso!",
-    noContentToast: "Por favor, preencha o campo.",
-    numberSymbolError: "Digite apenas letras.",
+    successToast: ({ activityName }: Params<"activityName">) => (
+      `Atividade "${activityName}" cadastrada!`
+    ),
   },
 } as const;

@@ -364,8 +364,8 @@ export const englishTextMap = {
     textFieldTitle: "Activity Name",
     textFieldPlaceholder: "Insert name",
     buttonText: "Register",
-    sucessToast: "Registration completed successfully!",
-    noContentToast: "Please fill in the fields.",
-    numberSymbolError: "No numbers and symbols accepted.",
+    successToast: ({ activityName }: Params<"activityName">) => (
+      `Activity "${activityName}" registered!`
+    ),
   },
 } as const;

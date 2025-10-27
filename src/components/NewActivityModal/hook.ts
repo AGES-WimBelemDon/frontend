@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 
 export function useNewActivityModal() {
@@ -18,9 +19,14 @@ export function useNewActivityModal() {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const activityName = formData.get("activityName");
+    const activityNameField = formData.get("activityName")
+    const activityName = activityNameField?.valueOf().toString().trim();
 
-    showToast(`Atividade "${activityName}" registrada`, "success");
+    if (!activityName) {
+      return;
+    }
+
+    showToast(strings.newActivityModal.successToast({ activityName }), "success");
 
     closeModal();
   }
