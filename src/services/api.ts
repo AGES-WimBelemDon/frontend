@@ -4,11 +4,11 @@ import { getAuthToken } from "./auth.firebase";
 
 const endpoints = {
   activities: "/activities",
+  anamnesis: "/anamnesis",
   classes: {
     all: "/classes",
     frequency: (id: number) => `/classes/${id}/frequency`,
   },
-
   filters: {
     race: "/filters/race",
     gender: "/filters/gender",

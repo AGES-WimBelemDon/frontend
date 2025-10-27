@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
 import ActivityList from "../pages/Activity";
+import AnamnesisForm from "../pages/Anamnese/Form";
+import SelectForm from "../pages/Anamnese/SelectForm";
 import ClassDetails from "../pages/ClassDetails";
 import Classes from "../pages/Classes";
 import Frequency from "../pages/Frequency";
@@ -9,11 +11,11 @@ import FrequencyClasses from "../pages/FrequencyClasses";
 import Home from "../pages/Home";
 import Layout from "../pages/Layout";
 import ResponsibleRegistration from "../pages/ResponsibleRegistration";
-import StudentEdition from "../pages/StudentEdition/index.tsx";
+import StudentEdition from "../pages/StudentEdition";
 import StudentRegistration from "../pages/StudentRegistration";
 import Students from "../pages/Students";
 import TechDemo from "../pages/TechDemo";
-import TechDemoMockAPI from "../pages/TechDemo/MockAPI.tsx";
+import TechDemoMockAPI from "../pages/TechDemo/MockAPI";
 import Users from "../pages/Users";
 
 function AppRouter() {
@@ -24,8 +26,10 @@ function AppRouter() {
           <Route index element={<Home />} />
           <Route path="alunos" element={<Students />} />
           <Route path="alunos/cadastro" element={<StudentRegistration />} />
-          <Route path="alunos/:id/responsaveis" element={<ResponsibleRegistration />} />
           <Route path="alunos/:id/editar" element={<StudentEdition />} />
+          <Route path="alunos/:id/responsaveis" element={<ResponsibleRegistration />} />
+          <Route path="anamnese" element={<SelectForm />} />
+          <Route path="anamnese/form/:id" element={<AnamnesisForm />} />
           <Route path="atividades" element={<ActivityList />} />
           <Route path="frequencias/atividades" element={<Frequency />} />
           <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />} />

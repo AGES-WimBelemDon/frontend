@@ -36,6 +36,14 @@ export const englishTextMap = {
       teacher: "Teacher:",
     },
   },
+  anamnesis: {
+    title: "Anamnesis Form",
+    createNew: "Create new form",
+    previousForms: "Previous Forms",
+    skip: "Skip",
+    save: "Save",
+    selectOrCreate: "Select a form or create a new one.",
+  },
   classes: {
     title: "My Classes",
     loadingClasses: "Loading classes...",

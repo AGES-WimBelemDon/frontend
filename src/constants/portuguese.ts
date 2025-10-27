@@ -36,6 +36,14 @@ export const portugueseTextMap = {
       teacher: "Professor:",
     },
   },
+  anamnesis: {
+    title: "Formulário de Anamnese",
+    createNew: "Criar novo formulário",
+    previousForms: "Formulários Anteriores",
+    skip: "Pular",
+    save: "Salvar",
+    selectOrCreate: "Selecione um formulário ou crie um novo.",
+  },
   classes: {
     title: "Minhas Turmas",
     loadingClasses: "Carregando turmas...",
