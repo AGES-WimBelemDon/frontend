@@ -14,6 +14,7 @@ import { strings } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useSidebar } from "../../hooks/useSidebar";
+import { loginWithGoogle, logout } from "../../services/auth.firebase";
 
 export function FrequencyCall() {
   const {
@@ -26,7 +27,7 @@ export function FrequencyCall() {
 
   const { isMobile } = useScreenSize();
   const { toggleSidebar, sidebarState } = useSidebar();
-  const { user, handleSignOut, handleSignIn } = useAuth();
+  const { user } = useAuth();
   const [isSaving, setIsSaving] = useState(false);
 
   if (!students) {
@@ -41,6 +42,22 @@ export function FrequencyCall() {
       await registerCall();
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleSignIn = async () => {
+    try {
+      await loginWithGoogle();
+    } catch {
+      // TODO: Handle sign in error visually
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await logout();
+    } catch {
+      // TODO: Handle sign out error visually
     }
   };
 
