@@ -4,7 +4,11 @@ import { getAuthToken } from "./auth.firebase";
 
 const endpoints = {
   activities: "/activities",
-  classes: "/classes",
+  anamnesis: "/anamnesis",
+  classes: {
+    all: "/classes",
+    frequency: (id: number) => `/classes/${id}/frequency`,
+  },
   filters: {
     race: "/filters/race",
     gender: "/filters/gender",
@@ -36,7 +40,7 @@ const axiosClient: AxiosInstance = axios.create({
 
 // Add request interceptor to include auth token if present
 axiosClient.interceptors.request.use(
-  async(config) => {
+  async (config) => {
     try {
       const token = await getAuthToken();
       if (token) {

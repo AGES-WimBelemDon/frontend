@@ -57,7 +57,7 @@ export default function Students() {
       ) : (
         <Stack spacing={2}>
           {students.map((student) => (
-            <Card key={student.id} variant="outlined" sx={{ borderRadius: 2, border: "1px solid"}}>
+            <Card key={student.id} variant="outlined" sx={{ borderRadius: 2, border: "1px solid" }}>
               <CardContent sx={{ backgroundColor: "background.default" }}>
                 <Box 
                   display="flex" 
