@@ -58,7 +58,6 @@ export type Level =
   | "INICIANTE"
   | "INTERMEDIARIO"
   | "AVANCADO"
-  | "TODOS_NIVEIS"
 ;
 
 export type CivilState =

@@ -15,12 +15,9 @@ export default function ActivityList() {
   const {
     isLoadingActivities,
     activitiesError,
+    isMobile,
     name,
     setName,
-    area,
-    setArea,
-    frequency,
-    setFrequency,
     filteredActivities,
   } = useActivityPage();
 
@@ -41,36 +38,43 @@ export default function ActivityList() {
   }
 
   if (activitiesError) {
-    return <Typography color="error">{strings.activityList.activitiesError}</Typography>;
+    return (
+      <Typography color="error">
+        {strings.activityList.activitiesError}
+      </Typography>
+    );
   }
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <PageTitle title={strings.activityList.title} dataCy="activity-list" />
+      <PageTitle title={strings.activityList.title} dataCy="activity-list" />
+      
+      <Box gap={3} display="flex" flexDirection="column">
+        <ActivityFilter name={name} onNameChange={setName} />
+        
         <Button
-          variant="contained"
+          variant="outlined"
           startIcon={<AddIcon />}
           onClick={openModal}
+          sx={{
+            alignSelf: isMobile ? "auto" : "flex-start",
+          }}
         >
-          {strings.activityList.createNew}
+          <Typography fontWeight="bold" variant="button">
+            {strings.activityList.createNew}
+          </Typography>
         </Button>
+
+        <CardList>
+          {filteredActivities.length > 0 ? (
+            filteredActivities.map((activity: Activity) => (
+              <ActivityCard key={activity.id} content={activity} />
+            ))
+          ) : (
+            <Typography>{strings.activityList.activitiesEmpty}</Typography>
+          )}
+        </CardList>
       </Box>
-      <ActivityFilter
-        name={name} onNameChange={setName}
-        area={area} onAreaChange={setArea}
-        frequency={frequency} onFrequencyChange={setFrequency}
-      />
-      <br />
-      <CardList>
-        {filteredActivities.length > 0 ? (
-          filteredActivities.map((activity: Activity) => (
-            <ActivityCard key={activity.id} content={activity} />
-          ))
-        ) : (
-          <Typography>{strings.activityList.activitiesEmpty}</Typography>
-        )}
-      </CardList>
       <NewActivityModal
         isOpen={isOpen}
         closeModal={closeModal}

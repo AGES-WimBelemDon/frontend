@@ -1,5 +1,5 @@
 import { Edit } from "@mui/icons-material";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, IconButton } from "@mui/material";
 
 import type { ActivityCardProps } from "./interface";
 import { strings } from "../../constants";
@@ -8,44 +8,34 @@ export function ActivityCard({ content }: ActivityCardProps) {
   return (
     <Box
       key={content.id}
+      gap={1.5}
+      display="flex"
+      flexDirection="column"
+      padding={2}
+      bgcolor="background.default"
       border="1px solid"
-      borderColor="grey.200"
-      padding={3}
-      borderRadius={3}
+      borderRadius={2}
+      borderColor="grey.300"
+      boxShadow="0px 1px 4px rgba(0,0,0,0.1)"
     >
-      <Box mb={1} display="flex" justifyContent="space-between">
-        <Typography fontWeight="bold" variant="subtitle1">
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Typography variant="subtitle1" fontWeight="bold">
           {content.name}
         </Typography>
-        <Button variant="contained" sx={{ aspectRatio: "4/4", padding: 0.5, maxWidth: "2em" }}>
-          <Edit sx={{ width: 0.75 }} />
-        </Button>
+        <IconButton size="small" color="primary">
+          <Edit fontSize="small" />
+        </IconButton>
       </Box>
-
-      <Box display="grid" gridTemplateColumns="1fr 2fr" gap={0.5}>
-        <Typography variant="subtitle2" fontWeight="bold">
-          {strings.activityList.card.area}
-        </Typography>
-        <Typography variant="subtitle2" fontWeight="bold" color="grey.600">
-          {content.area}
-        </Typography>
-      </Box>
-      <Box display="grid" gridTemplateColumns="1fr 2fr" gap={0.5}>
-        <Typography variant="subtitle2" fontWeight="bold">
-          {strings.activityList.card.frequency}
-        </Typography>
-        <Typography variant="subtitle2" fontWeight="bold" color="grey.600">
-          {content.frequency}
-        </Typography>
-      </Box>
-      <Box display="grid" gridTemplateColumns="1fr 2fr" gap={0.5}>
-        <Typography variant="subtitle2" fontWeight="bold">
-          {strings.activityList.card.teacher}
-        </Typography>
-        <Typography variant="subtitle2" fontWeight="bold" color="grey.600">
-          {content.teacher}
-        </Typography>
-      </Box>
+      <Button
+        variant="outlined"
+        fullWidth
+        sx={{
+          fontWeight: "bold",
+          textTransform: "none",
+        }}
+      >
+        {strings.activityList.viewClasses}
+      </Button>
     </Box>
   );
 }
