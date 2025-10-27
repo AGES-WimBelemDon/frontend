@@ -49,7 +49,6 @@ export function FrequencyCall() {
     try {
       await loginWithGoogle();
     } catch {
-      // TODO: Handle sign in error visually
     }
   };
 
@@ -57,7 +56,6 @@ export function FrequencyCall() {
     try {
       await logout();
     } catch {
-      // TODO: Handle sign out error visually
     }
   };
 
@@ -139,8 +137,7 @@ export function FrequencyCall() {
           </Box>
         </Box>
       )}
-
-      {/* Divider azul - aparece antes do título no mobile */}
+      
       {isMobile && (
         <Divider
           sx={{
@@ -171,7 +168,6 @@ export function FrequencyCall() {
 
         <DateInput id="1" label={strings.dateInput.selectDate}/>
         
-        {/* Divider azul - aparece depois do DateInput no desktop */}
         {!isMobile && (
           <Divider
             sx={{
