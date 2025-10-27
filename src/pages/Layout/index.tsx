@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
@@ -9,6 +9,10 @@ import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Layout() {
   const { allowedRoutes } = useRoutes();
+  const location = useLocation();
+  
+
+  const isFrequencyCallPage = location.pathname.includes("/chamada");
 
   return (
     <Box display="flex" height="100vh">
@@ -22,16 +26,16 @@ export default function Layout() {
         flexDirection="column"
         overflow="hidden"
       >
-        <Header />
+        {!isFrequencyCallPage && <Header />}
         <Box
           component="main"
           flex="1"
           overflow="auto"
           width="100%"
-          maxWidth="lg"
-          padding={2}
+          maxWidth={isFrequencyCallPage ? "100%" : "lg"}
+          padding={isFrequencyCallPage ? { xs: 2, sm: 2.5, md: 3, lg: 4 } : 2}
           paddingBottom={10}
-          marginX="auto"
+          marginX={isFrequencyCallPage ? 0 : "auto"}
         >
           <Toast />
           <Outlet />

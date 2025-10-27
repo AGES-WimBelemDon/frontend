@@ -1,4 +1,6 @@
 import {
+  Box,
+  Divider,
   Drawer,
   List,
   ListItem,
@@ -10,6 +12,7 @@ import { useNavigate } from "react-router";
 
 import { SidebarBurgerIcon } from "./BurgerIcon";
 import { sidebarOptionsMapper, type SidebarProps } from "./interface";
+import logo from "../../assets/logo.png";
 import { strings } from "../../constants";
 import type { ValidRoute } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
@@ -30,6 +33,8 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
 
   const sidebarWidth = getSidebarWidth(deviceSize) === "100%" ? "100%"
     : `${getSidebarWidth(deviceSize)}px`;
+
+  const isSidebarOpen = sidebarState === "opened" || sidebarState === "opening";
 
   if (isMobile && (sidebarState === "closed" || sidebarState === "closing")) {
     return <></>;
@@ -55,11 +60,63 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
       }}
       variant="permanent"
       anchor="left"
-      open={sidebarState === "opened" || sidebarState === "opening"}
+      open={isSidebarOpen}
     >
-      <SidebarBurgerIcon onToggle={toggleSidebar} />
+      {/* Header com X e Logo */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: isSidebarOpen ? "center" : "flex-start",
+          paddingY: 1.5,
+          paddingX: 2,
+          marginBottom: 0,
+          position: "relative",
+        }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            left: 16,
+          }}
+        >
+          <SidebarBurgerIcon 
+            onToggle={toggleSidebar} 
+            isOpen={isSidebarOpen}
+            data-cy="sidebar-burger-icon"
+            sx={{ 
+              fontSize: 24,
+              width: 24,
+              height: 24,
+            }}
+          />
+        </Box>
+        {isSidebarOpen && (
+          <Box
+            component="img"
+            src={logo}
+            alt={strings.common.logoAlt}
+            sx={{
+              height: 35,
+              width: 35,
+            }}
+          />
+        )}
+      </Box>
 
-      <List sx={{ overflowY: "auto" }}>
+      {/* Divisória azul */}
+      {isSidebarOpen && (
+        <Divider
+          sx={{
+            bgcolor: "primary.main",
+            height: 2,
+            width: "100%",
+            marginBottom: 2,
+          }}
+        />
+      )}
+
+      <List sx={{ overflowY: "auto", marginTop: isSidebarOpen ? 0 : 2 }}>
         {visibleRoutes.map((route) => {
           const sidebarOptions = sidebarOptionsMapper[route];
 

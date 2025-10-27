@@ -60,5 +60,6 @@ export interface SidebarProps {
 
 export interface SidebarBurgerIconProps {
   onToggle?: () => void;
+  isOpen?: boolean;
   sx?: SxProps<Theme>;
 }
