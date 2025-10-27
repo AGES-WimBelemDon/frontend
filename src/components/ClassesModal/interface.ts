@@ -1,7 +1,7 @@
 import type { Dayjs } from "dayjs";
 
 import type { Student } from "../../services/students";
-import type { User } from "../../services/users";
+import type { UserResponse } from "../../types/user.types";
 
 export type ClassesModalData = {
   activity: string;
@@ -40,5 +40,5 @@ export interface UseClassesModalReturn {
   setSelectedStudents: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedTeachers: React.Dispatch<React.SetStateAction<string[]>>;
   filtredStudents: Student[];
-  filtredUsers: User[];
+  filtredUsers: UserResponse[];
 }

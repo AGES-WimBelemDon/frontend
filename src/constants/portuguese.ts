@@ -206,6 +206,22 @@ export const portugueseTextMap = {
       manageUsers: "Gerenciar Usuários"
     },
   },
+  login: {
+    title: "Login",
+    loginWithGoogle: "Entrar com Google",
+    loggingIn: "Entrando...",
+    logoAlt: "Logo",
+    errors: {
+      invalidToken: "Token de login inválido. Tente novamente.",
+      notRegistered: "Sua conta não está registrada no sistema.",
+      inactive: "Sua conta não está ativa. Entre em contato com um administrador.",
+      popupClosed: "O login foi cancelado antes de finalizar.",
+      popupBlocked: "O pop-up de login foi bloqueado pelo navegador.",
+      popupCancelled: "Outra tentativa de login já estava em andamento.",
+      network: "Erro de rede durante o login. Verifique sua conexão e tente novamente.",
+      generic: "Não foi possível fazer login. Tente novamente.",
+    }
+  },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
     buttonText: "Ver Responsável",
@@ -431,6 +447,40 @@ export const portugueseTextMap = {
     title: "Gerenciar Usuários",
     loadingUsers: "Carregando usuários...",
     usersError: "Erro ao carregar usuários",
+    registerNew: "Registrar Novo Usuário",
+    table: {
+      id: "ID",
+      name: "Nome",
+      email: "Email",
+      status: "Status",
+      role: "Papel",
+      actions: "Ações",
+    },
+    status: {
+      active: "Ativo",
+      inactive: "Inativo",
+    },
+    actions: {
+      edit: "Editar",
+      activate: "Ativar",
+      deactivate: "Desativar",
+    },
+    footer: {
+      showing: ({ count, total }: Params<"count"  | "total">) => `Mostrando ${count} de ${total} ${total === "1" ? "usuário" : "usuários"}`,
+      updatedAt: ({ when }: Params<"when">) => `Atualizado em ${when}`
+    },
+    inputs: {
+      name: "Nome do Colaborador",
+      namePlaceholder: "Nome Completo",
+      email: "Email",
+      emailPlaceholder: "nome.completo@wimbelemdon.com.br",
+      register: "Cadastrar",
+    },
+    toasts: {
+      enabled: "Usuário ativado com sucesso",
+      disabled: "Usuário desativado com sucesso",
+      toggleError: "Não foi possível atualizar o status do usuário. Tente novamente.",
+    },
   },
   newActivityModal: {
     title: "Nova Atividade",

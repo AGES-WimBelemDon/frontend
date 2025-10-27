@@ -28,7 +28,14 @@ const endpoints = {
     byCpf: (cpf: string) => `/students/cpf/${cpf}`,
     address: (studentId: number) => `/students/${studentId}/address`,
   },
-  users: "/users",
+  users: {
+    register: "/user/register",
+    login: "/user/login",
+    getAll: "/user",
+    getById: (id: number) => `/user/${id}`,
+    disable: (id: number) => `/user/disable/${id}`,
+    enable: (id: number) => `/user/enable/${id}`,
+  },
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL;

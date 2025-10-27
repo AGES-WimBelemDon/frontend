@@ -124,12 +124,11 @@ export function useClassesModal() {
     return users.filter((user) => {
       const nameMatch =
         nameTeacher === "" ||
-        user.full_name.toLowerCase().includes(nameTeacher.toLowerCase());
+        user.fullName.toLowerCase().includes(nameTeacher.toLowerCase());
       return nameMatch;
     })
 
   }, [isLoadingUsers, usersError, users, nameTeacher])
-
 
   return {
     isOpen,

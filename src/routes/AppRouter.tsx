@@ -10,6 +10,7 @@ import { FrequencyCall } from "../pages/FrequencyCall";
 import FrequencyClasses from "../pages/FrequencyClasses";
 import Home from "../pages/Home";
 import Layout from "../pages/Layout";
+import Login from "../pages/Login";
 import ResponsibleRegistration from "../pages/ResponsibleRegistration";
 import StudentRegistration from "../pages/StudentRegistration";
 import Students from "../pages/Students";
@@ -21,6 +22,7 @@ function AppRouter() {
   return (
     <BrowserRouter basename="/frontend/">
       <Routes>
+        <Route path="login" element={<Login />} />
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="alunos" element={<Students />} />

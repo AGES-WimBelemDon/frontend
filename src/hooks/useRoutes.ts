@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate, type Location } from "react-router";
 
 export type ValidRoute = 
   | "/"
@@ -6,10 +6,15 @@ export type ValidRoute =
   | "/alunos"
   | "/anamnese"
   | "/atividades"
+  | "/login"
   | "/turmas"
   | "/usuarios"
   | "/tech-demo"
 ;
+
+export type LocationState = {
+  from?: Location;
+};
 
 export function useRoutes() {
   const navigate = useNavigate();
@@ -37,6 +42,7 @@ export function useRoutes() {
     "/atividades",
     "/anamnese",
     "/frequencias/atividades",
+    "/login",
     "/turmas",
     "/usuarios",
     "/tech-demo",

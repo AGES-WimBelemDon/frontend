@@ -1,15 +1,14 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-import { useNavigate } from "react-router";
-
 import { strings, setUserLocale, type SupportedLocale, getUserLocale } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
+import { useRoutes } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useSidebar } from "../../hooks/useSidebar";
-import { loginWithGoogle, logout } from "../../services/auth.firebase";
+import { logout } from "../../services/auth.firebase";
 
 export function useUserProfile() {
-  const navigate = useNavigate();
+  const { goTo } = useRoutes();
   const { user, isLoadingAuth } = useAuth();
   const { isMobile, deviceSize } = useScreenSize();
   const {
@@ -26,27 +25,19 @@ export function useUserProfile() {
   const isSidebarOpened = sidebarState === "opened" || sidebarState === "opening";
   const actionLabel = user ? strings.userProfile.logout : strings.userProfile.login;
   const showProfileName = user && (isAnimating || progressRef.current > 0);
-  const profileNameMaxWidth = getSidebarWidth(deviceSize); 
-
-  async function handleSignIn() {
-    try {
-      await loginWithGoogle();
-    } catch {
-      // TODO: Handle sign in error visually
-    }
-  }
+  const profileNameMaxWidth = getSidebarWidth(deviceSize);
 
   async function handleSignOut() {
     try {
       await logout();
-      navigate("/");
+      goTo("/login");
     } catch {
       // TODO: Handle sign out error visually
     }
   }
 
   useLayoutEffect(function animateNameWithSidebar() {
-    const name = user?.displayName;
+    const name = user?.fullName;
     if (!name) {
       return;
     }
@@ -123,7 +114,6 @@ export function useUserProfile() {
     actionLabel,
     user,
     handleSignOut,
-    handleSignIn,
     isLoadingAuth,
     showProfileName,
     displayedName,
