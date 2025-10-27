@@ -17,7 +17,7 @@ export async function login(token: string): Promise<UserResponse> {
     return response.data;
   } catch (error) {
     console.error("API Error in login:", error);
-    throw error;
+    throw new Error("Error logging in user");
   }
 }
 
