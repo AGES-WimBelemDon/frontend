@@ -55,6 +55,7 @@ export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivi
           id="activityForm"
           component="form"
           onSubmit={handleSubmit}
+          // TODO: Find a better workaround. This is useful to allow spacing for MUI's "out of box" label
           sx={{ mt: 1 }}
         >
           <TextField
