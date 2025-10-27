@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { EditResponsibleModalProps, ResponsibleFormData } from "./interface";
 import { useFilters } from "../../hooks/useFilters";
 import { useToast } from "../../hooks/useToast";
-import { updateFamilyMember, updateFamilyMemberAddress } from "../../services/family-members";
+import { updateFamilyMember, updateFamilyMemberAddress, getFamilyMemberAddress, getFamilyMemberById } from "../../services/family-members";
 import type { CreateAddressData } from "../../services/family-members";
 
 export function useEditResponsibleModal({
@@ -21,20 +21,41 @@ export function useEditResponsibleModal({
   useEffect(() => {
     async function fetchResponsibleData() {
       try {
-        // Aqui você precisa substituir com a chamada real do backend para buscar o responsável
-        // Exemplo: const data = await getFamilyMemberById(responsibleId);
-        // const addressData = await getFamilyMemberAddress(responsibleId);
+        
+        const data = await getFamilyMemberById(responsibleId);
+        const addressData = await getFamilyMemberAddress(responsibleId);
 
-        // Por enquanto, valores mock:
-        const data: ResponsibleFormData = {}; 
-        const addressData: Partial<CreateAddressData> = {};
 
-        setFormData(data);
-        setAddress(addressData);
-      } catch {
-        showToast("Erro ao carregar os dados do responsável.", "error");
-      }
+        setFormData({
+        fullName: data.fullName || "",
+        socialName: data.socialName || "",
+        registrationNumber: data.registrationNumber || "",
+        dateOfBirth: data.dateOfBirth || "",
+        nis: data.nis || "",
+        phoneNumber: data.phoneNumber || "",
+        email: data.email || "",
+        relationship: data.relationship || "",
+        race: data.race || "",
+        gender: data.gender || "",
+        educationLevel: data.educationLevel || "",
+        socialPrograms: data.socialPrograms || "",
+        employmentStatus: data.employmentStatus || "",
+      });
+
+      setAddress({
+        street: addressData.street || "",
+        neighborhood: addressData.neighborhood || "",
+        city: addressData.city || "",
+        state: addressData.state || "",
+        cep: addressData.cep || "",
+        number: addressData.number || "",
+        complement: addressData.complement || "",
+      });
+    } catch {
+      console.error("Erro ao carregar dados do responsável:", "error");
+      showToast("Erro ao carregar os dados do responsável.", "error");
     }
+  }
 
     fetchResponsibleData();
   }, [responsibleId, showToast]);

@@ -97,7 +97,7 @@ export async function getFamilyMemberById(familyMemberId: string): Promise<Creat
     const response = await api.get<CreateFamilyMemberData>(endpoints.familyMembers.byId(familyMemberId));
     return response.data;
   } catch {
-    throw new Error("Erro ao buscar responsável");
+    throw new Error("Failed to fetch family member data");
   }
 }
 
@@ -106,6 +106,6 @@ export async function getFamilyMemberAddress(familyMemberId: string): Promise<Pa
     const response = await api.get<CreateAddressData>(endpoints.familyMembers.address(familyMemberId));
     return response.data;
   } catch {
-    return {}; // Retorna objeto vazio se não houver endereço
+    throw new Error("Failed to fetch family member address");
   }
 }
