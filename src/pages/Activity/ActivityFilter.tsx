@@ -1,7 +1,7 @@
 import { Box, TextField, Typography } from "@mui/material";
 
-import { strings } from "../../constants";
 import type { ActivityFilterProps } from "./interface";
+import { strings } from "../../constants";
 
 export function ActivityFilter({ name, onNameChange }: ActivityFilterProps) {
 
