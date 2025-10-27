@@ -8,7 +8,7 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function useClassesPage() {
   const { activities } = useActivities();
-  const { isLoadingClasses, classesError, classes } = useClasses();
+  const { isLoadingClasses, classesError, classes, selectClass } = useClasses();
   const { weekDaysOptions, levelOptions } = useFilters();
   const { goTo } = useRoutes();
   const { isMobile } = useScreenSize();
@@ -30,6 +30,11 @@ export function useClassesPage() {
     });
   }, [isLoadingClasses, classesError, classes, activityFilter, dayFilter, levelFilter]);
 
+  function handleClassClick(id: number) {
+    selectClass(id);
+    goTo("/turmas", `/${id}`);
+  }
+
   return {
     isLoadingClasses,
     classesError,
@@ -45,5 +50,6 @@ export function useClassesPage() {
     goTo,
     isMobile,
     filteredClasses,
+    handleClassClick,
   };
 }

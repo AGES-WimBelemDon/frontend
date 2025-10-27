@@ -44,12 +44,12 @@ export type StudentResponsible = {
   address: string;
 }
 
-export type StudentStatus = 
+export type StudentStatus =
   | "ATIVO"
   | "INATIVO"
-;
+  ;
 
-export type SchoolYear = 
+export type SchoolYear =
   | "EDUCACAO_INFANTIL"
   | "FUNDAMENTAL_1"
   | "FUNDAMENTAL_2"
@@ -57,7 +57,7 @@ export type SchoolYear =
   | "ENSINO_MEDIO_2"
   | "ENSINO_MEDIO_3"
   | "EJA"
-;
+  ;
 
 export type EducationLevel =
   | "NENHUM"
@@ -69,7 +69,7 @@ export type EducationLevel =
   | "SUPERIOR_INCOMPLETO"
   | "SUPERIOR_COMPLETO"
   | "POS_GRADUACAO"
-;
+  ;
 
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
   try {

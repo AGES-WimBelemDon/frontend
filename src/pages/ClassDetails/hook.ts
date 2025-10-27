@@ -13,7 +13,7 @@ export function useClassDetailsPage() {
   const { goTo } = useRoutes();
 
   const classData = useMemo(
-    () => classes?.find((c) => c.id === id),
+    () => classes?.find((c) => c.id === Number(id)),
     [classes, id]
   );
 
@@ -22,21 +22,11 @@ export function useClassDetailsPage() {
     return activities.find((a) => a.id === classData.activityId)?.name || "";
   }, [classData, activities]);
 
-  const students = useMemo(
-    () => [
-      { name: "Ana Souza", frequency: 90 },
-      { name: "Carlos Lima", frequency: 75 },
-      { name: "Fernanda Alves", frequency: 45 },
-    ],
-    []
-  );
-
   return {
     id,
     goTo,
     classData,
     activityName,
-    students,
     isLoadingClasses,
     classesError,
   };

@@ -37,6 +37,7 @@ export default function Classes() {
     setLevelFilter,
     levelOptions,
     filteredClasses,
+    handleClassClick
   } = useClassesPage();
 
   const { showToast } = useToast();
@@ -49,6 +50,8 @@ export default function Classes() {
     },
     [classesError, showToast]
   );
+
+
 
   if (isLoadingClasses) {
     return (
@@ -140,7 +143,7 @@ export default function Classes() {
           {filteredClasses.map((c) => (
             <Card
               key={c.id}
-              onClick={() => goTo("/turmas", `/detalhes/${c.id}`)}
+              onClick={() => handleClassClick(c.id)}
               sx={{
                 backgroundColor: "background.default",
                 borderRadius: 2,
@@ -152,21 +155,21 @@ export default function Classes() {
               <CardContent>
                 <Box display="flex" alignItems="center" gap={3} mb={1}>
                   <Box display="flex" alignItems="center" gap={0.5}>
-                    <Event sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
+                    <Event sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold" }} />
                     <Typography
                       variant="body2"
                       color="text.primary"
-                      fontWeight= "bold"
+                      fontWeight="bold"
                     >
                       {c.weekDay}
                     </Typography>
                   </Box>
                   <Box display="flex" alignItems="center" gap={0.5}>
-                    <AccessTime sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold"}} />
+                    <AccessTime sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold" }} />
                     <Typography
                       variant="body2"
                       color="text.primary"
-                      fontWeight= "bold"
+                      fontWeight="bold"
                     >
                       {c.schedule}
                     </Typography>
@@ -175,7 +178,7 @@ export default function Classes() {
                 <Typography
                   variant="h6"
                   color="primary.main"
-                  fontWeight= "bold"
+                  fontWeight="bold"
                   mb={1}
                 >
                   {c.title}

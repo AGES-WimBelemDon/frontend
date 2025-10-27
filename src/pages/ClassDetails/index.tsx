@@ -9,19 +9,25 @@ import {
 
 import { useClassDetailsPage } from "./hook";
 import { strings } from "../../constants";
+import { useClasses } from "../../hooks/useClasses";
 
 export default function ClassDetails() {
   const {
     goTo,
     classData,
-    students,
     isLoadingClasses,
     classesError,
   } = useClassDetailsPage();
 
-  const getFrequencyColor = (value: number) => {
-    if (value < 50) return "error.main";
-    if (value < 80) return "warning.main";
+  const { frequencyClass: students, frequencyClassError } = useClasses();
+
+  function getFrequencyColor(value: number) {
+    if (value < 50) {
+      return "error.main"
+    };
+    if (value < 80) {
+      return "warning.main"
+    };
     return "success.main";
   };
 
@@ -34,7 +40,7 @@ export default function ClassDetails() {
     );
   }
 
-  if (classesError) {
+  if (classesError || frequencyClassError) {
     return (
       <Typography color="error" textAlign="center">
         {strings.classDetails.errorLoading}
@@ -42,7 +48,7 @@ export default function ClassDetails() {
     );
   }
 
-  if (!classData) {
+  if (!classData || !students) {
     return (
       <Typography textAlign="center">
         {strings.classDetails.classNotFound}
@@ -91,36 +97,35 @@ export default function ClassDetails() {
       </Box>
 
       <Box mt={2} display="flex" flexDirection="column" gap={1.5}>
-        {students.length > 0 ? (
-          students.map((student, index) => (
-            <Card
-              key={index}
-              variant="outlined"
-              sx={{
-                borderRadius: 2,
-                border: "1px solid",
-                borderColor: "grey.300",
-                backgroundColor: "background.default",
-                boxShadow: "none",
-              }}
-            >
-              <CardContent
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Typography fontWeight="bold">{student.name}</Typography>
-                <Typography color={getFrequencyColor(student.frequency)}>
-                  <strong>{strings.classDetails.frequency}: {student.frequency}%</strong>
-                </Typography>
-              </CardContent>
-            </Card>
-          ))
-        ) : (
+        {students.length === 0 && (
           <Typography>{strings.classDetails.noStudents}</Typography>
         )}
+        {students.map((student, index) => (
+          <Card
+            key={index}
+            variant="outlined"
+            sx={{
+              borderRadius: 2,
+              border: "1px solid",
+              borderColor: "grey.300",
+              backgroundColor: "background.default",
+              boxShadow: "none",
+            }}
+          >
+            <CardContent
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography fontWeight="bold">{student.name}</Typography>
+              <Typography color={getFrequencyColor(student.frequency)}>
+                <strong>{strings.classDetails.frequency}: {student.frequency}%</strong>
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
       </Box>
     </Box>
   );
