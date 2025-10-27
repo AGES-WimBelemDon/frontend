@@ -97,7 +97,7 @@ export async function getStudents(): Promise<Student[]> {
     const mockResponse = await Promise.resolve({
       data: [
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Leonardo Mallet",
           dateOfBirth: new Date("2005-03-10"),
           registrationNumber: "2023001",
@@ -112,7 +112,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "João Pedro",
           dateOfBirth: new Date("2006-07-20"),
           registrationNumber: "2023002",
@@ -127,7 +127,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Pedro Henrique",
           dateOfBirth: new Date("2007-01-05"),
           registrationNumber: "2023003",
@@ -142,7 +142,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Ana Beatriz",
           dateOfBirth: new Date("2008-04-12"),
           registrationNumber: "2023004",
@@ -157,7 +157,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Carla Souza",
           dateOfBirth: new Date("2009-11-02"),
           registrationNumber: "2023005",
@@ -172,7 +172,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Felipe Ramos",
           dateOfBirth: new Date("2004-09-18"),
           registrationNumber: "2023006",
@@ -187,7 +187,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Marina Costa",
           dateOfBirth: new Date("2010-06-25"),
           registrationNumber: "2023007",
@@ -202,7 +202,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Gustavo Lima",
           dateOfBirth: new Date("2003-02-14"),
           registrationNumber: "2023008",
@@ -217,7 +217,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Renata Almeida",
           dateOfBirth: new Date("2005-12-30"),
           registrationNumber: "2023009",
@@ -232,7 +232,7 @@ export async function getStudents(): Promise<Student[]> {
           },
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           fullName: "Thiago Nunes",
           dateOfBirth: new Date("2002-01-09"),
           registrationNumber: "2023010",
@@ -262,7 +262,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
     const mockResponse = await Promise.resolve({
       data: [
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           name: "Leonardo Scheidt",
           cpf: "123.456.789-00",
           birthDate: "1990-05-15",
@@ -273,7 +273,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
           address: "Rua A, 123, São Paulo, SP",
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           name: "Maria Silva",
           cpf: "987.654.321-00",
           birthDate: "1985-10-22",
@@ -284,7 +284,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
           address: "Avenida B, 456, Rio de Janeiro, RJ",
         },
         {
-          id: `${(++id).toString()}`,
+          id: `${++id}`,
           name: "Carlos Oliveira",
           cpf: "111.222.333-44",
           birthDate: "1978-03-08",
