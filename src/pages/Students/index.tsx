@@ -56,11 +56,11 @@ export default function Students() {
       ) : (
         <Stack spacing={2}>
           {students.map((student) => (
-            <Card key={student.id} variant="outlined" sx={{ borderRadius: 2, border: "1px solid"}}>
+            <Card key={student.id} variant="outlined" sx={{ borderRadius: 2, border: "1px solid" }}>
               <CardContent sx={{ backgroundColor: "background.default" }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <Typography variant="h6" component="h2" fontWeight="bold">
-                    {student.name}
+                  <Typography variant="h6" component="h2">
+                    {student.fullName}
                   </Typography>
                   <Box display="flex" gap={1}>
                     <Button

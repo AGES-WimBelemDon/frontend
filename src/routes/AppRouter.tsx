@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import ActivityList from "../pages/Activity";
 import AnamnesisForm from "../pages/Anamnese/Form";
 import SelectForm from "../pages/Anamnese/SelectForm";
+import ClassDetails from "../pages/ClassDetails";
 import Classes from "../pages/Classes";
 import Frequency from "../pages/Frequency";
 import { FrequencyCall } from "../pages/FrequencyCall";
@@ -37,6 +38,7 @@ function AppRouter() {
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
           <Route path="turmas" element={<Classes />} />
+          <Route path="turmas/:id" element={<ClassDetails />} />
           <Route path="usuarios" element={<Users />} />
         </Route>
       </Routes>
