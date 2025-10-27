@@ -69,10 +69,8 @@ export type EducationLevel =
   ;
 
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
-  console.log("Registering student:", student);
   try {
     const response = await api.post(endpoints.students.base, student);
-    console.log("Registered student response:", response.data);
     return response.data;
   } catch {
     throw new Error("Error registering student");
@@ -80,7 +78,6 @@ export async function registerStudent(student: Partial<Student>): Promise<Pick<A
 }
 
 export async function registerAddress(studentId: number, address: Partial<AddressResponse>): Promise<Pick<AddressResponse, "id">> {
-  console.log("Registering address for student ID:", studentId, "with address data:", address);
   try {
     const response = await api.post(endpoints.students.address(studentId), address);
     return response.data;
