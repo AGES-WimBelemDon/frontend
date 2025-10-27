@@ -37,6 +37,7 @@ export default function Classes() {
     setLevelFilter,
     levelOptions,
     filteredClasses,
+    handleClassClick,
     openClassesModal,
   } = useClassesPage();
 
@@ -50,6 +51,8 @@ export default function Classes() {
     },
     [classesError, showToast]
   );
+
+
 
   if (isLoadingClasses) {
     return (
@@ -141,6 +144,7 @@ export default function Classes() {
           {filteredClasses.map((c) => (
             <Card
               key={c.id}
+              onClick={() => handleClassClick(c.id)}
               sx={{
                 backgroundColor: "background.default",
                 borderRadius: 2,

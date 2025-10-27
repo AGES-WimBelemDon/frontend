@@ -6,24 +6,20 @@ import { strings } from "../../constants";
 import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
 import { useRoutes } from "../../hooks/useRoutes";
-import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
 
 export function useFrequencyCall() {
   const { getActivityTitleById } = useActivities();
-  const { getClassTitleById } = useClasses();
+  const { getClassTitleById, frequencyClass: apiStudents } = useClasses();
   const { getDate } = useDateInput();
   const { getPathParamId } = useRoutes();
-  const { students: apiStudents } = useStudents();
   const { showToast } = useToast();
 
   const activityId = getPathParamId("atividades");
   const activityTitle = !activityId ? ""
     : getActivityTitleById(activityId);
 
-  const classId = getPathParamId("turmas");
-  const classTitle = !classId ? ""
-    : getClassTitleById(classId);
+  const classTitle = getClassTitleById();
 
   const [students, setStudents] = useState<FrequencyCardStudent[]>([]);
 
@@ -31,14 +27,14 @@ export function useFrequencyCall() {
     if (apiStudents) {
       setStudents(apiStudents.map(apiStudent => ({
         id: apiStudent.id,
-        name: apiStudent.fullName,
-        frequencyPercent: 0,
+        name: apiStudent.name,
+        frequencyPercent: apiStudent.frequency,
         isPresent: true,
       })));
     }
   }, [apiStudents]);
 
-  function updatePresence(id: string, present: boolean) {
+  function updatePresence(id: number, present: boolean) {
     setStudents((prevList) =>
       prevList.map((i) =>
         i.id === id ? { ...i, isPresent: present } : i

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
 import ActivityList from "../pages/Activity";
+import ClassDetails from "../pages/ClassDetails";
 import Classes from "../pages/Classes";
 import Frequency from "../pages/Frequency";
 import { FrequencyCall } from "../pages/FrequencyCall";
@@ -26,13 +27,14 @@ function AppRouter() {
           <Route path="alunos/:id/responsaveis" element={<ResponsibleRegistration />} />
           <Route path="alunos/:id/editar" element={<StudentEdition />} />
           <Route path="atividades" element={<ActivityList />} />
-          <Route path="frequencias/atividades" element={<Frequency />}/>
-          <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>
-          <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall/>} />
+          <Route path="frequencias/atividades" element={<Frequency />} />
+          <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />} />
+          <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall />} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
-          <Route path="turmas" element= {<Classes/>} />
+          <Route path="turmas" element={<Classes />} />
+          <Route path="turmas/:id" element={<ClassDetails />} />
           <Route path="usuarios" element={<Users />} />
         </Route>
       </Routes>
