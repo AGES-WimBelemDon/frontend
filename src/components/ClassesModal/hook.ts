@@ -1,41 +1,27 @@
 import { useMemo, useState } from "react";
 
-import { Dayjs } from "dayjs";
+import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 
-
+import type { ClassesModalForm } from "./interface";
+import { strings } from "../../constants";
 import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
-import type { Student } from "../../services/students";
-import type { User } from "../../services/users";
 
-export interface IClassesModalForm {
-  level: string;
-  recurring: boolean;
-  weekDays: string[];
-  startTime: Dayjs | null;
-  endTime: Dayjs | null;
-}
+const days = [
+  { label: "D", value: "D-0" },
+  { label: "S", value: "S-1" },
+  { label: "T", value: "T-2" },
+  { label: "Q", value: "Q-3" },
+  { label: "Q", value: "Q-4" },
+  { label: "S", value: "S-5" },
+  { label: "S", value: "S-6" },
+];
+const level = ["Infantil", "Fundamental", "Médio"];
+const steps = ["Dados", "Professor", "Alunos"];
 
-interface UseClassesModalReturn {
-  isOpen: boolean;
-  nameStudent: string;
-  nameTeacher: string;
-  selectedStudents: string[];
-  selectedTeachers: string[];
-  setNameStudent: React.Dispatch<React.SetStateAction<string>>;
-  setNameTeacher: React.Dispatch<React.SetStateAction<string>>;
-  closeModal: () => void;
-  createClass: (data: IClassesModalForm) => boolean;
-  openClassesModal: () => void;
-  setSelectedStudents: React.Dispatch<React.SetStateAction<string[]>>;
-  setSelectedTeachers: React.Dispatch<React.SetStateAction<string[]>>;
-  filtredStudents: Student[];
-  filtredUsers: User[];
-}
-
-export function useClassesModal(): UseClassesModalReturn {
+export function useClassesModal() {
   const { showToast } = useToast();
   const { students, isLoadingStudents, studentsError } = useStudents();
   const { users, isLoadingUsers, usersError } = useUsers();
@@ -44,8 +30,20 @@ export function useClassesModal(): UseClassesModalReturn {
   const [nameTeacher, setNameTeacher] = useState("");
 
   const isOpen = searchParams.get("action") === "open-classes-modal";
+
+  const [activeStep, setActiveStep] = useState<number>(0);
   const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
   const [selectedTeachers, setSelectedTeachers] = useState<string[]>([]);
+  
+  const { control, getValues, reset } = useForm<ClassesModalForm>({
+    defaultValues: {
+      level: "",
+      recurring: false,
+      weekDays: [],
+      startTime: null,
+      endTime: null,
+    },
+  });
 
   function openClassesModal() {
     const params = new URLSearchParams(searchParams);
@@ -58,18 +56,56 @@ export function useClassesModal(): UseClassesModalReturn {
     setSearchParams(params);
   }
 
-  function createClass(data: IClassesModalForm): boolean {
-    if (data && selectedTeachers.length > 0 && selectedStudents.length > 0) {
-      showToast("Turma criada com sucesso!", "success");
-      closeModal();
-      return true;
-    } else {
-      showToast("Por favor, preencha todos os campos.", "error");
+  const isLastStep = activeStep === steps.length - 1;
+
+  function handleNext(): boolean {
+    if (activeStep >= steps.length) {
       return false;
+    }
+
+    setActiveStep((prev) => prev + 1);
+    return true;
+  };
+
+  function handleBack(): boolean {
+    if (activeStep <= 0) {
+      return false;
+    }
+    
+    setActiveStep((prev) => prev - 1);
+    return true;
+  };
+
+  function handleSubmit() {
+    const formData = getValues();
+
+    if (!formData || selectedTeachers.length === 0 || selectedStudents.length === 0) {
+      showToast(strings.classesModal.createErrorFillAllFields, "error");
+      return;
+    }
+
+    try {
+      createClass(formData);
+
+      setActiveStep(0);
+      reset();
+      setSelectedStudents([]);
+      setSelectedTeachers([]);
+      setNameStudent("");
+      setNameTeacher("");
+    } catch {
+      showToast(strings.classesModal.createErrorGeneric, "error");
     }
   }
 
-  const filtredStudents = useMemo(() => {
+  function createClass(data: ClassesModalForm): void {
+    // TODO: Send to back and remove console.log
+    console.log({ ...data, selectedTeachers, selectedStudents});
+    showToast(strings.classesModal.createSuccessMessage, "success");
+    closeModal();
+  }
+
+  const filteredStudents = useMemo(() => {
     if (isLoadingStudents || studentsError || !students) {
       return []
     }
@@ -81,7 +117,7 @@ export function useClassesModal(): UseClassesModalReturn {
     })
   }, [isLoadingStudents, studentsError, students, nameStudent])
 
-  const filtredUsers = useMemo(() => {
+  const filteredTeachers = useMemo(() => {
     if (isLoadingUsers || usersError || !users) {
       return []
     }
@@ -97,18 +133,26 @@ export function useClassesModal(): UseClassesModalReturn {
 
   return {
     isOpen,
-    nameStudent,
-    nameTeacher,
-    selectedStudents,
-    selectedTeachers,
-    setNameStudent,
-    setNameTeacher,
     closeModal,
-    createClass,
     openClassesModal,
-    setSelectedStudents,
+    activeStep,
+    steps,
+    control,
+    level,
+    days,
+    nameTeacher,
+    setNameTeacher,
+    selectedTeachers,
     setSelectedTeachers,
-    filtredStudents,
-    filtredUsers,
+    filteredTeachers,
+    nameStudent,
+    setNameStudent,
+    selectedStudents,
+    setSelectedStudents,
+    filteredStudents,
+    handleBack,
+    handleNext,
+    isLastStep,
+    handleSubmit,
   }
 }

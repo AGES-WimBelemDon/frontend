@@ -212,20 +212,21 @@ export const englishTextMap = {
       searchTeacher: "Search Teacher",
       assignTeacher: "Assign Teacher",
       searchStudent: "Search Student",
-      addStudent: "Add Student"
-
+      addStudent: "Add Student",
     },
     buttons: {
       next: "Next",
       back: "Back",
-      create: "Create"
+      create: "Create",
     },
     steps: {
       data: "Data",
       teacher: "Teachers",
-      Student: "Educandos"
-    }
-
+      student: "Educandos",
+    },
+    createSuccessMessage: "Class created successfully!",
+    createErrorFillAllFields: "Please fill in all fields.",
+    createErrorGeneric: "Error creating class. Please try again.",
   },
   personCard: {
     userImageAlt: "User image",

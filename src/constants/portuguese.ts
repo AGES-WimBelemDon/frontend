@@ -210,18 +210,21 @@ export const portugueseTextMap = {
       searchTeacher: "Pesquisar Professor",
       assignTeacher: "Atribuir Professor",
       searchStudent: "Pesquisar Educando",
-      addStudent: "Adicionar Educando"
+      addStudent: "Adicionar Educando",
     },
     buttons: {
       next: "Próximo",
       back: "Voltar",
-      create: "Cadastrar"
+      create: "Cadastrar",
     },
     steps: {
       data: "Dados",
       teacher: "Professor",
-      Student: "Educando"
-    }
+      student: "Educando",
+    },
+    createSuccessMessage: "Turma criada com sucesso!",
+    createErrorFillAllFields: "Por favor, preencha todos os campos.",
+    createErrorGeneric: "Erro ao criar turma. Por favor, tente novamente.",
   },
   personCard: {
     userImageAlt: "Imagem do usuário",
