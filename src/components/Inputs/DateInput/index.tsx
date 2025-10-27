@@ -31,7 +31,6 @@ export function DateInput({ id, label }: { id: string, label: string }) {
     }
   };
 
-  // Função para calcular o número de dias no mês
   const getDaysInMonth = (monthValue: string, yearValue: string): number => {
     if (!monthValue) return 31;
     if (!yearValue) yearValue = new Date().getFullYear().toString();
@@ -141,7 +140,6 @@ export function DateInput({ id, label }: { id: string, label: string }) {
               const newMonth = e.target.value;
               setMonth(newMonth);
               
-              // Ajusta o dia se o dia atual não existir no novo mês
               const maxDays = getDaysInMonth(newMonth, year);
               const currentDay = parseInt(day, 10);
               if (currentDay > maxDays) {
@@ -201,7 +199,6 @@ export function DateInput({ id, label }: { id: string, label: string }) {
               const newYear = e.target.value;
               setYear(newYear);
               
-              // Ajusta o dia se for 29 de fevereiro em ano não bissexto
               if (month === "02" && day === "29") {
                 const maxDays = getDaysInMonth(month, newYear);
                 if (maxDays === 28) {
