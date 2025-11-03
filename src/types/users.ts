@@ -1,29 +1,16 @@
-/**
- * Shared types that match the backend API responses exactly.
- * These types should be kept in sync with backend DTOs.
- */
+import type { Role, UserStatus } from "./filters";
 
 export type GetUsersParams = {
   status?: UserStatus;
 }
-
-export type UserStatus = "ATIVO" | "INATIVO";
-
-export type UserRole = {
-  id: number;
-  name: string;
-  description: string | null;
-};
 
 export type UserResponse = {
   id: number;
   fullName: string;
   email: string;
   status: UserStatus;
-  role: UserRole | null;
+  role: Role | null;
 };
-
-export type UserDetailed = UserResponse;
 
 export type UserRegister = {
   name: string;
