@@ -1,5 +1,6 @@
 import { api, endpoints } from "./api";
-import type { UserRegister, UserResponse, UserDetailed, GetUsersParams } from "../types/user.types";
+import type { UserRegister, UserResponse, GetUsersParams } from "../types/users";
+
 
 export async function registerUser(user: UserRegister): Promise<UserResponse> {
   try {
@@ -16,19 +17,6 @@ export async function login(token: string): Promise<UserResponse> {
     const response = await api.post<UserResponse>(endpoints.users.login, { token });
     return response.data;
   } catch (error) {
-    // TODO: Remove this once backend logic is in place
-    const mockUser: UserResponse = {
-      id: 1,
-      fullName: "Tenista",
-      email: "tenista@wimbelemdon.com.br",
-      status: "ATIVO",
-      role: {
-        id: 1,
-        name: "Admin",
-        description: "Administrator role",
-      },
-    }
-    return mockUser;
     console.error("API Error in login:", error);
     throw new Error("Error logging in user");
   }
@@ -38,7 +26,7 @@ export async function getUsers({
   status,
 }: GetUsersParams): Promise<UserResponse[]> {
   try {
-    const endpoint = status ? `${endpoints.users.getAll}?status=${status}` : endpoints.users.getAll;
+    const endpoint = status ? `${endpoints.users.base}?status=${status}` : endpoints.users.base;
     const response = await api.get<UserResponse[]>(endpoint);
     return response.data;
   } catch (error) {
@@ -52,22 +40,14 @@ export async function getUsers({
           fullName: "John Doe",
           email: "john.doe@example.com",
           status: "ATIVO",
-          role: {
-            id: 1,
-            name: "Admin",
-            description: "Administrator role",
-          },
+          role: "ADMIN",
         } as UserResponse,
         {
           id: id++,
           fullName: "Jane Smith",
           email: "jane.smith@example.com",
           status: "INATIVO",
-          role: {
-            id: 2,
-            name: "User",
-            description: "Regular user role",
-          },
+          role: "TEACHER",
         } as UserResponse,
       ],
     });
@@ -75,9 +55,9 @@ export async function getUsers({
   }
 }
 
-export async function getUserById(userId: number): Promise<UserDetailed> {
+export async function getUserById(userId: number): Promise<UserResponse> {
   try {
-    const response = await api.get<UserDetailed>(endpoints.users.getById(userId));
+    const response = await api.get<UserResponse>(endpoints.users.byId(userId));
     return response.data;
   } catch (error) {
     console.error("API Error in getUserById:", error);
@@ -87,7 +67,7 @@ export async function getUserById(userId: number): Promise<UserDetailed> {
 
 export async function disableUser(userId: number): Promise<void> {
   try {
-    await api.patch(endpoints.users.disable(userId));
+    await api.patch(endpoints.users.disableById(userId));
   } catch (error) {
     console.error("API Error in disableUser:", error);
     throw new Error("Error disabling user");
@@ -96,7 +76,7 @@ export async function disableUser(userId: number): Promise<void> {
 
 export async function enableUser(userId: number): Promise<void> {
   try {
-    await api.patch(endpoints.users.enable(userId));
+    await api.patch(endpoints.users.enableById(userId));
   } catch (error) {
     console.error("API Error in enableUser:", error);
     throw new Error("Error enabling user");

@@ -1,23 +1,5 @@
-export type Address = {
-  code: string;
-  street: string;
-  number: string;
-  complement?: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-}
+import type { Address } from "../types/address";
 
-export interface AddressResponse {
-  id: string;
-  street: string;
-  city: string;
-  state: string;
-  cep: string;
-  neighborhood: string;
-  number?: string;
-  complement?: string;
-}
 
 export function formatAddress(address: Address): string {
   return `${address.street}, ${address.number}${address.complement ? `, ${address.complement}` : ""} - ${address.neighborhood}, ${address.city} - ${address.state}, ${address.code}`;
