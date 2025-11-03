@@ -26,8 +26,8 @@ import {
 import { useUsersPage } from "./hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
-import type { UserResponse } from "../../types/user.types";
-import { getUserStatusDisplay, isUserActive } from "../../types/user.types";
+import type { UserResponse } from "../../types/users";
+import { getUserStatusDisplay, isUserActive } from "../../types/users";
 
 export default function Users() {
   const {
@@ -153,7 +153,7 @@ export default function Users() {
                     variant={isUserActive(user.status) ? "filled" : "outlined"}
                   />
                 </TableCell>
-                <TableCell>{user.role?.name ?? "-"}</TableCell>
+                <TableCell>{user.role ?? "-"}</TableCell>
                 <TableCell
                   sx={{
                     position: "sticky",

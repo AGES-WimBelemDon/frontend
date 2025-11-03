@@ -6,10 +6,8 @@ import {
   getAnamneseFormsByStudent,
   getQuestions,
   postAnamnese,
-  type AnamneseSubmission,
-  type AnamneseFormInfo,
-  type Question,
 } from "../../../services/anamnesis";
+import type { AnamneseFormInfo, AnamneseSubmission, Question } from "../../../types/anamnesis";
 
 export function useAnamneseForm() {
   const { studentId, formId } = useParams<{ studentId: string; formId: string }>();

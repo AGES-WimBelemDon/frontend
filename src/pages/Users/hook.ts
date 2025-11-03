@@ -6,8 +6,8 @@ import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
 import { registerUser as apiRegisterUser, enableUser, disableUser } from "../../services/users";
-import type { UserResponse } from "../../types/user.types";
-import { isUserActive } from "../../types/user.types";
+import type { UserResponse } from "../../types/users";
+import { isUserActive } from "../../types/users";
 
 export function useUsersPage() {
   const { users, usersError, isLoadingUsers } = useUsers();
