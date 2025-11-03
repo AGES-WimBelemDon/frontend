@@ -2,7 +2,7 @@ import { api, endpoints } from "./api";
 
 type ApiClass = {
   id: string;
-  title: string;
+  name: string;
   weekDay: string;
   schedule: string;
   level: string;
@@ -20,7 +20,7 @@ export async function getClasses(): Promise<ApiClass[]> {
       data: [
         {
           id: (++id).toString(),
-          title: "Yoga para Iniciantes",
+          name: "Yoga para Iniciantes",
           weekDay: "Segunda-feira",
           schedule: "08:00 - 09:00",
           level: "Iniciante",
@@ -28,7 +28,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         },
         {
           id: (++id).toString(),
-          title: "Yoga Intermediário",
+          name: "Yoga Intermediário",
           weekDay: "Segunda-feira",
           schedule: "09:00 - 10:00",
           level: "Intermediário",
@@ -36,7 +36,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         },
         {
           id: (++id).toString(),
-          title: "Bate-papo semanal",
+          name: "Bate-papo semanal",
           weekDay: "Quarta-feira",
           schedule: "19:00 - 20:00",
           level: "Todos os níveis",
@@ -44,7 +44,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         },
         {
           id: (++id).toString(),
-          title: "Tênis para Iniciantes",
+          name: "Tênis para Iniciantes",
           weekDay: "Terça-feira",
           schedule: "18:30 - 19:30",
           level: "Intermediário",
@@ -52,7 +52,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         },
         {
           id: (++id).toString(),
-          title: "Tênis Avançado",
+          name: "Tênis Avançado",
           weekDay: "Quinta-feira",
           schedule: "07:00 - 08:00",
           level: "Avançado",
@@ -60,7 +60,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         },
         {
           id: (++id).toString(),
-          title: "Programação",
+          name: "Programação",
           weekDay: "Sábado",
           schedule: "10:00 - 11:30",
           level: "Intermediário",

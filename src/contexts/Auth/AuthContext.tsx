@@ -7,13 +7,7 @@ type AuthContextType = {
   isLoadingAuth: boolean;
 };
 
-const mockUser = {
-  uid: "mock-uid-123",
-  email: "mockuser@example.com",
-  displayName: "Usuário Mock",
-} as unknown as User;
-
 export const AuthContext = createContext<AuthContextType>({
-  user: mockUser,
+  user: null,
   isLoadingAuth: false,
 });

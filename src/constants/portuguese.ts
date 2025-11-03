@@ -138,6 +138,7 @@ export const portugueseTextMap = {
     title: ({ activity, classTitle }: Params<"activity" | "classTitle">) => (
       `Chamada - ${activity} - ${classTitle}`
     ),
+    create: "Nova chamada",
     save: "Salvar",
     loadingStudents: "Carregando estudantes...",
     studentsError: "Erro ao carregar estudantes",

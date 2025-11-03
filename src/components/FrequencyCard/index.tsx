@@ -70,7 +70,7 @@ export function FrequencyCard({
         <Button
           size="medium"
           color="success"
-          variant={isPresent ? "contained" : "outlined"}
+          variant={isPresent == FrequencyStatus.PRESENTE ? "contained" : "outlined"}
           onClick={() => onChangePresence(FrequencyStatus.PRESENTE)}
         >
           <CheckIcon />
@@ -78,7 +78,7 @@ export function FrequencyCard({
         <Button
           size="medium"
           color="error"
-          variant={!isPresent ? "contained" : "outlined"}
+          variant={isPresent == FrequencyStatus.AUSENTE ? "contained" : "outlined"}
           onClick={() => onChangePresence(FrequencyStatus.AUSENTE)}
         >
           <CloseIcon />

@@ -22,7 +22,7 @@ export default function Frequency() {
     );
   }
 
-  if (!user) {
+  if (user) {
     return <Typography color="error">Usuário não autenticado. Faça login para continuar.</Typography>;
   }
 
@@ -59,15 +59,19 @@ export default function Frequency() {
       <PageTitle title={strings.frequency.title} dataCy="frequency-page-title" />
       <CardList>
         {classes.map((classItem, index) => {
-          const { classId, className, isGeral, activity } = classItem;
+          const { classId, className, isGeral, activity, classState } = classItem;
+          if(classState == "INATIVA") {return}
           const displayTitle = isGeral ? "Chamada Geral" : className;
-
+          console.log(isGeral)
           return (
             <TextCard
-              key={classId}
+              key={classId ?? `geral-${index}`}
               title={displayTitle}
               theme={index === 0 ? "dark" : "light"}
               onClick={() => {
+                if(isGeral) {
+                  void goTo("/frequencias/chamada-geral")
+                }
                 void goTo("/frequencias/atividades", `/${activity.activityId}/turmas/${classId}/chamada`);
               }}
             />

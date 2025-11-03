@@ -16,7 +16,7 @@ export const FrequencyStatus = {
 
 export type FrequencyStatus = (typeof FrequencyStatus)[keyof typeof FrequencyStatus]
 
-export interface FrequencyCardStudent {
+export type FrequencyCardStudent = {
   id: string,
   name: string,
   frequencyPercent: number,

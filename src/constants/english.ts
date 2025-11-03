@@ -138,6 +138,7 @@ export const englishTextMap = {
     title: ({ activity, classTitle }: Params<"activity" | "classTitle">) => (
       `Attendance - ${activity} - ${classTitle}`
     ),
+    create: "New attendance",
     save: "Save",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",

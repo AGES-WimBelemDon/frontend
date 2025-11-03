@@ -79,6 +79,11 @@ export type ClassStudentResponse = {
   notes: NoteTypes;
 }
 
+export type RegisterClassAttendance = {
+  classId: number;
+  date: string;
+}
+
 export type ClassAttendence = {
   classId: number;
   date: string;
@@ -95,13 +100,13 @@ export async function getAttendanceClass(classId: number, date: string): Promise
   return response.data;
 }
 
-export async function registerAttendanceClass(body: ClassAttendence): Promise<ClassAttendence> {
+export async function registerAttendanceClass(body: RegisterClassAttendance): Promise<ClassAttendence> {
   const response =  await api.post<ClassAttendence>("/frequency/class-attendance", body);
   return response.data;
 }
 
 
-export async function updateAttendanceClass(body: ClassAttendence): Promise<ClassAttendence> {
+export async function editAttendanceClass(body: ClassAttendence): Promise<ClassAttendence> {
   const respose = await api.patch("/frequency/class-attendance", body);
   return respose.data;
 }
