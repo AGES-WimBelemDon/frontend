@@ -496,7 +496,6 @@ export const englishTextMap = {
     warning: ({ message }: Params<"message">) => (`Warning: ${message}`),
   },
   userProfile: {
-    login: "Sign in with Google",
     logout: "Sign out",
     switchToEnglish: "Switch to English",
     switchToPortuguese: "Switch to Portuguese",
