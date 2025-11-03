@@ -81,9 +81,10 @@ const endpoints = {
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+const API_VERSION = import.meta.env.VITE_API_VERSION;
 
 const axiosClient: AxiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: `${BASE_URL}/${API_VERSION}`,
   timeout: 3 * 60_000, // 3 minutes
 });
 
