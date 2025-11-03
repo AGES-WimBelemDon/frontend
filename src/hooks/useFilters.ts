@@ -12,25 +12,46 @@ import {
   getWeekDaysFilter,
   getLevelsFilter,
   getCivilStatesFilter,
-  getSchoolYearsFilter
+  getSchoolYearsFilter,
+  getFormTypesFilter,
+  getUserStatusFilter,
+  getStudentStatusFilter,
+  getFrequencyStatusFilter,
+  getClassStateFilter,
+  getNoteTypesFilter,
+  getRoleFilter
 } from "../services/filters";
-import type { 
-  Race, 
-  Gender, 
-  SocialPrograms, 
-  EmploymentStatus,
-  IdentityType,
-  DocumentType,
-  WeekDay,
-  Level,
-  CivilState
-} from "../services/filters";
-import type { EducationLevel, SchoolYear } from "../services/students";
+import type { CivilState, ClassState, DocumentType, EducationLevel, EmploymentStatus, FormType, FrequencyStatus, Gender, IdentityType, Level, NoteTypes, Race, Role, SchoolYear, SocialPrograms, StudentStatus, UserStatus, WeekDay } from "../types/filters";
 
 export type FilterOption<T> = {
   id: T;
   label: string;
 };
+
+const formTypeFilterOptionsMap: Record<FormType, keyof typeof strings.filters.formType> = {
+  PSICOLOGIA: "psychology",
+  SOCIAL: "social",
+}
+
+const userStatusFilterOptionsMap: Record<UserStatus, keyof typeof strings.filters.userStatus> = {
+  ATIVO: "active",
+  INATIVO: "inactive",
+}
+
+const studentStatusFilterOptionsMap: Record<StudentStatus, keyof typeof strings.filters.studentStatus> = {
+  ATIVO: "active",
+  INATIVO: "inactive",
+}
+
+const frequencyStatusFilterOptionsMap: Record<FrequencyStatus, keyof typeof strings.filters.frequencyStatus> = {
+  PRESENTE: "present",
+  AUSENTE: "absent",
+}
+
+const classStateFilterOptionsMap: Record<ClassState, keyof typeof strings.filters.classState> = {
+  ATIVA: "active",
+  INATIVA: "inactive",
+}
 
 const raceFilterOptionsMap: Record<Race, keyof typeof strings.filters.race> = {
   BRANCA: "white",
@@ -44,6 +65,9 @@ const raceFilterOptionsMap: Record<Race, keyof typeof strings.filters.race> = {
 const genderFilterOptionsMap: Record<Gender, keyof typeof strings.filters.gender> = {
   MASCULINO: "male",
   FEMININO: "female",
+  HOMEM_TRANS: "transMan",
+  MULHER_TRANS: "transWoman",
+  NAO_BINARIO: "nonBinary",
   OUTRO: "other",
 }
 
@@ -57,10 +81,30 @@ const socialProgramOptionsMap: Record<SocialPrograms, keyof typeof strings.filte
 }
 
 const employmentStatusFilterOptionsMap: Record<EmploymentStatus, keyof typeof strings.filters.employmentStatus> = {
+  ESTUDANTE: "student",
   EMPREGADO: "employed",
   DESEMPREGADO: "unemployed",
-  ESTUDANTE: "student",
+  ESTAGIARIO: "intern",
+  APRENDIZ: "apprentice",
+  AUTONOMO: "selfEmployed",
   OUTRO: "other",
+}
+
+const schoolYearFilterOptionsMap: Record<SchoolYear, keyof typeof strings.filters.schoolYear> = {
+  EDUCACAO_INFANTIL: "infantileEducation",
+  FUNDAMENTAL_1: "elementary1",
+  FUNDAMENTAL_2: "elementary2",
+  FUNDAMENTAL_3: "elementary3",
+  FUNDAMENTAL_4: "elementary4",
+  FUNDAMENTAL_5: "elementary5",
+  FUNDAMENTAL_6: "elementary6",
+  FUNDAMENTAL_7: "elementary7",
+  FUNDAMENTAL_8: "elementary8",
+  FUNDAMENTAL_9: "elementary9",
+  ENSINO_MEDIO_1: "highSchool1",
+  ENSINO_MEDIO_2: "highSchool2",
+  ENSINO_MEDIO_3: "highSchool3",
+  EJA: "eja",
 }
 
 const educationLevelFilterOptionsMap: Record<EducationLevel, keyof typeof strings.filters.educationLevel> = {
@@ -75,16 +119,9 @@ const educationLevelFilterOptionsMap: Record<EducationLevel, keyof typeof string
   POS_GRADUACAO: "posGraduation",
 }
 
-const identityTypesFilterOptionsMap: Record<IdentityType, keyof typeof strings.filters.identityTypes> = {
-  RG: "rg",
-  CPF: "cpf",
-  CERTIDAO_NASCIMENTO: "birthCertificate",
-}
-
-const documentTypesFilterOptionsMap: Record<DocumentType, keyof typeof strings.filters.documentTypes> = {
-  COMPROVANTE_RESIDENCIA: "residenceProof",
-  COMPROVANTE_RENDA: "incomeProof",
-  OUTRO: "other",
+const noteTypesFilterOptionsMap: Record<NoteTypes, keyof typeof strings.filters.noteTypes> = {
+  ATESTADO_MEDICO: "medical",
+  SEM_JUSTIFICATIVA: "none",
 }
 
 const weekDaysFilterOptionsMap: Record<WeekDay, keyof typeof strings.filters.weekDays> = {
@@ -95,6 +132,31 @@ const weekDaysFilterOptionsMap: Record<WeekDay, keyof typeof strings.filters.wee
   SEXTA: "friday",
   SABADO: "saturday",
   DOMINGO: "sunday",
+}
+
+const roleFilterOptionsMap: Record<Role, keyof typeof strings.filters.role> = {
+  ADMIN: "admin",
+  MANAGER: "manager",
+  TEACHER: "teacher",
+  PSYCHOLOGIST: "psychologist",
+  INTERN: "intern",
+}
+
+const identityTypesFilterOptionsMap: Record<IdentityType, keyof typeof strings.filters.identityTypes> = {
+  CERTIDAO_NASCIMENTO: "birthCertificate",
+  CPF: "cpf",
+  RG: "rg",
+  CNH: "driverLicense",
+  PASSAPORTE: "passport",
+  TITULO_ELEITOR: "voterRegistration",
+  CTPS: "ctps",
+  OUTRO: "other",
+}
+
+const documentTypesFilterOptionsMap: Record<DocumentType, keyof typeof strings.filters.documentTypes> = {
+  COMPROVANTE_RESIDENCIA: "residenceProof",
+  COMPROVANTE_RENDA: "incomeProof",
+  OUTRO: "other",
 }
 
 const levelsFilterOptionsMap: Record<Level, keyof typeof strings.filters.levels> = {
@@ -108,16 +170,7 @@ const civilStatesFilterOptionsMap: Record<CivilState, keyof typeof strings.filte
   CASADO: "married",
   DIVORCIADO: "divorced",
   VIUVO: "widowed",
-}
-
-const schoolYearFilterOptionsMap: Record<SchoolYear, keyof typeof strings.filters.schoolYear> = {
-  EDUCACAO_INFANTIL: "infantileEducation",
-  FUNDAMENTAL_1: "elementary1",
-  FUNDAMENTAL_2: "elementary2",
-  ENSINO_MEDIO_1: "highSchool1",
-  ENSINO_MEDIO_2: "highSchool2",
-  ENSINO_MEDIO_3: "highSchool3",
-  EJA: "eja",
+  UNIAO_ESTAVEL: "stableUnion",
 }
 
 function filterOptionsMapper<
@@ -149,6 +202,36 @@ async function queryFunction<
 }
 
 export function useFilters() {
+  const { data: formTypeOptions } = useQuery({
+    queryKey: ["filters", "formTypes"],
+    queryFn: () => queryFunction(getFormTypesFilter, formTypeFilterOptionsMap, "formType"),
+    staleTime: Infinity
+  })
+
+  const { data: userStatusOptions } = useQuery({
+    queryKey: ["filters", "userStatus"],
+    queryFn: () => queryFunction(getUserStatusFilter, userStatusFilterOptionsMap, "userStatus"),
+    staleTime: Infinity
+  })
+
+  const { data: studentStatusOptions } = useQuery({
+    queryKey: ["filters", "studentStatus"],
+    queryFn: () => queryFunction(getStudentStatusFilter, studentStatusFilterOptionsMap, "studentStatus"),
+    staleTime: Infinity
+  })
+
+  const { data: frequencyStatusOptions } = useQuery({
+    queryKey: ["filters", "frequencyStatus"],
+    queryFn: () => queryFunction(getFrequencyStatusFilter, frequencyStatusFilterOptionsMap, "frequencyStatus"),
+    staleTime: Infinity
+  })
+
+  const { data: classStateOptions } = useQuery({
+    queryKey: ["filters", "classState"],
+    queryFn: () => queryFunction(getClassStateFilter, classStateFilterOptionsMap, "classState"),
+    staleTime: Infinity
+  })
+
   const { data: raceOptions } = useQuery({
     queryKey: ["filters", "races"],
     queryFn: () => queryFunction(getRacesFilter, raceFilterOptionsMap, "race"),
@@ -173,9 +256,33 @@ export function useFilters() {
     staleTime: Infinity
   })
 
+  const { data: schoolYearOptions } = useQuery({
+    queryKey: ["filters", "schoolYears"],
+    queryFn: () => queryFunction(getSchoolYearsFilter, schoolYearFilterOptionsMap, "schoolYear"),
+    staleTime: Infinity
+  })
+
   const { data: educationLevels } = useQuery({
     queryKey: ["filters", "educationLevels"],
     queryFn: () => queryFunction(getStudentEducationLevelFilter, educationLevelFilterOptionsMap, "educationLevel"),
+    staleTime: Infinity
+  })
+
+  const { data: noteTypesOptions } = useQuery({
+    queryKey: ["filters", "noteTypes"],
+    queryFn: () => queryFunction(getNoteTypesFilter, noteTypesFilterOptionsMap, "noteTypes"),
+    staleTime: Infinity
+  })
+
+  const { data: weekDaysOptions } = useQuery({
+    queryKey: ["filters", "weekDays"],
+    queryFn: () => queryFunction(getWeekDaysFilter, weekDaysFilterOptionsMap, "weekDays"),
+    staleTime: Infinity
+  })
+
+  const { data: roleOptions } = useQuery({
+    queryKey: ["filters", "roles"],
+    queryFn: () => queryFunction(getRoleFilter, roleFilterOptionsMap, "role"),
     staleTime: Infinity
   })
 
@@ -191,12 +298,6 @@ export function useFilters() {
     staleTime: Infinity
   })
 
-  const { data: weekDaysOptions } = useQuery({
-    queryKey: ["filters", "weekDays"],
-    queryFn: () => queryFunction(getWeekDaysFilter, weekDaysFilterOptionsMap, "weekDays"),
-    staleTime: Infinity
-  })
-
   const { data: levelOptions } = useQuery({
     queryKey: ["filters", "levels"],
     queryFn: () => queryFunction(getLevelsFilter, levelsFilterOptionsMap, "levels"),
@@ -209,23 +310,24 @@ export function useFilters() {
     staleTime: Infinity
   })
 
-  const { data: schoolYearOptions } = useQuery({
-    queryKey: ["filters", "schoolYears"],
-    queryFn: () => queryFunction(getSchoolYearsFilter, schoolYearFilterOptionsMap, "schoolYear"),
-    staleTime: Infinity
-  })
-
   return {
-    genderOptions,
+    formTypeOptions,
+    userStatusOptions,
+    studentStatusOptions,
+    frequencyStatusOptions,
+    classStateOptions,
     raceOptions,
+    genderOptions,
+    socialProgramsOptions,
+    employmentStatusOptions,
+    schoolYearOptions,
     educationLevels,
     identityTypesOptions,
     documentTypesOptions,
-    socialProgramsOptions,
-    employmentStatusOptions,
+    noteTypesOptions,
     weekDaysOptions,
+    roleOptions,
     levelOptions,
-    civilStateOptions,
-    schoolYearOptions,
-  };
+    civilStateOptions
+  }
 }
