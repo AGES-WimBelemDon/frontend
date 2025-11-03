@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { Document } from "./interface";
 import { strings } from "../../constants";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
 import { fetchAddress } from "../../services/address";
-import { addStudentDocument, registerAddress , registerStudent as apiRegisterStudent } from "../../services/students";
-import type { Address } from "../../types/address";
+import {
+  addStudentDocument,
+  registerAddress,
+  registerStudent as apiRegisterStudent,
+  getStudentById,
+  getStudentAddress,
+  deactivateStudent as apiDeactivateStudent
+} from "../../services/students";
+import type { Address, AddressResponse } from "../../types/address";
 import type { Student } from "../../types/students";
 
 export function useStudentRegistration() {
   const { showToast } = useToast()
-  const { goBack } = useRoutes();
+  const { goBack, getPathParamId } = useRoutes();
+  const queryClient = useQueryClient();
 
   const [address, setAddress] = useState<Partial<Address> | null>(null);
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -26,6 +34,10 @@ export function useStudentRegistration() {
     description: "",
   });
 
+  const editingId = getPathParamId("alunos");
+  const studentId = editingId ? Number(editingId) : null;
+  const isEditing = Boolean(studentId);
+
   function getAddressDetails() {
     if (!address?.code) {
       return Promise.resolve(null);
@@ -35,17 +47,57 @@ export function useStudentRegistration() {
       return Promise.resolve(null);
     }
 
-    fetchAddress(address.code).then(setAddress);
+    // [UPDATE] retorna a Promise (React Query pode usar o retorno), e mantém o setAddress
+    return fetchAddress(address.code).then((addr) => {
+      setAddress(addr);
+      return addr;
+    });
   }
-  
+
   useQuery({
-    queryKey: ["address", address?.code],
+    queryKey: ["addressByCep", address?.code],
     queryFn: getAddressDetails,
   })
-  
+
+  const studentQuery = useQuery({
+    queryKey: ["studentById", studentId],
+    queryFn: () => getStudentById(studentId!), // non-null ok pois enabled condiciona
+    enabled: isEditing,
+  });
+
+  const addressQuery = useQuery<AddressResponse | null>({
+    queryKey: ["studentAddressById", studentId],
+    queryFn: () => getStudentAddress(studentId!),
+    enabled: isEditing,
+  });
+
+  const student = studentQuery.data;
+  const studentAddr = addressQuery.data;
+
+  function extractCep(addr?: AddressResponse | null): string {
+    if (!addr) return "";
+    const a = addr as AddressResponse & { code?: string };
+    return a.code ?? addr.cep ?? "";
+  }
+
+  useEffect(() => {
+    if (studentAddr) {
+      setAddress({
+        code: extractCep(studentAddr),
+        street: studentAddr.street ?? "",
+        number: studentAddr.number ?? "",
+        state: studentAddr.state ?? "",
+        city: studentAddr.city ?? "",
+        neighborhood: studentAddr.neighborhood ?? "",
+        complement: studentAddr.complement ?? "",
+      });
+    }
+  }, [studentAddr]);
+
+
   function handleAddDoc() {
     if (!docForm.fileName) return;
-  
+
     setDocuments((docs) => [
       ...docs,
       {
@@ -79,9 +131,9 @@ export function useStudentRegistration() {
       if (!studentData.gender) {
         throw new Error(strings.studentRegistration.errors.genderRequired);
       }
-      // if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
-      //   throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
-      // }
+      if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
+        throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
+      }
       if (!addressData.code) {
         throw new Error(strings.studentRegistration.errors.addressCepRequired);
       }
@@ -94,12 +146,12 @@ export function useStudentRegistration() {
       if (!newStudent.id) {
         throw new Error("No ID returned from student registration");
       }
-      
+
       const studentAddress = await registerAddress(newStudent.id, addressData);
       if (!studentAddress.id) {
         throw new Error("No ID returned from address registration");
       }
-     
+
       showToast(strings.studentRegistration.successMessage, "success");
 
       return newStudent.id;
@@ -125,6 +177,25 @@ export function useStudentRegistration() {
       {} as Record<string, unknown>
     );
     return reducedEntries as Partial<T>;
+  }
+
+  async function handleDeactivateStudent() {
+    if (!studentId) return;
+    const confirm = window.confirm("Tem certeza que deseja desativar este educando?");
+    if (!confirm) return;
+
+    try {
+      await apiDeactivateStudent(studentId);
+      showToast("Aluno desativado com sucesso.", "success");
+      await queryClient.invalidateQueries({ queryKey: ["students"] });
+      goBack();
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) {
+        showToast("Erro interno no servidor.", "error");
+        return;
+      }
+      showToast(err?.message , "error");
+    }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -158,5 +229,12 @@ export function useStudentRegistration() {
     handleSubmit,
     address,
     setAddress,
+    isEditing,
+    student,
+    isLoadingStudent: studentQuery.isPending,
+    studentError: studentQuery.error,
+    isLoadingStudentAddress: addressQuery.isPending,
+    studentAddressError: addressQuery.error,
+    handleDeactivateStudent,
   }
 }

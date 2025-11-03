@@ -2,6 +2,7 @@ import { api, endpoints } from "./api";
 import type { AddressResponse } from "../types/address";
 import type { SchoolYear, StudentStatus } from "../types/filters";
 import type { ApiStudent, Student, StudentResponsible } from "../types/students";
+import { AxiosError } from "axios";
 
 
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
@@ -286,5 +287,51 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
       ]
     })
     return mockResponse.data;
+  }
+}
+
+export async function updateStudent(studentId: number, data: Partial<Student>): Promise<void> {
+  try {
+    // Datas no formato YYYY-MM-DD (a tela já envia assim)
+    await api.patch(endpoints.students.byId(studentId), data);
+  } catch (error: unknown) {
+    if(!(error instanceof AxiosError)) {
+      throw new Error("Erro interno no servidor.");
+    }
+    const status = error?.response?.status;
+    if (status === 404) throw new Error("Aluno não encontrado.");
+    if (status === 409) throw new Error("Dados inválidos.");
+    throw new Error("Erro interno no servidor.");
+  }
+}
+
+export async function deactivateStudent(studentId: number): Promise<void> {
+  try {
+    await api.delete(endpoints.students.byId(studentId));
+  } catch (error: unknown) {
+    if(!(error instanceof AxiosError)) {
+      throw new Error("Erro interno no servidor.");
+    }
+    const status = error?.response?.status;
+    if (status === 404) throw new Error("Aluno não encontrado.");
+    throw new Error("Erro interno no servidor.");
+  }
+}
+
+export async function getStudentById(studentId: number): Promise<Student> {
+  try {
+    const response = await api.get<Student>(endpoints.students.byId(studentId));
+    return response.data;
+  } catch {
+    throw new Error("Erro ao buscar aluno.");
+  }
+}
+
+export async function getStudentAddress(studentId: number): Promise<AddressResponse | null> {
+  try {
+    const response = await api.get<AddressResponse>(endpoints.students.addressById(studentId));
+    return response.data;
+  } catch {
+    return null;
   }
 }

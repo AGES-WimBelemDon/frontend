@@ -1,14 +1,19 @@
 import { useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useRoutes } from "./useRoutes";
+import { useToast } from "./useToast";
 import { getStudentResponsibles as apiGetStudentResponsibles, getStudents } from "../services/students";
+import { deactivateStudent as apiDeactivateStudent } from "../services/students";
 
 export function useStudents() {
   const { getPathParamId } = useRoutes();
   const studentId = getPathParamId("alunos");
   const [currentStudentId, setCurrentStudentId] = useState<number | null>(studentId ? Number(studentId) : null);
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
 
   const { isPending, error, data } = useQuery({
     queryKey: ["students"],
@@ -21,6 +26,13 @@ export function useStudents() {
     }
 
     return apiGetStudentResponsibles({ id: currentStudentId });
+  }
+
+  async function deactivate(id: number) {
+    await apiDeactivateStudent(id);
+    // Atualiza a lista sem recarregar a página
+    await queryClient.invalidateQueries({ queryKey: ["students"] });
+    showToast("Aluno desativado com sucesso.", "success");
   }
 
   const {
@@ -42,5 +54,6 @@ export function useStudents() {
     responsibles: dataResponsibles,
     currentStudentId,
     selectStudent: setCurrentStudentId,
+    deactivateStudent: deactivate,
   };
 }

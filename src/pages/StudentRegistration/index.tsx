@@ -16,7 +16,7 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 export default function StudentRegistration() {
   const { goBack } = useRoutes();
   const { isMobile } = useScreenSize();
-  
+
   const {
     genderOptions,
     raceOptions,
@@ -36,6 +36,8 @@ export default function StudentRegistration() {
     handleSubmit,
     address,
     setAddress,
+    isEditing,
+    handleDeactivateStudent,
   } = useStudentRegistration();
 
   return (
@@ -131,7 +133,7 @@ export default function StudentRegistration() {
             <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
-    
+
         <TextField
           name="student.enrollmentDate"
           label={strings.studentRegistration.enrollmentDate}
@@ -341,7 +343,7 @@ export default function StudentRegistration() {
         >
           {strings.studentRegistration.details}
         </Typography>
-        
+
         <TextField
           required
           name="student.schoolYear"
@@ -451,14 +453,14 @@ export default function StudentRegistration() {
             />
             <TextField
               required
-              
+
               name="address.number"
               label={strings.studentRegistration.address.number}
               placeholder={strings.studentRegistration.address.numberPlaceholder}
               fullWidth
               margin="normal"
-              slotProps={{ 
-                inputLabel: { sx: { color: "primary.main" }, shrink: true }, 
+              slotProps={{
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             />
             <TextField
@@ -491,7 +493,7 @@ export default function StudentRegistration() {
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
             />
-            
+
             <TextField
               name="address.neighborhood"
               label={strings.studentRegistration.address.neighborhood}
@@ -507,7 +509,7 @@ export default function StudentRegistration() {
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
             />
-            
+
             <TextField
               name="address.complement"
               label={strings.studentRegistration.address.complement}
@@ -528,17 +530,20 @@ export default function StudentRegistration() {
             mt: 2,
           }}
         >
-          {/* <Button                           deixar bonito depois e chamar quando fizer ediçao (criar nova variavel no hook)
-            variant="contained"
-            sx={{
-              color: "primary.contrastText",
-              borderColor: "primary.main",
-              bgcolor: "error.main",
-              fontWeight: 500,
-            }}
-          >
-            {strings.studentEdition.toggleStudentStatusOff}
-          </Button>  */}
+          {isEditing && (
+            <Button
+              variant="contained"
+              sx={{
+                color: "primary.contrastText",
+                borderColor: "primary.main",
+                bgcolor: "error.main",
+                fontWeight: 500,
+              }}
+              onClick={handleDeactivateStudent}
+            >
+              {strings.studentEdition.toggleStudentStatusOff}
+            </Button>
+          )}
           <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
             {strings.studentRegistration.saveButton}
           </Button>
@@ -551,8 +556,8 @@ export default function StudentRegistration() {
           >
             {strings.studentRegistration.cancelButton}
           </Button>
-          
-        </Box> 
+
+        </Box>
       </Grid>
     </Box>
   );
