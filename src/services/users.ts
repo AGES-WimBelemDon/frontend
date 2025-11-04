@@ -24,9 +24,18 @@ export async function login(token: string): Promise<UserResponse> {
 
 export async function getUsers({
   status,
+  role,
 }: GetUsersParams): Promise<UserResponse[]> {
   try {
-    const endpoint = status ? `${endpoints.users.base}?status=${status}` : endpoints.users.base;
+    const params = new URLSearchParams();
+    if (status) {
+      params.append("status", status);
+    }
+    if (role) {
+      params.append("role", role);
+    }
+    const paramsString = params.size === 0 ? "" : `?${params.toString()}`;
+    const endpoint = `${endpoints.users.base}${paramsString}`;
     const response = await api.get<UserResponse[]>(endpoint);
     return response.data;
   } catch (error) {
@@ -62,6 +71,16 @@ export async function getUserById(userId: number): Promise<UserResponse> {
   } catch (error) {
     console.error("API Error in getUserById:", error);
     throw new Error("Error fetching user");
+  }
+}
+
+export async function updateUser(userId: number, payload: Partial<UserRegister>): Promise<UserResponse> {
+  try {
+    const response = await api.patch<UserResponse>(endpoints.users.byId(userId), payload);
+    return response.data;
+  } catch (error) {
+    console.error("API Error in updateUser:", error);
+    throw new Error("Error updating user");
   }
 }
 

@@ -1,18 +1,41 @@
-import type { FormEvent } from "react";
+import { useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
 
 import { strings } from "../../constants";
+import { useFilters } from "../../hooks/useFilters";
+import { useScreenSize } from "../../hooks/useScreenSize";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
-import { registerUser as apiRegisterUser, enableUser, disableUser } from "../../services/users";
-import type { UserResponse } from "../../types/users";
+import { registerUser, enableUser, disableUser } from "../../services/users";
+import type { UserResponse, GetUsersParams } from "../../types/users";
 
 
 export function useUsersPage() {
-  const { users, usersError, isLoadingUsers } = useUsers();
+  const [filters, setFilters] = useState<GetUsersParams>({});
+  const { users, usersError, isLoadingUsers } = useUsers(filters);
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+  const { roleOptions, userStatusOptions } = useFilters();
+  const { isMobile, isDesktop } = useScreenSize();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<UserResponse | null>(null);
+
+  function openCreateModal() {
+    setEditingUser(null);
+    setIsModalOpen(true);
+  }
+
+  function openEditModal(user: UserResponse) {
+    setEditingUser(user);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setEditingUser(null);
+    setIsModalOpen(false);
+  }
 
   function isUserActive(user: UserResponse): boolean {
     return user.status === "ATIVO";
@@ -23,18 +46,6 @@ export function useUsersPage() {
       return strings.filters.userStatus.inactive;
     }
     return strings.filters.userStatus.active;
-  }
-
-  async function registerUser(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") as string;
-    const name = formData.get("name") as string;
-
-    await apiRegisterUser({ email, name });
-    await queryClient.invalidateQueries({ queryKey: ["users"] });
-    (event.currentTarget as HTMLFormElement).reset();
   }
 
   async function toggleUser(user: UserResponse) {
@@ -52,6 +63,10 @@ export function useUsersPage() {
     }
   }
 
+  function setFilter(newFilters: Partial<GetUsersParams>) {
+    setFilters((prev) => ({ ...prev, ...newFilters }));
+  }
+
   return {
     users,
     usersError,
@@ -60,5 +75,16 @@ export function useUsersPage() {
     toggleUser,
     isUserActive,
     userStatusToString,
+    openCreateModal,
+    isModalOpen,
+    closeModal,
+    editingUser,
+    openEditModal,
+    isMobile,
+    isDesktop,
+    roleOptions,
+    userStatusOptions,
+    filters,
+    setFilter,
   }
 }

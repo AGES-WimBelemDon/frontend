@@ -6,10 +6,6 @@ import {
 import {
   Box,
   Button,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  Typography,
   Table,
   TableBody,
   TableCell,
@@ -21,10 +17,16 @@ import {
   Chip,
   Tooltip,
   IconButton,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Typography,
 } from "@mui/material";
 
 import { useUsersPage } from "./hook";
 import { PageTitle } from "../../components/PageTitle";
+import { RegisterUserModal } from "../../components/RegisterUserModal";
 import { strings } from "../../constants";
 import type { UserResponse } from "../../types/users";
 
@@ -33,10 +35,20 @@ export default function Users() {
     users,
     isLoadingUsers,
     usersError,
-    registerUser,
     toggleUser,
     isUserActive,
     userStatusToString,
+    openCreateModal,
+    isModalOpen,
+    closeModal,
+    editingUser,
+    openEditModal,
+    isMobile,
+    isDesktop,
+    roleOptions,
+    userStatusOptions,
+    filters,
+    setFilter,
   } = useUsersPage();
 
   if (isLoadingUsers) {
@@ -51,158 +63,131 @@ export default function Users() {
     <>
       <PageTitle title={strings.users.title} dataCy="users-page-title" />
       
-      <Box
-        component="form"
-        onSubmit={registerUser}
-        width="100%"
-        gap={3}
-        display="flex"
-        flexDirection="column"
-      >
-        <Typography variant="h6" component="h2">
-          {strings.users.registerNew}
-        </Typography>
-
-        <FormControl fullWidth required variant="outlined">
-          <InputLabel htmlFor="name">{strings.users.inputs.name}</InputLabel>
-          <OutlinedInput
-            id="name"
-            name="name"
-            label={strings.users.inputs.name}
-            placeholder={strings.users.inputs.namePlaceholder}
-            inputProps={{
-              "data-cy": "create-user-name",
-              "aria-required": true,
-            }}
-          />
-        </FormControl>
-
-        <FormControl fullWidth required variant="outlined">
-          <InputLabel htmlFor="email">{strings.users.inputs.email}</InputLabel>
-          <OutlinedInput
-            id="email"
-            name="email"
-            type="email"
-            label={strings.users.inputs.email}
-            placeholder={strings.users.inputs.emailPlaceholder}
-            inputProps={{
-              inputMode: "email",
-              "data-cy": "create-user-email",
-              "aria-required": true,
-            }}
-          />
-        </FormControl>
-
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          data-cy="create-user-submit"
-          sx={{ alignSelf: "flex-start" }}
-        >
-          {strings.users.inputs.register}
-        </Button>
-      </Box>
-
-      <TableContainer component={Paper}>
-        <Table size="small" aria-label="users table" stickyHeader>
-          <TableHead>
-            <TableRow>
-              <TableCell
-                sx={{
-                  position: "sticky",
-                  left: 0,
-                  zIndex: 2,
-                }}
-              >
-                {strings.users.table.name}
-              </TableCell>
-              <TableCell>{strings.users.table.email}</TableCell>
-              <TableCell>{strings.users.table.status}</TableCell>
-              <TableCell>{strings.users.table.role}</TableCell>
-              <TableCell
-                sx={{
-                  position: "sticky",
-                  right: 0,
-                  zIndex: 2,
-                }}
-                align="right"
-              >
-                {strings.users.table.actions}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users?.map((user: UserResponse) => (
-              <TableRow key={user.id} hover>
-                <TableCell
-                  sx={{
-                    position: "sticky",
-                    left: 0,
-                    zIndex: 1,
-                    backgroundColor: "background.paper",
-                  }}
-                >
-                  {user.fullName}
+      <Box gap={3} display="flex" flexDirection="column">
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography variant="h6" component="h2">{strings.users.registerNew}</Typography>
+          <Button variant="contained" color="primary" onClick={openCreateModal} data-cy="open-create-user">
+            {strings.users.inputs.register}
+          </Button>
+        </Box>
+        <Box gap={2} display="grid" gridTemplateColumns="6fr 4fr">
+          <FormControl size="small">
+            <InputLabel id="role-filter-label">{strings.filters.role.title}</InputLabel>
+            <Select
+              labelId="role-filter-label"
+              id="role-filter"
+              value={filters.role ?? ""}
+              label={strings.filters.role.title}
+              onChange={(e) => setFilter({ role: e.target.value ?? undefined })}
+              inputProps={{ "data-cy": "role-filter" }}
+            >
+              <MenuItem value="">{strings.filters.all}</MenuItem>
+              {roleOptions?.map(({ id, label }) => (
+                <MenuItem key={id} value={id}>{label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl size="small">
+            <InputLabel id="status-filter-label">{strings.filters.userStatus.title}</InputLabel>
+            <Select
+              labelId="status-filter-label"
+              id="status-filter"
+              value={filters.status ?? ""}
+              label={strings.filters.userStatus.title}
+              onChange={(e) => setFilter({ status: e.target.value ?? undefined })}
+              inputProps={{ "data-cy": "status-filter" }}
+            >
+              <MenuItem value="">{strings.filters.all}</MenuItem>
+              {userStatusOptions?.map(({ id, label }) => (
+                <MenuItem key={id} value={id}>{label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+        <TableContainer component={Paper} sx={{ backgroundColor: "background.default" }}>
+          <Table size="small" aria-label="users table" stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ position: "sticky", left: 0, zIndex: 5, backgroundColor: "background.default" }}>
+                  {strings.users.table.name}
                 </TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>
-                  <Chip
-                    size="small"
-                    label={userStatusToString(user)}
-                    color={isUserActive(user) ? "success" : "default"}
-                    variant={isUserActive(user) ? "filled" : "outlined"}
-                  />
-                </TableCell>
-                <TableCell>{strings.filters.role[user.role]}</TableCell>
-                <TableCell
-                  sx={{
-                    position: "sticky",
-                    right: 0,
-                    zIndex: 2,
-                  }}
-                  align="right"
-                >
-                  <Box sx={{ display: "inline-flex", gap: 0.5 }}>
-                    <Tooltip title={strings.personCard.editButton} placement="top" arrow>
-                      <span>
-                        <IconButton size="small" aria-label={strings.personCard.editButton} disabled>
-                          <EditIcon fontSize="small" />
-                        </IconButton>
-                      </span>
-                    </Tooltip>
-                    {isUserActive(user) ? (
-                      <Tooltip title={strings.users.actions.deactivate} placement="top" arrow>
-                        <IconButton size="small" color="warning" aria-label={strings.users.actions.deactivate} onClick={() => toggleUser(user)}>
-                          <BlockIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title={strings.users.actions.activate} placement="top" arrow>
-                        <IconButton size="small" color="success" aria-label={strings.users.actions.activate} onClick={() => toggleUser(user)}>
-                          <CheckCircleOutlineIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                  </Box>
+                <TableCell>{strings.users.table.email}</TableCell>
+                <TableCell>{strings.users.table.status}</TableCell>
+                <TableCell>{strings.users.table.role}</TableCell>
+                <TableCell sx={{ position: "sticky", right: 0, zIndex: 5, backgroundColor: "background.default" }} align="right">
+                  {strings.users.table.actions}
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell colSpan={5} align="right" sx={{ fontSize: 12, color: "text.secondary" }}>
-                {(() => {
-                  const total = (users?.length ?? 0).toLocaleString();
-                  const now = new Date();
-                  const updatedAt = now.toLocaleString();
-                  return `${strings.users.footer.showing({ count: total, total })} • ${strings.users.footer.updatedAt({ when: updatedAt })}`;
-                })()}
-              </TableCell>
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {users?.map((user: UserResponse) => (
+                <TableRow key={user.id} sx={{ "&:hover": { backgroundColor: "background.paper" } }}>
+                  <TableCell sx={{ position: "sticky", left: 0, zIndex: 3, backgroundColor: "background.default", "tr:hover &": { backgroundColor: "background.paper" } }}>
+                    {user.fullName}
+                  </TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>
+                    <Chip
+                      size="small"
+                      label={userStatusToString(user)}
+                      color={isUserActive(user) ? "success" : "default"}
+                      variant={isUserActive(user) ? "filled" : "outlined"}
+                    />
+                  </TableCell>
+                  <TableCell>{strings.filters.role[user.role]}</TableCell>
+                  <TableCell sx={{ position: "sticky", right: 0, zIndex: 4, backgroundColor: "background.default", "tr:hover &": { backgroundColor: "background.paper" } }} align="right">
+                    <Box sx={{ display: "inline-flex", gap: 0.5 }}>
+                      <Tooltip title={strings.personCard.editButton} placement="top" arrow>
+                        <span>
+                          <IconButton size="small" aria-label={strings.personCard.editButton} onClick={() => openEditModal(user)} sx={{ bgcolor: "background.default" }}>
+                            <EditIcon fontSize="small" />
+                          </IconButton>
+                        </span>
+                      </Tooltip>
+                      {isUserActive(user) ? (
+                        <Tooltip title={strings.users.actions.deactivate} placement="top" arrow>
+                          <IconButton size="small" color="warning" aria-label={strings.users.actions.deactivate} onClick={() => toggleUser(user)} sx={{ bgcolor: "background.default" }}>
+                            <BlockIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title={strings.users.actions.activate} placement="top" arrow>
+                          <IconButton size="small" color="success" aria-label={strings.users.actions.activate} onClick={() => toggleUser(user)} sx={{ bgcolor: "background.default" }}>
+                            <CheckCircleOutlineIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell />
+                <TableCell colSpan={4} sx={{ position: "sticky", right: 0, zIndex: 7, backgroundColor: "background.default", whiteSpace: "nowrap", pr: 2 }} align={isMobile ? "center" : "right"}>
+                  {(() => {
+                    const total = (users?.length ?? 0).toLocaleString();
+                    const showing = `${strings.users.footer.showing({ count: total, total })}`;
+                    const now = new Date();
+                    const updatedAt = `${strings.users.footer.updatedAt({ when: now.toLocaleString() })}`;
+                    if (isDesktop) {
+                      return `${showing} • ${updatedAt}`;
+                    }
+                    return showing;
+                  })()}
+                </TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </TableContainer>
+      </Box>
+
+      <RegisterUserModal
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        initialValues={editingUser ? { name: editingUser.fullName, email: editingUser.email, role: editingUser.role } : undefined}
+      />
     </>
   );
 }
