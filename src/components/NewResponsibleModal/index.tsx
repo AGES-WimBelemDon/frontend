@@ -91,16 +91,17 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
             gap={2}
             display="grid"
             gridTemplateColumns={isMobile ? "1fr" : "1fr 1fr"}
-            border="2px solid"
+            border="0px solid"
             borderColor="primary.main"
             borderRadius={2}
             width="100%"
-            padding={2}          
+            padding={0}          
           >
             <TextField
               label={strings.newResponsibleModal.inputs.name}
               placeholder={strings.newResponsibleModal.inputs.namePlaceholder}
               id="fullName"
+              required
               name="fullName"
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -119,6 +120,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               label={strings.newResponsibleModal.inputs.registrationNumber}
               placeholder={strings.newResponsibleModal.inputs.registrationNumberPlaceholder}
               id="registrationNumber"
+              required
               name="registrationNumber"
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -128,6 +130,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               id="dateOfBirth"
               label={strings.newResponsibleModal.inputs.birthDate}
               name="dateOfBirth"
+              required
               type="date"
         
               slotProps={{
@@ -149,6 +152,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               placeholder={strings.newResponsibleModal.inputs.phonePlaceholder}
               id="phoneNumber"
               name="phoneNumber"
+              required
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -179,6 +183,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               label={strings.newResponsibleModal.inputs.relationship}
               placeholder={strings.newResponsibleModal.inputs.relationshipPlaceholder}
               id="relationship"
+              required
               name="relationship"
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -245,17 +250,18 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
             display="flex"
             flexDirection="column"
             justifyContent="center"
-            border="2px solid"
+            border="0px solid"
             borderColor="primary.main"
             borderRadius={2}
             width="100%"
-            padding={2}
+            padding={0}
           >
             <TextField 
               name="cep"
               label={strings.newResponsibleModal.inputs.cep}
               placeholder={strings.newResponsibleModal.inputs.cepPlaceholder}
               fullWidth
+              required
               margin="normal"
               type="number"
               value={address?.code || ""}
@@ -313,17 +319,6 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
                   }}
                 />
                 <TextField
-                  value={address?.number || ""}
-                  label={strings.newResponsibleModal.inputs.number}
-                  placeholder={strings.newResponsibleModal.inputs.numberPlaceholder}
-                  id="number"
-                  name="number"
-                  onChange={(e) => setAddress({ ...address, number: e.target.value })}
-                  slotProps={{
-                    inputLabel: { sx: { color: "primary.main" }, shrink: true },
-                  }}
-                />
-                <TextField
                   value={address.neighborhood}
                   label={strings.newResponsibleModal.inputs.neighborhood}
                   placeholder={strings.newResponsibleModal.inputs.neighborhoodPlaceholder}
@@ -351,6 +346,18 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
                       sx: { cursor: "not-allowed" }
                     },
                     inputLabel: { sx: { color: "primary.main" , "&.Mui-disabled": { color: "red" }}, shrink: true },
+                  }}
+                />
+                <TextField
+                  value={address?.number || ""}
+                  label={strings.newResponsibleModal.inputs.number}
+                  placeholder={strings.newResponsibleModal.inputs.numberPlaceholder}
+                  id="number"
+                  required
+                  name="number"
+                  onChange={(e) => setAddress({ ...address, number: e.target.value })}
+                  slotProps={{
+                    inputLabel: { sx: { color: "primary.main" }, shrink: true },
                   }}
                 />
                 <TextField

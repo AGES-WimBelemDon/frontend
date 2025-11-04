@@ -7,6 +7,7 @@ import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hoo
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
 import { strings } from "../../constants";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 export default function ResponsibleRegistration() {
   const { openModal } = useNewResponsibleModal();
@@ -16,6 +17,7 @@ export default function ResponsibleRegistration() {
     responsibles,
     studentId,
   } = useStudentResponsible();
+  const isMobile = useScreenSize().isMobile;
 
   if (isLoadingResponsibles) {
     return (
@@ -32,7 +34,7 @@ export default function ResponsibleRegistration() {
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box display="flex" flexDirection={isMobile ? "column" : "row"} paddingBottom={2} justifyContent="space-between" alignItems="center">
         <PageTitle title={strings.studentsResponsibles.title} dataCy="responsible-registration" />
         <Button
           variant="contained"
@@ -44,8 +46,7 @@ export default function ResponsibleRegistration() {
         </Button>
       </Box>
 
-      {/* TODO: Fix this hardcoded magic number */}
-      <Box sx={{ maxWidth: 720 }}>
+      <Box sx={{ width: "100%" }}>
         <Stack spacing={2}>
           {
             responsibles.length === 0 ? (
