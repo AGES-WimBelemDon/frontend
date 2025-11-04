@@ -51,7 +51,7 @@ Thank you for your contribution! This guide is organized by importance for devel
   - [Firebase Setup](#firebase-setup)
     - [Creating Firebase Project](#creating-firebase-project)
     - [Required Environment Variables](#required-environment-variables-1)
-    - [Development vs Production](#development-vs-production)
+    - [Production Secrets](#production-secrets)
     - [Authentication Flow](#authentication-flow)
   - [Development vs Production Differences](#development-vs-production-differences)
 - [Localization and UI Text Management](#localization-and-ui-text-management)
@@ -164,7 +164,8 @@ git config user.email your_email@example.com
 Copy `.env.example` to `.env` and configure the following variables:
 
 #### API Configuration
-- `VITE_API_URL` - Backend API base URL (e.g., `http://localhost:3000`)
+- `VITE_API_URL` - Backend API base URL (e.g., `http://localhost:3000/api`)
+- `VITE_API_VERSION` - API version (e.g., `v1`)
 
 #### Firebase Authentication
 - `VITE_FIREBASE_API_KEY` - Firebase project API key
@@ -475,9 +476,8 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
 VITE_FIREBASE_APP_ID=1:123456789:web:abcdef123456
 ```
 
-#### Development vs Production
+#### Production Secrets
 
-- **Development**: Authentication is optional - the app provides fallback UI and mock data
 - **Production**: All Firebase variables must be configured for authentication to work
 - **GitHub Actions**: Configure Firebase variables as repository secrets for deployment
 
@@ -493,7 +493,6 @@ The app uses `AuthContext` and `AuthProvider` for state management:
 
 - **TechDemo page**: Only available in development (`import.meta.env.DEV`)
 - **Mock data**: Fallback behavior in development, should be removed in production
-- **Firebase**: Can run without Firebase in development mode
 - **Routing**: Uses `/frontend/` base path for GitHub Pages deployment
 
 ## Localization and UI Text Management
@@ -669,7 +668,10 @@ Leverage MUI's built-in accessibility features:
    ```typescript
    const endpoints = {
      // existing endpoints...
-     newEntity: "/new-entity",
+     newEntity: {
+      base: "/new-entity",
+      byId: (id: string) => `/new-entity/${id}`
+    },
    }
    ```
 
