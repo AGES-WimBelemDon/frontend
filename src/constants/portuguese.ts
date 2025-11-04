@@ -397,6 +397,8 @@ export const portugueseTextMap = {
     cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
     errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
+    assurementMessage: "Tem certeza que deseja desativar este educando?",
+    deactivantionSucess: "Estudante desativado com sucesso",
     errors: {
       fullNameRequired: "O nome completo do estudante é obrigatório",
       dateOfBirthRequired: "A data de nascimento do estudante é obrigatória",
@@ -406,6 +408,10 @@ export const portugueseTextMap = {
       enrollmentDateRequired: "A data de cadastro do estudante é obrigatória",
       addressCepRequired: "O CEP do endereço do estudante é obrigatório",
       addressNumberRequired: "O número do endereço do estudante é obrigatório",
+      internalError: "Erro interno no servidor",
+      studentNotFound: "Aluno não encontrado",
+      invalidData: "Dados inválidos",
+      searchStudentError: "Erro ao buscar o aluno",
     },
   },
   studentEdition: {

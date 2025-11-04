@@ -1,3 +1,4 @@
+import { strings } from "../../constants";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
@@ -28,17 +29,13 @@ export function useStudentsPage() {
   };
 
   async function handleDeactivateStudent(studentId: number) {
-    const confirmed = window.confirm("Tem certeza que deseja desativar este educando?");
+    const confirmed = window.confirm(strings.studentRegistration.assurementMessage);
     if (!confirmed) return;
 
     try {
       await deactivateStudent(studentId);
-    } catch (err: unknown) {
-      if (!(err instanceof Error)) {
-        showToast("Erro interno no servidor.", "error");
-        return;
-      }
-      showToast(err?.message , "error");
+    } catch {
+      showToast(strings.studentRegistration.errors.internalError, "error");
     }
   }
 
