@@ -90,11 +90,13 @@ export type WeekDay =
 ;
 
 export type Role =
-  | "ADMIN"
-  | "MANAGER"
-  | "TEACHER"
-  | "PSYCHOLOGIST"
-  | "INTERN"
+  | "admin"
+  | "manager"
+  | "teacher"
+  | "psychologist"
+  | "psychology_intern"
+  | "social_worker"
+  | "social_work_intern"
 ;
 
 export type IdentityType =

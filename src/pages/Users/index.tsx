@@ -27,7 +27,6 @@ import { useUsersPage } from "./hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
 import type { UserResponse } from "../../types/users";
-import { getUserStatusDisplay, isUserActive } from "../../types/users";
 
 export default function Users() {
   const {
@@ -36,6 +35,8 @@ export default function Users() {
     usersError,
     registerUser,
     toggleUser,
+    isUserActive,
+    userStatusToString,
   } = useUsersPage();
 
   if (isLoadingUsers) {
@@ -148,12 +149,12 @@ export default function Users() {
                 <TableCell>
                   <Chip
                     size="small"
-                    label={strings.users.status[getUserStatusDisplay(user.status)]}
-                    color={isUserActive(user.status) ? "success" : "default"}
-                    variant={isUserActive(user.status) ? "filled" : "outlined"}
+                    label={userStatusToString(user)}
+                    color={isUserActive(user) ? "success" : "default"}
+                    variant={isUserActive(user) ? "filled" : "outlined"}
                   />
                 </TableCell>
-                <TableCell>{user.role ?? "-"}</TableCell>
+                <TableCell>{strings.filters.role[user.role]}</TableCell>
                 <TableCell
                   sx={{
                     position: "sticky",
@@ -170,7 +171,7 @@ export default function Users() {
                         </IconButton>
                       </span>
                     </Tooltip>
-                    {isUserActive(user.status) ? (
+                    {isUserActive(user) ? (
                       <Tooltip title={strings.users.actions.deactivate} placement="top" arrow>
                         <IconButton size="small" color="warning" aria-label={strings.users.actions.deactivate} onClick={() => toggleUser(user)}>
                           <BlockIcon fontSize="small" />

@@ -135,11 +135,13 @@ const weekDaysFilterOptionsMap: Record<WeekDay, keyof typeof strings.filters.wee
 }
 
 const roleFilterOptionsMap: Record<Role, keyof typeof strings.filters.role> = {
-  ADMIN: "admin",
-  MANAGER: "manager",
-  TEACHER: "teacher",
-  PSYCHOLOGIST: "psychologist",
-  INTERN: "intern",
+  admin: "admin",
+  manager: "manager",
+  teacher: "teacher",
+  psychologist: "psychologist",
+  psychology_intern: "psychology_intern",
+  social_worker: "social_worker",
+  social_work_intern: "social_work_intern",
 }
 
 const identityTypesFilterOptionsMap: Record<IdentityType, keyof typeof strings.filters.identityTypes> = {

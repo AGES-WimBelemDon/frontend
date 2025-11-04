@@ -40,14 +40,14 @@ export async function getUsers({
           fullName: "John Doe",
           email: "john.doe@example.com",
           status: "ATIVO",
-          role: "ADMIN",
+          role: "admin",
         } as UserResponse,
         {
           id: id++,
           fullName: "Jane Smith",
           email: "jane.smith@example.com",
           status: "INATIVO",
-          role: "TEACHER",
+          role: "teacher",
         } as UserResponse,
       ],
     });

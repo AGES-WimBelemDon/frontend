@@ -186,7 +186,9 @@ export const portugueseTextMap = {
       manager: "Gerente",
       teacher: "Professor",
       psychologist: "Psicólogo",
-      intern: "Estagiário",
+      psychology_intern: "Estagiário de Psicologia",
+      social_worker: "Assistente Social",
+      social_work_intern: "Estagiário de Assistência Social"
     },
     identityTypes: {
       title: "Tipo de Documento",

@@ -9,7 +9,7 @@ export type UserResponse = {
   fullName: string;
   email: string;
   status: UserStatus;
-  role: Role | null;
+  role: Role;
 };
 
 export type UserRegister = {
@@ -20,11 +20,3 @@ export type UserRegister = {
 export type UserLogin = {
   token: string;
 };
-
-export function isUserActive(status: UserStatus): boolean {
-  return status === "ATIVO";
-}
-
-export function getUserStatusDisplay(status: UserStatus): "active" | "inactive" {
-  return status === "ATIVO" ? "active" : "inactive";
-}
