@@ -38,10 +38,12 @@ export default function StudentRegistration() {
     setAddress,
     isEditing,
     handleDeactivateStudent,
+    student,
   } = useStudentRegistration();
 
   return (
     <Box
+      key={student?.id || "new"}
       component="form"
       sx={{
         gap: 4,
@@ -72,6 +74,7 @@ export default function StudentRegistration() {
           fullWidth
           margin="normal"
           placeholder={strings.studentRegistration.namePlaceholder}
+          defaultValue={isEditing ? student?.fullName ?? "" : ""}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -82,6 +85,7 @@ export default function StudentRegistration() {
           fullWidth
           margin="normal"
           placeholder={strings.studentRegistration.socialNamePlaceholder}
+          defaultValue={isEditing ? student?.socialName ?? "" : ""}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -94,6 +98,16 @@ export default function StudentRegistration() {
           fullWidth
           margin="normal"
           type="date"
+          defaultValue={
+            isEditing && student?.dateOfBirth
+              ? (() => {
+                const date = new Date(student.dateOfBirth);
+                if (isNaN(date.getTime())) return ""; // evita erro se vier inválida
+                const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+                return local.toISOString().split("T")[0];
+              })()
+              : ""
+          }
           slotProps={{
             htmlInput: { max: new Date().toISOString().slice(0, 10), min: "1925-01-01" },
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -105,7 +119,7 @@ export default function StudentRegistration() {
           name="student.gender"
           label={strings.filters.gender.title}
           select={!!genderOptions}
-          defaultValue={!genderOptions ? strings.filters.loading : ""}
+          defaultValue={isEditing ? student?.gender ?? "" : !genderOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -122,7 +136,7 @@ export default function StudentRegistration() {
           name="student.race"
           label={strings.filters.race.title}
           select={!!raceOptions}
-          defaultValue={!raceOptions ? strings.filters.loading : ""}
+          defaultValue={isEditing ? student?.race ?? "" : !raceOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -139,6 +153,7 @@ export default function StudentRegistration() {
           label={strings.studentRegistration.enrollmentDate}
           fullWidth
           margin="normal"
+          defaultValue={isEditing ? student?.enrollmentDate ?? "" : ""}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}

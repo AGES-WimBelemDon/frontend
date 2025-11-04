@@ -1,6 +1,9 @@
+import type { AxiosError } from "axios";
+
 import type { AddressResponse } from "./address";
 import { api, endpoints } from "./api";
 import type { EmploymentStatus, Gender, Race, SocialPrograms } from "./filters";
+import { strings } from "../constants";
 
 
 export type Student = {
@@ -354,13 +357,13 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
 
 export async function updateStudent(studentId: number, data: Partial<Student>): Promise<void> {
   try {
-    // Datas no formato YYYY-MM-DD (a tela já envia assim)
     await api.patch(endpoints.students.byId(studentId), data);
   } catch (error: unknown) {
-    const status = error?.response?.status;
-    if (status === 404) throw new Error("Aluno não encontrado.");
-    if (status === 409) throw new Error("Dados inválidos.");
-    throw new Error("Erro interno no servidor.");
+    const axiosError = error as AxiosError;
+    const status = axiosError.response?.status;
+    if (status === 404) throw new Error(strings.studentRegistration.errors.studentNotFound);
+    if (status === 409) throw new Error(strings.studentRegistration.errors.invalidData);
+    throw new Error(strings.studentRegistration.errors.internalError);
   }
 }
 
@@ -368,9 +371,10 @@ export async function deactivateStudent(studentId: number): Promise<void> {
   try {
     await api.delete(endpoints.students.byId(studentId));
   } catch (error: unknown) {
-    const status = error?.response?.status;
-    if (status === 404) throw new Error("Aluno não encontrado.");
-    throw new Error("Erro interno no servidor.");
+    const axiosError = error as AxiosError;
+    const status = axiosError.response?.status;
+    if (status === 404) throw new Error(strings.studentRegistration.errors.studentNotFound);
+    throw new Error(strings.studentRegistration.errors.internalError);
   }
 }
 
@@ -379,7 +383,7 @@ export async function getStudentById(studentId: number): Promise<Student> {
     const response = await api.get<Student>(endpoints.students.byId(studentId));
     return response.data;
   } catch {
-    throw new Error("Erro ao buscar aluno.");
+    throw new Error(strings.studentRegistration.errors.searchStudentError);
   }
 }
 

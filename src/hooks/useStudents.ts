@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { useRoutes } from "./useRoutes";
 import { useToast } from "./useToast";
+import { strings } from "../constants";
 import { getStudentResponsibles as apiGetStudentResponsibles, getStudents } from "../services/students";
 import { deactivateStudent as apiDeactivateStudent } from "../services/students";
 
@@ -30,9 +31,8 @@ export function useStudents() {
 
   async function deactivate(id: number) {
     await apiDeactivateStudent(id);
-    // Atualiza a lista sem recarregar a página
     await queryClient.invalidateQueries({ queryKey: ["students"] });
-    showToast("Aluno desativado com sucesso.", "success");
+    showToast(strings.studentRegistration.deactivantionSucess, "success");
   }
 
   const {

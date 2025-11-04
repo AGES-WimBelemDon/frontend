@@ -339,6 +339,8 @@ export const englishTextMap = {
     cancelButton: "Cancel",
     successMessage: "Student registered successfully!",
     errorMessage: "Error registering student. Please try again.",
+    assurementMessage: "Are you sure you want to delete the student?",
+    deactivantionSucess: "Student deactivated sucessfully",
     errors: {
       fullNameRequired: "Student full name is required",
       dateOfBirthRequired: "Student date of birth is required",
@@ -348,6 +350,10 @@ export const englishTextMap = {
       enrollmentDateRequired: "Student enrollment date is required",
       addressCepRequired: "Student address ZIP code is required",
       addressNumberRequired: "Student address number is required",
+      internalError: "Internal server error",
+      studentNotFound: "Student not found",
+      invalidData: "Invalid data",
+      searchStudentError: "Error searching for student",
     },
   },
   studentEdition: {
