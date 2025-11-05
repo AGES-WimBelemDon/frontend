@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 
+import { useClassesModal } from "../../components/ClassesModal/hook";
 import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
 import { useFilters } from "../../hooks/useFilters";
@@ -8,10 +9,11 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function useClassesPage() {
   const { activities } = useActivities();
-  const { isLoadingClasses, classesError, classes } = useClasses();
+  const { isLoadingClasses, classesError, classes, selectClass } = useClasses();
   const { weekDaysOptions, levelOptions } = useFilters();
   const { goTo } = useRoutes();
-  const { deviceSize } = useScreenSize();
+  const { isMobile } = useScreenSize();
+  const { openClassesModal } = useClassesModal();
 
   const [activityFilter, setActivityFilter] = useState<string | null>(null);
   const [dayFilter, setDayFilter] = useState("");
@@ -30,6 +32,11 @@ export function useClassesPage() {
     });
   }, [isLoadingClasses, classesError, classes, activityFilter, dayFilter, levelFilter]);
 
+  function handleClassClick(id: number) {
+    selectClass(id);
+    goTo("/turmas", `/${id}`);
+  }
+
   return {
     isLoadingClasses,
     classesError,
@@ -43,7 +50,9 @@ export function useClassesPage() {
     setLevelFilter,
     levelOptions,
     goTo,
-    deviceSize,
+    isMobile,
     filteredClasses,
+    handleClassClick,
+    openClassesModal,
   };
 }

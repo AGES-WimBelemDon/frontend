@@ -4,7 +4,11 @@ import { getAuthToken } from "./auth.firebase";
 
 const endpoints = {
   activities: "/activities",
-  classes: "/classes",
+  anamnesis: "/anamnesis",
+  classes: {
+    all: "/classes",
+    frequency: (id: number) => `/classes/${id}/frequency`,
+  },
   filters: {
     race: "/filters/race",
     gender: "/filters/gender",
@@ -16,9 +20,22 @@ const endpoints = {
     weekDays: "/filters/week-days",
     levels: "/filters/levels",
     civilStates: "/filters/civil-states",
+    schoolYear: "/filters/school-year",
   },
-  students: "/students",
-  users: "/users",
+  students: {
+    base: "/students",
+    byId: (studentId: number) => `/students/${studentId}`,
+    byCpf: (cpf: string) => `/students/cpf/${cpf}`,
+    address: (studentId: number) => `/students/${studentId}/address`,
+  },
+  users: {
+    register: "/user/register",
+    login: "/user/login",
+    getAll: "/user",
+    getById: (id: number) => `/user/${id}`,
+    disable: (id: number) => `/user/disable/${id}`,
+    enable: (id: number) => `/user/enable/${id}`,
+  },
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -30,7 +47,7 @@ const axiosClient: AxiosInstance = axios.create({
 
 // Add request interceptor to include auth token if present
 axiosClient.interceptors.request.use(
-  async(config) => {
+  async (config) => {
     try {
       const token = await getAuthToken();
       if (token) {

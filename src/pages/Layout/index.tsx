@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { Outlet } from "react-router";
 
+import { useLayout } from "./useLayout";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { Toast } from "../../components/Toast";
@@ -9,6 +10,7 @@ import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Layout() {
   const { allowedRoutes } = useRoutes();
+  const { isVerifying } = useLayout();
 
   return (
     <Box display="flex" height="100vh">
@@ -23,19 +25,31 @@ export default function Layout() {
         overflow="hidden"
       >
         <Header />
-        <Box
-          component="main"
-          flex="1"
-          overflow="auto"
-          width="100%"
-          maxWidth="lg"
-          padding={2}
-          paddingBottom={10}
-          marginX="auto"
-        >
-          <Toast />
-          <Outlet />
-        </Box>
+        
+        {isVerifying ? (
+          <Box
+            flex="1"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Box
+            component="main"
+            flex="1"
+            overflow="auto"
+            width="100%"
+            maxWidth="lg"
+            padding={2}
+            paddingBottom={10}
+            marginX="auto"
+          >
+            <Toast />
+            <Outlet />
+          </Box>
+        )}
       </Box>
     </Box>
   );

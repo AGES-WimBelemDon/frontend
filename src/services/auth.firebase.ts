@@ -2,7 +2,7 @@ import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 import { auth } from "../firebase";
 
-export async function loginWithGoogle() {
+export async function loginWithGoogle(): Promise<string> {
   if (!auth) {
     throw new Error("Firebase auth not initialized");
   }
@@ -13,7 +13,7 @@ export async function loginWithGoogle() {
     
     const token = await result.user.getIdToken();
     
-    return { user: result.user, token };
+    return token;
   } catch (error) {
     console.error("Google login error:", error);
     throw error;

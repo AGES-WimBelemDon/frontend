@@ -1,5 +1,5 @@
 import { api, endpoints } from "./api";
-import type { EducationLevel } from "./students";
+import type { EducationLevel, SchoolYear } from "./students";
 
 export type Race = 
   | "BRANCA"
@@ -16,7 +16,7 @@ export type Gender =
   | "OUTRO"
 ;
 
-export type SocialProgram = 
+export type SocialPrograms = 
   | "BOLSA_FAMILIA"
   | "BPC_LOAS"
   | "TARIFA_SOCIAL_DE_ENERGIA"
@@ -58,7 +58,6 @@ export type Level =
   | "INICIANTE"
   | "INTERMEDIARIO"
   | "AVANCADO"
-  | "TODOS_NIVEIS"
 ;
 
 export type CivilState =
@@ -88,20 +87,20 @@ export async function getRacesFilter(): Promise<Race[]> {
   }
 }
 
-export async function getSocialProgramsFilter(): Promise<SocialProgram[]> {
+export async function getSocialProgramsFilter(): Promise<SocialPrograms[]> {
   try {
-    const response = await api.get<SocialProgram[]>(endpoints.filters.socialPrograms);
+    const response = await api.get<SocialPrograms[]>(endpoints.filters.socialPrograms);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
     const mockResponse = await Promise.resolve({
       data: [
-        "BOLSA_FAMILIA" as SocialProgram,
-        "BPC_LOAS" as SocialProgram,
-        "TARIFA_SOCIAL_DE_ENERGIA" as SocialProgram,
-        "AUXILIO_GAS" as SocialProgram,
-        "PROGRAMA_ESTADUAL" as SocialProgram,
-        "PROGRAMA_MUNICIPAL_VIA_CRAS" as SocialProgram,
+        "BOLSA_FAMILIA" as SocialPrograms,
+        "BPC_LOAS" as SocialPrograms,
+        "TARIFA_SOCIAL_DE_ENERGIA" as SocialPrograms,
+        "AUXILIO_GAS" as SocialPrograms,
+        "PROGRAMA_ESTADUAL" as SocialPrograms,
+        "PROGRAMA_MUNICIPAL_VIA_CRAS" as SocialPrograms,
       ],
     });
     return mockResponse.data;
@@ -251,6 +250,27 @@ export async function getCivilStatesFilter(): Promise<CivilState[]> {
         "CASADO" as CivilState,
         "DIVORCIADO" as CivilState,
         "VIUVO" as CivilState,
+      ],
+    });
+    return mockResponse.data;
+  }
+}
+
+export async function getSchoolYearsFilter(): Promise<SchoolYear[]> {
+  try {
+    const response = await api.get<SchoolYear[]>(endpoints.filters.schoolYear);
+    return response.data;
+  } catch {
+    // TODO: This should only work for development, remove in production
+    const mockResponse = await Promise.resolve({
+      data: [
+        "EDUCACAO_INFANTIL" as SchoolYear,
+        "FUNDAMENTAL_1" as SchoolYear,
+        "FUNDAMENTAL_2" as SchoolYear,
+        "ENSINO_MEDIO_1" as SchoolYear,
+        "ENSINO_MEDIO_2" as SchoolYear,
+        "ENSINO_MEDIO_3" as SchoolYear,
+        "EJA" as SchoolYear,
       ],
     });
     return mockResponse.data;
