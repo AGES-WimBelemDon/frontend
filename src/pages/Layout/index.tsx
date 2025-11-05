@@ -1,6 +1,7 @@
 
-import { Outlet, useLocation } from "react-router";
 import { Box, CircularProgress } from "@mui/material";
+import { Outlet, useLocation } from "react-router";
+
 import { useLayout } from "./useLayout";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
@@ -27,20 +28,6 @@ export default function Layout() {
         overflow="hidden"
       >
         {!isFrequencyCallPage && <Header />}
-        <Box
-          component="main"
-          flex="1"
-          overflow="auto"
-          width="100%"
-          maxWidth={isFrequencyCallPage ? "100%" : "lg"}
-          padding={isFrequencyCallPage ? { xs: 2, sm: 2.5, md: 3, lg: 4 } : 2}
-          paddingBottom={10}
-          marginX={isFrequencyCallPage ? 0 : "auto"}
-        >
-          <Toast />
-          <Outlet />
-        </Box>
-        <Header />
         
         {isVerifying ? (
           <Box
@@ -57,10 +44,10 @@ export default function Layout() {
             flex="1"
             overflow="auto"
             width="100%"
-            maxWidth="lg"
-            padding={2}
+            maxWidth={isFrequencyCallPage ? "100%" : "lg"}
+            padding={isFrequencyCallPage ? { xs: 2, sm: 2.5, md: 3, lg: 4 } : 2}
             paddingBottom={10}
-            marginX="auto"
+            marginX={isFrequencyCallPage ? 0 : "auto"}
           >
             <Toast />
             <Outlet />

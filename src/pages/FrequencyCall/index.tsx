@@ -48,14 +48,16 @@ export function FrequencyCall() {
   const handleSignIn = async () => {
     try {
       await loginWithGoogle();
-    } catch {
+    } catch (error) {
+      console.error("Error signing in:", error);
     }
   };
 
   const handleSignOut = async () => {
     try {
       await logout();
-    } catch {
+    } catch (error) {
+      console.error("Error signing out:", error);
     }
   };
 
