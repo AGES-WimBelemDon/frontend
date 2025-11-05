@@ -8,6 +8,7 @@ const endpoints = {
   classes: {
     all: "/classes",
     frequency: (id: number) => `/classes/${id}/frequency`,
+    byId: (id: number) => `/classes/${id}`
   },
   filters: {
     race: "/filters/race",

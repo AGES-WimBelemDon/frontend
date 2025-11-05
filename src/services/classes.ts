@@ -1,4 +1,5 @@
 import { api, endpoints } from "./api";
+import type { ClassesModalForm } from "../components/ClassesModal/interface";
 
 type ApiClass = {
   id: number;
@@ -117,5 +118,14 @@ export async function getClassFrequency({ id }: { id: number }): Promise<Student
       ]
     });
     return mockResponse.data;
+  }
+}
+
+export async function patchClass({ id }: { id: number }) {
+  try {
+    const response = await api.patch<ClassesModalForm>(endpoints.classes.byId(id))
+    return response.status;
+  } catch {
+    return null;
   }
 }
