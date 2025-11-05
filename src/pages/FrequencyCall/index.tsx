@@ -71,7 +71,6 @@ export function FrequencyCall() {
         overflow: "hidden",
       }}
     >
-      {/* Header com Logo - Mobile (Fixo) */}
       {isMobile && (
         <Box
           sx={{
@@ -150,8 +149,6 @@ export function FrequencyCall() {
           }}
         />
       )}
-
-      {/* Container scrollável com todo o conteúdo */}
       <Box sx={{ 
         flex: 1,
         overflowY: "auto",
