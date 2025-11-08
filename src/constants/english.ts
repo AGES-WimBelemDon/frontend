@@ -185,6 +185,8 @@ export const englishTextMap = {
     frequency: ({ percent }: Params<"percent">) => (
       `Attendance: ${percent}%`
     ),
+    active: "Active",
+    inactive: "Inactive",
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Take Attendance - ${activity}`,

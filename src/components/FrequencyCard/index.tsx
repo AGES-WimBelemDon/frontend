@@ -72,16 +72,20 @@ export function FrequencyCard({
           color="success"
           variant={isPresent == FrequencyStatus.PRESENTE ? "contained" : "outlined"}
           onClick={() => onChangePresence(FrequencyStatus.PRESENTE)}
+          sx={{ textTransform: "none", fontWeight: "bold" }}
         >
-          <CheckIcon />
+          {isDesktop && strings.frequencyCard.active}
+          <CheckIcon sx={{ ml: isDesktop ? 0.5 : 0 }} />
         </Button>
         <Button
           size="medium"
           color="error"
           variant={isPresent == FrequencyStatus.AUSENTE ? "contained" : "outlined"}
           onClick={() => onChangePresence(FrequencyStatus.AUSENTE)}
+          sx={{ textTransform: "none", fontWeight: "bold" }}
         >
-          <CloseIcon />
+          {isDesktop && strings.frequencyCard.inactive}
+          <CloseIcon sx={{ ml: isDesktop ? 0.5 : 0 }} />
         </Button>
       </Box>
     </Card>

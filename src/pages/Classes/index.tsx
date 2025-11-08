@@ -182,7 +182,7 @@ export default function Classes() {
                   fontWeight="bold"
                   mb={1}
                 >
-                  {c.title}
+                  {c.name}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
                   <strong>{strings.classes.card.level}</strong>{" "}{c.level}

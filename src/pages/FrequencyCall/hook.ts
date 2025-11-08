@@ -15,10 +15,12 @@ import { useToast } from "../../hooks/useToast";
 export function useFrequencyCall() {
   const { getActivityTitleById } = useActivities();
   const { getClassTitleById } = useClasses();
-  const { getDate } = useDateInput();
+  const { getDate, setDate } = useDateInput();
   const { getPathParamId } = useRoutes();
   const { showToast } = useToast();
   const [students, setStudents] = useState<FrequencyCardStudent[] | []>([]);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [existingAttendance, setExistingAttendance] = useState(false);
 
   const activityId = getPathParamId("atividades");
   const activityTitle = !activityId ? "" : getActivityTitleById(activityId);
@@ -28,18 +30,33 @@ export function useFrequencyCall() {
 
   const date = getDate("1");
 
+  const classIdNumber = classId && !isNaN(Number(classId)) ? Number(classId) : 0;
+
   const {
     attendances,
     createAttendanceClass,
     updateAttendanceClass,
     refetchAttendances,
-  } = useAttendances(Number(classId), date);
+    attendancesError,
+  } = useAttendances(classIdNumber, date);
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      setDate(formattedDate, "1");
+      setIsFirstLoad(false);
+    }
+  }, [isFirstLoad, setDate]);
 
   useEffect(() => {
     if (!attendances) {
       setStudents([]);
+      setExistingAttendance(false);
       return;
     }
+
+    setExistingAttendance(true);
 
     const frequencyCards: FrequencyCardStudent[] = (
       attendances?.studentList ?? []
@@ -50,65 +67,96 @@ export function useFrequencyCall() {
         name: frequency.studentFullName ?? "Sem nome",
         frequencyPercent: frequency.attendancePercetage ?? 0,
         isPresent: frequency.status ?? "AUSENTE",
-        notes: frequency.notes ?? "",
+        notes: frequency.notes ?? "SEM_JUSTIFICATIVA",
       }));
 
     setStudents(frequencyCards);
   }, [attendances]);
 
+  useEffect(() => {
+    if (attendancesError) {
+      const error = attendancesError as unknown as { response?: { status?: number } };
+      if (error.response?.status === 404) {
+        setExistingAttendance(false);
+        setStudents([]);
+      }
+    }
+  }, [attendancesError]);
+
   function updatePresence(id: string, present: FrequencyStatus) {
-
-    if (students.length > 0) {
-      setStudents((prevList) =>
-        prevList.map((i) => (i.id.toString() === id ? { ...i, isPresent: present } : i))
-      );
-    }
+    setStudents((prevList) =>
+      prevList.map((student) => 
+        student.id.toString() === id 
+          ? { ...student, isPresent: present } 
+          : student
+      )
+    );
   }
 
-  async function registerCall() {
-    const date = getDate("1");
+  async function saveCall() {
+    const currentDate = getDate("1");
 
-    await createAttendanceClass(Number(classId), date);
-
-    if (!students) {
-      return showToast(strings.frequencyCall.errorNoStudents, "error", true);
-    }
-
-    if (!date) {
+    if (!currentDate) {
       return showToast(strings.frequencyCall.errorNoDate, "error", true);
     }
 
-    showToast(strings.frequencyCall.successSave, "success", true);
-    await refetchAttendances();
-    return;
-  }
-
-  async function updateCall() {
-    const date = getDate("1");
-
-    await updateAttendanceClass({
-      classId: Number(classId),
-      date: date,
-      studentList: attendances?.studentList || [],
-    });
-
-    if (!students) {
+    if (!students || students.length === 0) {
       return showToast(strings.frequencyCall.errorNoStudents, "error", true);
     }
 
-    if (!date) {
-      return showToast(strings.frequencyCall.errorNoDate, "error", true);
-    }
+    try {
+      if (!existingAttendance) {
+        await createAttendanceClass(classIdNumber, currentDate);
+        showToast(strings.frequencyCall.successSave, "success", true);
+        setExistingAttendance(true);
+        await refetchAttendances();
+      } else {
+        const studentListToSend = students.map((student) => {
+          const originalStudent = attendances?.studentList?.find(
+            (s) => s.studentId.toString() === student.id
+          );
+          
+          return {
+            frequencyId: originalStudent?.frequencyId ?? 0,
+            studentId: Number(student.id),
+            studentFullName: student.name,
+            attendancePercentage: student.frequencyPercent,
+            status: student.isPresent,
+            notes: student.isPresent === "AUSENTE" ? student.notes : undefined,
+          };
+        });
 
-    return showToast(strings.frequencyCall.successSave, "success", true);
+        await updateAttendanceClass({
+          classId: classIdNumber,
+          date: currentDate,
+          studentList: studentListToSend as any,
+        });
+        
+        showToast(strings.frequencyCall.successSave, "success", true);
+      }
+    } catch (error) {
+      console.error("Error saving attendance:", error);
+      const err = error as { response?: { status?: number; data?: { message?: string } } };
+      const status = err.response?.status;
+      
+      if (status === 400) {
+        showToast("Erro: Formato de requisição inválido", "error", true);
+      } else if (status === 404) {
+        showToast("Erro: Turma não encontrada", "error", true);
+      } else if (status === 500) {
+        showToast("Erro: Erro interno do servidor", "error", true);
+      } else {
+        showToast("Erro ao salvar chamada", "error", true);
+      }
+    }
   }
 
   return {
     students,
     updatePresence,
-    registerCall,
-    updateCall,
+    saveCall,
     activityTitle,
     classTitle,
+    existingAttendance,
   };
 }

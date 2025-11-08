@@ -185,6 +185,8 @@ export const portugueseTextMap = {
     frequency: ({ percent }: Params<"percent">) => (
       `Frequência: ${percent}%`
     ),
+    active: "Ativo",
+    inactive: "Inativo",
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,

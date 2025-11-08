@@ -67,7 +67,7 @@ export default function ClassDetails() {
         gap={2}
       >
         <Typography variant="h5" fontWeight="bold" color="primary.main">
-          {classData.title}
+          {classData.name}
         </Typography>
 
         <Button
