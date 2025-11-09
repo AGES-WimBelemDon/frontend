@@ -4,27 +4,12 @@ import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { TextCard } from "../../components/TextCard";
 import { strings } from "../../constants";
-import { useAuth } from "../../hooks/useAuth";
 import { useAvailableClasses } from "../../hooks/useAvailableClasses";
 import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Frequency() {
   const { goTo } = useRoutes();
-  const { user, isLoadingAuth } = useAuth();
   const { availableClasses, isLoadingAvailableClasses, availableClassesError } = useAvailableClasses();
-
-  if (isLoadingAuth) {
-    return (
-      <>
-        <CircularProgress />
-        <Typography>Verificando autenticação...</Typography>
-      </>
-    );
-  }
-
-  if (user) {
-    return <Typography color="error">Usuário não autenticado. Faça login para continuar.</Typography>;
-  }
 
   if (isLoadingAvailableClasses) {
     return (
@@ -69,8 +54,9 @@ export default function Frequency() {
               title={displayTitle}
               theme={index === 0 ? "dark" : "light"}
               onClick={() => {
-                if(isGeral) {
+                if(classId == null) {
                   void goTo("/frequencias/chamada-geral")
+                  return
                 }
                 void goTo("/frequencias/atividades", `/${activity.activityId}/turmas/${classId}/chamada`);
               }}

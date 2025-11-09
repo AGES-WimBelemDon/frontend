@@ -1,4 +1,11 @@
-import { Box, Button, Divider, List, ListItem, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  Typography,
+} from "@mui/material";
 
 import { useFrequencyCall } from "./hook";
 import { FrequencyCard } from "../../components/FrequencyCard";
@@ -11,7 +18,8 @@ export function FrequencyCall() {
   const {
     students,
     updatePresence,
-    saveCall,
+    registerCall,
+    updateCall,
     activityTitle,
     classTitle,
   } = useFrequencyCall();
@@ -55,30 +63,39 @@ export function FrequencyCall() {
       <List sx={{
         width: "100%",
         height: "100%",
-        overflowY: "auto"
+        overflowY: "hidden"
       }}>
         {students.map((item: FrequencyCardStudent) => (
           <ListItem key={item.id} sx={{ paddingX: 0 }}>
             <FrequencyCard
-              id={item.id}
+              id={String(item.id)}
               name={item.name}
               frequencyPercent={item.frequencyPercent}
               isPresent={item.isPresent}
-              onChangePresence={(present) => updatePresence(item.id, present)}
+              onChangePresence={() => updatePresence(item.id)}
               notes={item.notes}
             />
           </ListItem>
         ))}
       </List>
-
       <Box sx={{ display: "flex", justifyContent: "end", alignItems: "end", width: "100%", height: "15vh"}}>
-        <Button
-          onClick={() => saveCall()}
-          variant="contained"
-          color="primary"
-        >
-          {strings.frequencyCall.save}
-        </Button>
+        <List style={{ display: "flex", gap: 2   }}>
+          <Button
+            onClick={() => registerCall()}
+            variant="outlined"
+            disabled={students.length == 0 ? false : true}
+            
+          >
+            {strings.frequencyCall.create}
+          </Button>
+          <Button
+            onClick={() => updateCall()}
+            variant="contained"
+            color="primary"
+          >
+            {strings.frequencyCall.save}
+          </Button>
+        </List>
       </Box>
     </Box>
   );

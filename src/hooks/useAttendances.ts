@@ -7,8 +7,7 @@ export function useAttendances(classId: number, date: string) {
 
   const { isPending, error, data, refetch } = useQuery({
     queryKey: ["attendances", classId, date],
-    queryFn: () => getAttendanceClass(classId, date),
-    enabled: !!date && !isNaN(classId),
+    queryFn: () => getAttendanceClass(classId, date)
   });
       
   async function createAttendanceClass(classId: number, date: string): Promise<ClassAttendence> {
@@ -20,6 +19,7 @@ export function useAttendances(classId: number, date: string) {
   }
 
   async function updateAttendanceClass(body: ClassAttendence) : Promise<ClassAttendence>{
+  
     const response = await editAttendanceClass(body)
     await queryClient.invalidateQueries({
       queryKey: ["attendances", classId, date],

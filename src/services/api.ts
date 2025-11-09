@@ -7,7 +7,7 @@ const endpoints = {
   anamnesis: "/anamnesis",
   classes: {
     all: "/classes",
-    frequency: (id: number) => `/classes/${id}/frequency`,
+    frequency: (id: number) => `/frequency/available-classes/${id}`,
   },
   filters: {
     race: "/filters/race",
@@ -36,6 +36,11 @@ const endpoints = {
     disable: (id: number) => `/user/disable/${id}`,
     enable: (id: number) => `/user/enable/${id}`,
   },
+  frequencies: {
+    getAvailableClasses: (id: number) => `/frequency/class-attendance/${id}`,
+    generalAttendance: "/frequency/general-attendance",
+    classAttendance: "/frequency/class-attendance"
+  }
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL;
