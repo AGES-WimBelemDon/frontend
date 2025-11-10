@@ -347,6 +347,7 @@ export const portugueseTextMap = {
       enrollmentDateRequired: "A data de cadastro do estudante é obrigatória",
       addressCepRequired: "O CEP do endereço do estudante é obrigatório",
       addressNumberRequired: "O número do endereço do estudante é obrigatório",
+      internalError: "Erro interno ao atualizar aluno",
     },
   },
   studentEdition: {

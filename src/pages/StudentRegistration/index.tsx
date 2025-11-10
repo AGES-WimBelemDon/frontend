@@ -36,6 +36,8 @@ export default function StudentRegistration() {
     handleSubmit,
     address,
     setAddress,
+    isEditing,
+    student,
   } = useStudentRegistration();
 
   return (
@@ -163,6 +165,7 @@ export default function StudentRegistration() {
           placeholder="xxx.xxx.xxx-xx"
           fullWidth
           margin="normal"
+          defaultValue={isEditing ? student?.registrationNumber ?? "" : ""}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -347,7 +350,13 @@ export default function StudentRegistration() {
           name="student.schoolYear"
           label={strings.filters.schoolYear.title}
           select={!!schoolYearOptions}
-          defaultValue={!schoolYearOptions ? strings.filters.loading : ""}
+          defaultValue={
+            isEditing
+              ? (student?.schoolYear ?? student?.level ?? "")
+              : !schoolYearOptions
+                ? strings.filters.loading
+                : ""
+          }
           fullWidth
           margin="normal"
           slotProps={{
@@ -365,6 +374,7 @@ export default function StudentRegistration() {
           fullWidth
           margin="normal"
           placeholder={strings.studentRegistration.schoolNamePlaceholder}
+          defaultValue={isEditing ? student?.schoolName ?? "" : ""} // 
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -374,7 +384,13 @@ export default function StudentRegistration() {
           name="student.socialPrograms"
           label={strings.filters.socialPrograms.title}
           select={!!socialProgramsOptions}
-          defaultValue={!socialProgramsOptions ? strings.filters.loading : ""}
+          defaultValue={
+            isEditing
+              ? student?.socialPrograms ?? ""
+              : !socialProgramsOptions
+                ? strings.filters.loading
+                : ""
+          }       
           fullWidth
           margin="normal"
           slotProps={{
@@ -390,7 +406,15 @@ export default function StudentRegistration() {
           name="student.employmentStatus"
           label={strings.filters.employmentStatus.title}
           select={!!employmentStatusOptions}
-          defaultValue={!employmentStatusOptions ? strings.filters.loading : employmentStatusOptions.find(option => option.id.toLowerCase() === "estudante")?.id || ""}
+          defaultValue={
+            isEditing
+              ? student?.employmentStatus ?? ""
+              : !employmentStatusOptions
+                ? strings.filters.loading
+                : employmentStatusOptions.find(
+                  option => option.id.toLowerCase() === "estudante"
+                )?.id || ""
+          }          
           fullWidth
           margin="normal"
           slotProps={{
@@ -457,6 +481,7 @@ export default function StudentRegistration() {
               placeholder={strings.studentRegistration.address.numberPlaceholder}
               fullWidth
               margin="normal"
+              defaultValue={address?.number ?? ""}
               slotProps={{ 
                 inputLabel: { sx: { color: "primary.main" }, shrink: true }, 
               }}

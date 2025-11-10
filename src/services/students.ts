@@ -351,3 +351,28 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
     return mockResponse.data;
   }
 }
+
+export async function getStudentAddress(studentId: number): Promise<AddressResponse | null> {
+  try {
+    const response = await api.get<AddressResponse>(endpoints.students.address(studentId));
+    return response.data;
+  } catch {
+    return null;
+  }
+}
+
+export async function getStudentById(studentId: number): Promise<Student> {
+  const students = await getStudents();
+  const student = students.find((s) => s.id === studentId);
+  if (!student) {
+    throw new Error("Student not found");
+  }
+  return student;
+}
+
+export async function updateStudent(
+  studentId: number,
+  data: Partial<Student>
+): Promise<void> {
+  await api.patch(endpoints.students.byId(studentId), data);
+}

@@ -348,6 +348,7 @@ export const englishTextMap = {
       enrollmentDateRequired: "Student enrollment date is required",
       addressCepRequired: "Student address ZIP code is required",
       addressNumberRequired: "Student address number is required",
+      internalError: "Internal error while updating student",
     },
   },
   studentEdition: {
