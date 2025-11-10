@@ -4,6 +4,7 @@ import { Box, Button, Card, CardContent, CircularProgress, Stack, Typography } f
 import { useStudentsPage } from "./hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 export default function Students() {
   const {
@@ -15,6 +16,8 @@ export default function Students() {
     handleEditStudents,
     formatDate,
   } = useStudentsPage();
+
+  const { isMobile } = useScreenSize()
 
   if (isLoadingStudents) {
     return (
@@ -40,7 +43,7 @@ export default function Students() {
           variant="outlined"
           startIcon={<AddIcon />}
           onClick={handleCreateNewStudent}
-          fullWidth
+          fullWidth={isMobile}
         >
           {strings.students.createNew}
         </Button>

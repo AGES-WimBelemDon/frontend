@@ -10,7 +10,7 @@ export function SidebarBurgerIcon({ onToggle, sx }: SidebarBurgerIconProps) {
       aria-label={strings.sidebar.openSidebar}
       data-cy="header-sidebar-button"
       onClick={onToggle}
-      sx={{ maxWidth: "fit-content", padding: 0, ...sx}}
+      sx={{ maxWidth: "fit-content", padding: 0, ml: 1, ...sx}}
     >
       <Menu sx={{
         color: "primary.main",

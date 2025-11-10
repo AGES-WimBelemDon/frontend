@@ -535,7 +535,7 @@ export const englishTextMap = {
       namePlaceholder: "Full Name",
       email: "Email",
       emailPlaceholder: "full.name@wimbelemdon.com.br",
-      register: "Register",
+      register: "Register New User",
     },
     toasts: {
       enabled: "User activated successfully",

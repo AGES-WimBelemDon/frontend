@@ -283,7 +283,7 @@ export const portugueseTextMap = {
   },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
-    buttonText: "Ver Responsável",
+    buttonText: "Adicionar Responsável",
     inputs: {
       name: "Nome",
       namePlaceholder: "Digite o nome do responsável",
@@ -532,7 +532,7 @@ export const portugueseTextMap = {
       namePlaceholder: "Nome Completo",
       email: "Email",
       emailPlaceholder: "nome.completo@wimbelemdon.com.br",
-      register: "Cadastrar",
+      register: "Cadastrar Novo Usuário",
     },
     toasts: {
       enabled: "Usuário ativado com sucesso",

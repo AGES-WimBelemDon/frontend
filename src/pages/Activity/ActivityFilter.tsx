@@ -2,8 +2,10 @@ import { Box, TextField, Typography } from "@mui/material";
 
 import type { ActivityFilterProps } from "./interface";
 import { strings } from "../../constants";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function ActivityFilter({ name, onNameChange }: ActivityFilterProps) {
+  const { isMobile } = useScreenSize()
 
   return (
     <Box
@@ -11,7 +13,9 @@ export function ActivityFilter({ name, onNameChange }: ActivityFilterProps) {
       display="flex"
       flexDirection="column"
     >
-      <Typography>{strings.activityList.filters.name.title}</Typography>
+      <Typography fontSize={isMobile ? 14 : 16}>
+        {strings.activityList.filters.name.title}
+      </Typography>
       <TextField
         variant="outlined"
         placeholder={strings.activityList.filters.name.placeholder}

@@ -1,16 +1,17 @@
 import { Box, TextField, Typography } from "@mui/material";
 
 import { useDateInput } from "./hook";
+import { useScreenSize } from "../../../hooks/useScreenSize";
 
 export function DateInput({ id, label }: { id: string, label: string }) {
   const { setDate, searchParams} = useDateInput();
   const value = searchParams.get(`date${id}`);
+  const { isMobile } = useScreenSize()
   return (
     <Box sx={{
-      paddingTop: 2,
       width: "100%"
     }}>
-      <Typography fontSize={16}>
+      <Typography fontSize={isMobile ? 14 : 16}>
         {label}
       </Typography>
       <TextField
@@ -36,6 +37,7 @@ export function DateInput({ id, label }: { id: string, label: string }) {
         }}
         value={value ?? ""}
         onChange={(date) => setDate(date.target.value, id)}
+        fullWidth={isMobile}
       />
     </Box>
   );

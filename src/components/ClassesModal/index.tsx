@@ -157,7 +157,6 @@ export function ClassesModal() {
                   <Select
                     {...field}
                     labelId="level-select-label"
-                    // label={strings.classesModal.inputs.classLevel}
                     displayEmpty
                   >
                     {level.map((name) => (

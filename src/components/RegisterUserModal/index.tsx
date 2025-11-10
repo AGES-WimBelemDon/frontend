@@ -22,6 +22,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import type { RegisterUserModalProps } from "./interface";
 import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
+import { useScreenSize } from "../../hooks/useScreenSize";
 import { registerUser as apiRegisterUser, updateUser as apiUpdateUser } from "../../services/users";
 import type { Role } from "../../types/filters";
 import type { UserRegister } from "../../types/users";
@@ -34,6 +35,7 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
   const queryClient = useQueryClient();
   const { roleOptions } = useFilters();
   const [emailInput, setEmailInput] = useState(initialValues?.email ?? "");
+  const { isMobile } = useScreenSize()
 
   useEffect(() => {
     if (isOpen) {
@@ -84,7 +86,7 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
       sx={{
         "& .MuiPaper-root": {
           borderRadius: 2,
-          padding: 2,
+          py: 1,
           backgroundColor: "grey.50",
           width: "100%",
         },
@@ -107,7 +109,7 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
         </IconButton>
       </DialogTitle>
 
-      <DialogContent>
+      <DialogContent sx={{ px: 2 }}>
         <Box component="form" id="registerUserForm" ref={formRef} onSubmit={handleSave} sx={{ mt: 1, display: "grid", gap: 2 }}>
           <TextField
             required
@@ -160,8 +162,8 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
         </Box>
       </DialogContent>
 
-      <DialogActions sx={{ paddingX: 3 }}>
-        <Button variant="contained" type="submit" form="registerUserForm" disabled={isSaving}>
+      <DialogActions sx={{ paddingX: 2 }}>
+        <Button variant="contained" type="submit" form="registerUserForm" disabled={isSaving} fullWidth={isMobile}>
           {initialValues ? strings.personCard.editButton : strings.users.inputs.register}
         </Button>
       </DialogActions>
