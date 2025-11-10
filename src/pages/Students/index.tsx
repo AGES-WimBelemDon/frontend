@@ -35,16 +35,12 @@ export default function Students() {
         <PageTitle title={strings.students.title} dataCy="students" />
       </Box>
 
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+      <Box mb={2}>
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
           onClick={handleCreateNewStudent}
-          sx={{
-            fontWeight: "bold",
-            border: "2px solid",
-            borderRadius: 2
-          }}
+          fullWidth
         >
           {strings.students.createNew}
         </Button>
@@ -86,14 +82,9 @@ export default function Students() {
                     <Button
                       variant="outlined"
                       color="primary"
+                      size="small"
                       startIcon={<ModeIcon />}
                       onClick={() => handleEditStudents(student.id)}
-                      sx={{
-                        fontWeight: "bold",
-                        border: "2px solid",
-                        borderRadius: 2,
-                        width: { xs: "100%", sm: "auto" }
-                      }}
                     >
                       {strings.students.editStudent}
                     </Button>
@@ -103,12 +94,6 @@ export default function Students() {
                       size="small"
                       startIcon={<PersonAddIcon />}
                       onClick={() => handleCreateResponsible(student.id)}
-                      sx={{
-                        fontWeight: "bold",
-                        border: "2px solid",
-                        borderRadius: 2,
-                        width: { xs: "100%", sm: "auto" }
-                      }}
                     >
                       {strings.students.viewResponsible}
                     </Button>

@@ -22,7 +22,7 @@ export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivi
       sx={{
         "& .MuiPaper-root": {
           borderRadius: 2,
-          padding: 2,
+          paddingY: 1,
           backgroundColor: "grey.50",
           width: "100%",
         },
@@ -63,6 +63,9 @@ export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivi
             name="activityName"
             label={strings.newActivityModal.textFieldTitle}
             fullWidth
+            slotProps={{
+              inputLabel: { sx: { color: "primary.main" }, shrink: true },
+            }}
           />
         </Box>
       </DialogContent>

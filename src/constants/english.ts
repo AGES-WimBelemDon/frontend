@@ -169,8 +169,8 @@ export const englishTextMap = {
     activitiesError: "Error loading activities",
   },
   frequencyCall: {
-    title: ({ activity, classTitle }: Params<"activity" | "classTitle">) => (
-      `Attendance - ${activity} - ${classTitle}`
+    title: ({ classTitle }: Params<"classTitle">) => (
+      `Attendance - ${classTitle}`
     ),
     save: "Save",
     loadingStudents: "Loading students...",

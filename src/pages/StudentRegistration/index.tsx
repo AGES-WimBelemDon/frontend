@@ -42,7 +42,7 @@ export default function StudentRegistration() {
     <Box
       component="form"
       sx={{
-        gap: 4,
+        gap: isMobile ? 1 : 4,
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
       }}
@@ -53,8 +53,7 @@ export default function StudentRegistration() {
           variant="h6"
           fontWeight="bold"
           sx={{
-            mb: 2,
-            mt: 1,
+            marginY: 1,
             color: "primary.main",
             borderBottom: 2,
             borderColor: "primary.main",
@@ -147,8 +146,7 @@ export default function StudentRegistration() {
           variant="h6"
           fontWeight="bold"
           sx={{
-            mb: 2,
-            mt: 1,
+            marginY: 1,
             color: "primary.main",
             borderBottom: 2,
             borderColor: "primary.main",
@@ -173,16 +171,16 @@ export default function StudentRegistration() {
         </TextField>
         <Typography
           fontWeight="bold"
-          sx={{ mt: 2, mb: 1, color: "primary.main" }}
+          sx={{marginY: 1, color: "primary.main" }}
         >
           {strings.studentRegistration.attachments}
         </Typography>
 
         <Box
-          sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: "auto", mb: 2 }}
+          sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: "auto" }}
         >
           {documents.map((doc) => (
-            <Box key={doc.id} mb={1.25}>
+            <Box key={doc.id} my={1.25}>
               <Typography variant="caption" color="primary.main" sx={{ mb: 0.5 }}>
                 {doc.documentType}
               </Typography>
@@ -524,7 +522,7 @@ export default function StudentRegistration() {
           sx={{
             display: "flex",
             flexDirection: { xs: "column", sm: "row" },
-            gap: 2,
+            gap: 1,
             mt: 2,
           }}
         >
@@ -539,7 +537,12 @@ export default function StudentRegistration() {
           >
             {strings.studentEdition.toggleStudentStatusOff}
           </Button>  */}
-          <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="primary" 
+            sx={{ flex: 1 }}
+          >
             {strings.studentRegistration.saveButton}
           </Button>
           <Button
@@ -551,7 +554,6 @@ export default function StudentRegistration() {
           >
             {strings.studentRegistration.cancelButton}
           </Button>
-          
         </Box> 
       </Grid>
     </Box>

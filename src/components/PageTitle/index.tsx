@@ -10,7 +10,7 @@ export function PageTitle({ title, dataCy }: PageTitleProps) {
     <Typography
       variant="h1"
       fontWeight="bold"
-      fontSize={isMobile ? 24 : 30}
+      fontSize={isMobile ? 20 : 30}
       paddingY={2.5}
       data-cy={`${dataCy}-page-title`}
     >

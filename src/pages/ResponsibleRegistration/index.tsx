@@ -31,10 +31,13 @@ export default function ResponsibleRegistration() {
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box sx={{
+        display: "flex",
+        flexDirection: "column",
+      }}>
         <PageTitle title={strings.studentsResponsibles.title} dataCy="responsible-registration" />
         <Button
-          variant="contained"
+          variant="outlined"
           color="primary"
           startIcon={<AddIcon />}
           onClick={openModal}
@@ -43,8 +46,7 @@ export default function ResponsibleRegistration() {
         </Button>
       </Box>
 
-      {/* TODO: Fix this hardcoded magic number */}
-      <Box sx={{ maxWidth: 720 }}>
+      <Box sx={{ py: 2 }}>
         <Stack spacing={2}>
           {
             responsibles.length === 0 ? (

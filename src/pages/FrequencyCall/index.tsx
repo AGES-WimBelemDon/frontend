@@ -12,7 +12,6 @@ export function FrequencyCall() {
     students,
     updatePresence,
     registerCall,
-    activityTitle,
     classTitle,
   } = useFrequencyCall();
 
@@ -35,7 +34,6 @@ export function FrequencyCall() {
       <PageTitle
         title={
           strings.frequencyCall.title({
-            activity: activityTitle,
             classTitle: classTitle
           })}
         dataCy="frequency-call"

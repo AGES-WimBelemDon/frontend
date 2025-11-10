@@ -11,12 +11,11 @@ export function ActivityCard({ content }: ActivityCardProps) {
       gap={1.5}
       display="flex"
       flexDirection="column"
-      padding={2}
+      padding={1.5}
       bgcolor="background.default"
       border="1px solid"
       borderRadius={2}
       borderColor="grey.300"
-      boxShadow="0px 1px 4px rgba(0,0,0,0.1)"
     >
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="subtitle1" fontWeight="bold">

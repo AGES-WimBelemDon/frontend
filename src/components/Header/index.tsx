@@ -18,18 +18,16 @@ export function Header() {
         component="header"
         position="relative"
         display="flex"
-        justifyContent="center"
+        justifyContent="left"
         px={{ xs: 2, md: 2.5 }}
-        py={{ xs: 2.5, md: 1.5 }}
+        py={{ xs: 2, md: 1.5 }}
       >
         {isMobile && (
           <SidebarBurgerIcon
             onToggle={toggleSidebar}
             sx={{
               position: "absolute",
-              left: 10,
-              top: "50%",
-              transform: "translateY(-50%)"
+              padding: 0,
             }}
           />
         )}
@@ -40,8 +38,9 @@ export function Header() {
             data-cy="header-home-button"
             onClick={() => goTo("/")}
             sx={{
-              gap: 2,
+              gap: 1.5,
               display: "flex",
+              margin: "auto",
               paddingX: isMobile ? 0 : 6
             }}
           >
@@ -59,7 +58,7 @@ export function Header() {
               fontSize={{ xs: 20, md: 30 }}
               fontWeight="bold"
             >
-              WimBelemDon+
+              {isMobile ? "+" : "WimBelemDon+"}
             </Typography>
           </ButtonBase>
         </Tooltip>

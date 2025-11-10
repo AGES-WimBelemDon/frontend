@@ -15,7 +15,6 @@ import {
   FormControlLabel,
   FormGroup,
   IconButton,
-  InputLabel,
   ListItemText,
   MenuItem,
   Select,
@@ -76,7 +75,7 @@ export function ClassesModal() {
         }}
       >
         <Typography
-          fontSize={16}
+          fontSize={isMobile ? 14 : 16}
           fontWeight={600}
         >
           {text}
@@ -93,7 +92,7 @@ export function ClassesModal() {
       sx={{
         "& .MuiPaper-root": {
           borderRadius: 2,
-          padding: 2,
+          padding: isMobile ? 1 : 2,
           backgroundColor: "grey.50",
           width: "100%",
           maxWidth: 800,
@@ -112,7 +111,7 @@ export function ClassesModal() {
           onClick={closeModal}
           sx={{
             position: "absolute",
-            right: 8,
+            right: 0,
             top: "50%",
             transform: "translateY(-50%)",
           }}
@@ -121,7 +120,7 @@ export function ClassesModal() {
         </IconButton>
       </DialogTitle>
 
-      <Box sx={{ width: "100%", mb: 2 }}>
+      <Box sx={{ width: "100%", my: 2 }}>
         <Stepper
           activeStep={activeStep} alternativeLabel>
           {steps.map((label, index) => (
@@ -129,7 +128,9 @@ export function ClassesModal() {
               <StepLabel >
                 <Typography
                   sx={{ color: activeStep >= index ? "" : "grey.500" }}
-                  fontWeight={activeStep === index ? "bold" : "normal"} >
+                  fontWeight={activeStep === index ? "bold" : "normal"}
+                  fontSize={isMobile ? 14 : 16}
+                >
                   {label}
                 </Typography>
               </StepLabel>
@@ -138,11 +139,17 @@ export function ClassesModal() {
         </Stepper>
       </Box>
 
-      <DialogContent sx={{ overflow: "auto" }}>
+      <DialogContent sx={{ overflow: "auto", px: 1.5 }}>
         {activeStep === 0 && (
           <Box display="flex" flexDirection="column" gap={2}>
-            <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
-              <InputLabel id="level-select-label" sx={{ color: "text.primary" }}>{strings.classesModal.inputs.classLevel}</InputLabel>
+            <FormControl fullWidth>
+              <Typography
+                id="level-select-label"
+                sx={{ color: "text.primary" }}
+                fontSize={isMobile ? 14 : 16}
+              >
+                {strings.classesModal.inputs.classLevel}
+              </Typography>
               <Controller
                 name="level"
                 control={control}
@@ -150,7 +157,7 @@ export function ClassesModal() {
                   <Select
                     {...field}
                     labelId="level-select-label"
-                    label={strings.classesModal.inputs.classLevel}
+                    // label={strings.classesModal.inputs.classLevel}
                     displayEmpty
                   >
                     {level.map((name) => (
@@ -183,7 +190,12 @@ export function ClassesModal() {
               )}
             />
 
-            <InputLabel sx={{ color: "text.primary" }}>{strings.filters.weekDays.title}</InputLabel>
+            <Typography
+              sx={{ color: "text.primary" }}
+              fontSize={isMobile ? 14 : 16}
+            >
+              {strings.filters.weekDays.title}
+            </Typography>
             <Controller
               name="weekDays"
               control={control}
@@ -218,7 +230,12 @@ export function ClassesModal() {
               flexDirection={isMobile ? "column" : "row"}
             >
               <Box flex={1}>
-                <InputLabel sx={{ color: "text.primary" }}> {strings.classesModal.inputs.startTime} </InputLabel>
+                <Typography
+                  sx={{ color: "text.primary" }}
+                  fontSize={isMobile ? 14 : 16}
+                >
+                  {strings.classesModal.inputs.startTime}
+                </Typography>
                 <Controller
                   name="startTime"
                   control={control}
@@ -232,7 +249,10 @@ export function ClassesModal() {
                 />
               </Box>
               <Box flex={1}>
-                <InputLabel sx={{ color: "text.primary" }}>{strings.classesModal.inputs.endTime}</InputLabel>
+                <Typography 
+                  sx={{ color: "text.primary" }}
+                  fontSize={isMobile ? 14 : 16}
+                >{strings.classesModal.inputs.endTime}</Typography>
                 <Controller
                   name="endTime"
                   control={control}
@@ -315,7 +335,7 @@ export function ClassesModal() {
                             selectedStudents.filter((id) => id !== student.id)
                           );
                         } else {
-                          setSelectedStudents(selectedStudents => 
+                          setSelectedStudents(selectedStudents =>
                             [...selectedStudents, student.id]
                           );
                         }
