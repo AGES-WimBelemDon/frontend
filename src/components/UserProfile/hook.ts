@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-import { strings, setUserLocale, type SupportedLocale, getUserLocale } from "../../constants";
+import { setUserLocale, type SupportedLocale, getUserLocale } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
@@ -23,7 +23,6 @@ export function useUserProfile() {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const isSidebarOpened = sidebarState === "opened" || sidebarState === "opening";
-  const actionLabel = user ? strings.userProfile.logout : strings.userProfile.login;
   const showProfileName = user && (isAnimating || progressRef.current > 0);
   const profileNameMaxWidth = getSidebarWidth(deviceSize);
 
@@ -111,7 +110,6 @@ export function useUserProfile() {
   }
 
   return {
-    actionLabel,
     user,
     handleSignOut,
     isLoadingAuth,

@@ -1,7 +1,7 @@
 import type { Dayjs } from "dayjs";
 
-import type { Student } from "../../services/students";
-import type { UserResponse } from "../../types/user.types";
+import type { Student } from "../../types/students";
+import type { UserResponse } from "../../types/users";
 
 export type ClassesModalData = {
   activity: string;

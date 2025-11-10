@@ -1,26 +1,8 @@
 import dayjs from "dayjs";
 
 import { api, endpoints } from "./api";
+import type { AnamneseFormInfo, AnamneseSubmission, Question } from "../types/anamnesis";
 
-export type Question = {
-  id: string;
-  statement: string;
-};
-
-export type AnamneseResponse = {
-  questionId: string;
-  response: string;
-};
-
-export type AnamneseSubmission = {
-  formId: string;
-  responses: AnamneseResponse[];
-};
-
-export type AnamneseFormInfo = {
-  id: string;
-  date: string;
-};
 
 export async function getAnamneseFormsByStudent(studentId: string): Promise<AnamneseFormInfo[]> {
   try {
@@ -70,7 +52,7 @@ const mockQuestionSets: { [key: string]: Question[] } = {
 export async function getQuestions(formId: string): Promise<Question[]> {
   try {
     // TODO: This endpoint is a placeholder, replace with the actual endpoint
-    const response = await api.get<Question[]>(`${endpoints.anamnesis}/${formId}/questions`);
+    const response = await api.get<Question[]>(`${endpoints.anamnesis.base}/${formId}/questions`);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -81,7 +63,7 @@ export async function getQuestions(formId: string): Promise<Question[]> {
 
 export async function postAnamnese(submission: AnamneseSubmission): Promise<{ id: string }> {
   try {
-    const response = await api.post(endpoints.anamnesis, submission);
+    const response = await api.post(endpoints.anamnesis.base, submission);
     return response.data;
   } catch (error) {
     console.error("Error posting anamnese:", error);

@@ -1,4 +1,4 @@
-import type { Activity } from "../../services/activities";
+import type { Activity } from "../../types/activities";
 
 export interface ActivityCardProps { 
   content: Activity
