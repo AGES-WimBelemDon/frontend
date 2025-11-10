@@ -6,8 +6,10 @@ import type { Document } from "./interface";
 import { strings } from "../../constants";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
-import { fetchAddress, type Address } from "../../services/address";
-import { addStudentDocument, registerAddress , registerStudent as apiRegisterStudent, type Student } from "../../services/students";
+import { fetchAddress } from "../../services/address";
+import { addStudentDocument, registerAddress , registerStudent as apiRegisterStudent } from "../../services/students";
+import type { Address } from "../../types/address";
+import type { Student } from "../../types/students";
 
 export function useStudentRegistration() {
   const { showToast } = useToast()
