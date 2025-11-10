@@ -1,16 +1,10 @@
 import { api, endpoints } from "./api";
+import type { Activity } from "../types/activities";
 
-export type Activity = {
-  id: string;
-  name: string;
-  teacher: string;
-  area: string;
-  frequency: string;
-}
 
 export async function getActivities(): Promise<Activity[]> {
   try {
-    const response = await api.get<Activity[]>(endpoints.activities);
+    const response = await api.get<Activity[]>(endpoints.activities.base);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production

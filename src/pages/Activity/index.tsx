@@ -9,7 +9,7 @@ import { NewActivityModal } from "../../components/NewActivityModal";
 import { useNewActivityModal } from "../../components/NewActivityModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
-import { type Activity } from "../../services/activities";
+import type { Activity } from "../../types/activities";
 
 export default function ActivityList() {
   const {

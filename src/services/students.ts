@@ -1,72 +1,8 @@
-import type { AddressResponse } from "./address";
 import { api, endpoints } from "./api";
-import type { EmploymentStatus, Gender, Race, SocialPrograms } from "./filters";
+import type { AddressResponse } from "../types/address";
+import type { SchoolYear, StudentStatus } from "../types/filters";
+import type { ApiStudent, Student, StudentResponsible } from "../types/students";
 
-
-export type Student = {
-  id: number;
-  address: AddressResponse;
-  fullName: string;
-  dateOfBirth: string;
-  registrationNumber: string;
-  enrollmentDate: string;
-  disenrollmentDate?: string;
-  status: StudentStatus;
-  level: SchoolYear;
-  socialName?: string;
-  schoolYear?: string;
-  race?: Race;
-  schoolName?: string;
-  schoolShift?: string;
-  educationLevel?: EducationLevel;
-  socialPrograms?: SocialPrograms;
-  gender?: Gender;
-  employmentStatus?: EmploymentStatus;
-  gradeGap?: boolean;
-}
-
-type ApiStudent = Student & {
-  id: number;
-}
-
-export type StudentResponsible = {
-  id: number;
-  name: string;
-  cpf: string;
-  birthDate: string;
-  civilState: string;
-  nis: string;
-  phone: string;
-  email: string;
-  address: string;
-}
-
-export type StudentStatus =
-  | "ATIVO"
-  | "INATIVO"
-  ;
-
-export type SchoolYear =
-  | "EDUCACAO_INFANTIL"
-  | "FUNDAMENTAL_1"
-  | "FUNDAMENTAL_2"
-  | "ENSINO_MEDIO_1"
-  | "ENSINO_MEDIO_2"
-  | "ENSINO_MEDIO_3"
-  | "EJA"
-  ;
-
-export type EducationLevel =
-  | "NENHUM"
-  | "ALFABETIZADO"
-  | "FUNDAMENTAL_INCOMPLETO"
-  | "FUNDAMENTAL_COMPLETO"
-  | "ENSINO_MEDIO_INCOMPLETO"
-  | "ENSINO_MEDIO_COMPLETO"
-  | "SUPERIOR_INCOMPLETO"
-  | "SUPERIOR_COMPLETO"
-  | "POS_GRADUACAO"
-  ;
 
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
   try {
@@ -79,7 +15,7 @@ export async function registerStudent(student: Partial<Student>): Promise<Pick<A
 
 export async function registerAddress(studentId: number, address: Partial<AddressResponse>): Promise<Pick<AddressResponse, "id">> {
   try {
-    const response = await api.post(endpoints.students.address(studentId), address);
+    const response = await api.post(endpoints.students.addressById(studentId), address);
     return response.data;
   } catch {
     throw new Error("Error registering address");
@@ -88,6 +24,7 @@ export async function registerAddress(studentId: number, address: Partial<Addres
 
 export async function addStudentDocument<Doc>(studentId: Pick<ApiStudent, "id">, document: Doc): Promise<void> {
   try {
+    // TODO: Replace with actual endpoint when available
     await api.post(`${endpoints.students}/${studentId}/documentos`, document, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -104,7 +41,7 @@ export async function getStudents(): Promise<Student[]> {
     const studentsWithAddress = await Promise.all(
       response.data.map(async (student) => {
         try {
-          const addressResponse = await api.get<AddressResponse>(endpoints.students.address(student.id));
+          const addressResponse = await api.get<AddressResponse>(endpoints.students.addressById(student.id));
           return { ...student, address: addressResponse.data };
         } catch {
           console.error(`Error fetching address for student ID ${student.id}`);
@@ -306,7 +243,7 @@ export async function getStudents(): Promise<Student[]> {
 
 export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent, "id">): Promise<StudentResponsible[]> {
   try {
-    const response = await api.get<StudentResponsible[]>(`${endpoints.students}/${studentId}/responsibles`);
+    const response = await api.get<StudentResponsible[]>(endpoints.familyMembers.byStudentId(studentId));
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production

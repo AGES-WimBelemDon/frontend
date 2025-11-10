@@ -57,7 +57,8 @@ Access at: http://localhost:4173/frontend/
 
 The application requires these environment variables in your `.env` file:
 - `VITE_API_URL` - Backend API URL
-- `VITE_FIREBASE_*` - Firebase authentication configuration (optional for basic functionality)
+- `VITE_API_VERSION` - API version (e.g., v1)
+- `VITE_FIREBASE_*` - Firebase authentication configuration
 
 > **For Development**: See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development setup, code guidelines, and contribution instructions.
 
