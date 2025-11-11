@@ -304,10 +304,34 @@ export async function updateStudent(studentId: number, data: Partial<Student>): 
   }
 }
 
+export async function updateStudentAddress(addressId: number, data: Partial<AddressResponse>): Promise<void> {
+  try {
+    await api.patch(endpoints.address(addressId), data);
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError;
+    const status = axiosError.response?.status;
+    if (status === 404) throw new Error(strings.studentRegistration.errors.studentNotFound);
+    if (status === 409) throw new Error(strings.studentRegistration.errors.invalidData);
+    throw new Error(strings.studentRegistration.errors.internalError);
+  }
+}
+
 export async function deactivateStudent(studentId: number): Promise<void> {
   try {
     await api.delete(endpoints.students.byId(studentId));
   } catch (error: unknown) {
+    const axiosError = error as AxiosError;
+    const status = axiosError.response?.status;
+    if (status === 404) throw new Error(strings.studentRegistration.errors.studentNotFound);
+    throw new Error(strings.studentRegistration.errors.internalError);
+  }
+}
+
+export async function activateStudent(studentId: number, activate: Partial<Student>): Promise<void> {
+  try {
+    await api.patch(`${endpoints.students.byId(studentId)}`, activate);
+  }
+  catch (error: unknown) {
     const axiosError = error as AxiosError;
     const status = axiosError.response?.status;
     if (status === 404) throw new Error(strings.studentRegistration.errors.studentNotFound);

@@ -4,8 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { useRoutes } from "./useRoutes";
-import { useToast } from "./useToast";
-import { strings } from "../constants";
 import { getStudentResponsibles as apiGetStudentResponsibles, getStudents } from "../services/students";
 import { deactivateStudent as apiDeactivateStudent } from "../services/students";
 
@@ -14,7 +12,6 @@ export function useStudents() {
   const studentId = getPathParamId("alunos");
   const [currentStudentId, setCurrentStudentId] = useState<number | null>(studentId ? Number(studentId) : null);
   const queryClient = useQueryClient();
-  const { showToast } = useToast();
 
   const { isPending, error, data } = useQuery({
     queryKey: ["students"],
@@ -32,7 +29,6 @@ export function useStudents() {
   async function deactivate(id: number) {
     await apiDeactivateStudent(id);
     await queryClient.invalidateQueries({ queryKey: ["students"] });
-    showToast(strings.studentRegistration.deactivantionSucess, "success");
   }
 
   const {

@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { strings } from "../../constants";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useStudents } from "../../hooks/useStudents";
@@ -11,6 +12,8 @@ export function useStudentsPage() {
     selectStudent,
     deactivateStudent,
   } = useStudents();
+  const [fullName, setFullName] = useState("");
+  const [status, setStatus] = useState("");
   const { goTo } = useRoutes();
   const { showToast } = useToast();
 
@@ -29,11 +32,11 @@ export function useStudentsPage() {
   };
 
   async function handleDeactivateStudent(studentId: number) {
-    const confirmed = window.confirm(strings.studentRegistration.assurementMessage);
+    const confirmed = window.confirm(strings.studentRegistration.confirmationMessage);
     if (!confirmed) return;
-
     try {
       await deactivateStudent(studentId);
+      showToast(strings.studentRegistration.deactivationSuccess, "success");
     } catch {
       showToast(strings.studentRegistration.errors.internalError, "error");
     }
@@ -42,6 +45,23 @@ export function useStudentsPage() {
   function formatDate(date: string): string {
     return new Date(date).toLocaleDateString("pt-BR");
   }
+
+    const filteredStudents = useMemo(() => {
+      if (isLoadingStudents || studentsError || !students) {
+        return [];
+      }
+      return students.filter((student) => {
+        const nameMatch =
+          fullName === "" ||
+          student.fullName.toLowerCase().includes(fullName.toLowerCase());
+
+        const statusMatch =
+          status === "" ||
+          student.status === status;
+  
+        return nameMatch && statusMatch;
+      });
+    }, [isLoadingStudents, studentsError, students, fullName, status]);
   
   return {
     isLoadingStudents,
@@ -52,5 +72,10 @@ export function useStudentsPage() {
     handleEditStudents,
     handleDeactivateStudent,
     formatDate,
+    fullName,
+    setFullName,
+    status,
+    setStatus,
+    filteredStudents,
   };
 }

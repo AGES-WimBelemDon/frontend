@@ -397,9 +397,12 @@ export const englishTextMap = {
     saveButton: "Save",
     cancelButton: "Cancel",
     successMessage: "Student registered successfully!",
+    updateSuccess: "Student updated successfully!",
     errorMessage: "Error registering student. Please try again.",
-    assurementMessage: "Are you sure you want to delete the student?",
-    deactivantionSucess: "Student deactivated sucessfully",
+    confirmationMessage: "Are you sure you want to disable the student?",
+    activationConfirmationMessage: "Are you sure you want to activate the student?",
+    deactivationSuccess: "Student deactivated successfully",
+    activationSuccess: "Student activated successfully",
     errors: {
       fullNameRequired: "Student full name is required",
       dateOfBirthRequired: "Student date of birth is required",
@@ -461,6 +464,11 @@ export const englishTextMap = {
     editStudent: "Edit Student",
     birthday: ({ date }: Params<"date">) => `Birthday: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
+    status: ({ status }: Params<"status">) => `Status: ${status}`,
+    filter:{
+      search: "Student name",
+      title: "Name"
+    }
   },
   studentsResponsibles: {
     title: "Guardians",

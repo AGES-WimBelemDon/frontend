@@ -78,6 +78,7 @@ const endpoints = {
     disableById: (id: number) => `/user/disable/${id}`,
     enableById: (id: number) => `/user/enable/${id}`,
   },
+  address: (id: number) => `/address/${id}`,
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL;

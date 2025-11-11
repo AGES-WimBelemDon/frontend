@@ -38,6 +38,8 @@ export default function StudentRegistration() {
     setAddress,
     isEditing,
     handleDeactivateStudent,
+    formatDateToInput,
+    //handleActivateStudent,
     student,
   } = useStudentRegistration();
 
@@ -98,16 +100,7 @@ export default function StudentRegistration() {
           fullWidth
           margin="normal"
           type="date"
-          defaultValue={
-            isEditing && student?.dateOfBirth
-              ? (() => {
-                const date = new Date(student.dateOfBirth);
-                if (isNaN(date.getTime())) return ""; // evita erro se vier inválida
-                const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-                return local.toISOString().split("T")[0];
-              })()
-              : ""
-          }
+          defaultValue={isEditing ? formatDateToInput(student?.dateOfBirth) : ""}
           slotProps={{
             htmlInput: { max: new Date().toISOString().slice(0, 10), min: "1925-01-01" },
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -176,6 +169,7 @@ export default function StudentRegistration() {
         <TextField
           required
           name="student.registrationNumber"
+          defaultValue={isEditing ? student?.registrationNumber ?? "" : ""}
           label={strings.studentRegistration.registrationNumber}
           placeholder="xxx.xxx.xxx-xx"
           fullWidth
@@ -364,7 +358,7 @@ export default function StudentRegistration() {
           name="student.schoolYear"
           label={strings.filters.schoolYear.title}
           select={!!schoolYearOptions}
-          defaultValue={!schoolYearOptions ? strings.filters.loading : ""}
+          defaultValue={isEditing ? student?.schoolYear ?? "" : !schoolYearOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -381,6 +375,7 @@ export default function StudentRegistration() {
           label={strings.studentRegistration.schoolName}
           fullWidth
           margin="normal"
+          defaultValue={isEditing ? student?.schoolName ?? "" : strings.filters.loading}
           placeholder={strings.studentRegistration.schoolNamePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -391,7 +386,7 @@ export default function StudentRegistration() {
           name="student.socialPrograms"
           label={strings.filters.socialPrograms.title}
           select={!!socialProgramsOptions}
-          defaultValue={!socialProgramsOptions ? strings.filters.loading : ""}
+          defaultValue={isEditing ? student?.socialPrograms ?? "" : !socialProgramsOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -407,7 +402,7 @@ export default function StudentRegistration() {
           name="student.employmentStatus"
           label={strings.filters.employmentStatus.title}
           select={!!employmentStatusOptions}
-          defaultValue={!employmentStatusOptions ? strings.filters.loading : employmentStatusOptions.find(option => option.id.toLowerCase() === "estudante")?.id || ""}
+          defaultValue={isEditing ? student?.employmentStatus ?? "" : !employmentStatusOptions ? strings.filters.loading : employmentStatusOptions.find(option => option.id.toLowerCase() === "estudante")?.id || ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -472,6 +467,7 @@ export default function StudentRegistration() {
               name="address.number"
               label={strings.studentRegistration.address.number}
               placeholder={strings.studentRegistration.address.numberPlaceholder}
+              defaultValue={isEditing ? address?.number ?? "" : ""}
               fullWidth
               margin="normal"
               slotProps={{
@@ -551,11 +547,14 @@ export default function StudentRegistration() {
               sx={{
                 color: "primary.contrastText",
                 borderColor: "primary.main",
-                bgcolor: "error.main",
+                // bgcolor:student?.status === "ATIVO" ? "error.main" : "success.main",
+                bgcolor:"error.main",
                 fontWeight: 500,
               }}
-              onClick={handleDeactivateStudent}
+              // onClick={student?.status === "ATIVO" ? handleDeactivateStudent : handleActivateStudent}
+              onClick ={handleDeactivateStudent}
             >
+              {/* {student?.status === "ATIVO" ? strings.studentEdition.toggleStudentStatusOff : strings.studentEdition.toggleStudentStatusOn} */}
               {strings.studentEdition.toggleStudentStatusOff}
             </Button>
           )}

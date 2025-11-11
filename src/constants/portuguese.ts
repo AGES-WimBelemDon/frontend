@@ -396,9 +396,12 @@ export const portugueseTextMap = {
     saveButton: "Salvar",
     cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
+    updateSuccess: "Estudante atualizado com sucesso!",
     errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
-    assurementMessage: "Tem certeza que deseja desativar este educando?",
-    deactivantionSucess: "Estudante desativado com sucesso",
+    confirmationMessage: "Tem certeza que deseja desativar este educando?",
+    activationConfirmationMessage: "Tem certeza que deseja ativar este educando?",
+    deactivationSuccess: "Estudante desativado com sucesso",
+    activationSuccess: "Estudante ativado com sucesso",
     errors: {
       fullNameRequired: "O nome completo do estudante é obrigatório",
       dateOfBirthRequired: "A data de nascimento do estudante é obrigatória",
@@ -460,6 +463,11 @@ export const portugueseTextMap = {
     editStudent: "Editar Educando",
     birthday: ({ date }: Params<"date">) => `Aniversário: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
+    status: ({ status }: Params<"status">) => `Status: ${status}`,
+    filter:{
+      search: "Nome do educando",
+      title: "Nome"
+    },
   },
   studentsResponsibles: {
     title: "Responsáveis",

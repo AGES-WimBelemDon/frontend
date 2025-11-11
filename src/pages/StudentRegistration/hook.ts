@@ -181,16 +181,20 @@ export function useStudentRegistration() {
 
   async function handleDeactivateStudent() {
     if (!studentId) return;
-    const confirm = window.confirm(strings.studentRegistration.assurementMessage);
+    const confirm = window.confirm("Tem certeza que deseja desativar este educando?");
     if (!confirm) return;
 
     try {
       await apiDeactivateStudent(studentId);
-      showToast(strings.studentRegistration.deactivantionSucess, "success");
+      showToast("Aluno desativado com sucesso.", "success");
       await queryClient.invalidateQueries({ queryKey: ["students"] });
       goBack();
-    } catch {
-      showToast(strings.studentRegistration.errors.internalError, "error");
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) {
+        showToast("Erro interno no servidor.", "error");
+        return;
+      }
+      showToast(err?.message , "error");
     }
   }
 
