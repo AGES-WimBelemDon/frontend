@@ -17,7 +17,7 @@ export function useClasses() {
 
   function getClassTitleById(id: string) {
     if (!data) return "Carregando...";
-    const classItem = data.find(c => c.id === id.toString());
+    const classItem = data.find(c => c.id == Number(id));
     return classItem ? classItem.name : "Turma Desconhecida";
   }
 

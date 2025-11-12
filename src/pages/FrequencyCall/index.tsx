@@ -20,6 +20,7 @@ export function FrequencyCall() {
     updatePresence,
     registerCall,
     updateCall,
+    updateNote,
     activityTitle,
     classTitle,
   } = useFrequencyCall();
@@ -27,8 +28,6 @@ export function FrequencyCall() {
   if (!students) {
     return <Typography color="error">{strings.frequencyCall.studentsError}</Typography>;
   }
-
-
   return (
     <Box
       sx={{
@@ -63,6 +62,7 @@ export function FrequencyCall() {
       <List sx={{
         width: "100%",
         height: "100%",
+
         overflowY: "hidden"
       }}>
         {students.map((item: FrequencyCardStudent) => (
@@ -72,7 +72,8 @@ export function FrequencyCall() {
               name={item.name}
               frequencyPercent={item.frequencyPercent}
               isPresent={item.isPresent}
-              onChangePresence={() => updatePresence(item.id)}
+              onChangePresence={(present) => updatePresence(item.id, present)}
+              onChangeNote={(value) => updateNote(item.id, value)}
               notes={item.notes}
             />
           </ListItem>
@@ -84,7 +85,7 @@ export function FrequencyCall() {
             onClick={() => registerCall()}
             variant="outlined"
             disabled={students.length == 0 ? false : true}
-            
+              
           >
             {strings.frequencyCall.create}
           </Button>

@@ -2,6 +2,8 @@ import {useEffect, useState } from "react";
 
 import type {
   FrequencyCardStudent,
+  FrequencyStatus,
+  NoteTypes,
 } from "../../components/FrequencyCard/interface";
 import { useDateInput } from "../../components/Inputs/DateInput/hook";
 import { strings } from "../../constants";
@@ -10,6 +12,7 @@ import { useAttendances } from "../../hooks/useAttendances";
 import { useClasses } from "../../hooks/useClasses";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
+import type { ClassStudentUpdateResponse } from "../../services/frequency";
 
 export function useFrequencyCall() {
   const { getActivityTitleById } = useActivities();
@@ -34,8 +37,11 @@ export function useFrequencyCall() {
     createAttendanceClass,
     updateAttendanceClass,
     refetchAttendances,
-    attendancesError,
   } = useAttendances(Number(classId), date);
+
+  useEffect(() => {
+    console.log(attendances)
+  },[attendances]);
 
   useEffect(() => {
     if (isFirstLoad) {
@@ -44,7 +50,7 @@ export function useFrequencyCall() {
       setDate(formattedDate, "1");
       setIsFirstLoad(false);
     }
-  }, [isFirstLoad, setDate]);
+  }, [isFirstLoad, setDate])  ;
 
   useEffect(() => {
     if (!attendances) {
@@ -61,36 +67,34 @@ export function useFrequencyCall() {
         name: frequency.studentFullName ?? "Sem nome",
         frequencyPercent: frequency.attendancePercetage ?? 0,
         isPresent: frequency.status ?? "AUSENTE",
-        notes: frequency.notes ?? "SEM_JUSTIFICATIVA",
+        notes: frequency.notes,
       }));
-
     setStudents(frequencyCards);
   }, [attendances]);
 
-  useEffect(() => {
-    if (attendancesError) {
-      const error = attendancesError as unknown as { response?: { status?: number } };
-      if (error.response?.status === 404) {
-        setStudents([]);
-      }
-    }
-  }, [attendancesError]);
+  
 
-  function updatePresence(id: string) {
-    setStudents(prev =>
-      prev.map(student =>
-        student.id === id
-          ? {
-            ...student,
-            isPresent: student.isPresent === "PRESENTE" ? "AUSENTE" : "PRESENTE"
-          }
+  function updatePresence(id: string, present: FrequencyStatus) {
+    setStudents((prevList) =>
+      prevList.map((student) => 
+        student.id === id 
+          ? { ...student, isPresent: present } 
           : student
       )
     );
+  }
 
-    console.log(students)
+  function updateNote(id: string, note: NoteTypes) {
+    setStudents(prev =>
+      prev.map(student =>
+        student.id === id
+          ? { ...student, notes: note }
+          : student
+      )
+    );
   }
   
+
   async function registerCall() {
     const date = getDate("1");
 
@@ -111,23 +115,36 @@ export function useFrequencyCall() {
 
   async function updateCall() {
     const date = getDate("1");
-    console.log(students)
-
-    await updateAttendanceClass({
-      classId: Number(classId),
-      date: date,
-      studentList: attendances?.studentList || [],
-    });
-
-    if (!students) {
+  
+    if (!students || students.length === 0) {
       return showToast(strings.frequencyCall.errorNoStudents, "error", true);
     }
-
+  
     if (!date) {
       return showToast(strings.frequencyCall.errorNoDate, "error", true);
     }
 
-    return showToast(strings.frequencyCall.successSave, "success", true);
+    const studentList: ClassStudentUpdateResponse[] = students.map(student => ({
+      studentId: Number(student.id),
+      frequencyId:
+        attendances?.studentList.find(f => f.studentId === Number(student.id))
+          ?.frequencyId ?? 0,
+      status: student.isPresent,
+      notes: student.notes,
+    }));
+    console.log(studentList)
+  
+    try {
+      await updateAttendanceClass({
+        classId: Number(classId),
+        date,
+        studentList,
+      });
+  
+      return showToast(strings.frequencyCall.successSave, "success", true);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return {
@@ -135,7 +152,8 @@ export function useFrequencyCall() {
     updatePresence,
     updateCall,
     registerCall,
+    updateNote,
     activityTitle,
-    classTitle,
+    classTitle
   };
 }

@@ -1,5 +1,7 @@
 export interface FrequencyCardProps extends FrequencyCardStudent {
-  onChangePresence: (present:FrequencyStatus) => void
+  onChangePresence: (present:FrequencyStatus) => void,
+  onChangeNote?: (value: NoteTypes) => void;
+  isGeneral?: boolean;
 }
 
 export const NoteTypes = {
@@ -17,9 +19,9 @@ export const FrequencyStatus = {
 export type FrequencyStatus = (typeof FrequencyStatus)[keyof typeof FrequencyStatus]
 
 export type FrequencyCardStudent = {
-  id: string,
-  name: string,
-  frequencyPercent: number,
-  isPresent: FrequencyStatus,
-  notes: NoteTypes
+  id: string;
+  name: string;
+  frequencyPercent: number;
+  isPresent: FrequencyStatus;
+  notes: NoteTypes | null;
 }

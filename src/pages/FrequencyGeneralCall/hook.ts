@@ -1,26 +1,19 @@
 import { useEffect, useState, useCallback } from "react";
 
-import type { GeneralCallStudent } from "./interface";
 import type { FrequencyStatus } from "../../components/FrequencyCard/interface";
 import { useDateInput } from "../../components/Inputs/DateInput/hook";
 import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
-import { getGeneralAttendance, updateGeneralAttendance } from "../../services/frequency";
+import { getGeneralAttendance, updateGeneralAttendance, type GeneralAttendanceStudent } from "../../services/frequency";
 
 export function useFrequencyGeneralCall() {
   const { getDate, setDate } = useDateInput();
   const { showToast } = useToast();
-
-  const [students, setStudents] = useState<GeneralCallStudent[]>([]);
+  const date = getDate("1");
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [students, setStudents] = useState<GeneralAttendanceStudent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentDate, setCurrentDate] = useState<string>("");
 
-  const formatDate = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
 
   const loadGeneralAttendance = useCallback(async (date: string) => {
     setIsLoading(true);
@@ -53,18 +46,19 @@ export function useFrequencyGeneralCall() {
   }, [showToast]);
 
   useEffect(() => {
-    const today = formatDate(new Date());
-    setDate(today, "1");
-    void loadGeneralAttendance(today);
-  }, [setDate, loadGeneralAttendance]);
+    if (isFirstLoad) {
+      const today = new Date();
+      const formattedDate = today.toISOString().split("T")[0];
+      setDate(formattedDate, "1");
+      setIsFirstLoad(false);
+    }
+  }, [isFirstLoad, setDate])  ;
 
   useEffect(() => {
-    const date = getDate("1");
-    if (date && date !== currentDate) {
-      setCurrentDate(date);
-      void loadGeneralAttendance(date);
-    }
-  }, [getDate, currentDate, loadGeneralAttendance]);
+    if (!date) return;
+
+    void loadGeneralAttendance(date);
+  }, [date, loadGeneralAttendance]);
 
   function updatePresence(studentId: number, present: FrequencyStatus) {
     setStudents((prevList) =>
@@ -96,7 +90,6 @@ export function useFrequencyGeneralCall() {
           studentId: student.studentId,
           status: student.status,
           generalAttendanceAllowed: student.generalAttendanceAllowed,
-          observation: student.observation || undefined,
         })),
       });
 

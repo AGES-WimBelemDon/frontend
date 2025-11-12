@@ -75,18 +75,17 @@ export function FrequencyGeneralCall() {
             {students.map((student) => {
               const cardStudent: FrequencyCardStudent = {
                 id: student.studentId.toString(),
-                name: student.studentName,
+                name: student.fullName,
                 frequencyPercent: 0,
                 isPresent: student.status,
-                notes: student.observation
-                  ? "ATESTADO_MEDICO" 
-                  : "SEM_JUSTIFICATIVA",
+                notes: null,
               };
 
               return (
                 <ListItem key={student.studentId} sx={{ paddingX: 0 }}>
                   <FrequencyCard
                     {...cardStudent}
+                    isGeneral={true}
                     onChangePresence={(present) =>
                       updatePresence(student.studentId, present)
                     }

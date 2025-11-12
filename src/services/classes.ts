@@ -1,7 +1,7 @@
 import { api, endpoints } from "./api";
 
 type ApiClass = {
-  id: string;
+  id: number;
   name: string;
   weekDay: string;
   schedule: string;
@@ -35,7 +35,7 @@ export async function getClasses(): Promise<ApiClass[]> {
     const mockResponse = await Promise.resolve({
       data: [
         {
-          id: String(++id),
+          id: ++id,
           name: "Yoga para Iniciantes",
           weekDay: "Segunda-feira",
           schedule: "08:00 - 09:00",
@@ -44,7 +44,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           teacher: "Professora A"
         },
         {
-          id: String(++id),
+          id: ++id,
           name: "Yoga Intermediário",
           weekDay: "Segunda-feira",
           schedule: "09:00 - 10:00",
@@ -53,7 +53,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           teacher: "Professor B"
         },
         {
-          id: String(++id),
+          id: ++id,
           name: "Bate-papo semanal",
           weekDay: "Quarta-feira",
           schedule: "19:00 - 20:00",
@@ -62,7 +62,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           teacher: "Professora C"
         },
         {
-          id: String(++id),
+          id: ++id,
           name: "Tênis para Iniciantes",
           weekDay: "Terça-feira",
           schedule: "18:30 - 19:30",
@@ -71,7 +71,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           teacher: "Professor D"
         },
         {
-          id: String(++id),
+          id: ++id,
           name: "Tênis Avançado",
           weekDay: "Quinta-feira",
           schedule: "07:00 - 08:00",
@@ -80,7 +80,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           teacher: "Professor E"
         },
         {
-          id: String(++id),
+          id: ++id,
           name: "Programação",
           weekDay: "Sábado",
           schedule: "10:00 - 11:30",
@@ -89,7 +89,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           teacher: "Professora F"
         },
         {
-          id: String(++id),
+          id: ++id,
           name: "Culinária Básica",
           weekDay: "Sab",
           schedule: "10:00 - 11:30",

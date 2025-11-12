@@ -33,10 +33,9 @@ export async function getAvailableClasses(userId: string): Promise<AvailableClas
 
 export type GeneralAttendanceStudent = {
   studentId: number;
-  studentName: string;
+  fullName: string;
   status: FrequencyStatus;
   generalAttendanceAllowed: boolean;
-  observation: NoteTypes | null;
 };
 
 export type GeneralAttendanceResponse = {
@@ -48,9 +47,8 @@ export type UpdateGeneralAttendanceRequest = {
   date: string;
   studentList: {
     studentId: number;
-    status: "PRESENTE" | "AUSENTE";
+    status: FrequencyStatus;
     generalAttendanceAllowed: boolean;
-    observation?: string;
   }[];
 };
 
@@ -63,12 +61,12 @@ export async function updateGeneralAttendance(data: UpdateGeneralAttendanceReque
   await api.patch("/frequency/general-attendance", data);
 }
 
-export type ClassStudent = {
-  studentId: number;
-  studentName: string;
-  frequencyPercent: number;
-  isPresent: boolean;
-}
+export type ClassStudentUpdateResponse = {
+    studentId: number;
+    frequencyId: number;
+    status: FrequencyStatus;
+    notes: NoteTypes | null;
+  }
 
 export type ClassStudentResponse = {
   studentId: number;
@@ -76,7 +74,7 @@ export type ClassStudentResponse = {
   studentFullName: string;
   attendancePercetage: number;
   status: FrequencyStatus;
-  notes: NoteTypes;
+  notes: NoteTypes | null;
 }
 
 export type RegisterClassAttendance = {
@@ -89,6 +87,12 @@ export type ClassAttendence = {
   date: string;
   studentList: ClassStudentResponse[]
 } 
+
+export type UpdateClassAttendance = {
+  classId: number;
+  date: string;
+  studentList: ClassStudentUpdateResponse[]
+}
 
 export async function getAttendanceClass(classId: number, date: string): Promise<ClassAttendence> {
   const response  = await api.get<ClassAttendence>("/frequency/class-attendance", {
@@ -106,7 +110,7 @@ export async function registerAttendanceClass(body: RegisterClassAttendance): Pr
 }
 
 
-export async function editAttendanceClass(body: ClassAttendence): Promise<ClassAttendence> {
-  const respose = await api.patch("/frequency/class-attendance", body);
+export async function editAttendanceClass(body: UpdateClassAttendance): Promise<UpdateClassAttendance> {
+  const respose = await api.patch<UpdateClassAttendance>("/frequency/class-attendance", body);
   return respose.data;
 }

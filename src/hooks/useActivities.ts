@@ -10,7 +10,7 @@ export function useActivities() {
 
   function getActivityTitleById(id: string) {
     if (!data) return "Carregando...";
-    const activity = data.find(a => a.id === id);
+    const activity = data.find(a => a.id == Number(id));
     return activity ? activity.name : "Atividade Desconhecida";
   }
 
