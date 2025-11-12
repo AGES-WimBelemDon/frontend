@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import type { UserResponse } from "../../types/user.types";
+import type { UserResponse } from "../../types/users";
 
 export type AuthUser = UserResponse & {
   firebaseToken: string;

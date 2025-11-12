@@ -6,7 +6,6 @@ import { strings } from "../../constants";
 
 export function UserProfile() {
   const {
-    actionLabel,
     handleSignOut,
     isLoadingAuth,
     showProfileName,
@@ -32,10 +31,10 @@ export function UserProfile() {
         display="flex"
         alignItems="center"
       >
-        <Tooltip title={actionLabel}>
+        <Tooltip title={strings.userProfile.logout}>
           <Box component="span">
             <IconButton
-              aria-label={actionLabel}
+              aria-label={strings.userProfile.logout}
               data-cy="header-profile-button"
               onClick={handleSignOut}
               loading={isLoadingAuth}

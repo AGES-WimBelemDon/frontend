@@ -1,24 +1,10 @@
 import { api, endpoints } from "./api";
+import type { ApiClass, StudentFrequency } from "../types/classes";
 
-type ApiClass = {
-  id: number;
-  title: string;
-  weekDay: string;
-  schedule: string;
-  level: string;
-  activityId: string;
-  teacher: string;
-};
-
-type StudentFrequency = {
-  id: number;
-  name: string;
-  frequency: number;
-}
 
 export async function createClasses(data: ApiClass): Promise<number | null> {
   try {
-    const response = await api.post(endpoints.classes.all, data)
+    const response = await api.post(endpoints.classes.base, data)
     return response.status;
   } catch {
     return null;
@@ -27,7 +13,7 @@ export async function createClasses(data: ApiClass): Promise<number | null> {
 
 export async function getClasses(): Promise<ApiClass[]> {
   try {
-    const response = await api.get<ApiClass[]>(endpoints.classes.all);
+    const response = await api.get<ApiClass[]>(endpoints.classes.base);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
