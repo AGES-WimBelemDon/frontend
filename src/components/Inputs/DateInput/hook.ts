@@ -18,7 +18,7 @@ export function useDateInput() {
     if (value) {
       return value;
     }
-    return "";
+    return new Date().toISOString().split("T")[0];
   };
 
   return { setDate, getDate, searchParams };

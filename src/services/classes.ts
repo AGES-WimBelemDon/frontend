@@ -1,7 +1,6 @@
 import { api, endpoints } from "./api";
 import type { ApiClass, StudentFrequency } from "../types/classes";
 
-
 export async function createClasses(data: ApiClass): Promise<number | null> {
   try {
     const response = await api.post(endpoints.classes.base, data)
@@ -22,8 +21,8 @@ export async function getClasses(): Promise<ApiClass[]> {
       data: [
         {
           id: ++id,
-          title: "Yoga Iniciante",
-          weekDay: "Seg, Qua",
+          title: "Yoga para Iniciantes",
+          weekDay: "Segunda-feira",
           schedule: "08:00 - 09:00",
           level: "Iniciante",
           activityId: "7",
@@ -32,7 +31,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         {
           id: ++id,
           title: "Yoga Intermediário",
-          weekDay: "Ter, Qui",
+          weekDay: "Segunda-feira",
           schedule: "09:00 - 10:00",
           level: "Intermediário",
           activityId: "7",
@@ -40,8 +39,8 @@ export async function getClasses(): Promise<ApiClass[]> {
         },
         {
           id: ++id,
-          title: "Bate-papo Semanal",
-          weekDay: "Sex",
+          title: "Bate-papo semanal",
+          weekDay: "Quarta-feira",
           schedule: "19:00 - 20:00",
           level: "Todos os níveis",
           activityId: "1",
@@ -49,8 +48,8 @@ export async function getClasses(): Promise<ApiClass[]> {
         },
         {
           id: ++id,
-          title: "Tênis Iniciante",
-          weekDay: "Ter",
+          title: "Tênis para Iniciantes",
+          weekDay: "Terça-feira",
           schedule: "18:30 - 19:30",
           level: "Iniciante",
           activityId: "2",
@@ -59,7 +58,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         {
           id: ++id,
           title: "Tênis Avançado",
-          weekDay: "Qui",
+          weekDay: "Quinta-feira",
           schedule: "07:00 - 08:00",
           level: "Avançado",
           activityId: "2",
@@ -68,7 +67,7 @@ export async function getClasses(): Promise<ApiClass[]> {
         {
           id: ++id,
           title: "Programação",
-          weekDay: "Sab",
+          weekDay: "Sábado",
           schedule: "10:00 - 11:30",
           level: "Intermediário",
           activityId: "8",

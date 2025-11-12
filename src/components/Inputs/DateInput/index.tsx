@@ -34,7 +34,7 @@ export function DateInput({ id, label }: { id: string, label: string }) {
         sx={{
           marginTop: "1px",
         }}
-        value={value ?? ""}
+        value={value ?? new Date().toISOString().split("T")[0]}
         onChange={(date) => setDate(date.target.value, id)}
       />
     </Box>

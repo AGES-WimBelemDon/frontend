@@ -32,8 +32,8 @@ export function useClassesPage() {
     });
   }, [isLoadingClasses, classesError, classes, activityFilter, dayFilter, levelFilter]);
 
-  function handleClassClick(id: number) {
-    selectClass(id);
+  function handleClassClick(id: string) {
+    selectClass(Number(id));
     goTo("/turmas", `/${id}`);
   }
 

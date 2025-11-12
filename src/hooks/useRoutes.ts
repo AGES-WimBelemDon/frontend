@@ -3,6 +3,7 @@ import { useNavigate, type Location } from "react-router";
 export type ValidRoute = 
   | "/"
   | "/frequencias/atividades"
+  | "/frequencias/chamada-geral"
   | "/alunos"
   | "/anamnese"
   | "/atividades"
@@ -42,6 +43,7 @@ export function useRoutes() {
     "/atividades",
     "/anamnese",
     "/frequencias/atividades",
+    "/frequencias/chamada-geral",
     "/login",
     "/turmas",
     "/usuarios",

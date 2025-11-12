@@ -100,8 +100,8 @@ export default function Classes() {
             <Autocomplete
               options={activities || []}
               getOptionLabel={(option) => option.name}
-              value={activities?.find((a) => a.id === activityFilter) || null}
-              onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
+              value={activities?.find((a) => String(a.id) === activityFilter) || null}
+              onChange={(_, newValue) => setActivityFilter(String(newValue?.id) || null)}
               renderInput={(params) => <TextField {...params} />}
             />
           </FormControl>
@@ -144,7 +144,7 @@ export default function Classes() {
           {filteredClasses.map((c) => (
             <Card
               key={c.id}
-              onClick={() => handleClassClick(c.id)}
+              onClick={() => handleClassClick(String(c.id))}
               sx={{
                 backgroundColor: "background.default",
                 borderRadius: 2,
@@ -182,7 +182,7 @@ export default function Classes() {
                   fontWeight="bold"
                   mb={1}
                 >
-                  {c.title}
+                  {c.name}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
                   <strong>{strings.classes.card.level}</strong>{" "}{c.level}
