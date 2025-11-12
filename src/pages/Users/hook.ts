@@ -1,34 +1,56 @@
-import type { FormEvent } from "react";
+import { useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
 
 import { strings } from "../../constants";
+import { useFilters } from "../../hooks/useFilters";
+import { useScreenSize } from "../../hooks/useScreenSize";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
-import { registerUser as apiRegisterUser, enableUser, disableUser } from "../../services/users";
-import type { UserResponse } from "../../types/user.types";
-import { isUserActive } from "../../types/user.types";
+import { registerUser, enableUser, disableUser } from "../../services/users";
+import type { UserResponse, GetUsersParams } from "../../types/users";
+
 
 export function useUsersPage() {
-  const { users, usersError, isLoadingUsers } = useUsers();
+  const [filters, setFilters] = useState<GetUsersParams>({});
+  const { users, usersError, isLoadingUsers } = useUsers(filters);
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+  const { roleOptions, userStatusOptions } = useFilters();
+  const { isMobile, isDesktop } = useScreenSize();
 
-  async function registerUser(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<UserResponse | null>(null);
 
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") as string;
-    const name = formData.get("name") as string;
+  function openCreateModal() {
+    setEditingUser(null);
+    setIsModalOpen(true);
+  }
 
-    await apiRegisterUser({ email, name });
-    await queryClient.invalidateQueries({ queryKey: ["users"] });
-    (event.currentTarget as HTMLFormElement).reset();
+  function openEditModal(user: UserResponse) {
+    setEditingUser(user);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setEditingUser(null);
+    setIsModalOpen(false);
+  }
+
+  function isUserActive(user: UserResponse): boolean {
+    return user.status === "ATIVO";
+  }
+
+  function userStatusToString(user: UserResponse): string {
+    if (!isUserActive(user)) {
+      return strings.filters.userStatus.inactive;
+    }
+    return strings.filters.userStatus.active;
   }
 
   async function toggleUser(user: UserResponse) {
     try {
-      if (isUserActive(user.status)) {
+      if (isUserActive(user)) {
         await disableUser(user.id);
         showToast(strings.users.toasts.disabled, "success");
       } else {
@@ -41,11 +63,28 @@ export function useUsersPage() {
     }
   }
 
+  function setFilter(newFilters: Partial<GetUsersParams>) {
+    setFilters((prev) => ({ ...prev, ...newFilters }));
+  }
+
   return {
     users,
     usersError,
     isLoadingUsers,
     registerUser,
     toggleUser,
+    isUserActive,
+    userStatusToString,
+    openCreateModal,
+    isModalOpen,
+    closeModal,
+    editingUser,
+    openEditModal,
+    isMobile,
+    isDesktop,
+    roleOptions,
+    userStatusOptions,
+    filters,
+    setFilter,
   }
 }
