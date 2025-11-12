@@ -39,14 +39,12 @@ export function FrequencyCard({
     >
       <CardContent sx={{ padding: 0 }}>
         <Typography
-          variant="subtitle1"
           fontWeight="bold"
           fontSize={16}
         >
           {name}
         </Typography>
         <Typography
-          variant="body2"
           fontSize={14}
           color="grey.900"
         >
@@ -62,24 +60,14 @@ export function FrequencyCard({
             textTransform: "none",
             fontWeight: "bold",
             paddingInline: 1.5,
-            gap: 1
+            gap: 1,
+            marginRight: 1.5
           }}
         >
           {isDesktop ? strings.frequencyCard.absentDetails : ""}
           <AddIcon/>
         </Button>
-        <Button
-          size="small"
-          color="success"
-          sx={{
-            aspectRatio: "1/1",
-            marginLeft: 1.5
-          }}
-          variant={isPresent ? "contained" : "outlined"}
-          onClick={() => onChangePresence(true)}
-        >
-          <CheckIcon />
-        </Button>
+        
         <Button
           size="small"
           color="error"
@@ -87,6 +75,17 @@ export function FrequencyCard({
           onClick={() => onChangePresence(false)}
         >
           <CloseIcon />
+        </Button>
+        <Button
+          size="small"
+          color="success"
+          sx={{
+            aspectRatio: "1/1",
+          }}
+          variant={isPresent ? "contained" : "outlined"}
+          onClick={() => onChangePresence(true)}
+        >
+          <CheckIcon />
         </Button>
       </Box>
     </Card>

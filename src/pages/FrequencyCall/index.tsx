@@ -6,6 +6,7 @@ import type { FrequencyCardStudent } from "../../components/FrequencyCard/interf
 import { DateInput } from "../../components/Inputs/DateInput";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function FrequencyCall() {
   const {
@@ -15,6 +16,8 @@ export function FrequencyCall() {
     classTitle,
   } = useFrequencyCall();
 
+  const { isMobile } = useScreenSize();
+
   if (!students) {
     return <Typography color="error">{strings.frequencyCall.studentsError}</Typography>;
   }
@@ -23,7 +26,6 @@ export function FrequencyCall() {
     <Box
       sx={{
         width: "100%",
-        height: "88vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "start",
@@ -39,7 +41,7 @@ export function FrequencyCall() {
         dataCy="frequency-call"
       />
 
-      <DateInput id="1" label={strings.dateInput.selectDate}/>
+      <DateInput id="1" label={strings.dateInput.selectDate} />
       <Divider
         sx={{
           bgcolor: "primary.main",
@@ -51,7 +53,7 @@ export function FrequencyCall() {
 
       <List sx={{
         width: "100%",
-        height: "100%",
+        maxHeight: "50vh",
         overflowY: "auto"
       }}>
         {students.map((item: FrequencyCardStudent) => (
@@ -67,16 +69,15 @@ export function FrequencyCall() {
         ))}
       </List>
 
-      <Box sx={{ display: "flex", justifyContent: "end", alignItems: "end", width: "100%", height: "15vh" }}>
-        <List>
-          <Button
-            onClick={() => registerCall()}
-            variant="contained"
-            color="primary"
-          >
-            {strings.frequencyCall.save}
-          </Button>
-        </List>
+      <Box sx={{ display: "flex", justifyContent: "end", width: "100%", py: 2 }}>
+        <Button
+          onClick={() => registerCall()}
+          variant="contained"
+          color="primary"
+          fullWidth={isMobile}
+        >
+          {strings.frequencyCall.save}
+        </Button>
       </Box>
     </Box>
   );

@@ -49,7 +49,7 @@ export function TextCard({
           <Icon fontSize="large" />
           <Typography
             sx={{ fontWeight: "bold" }}
-            variant="h5"
+            fontSize={20}
           >
             {title}
           </Typography>

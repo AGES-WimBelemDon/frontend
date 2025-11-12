@@ -58,7 +58,7 @@ export function Header() {
               fontSize={{ xs: 20, md: 30 }}
               fontWeight="bold"
             >
-              {isMobile ? "+" : "WimBelemDon+"}
+              WimBelemDon+
             </Typography>
           </ButtonBase>
         </Tooltip>
