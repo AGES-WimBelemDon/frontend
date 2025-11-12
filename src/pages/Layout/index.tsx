@@ -1,5 +1,6 @@
+
 import { Box, CircularProgress } from "@mui/material";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 
 import { useLayout } from "./useLayout";
 import { Header } from "../../components/Header";
@@ -10,6 +11,8 @@ import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Layout() {
   const { allowedRoutes } = useRoutes();
+  const location = useLocation();
+  const isFrequencyCallPage = location.pathname.includes("/chamada");
   const { isVerifying } = useLayout();
 
   return (
@@ -24,7 +27,7 @@ export default function Layout() {
         flexDirection="column"
         overflow="hidden"
       >
-        <Header />
+        {!isFrequencyCallPage && <Header />}
         
         {isVerifying ? (
           <Box
@@ -41,10 +44,10 @@ export default function Layout() {
             flex="1"
             overflow="auto"
             width="100%"
-            maxWidth="lg"
-            padding={2}
+            maxWidth={isFrequencyCallPage ? "100%" : "lg"}
+            padding={isFrequencyCallPage ? { xs: 2, sm: 2.5, md: 3, lg: 4 } : 2}
             paddingBottom={10}
-            marginX="auto"
+            marginX={isFrequencyCallPage ? 0 : "auto"}
           >
             <Toast />
             <Outlet />

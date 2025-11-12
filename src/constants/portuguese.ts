@@ -1,6 +1,9 @@
 import type { Params } from "./type";
 
 export const portugueseTextMap = {
+  common: {
+    logoAlt: "Logo WimBelemDon",
+  },
   activityList: {
     title: "Lista de Atividades",
     createNew: "Criar Nova Atividade",
@@ -70,6 +73,9 @@ export const portugueseTextMap = {
   },
   dateInput: {
     selectDate: "Selecione a data",
+    day: "Dia",
+    month: "Mês",
+    year: "Ano",
   },
   filters: {
     loading: "Carregando filtros...",
@@ -243,6 +249,9 @@ export const portugueseTextMap = {
     frequency: ({ percent }: Params<"percent">) => (
       `Frequência: ${percent}%`
     ),
+    markPresent: "Marcar como presente",
+    markAbsent: "Marcar como ausente",
+    addObservation: "Adicionar observação sobre ausência",
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
@@ -345,6 +354,7 @@ export const portugueseTextMap = {
   },
   sidebar: {
     openSidebar: "Abrir menu lateral",
+    closeSidebar: "Fechar menu lateral",
     listIcon: ({ to }: Params<"to">) => (
       `Navegar para a página ${to}`
     ),

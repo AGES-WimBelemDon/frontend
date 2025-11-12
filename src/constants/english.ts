@@ -1,6 +1,9 @@
 import type { Params } from "./type";
 
 export const englishTextMap = {
+  common: {
+    logoAlt: "WimBelemDon Logo",
+  },
   activityList: {
     title: "Activity List",
     createNew: "Create New Activity",
@@ -70,6 +73,9 @@ export const englishTextMap = {
   },
   dateInput: {
     selectDate: "Select date",
+    day: "Day",
+    month: "Month",
+    year: "Year",
   },
   filters: {
     loading: "Loading filters...",
@@ -243,6 +249,9 @@ export const englishTextMap = {
     frequency: ({ percent }: Params<"percent">) => (
       `Attendance: ${percent}%`
     ),
+    markPresent: "Mark as present",
+    markAbsent: "Mark as absent",
+    addObservation: "Add observation about absence",
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Take Attendance - ${activity}`,
@@ -346,6 +355,7 @@ export const englishTextMap = {
   },
   sidebar: {
     openSidebar: "Open sidebar menu",
+    closeSidebar: "Close sidebar menu",
     listIcon: ({ to }: Params<"to">) => (
       `Navigate to ${to} page`
     ),
