@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api, endpoints } from "./api";
 import { FrequencyStatus, NoteTypes } from "../components/FrequencyCard/interface";
 
 export type AvailableClass = {
@@ -17,10 +17,10 @@ export type AvailableClassesResponse = {
   classes: AvailableClass[];
 };
 
-export async function getAvailableClasses(userId: string): Promise<AvailableClass[]> {
+export async function getAvailableClasses(): Promise<AvailableClass[]> {
   try {
     const response = await api.get<AvailableClassesResponse>(
-      `/frequency/available-classes/${userId}`
+      endpoints.frequencies.availableByUser
     );
 
     return response.data.classes;

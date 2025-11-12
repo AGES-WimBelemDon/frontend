@@ -47,7 +47,6 @@ export default function Frequency() {
           const { classId, className, isGeral, activity, classState } = classItem;
           if(classState == "INATIVA") {return}
           const displayTitle = isGeral ? "Chamada Geral" : className;
-          console.log(isGeral)
           return (
             <TextCard
               key={classId ?? `geral-${index}`}

@@ -1,6 +1,6 @@
 export type ApiClass = {
   id: number;
-  title: string;
+  name: string;
   weekDay: string;
   schedule: string;
   level: string;

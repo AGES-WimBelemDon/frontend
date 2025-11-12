@@ -40,10 +40,6 @@ export function useFrequencyCall() {
   } = useAttendances(Number(classId), date);
 
   useEffect(() => {
-    console.log(attendances)
-  },[attendances]);
-
-  useEffect(() => {
     if (isFirstLoad) {
       const today = new Date();
       const formattedDate = today.toISOString().split("T")[0];
@@ -132,7 +128,6 @@ export function useFrequencyCall() {
       status: student.isPresent,
       notes: student.notes,
     }));
-    console.log(studentList)
   
     try {
       await updateAttendanceClass({

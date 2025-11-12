@@ -13,7 +13,7 @@ export function useAvailableClasses() {
       if (!userId) {
         throw new Error("User not authenticated");
       }
-      const available = await getAvailableClasses(userId);
+      const available = await getAvailableClasses();
       available.sort((a,b) => {
         return a.classId - b.classId
       })
