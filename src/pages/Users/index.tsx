@@ -1,4 +1,5 @@
 import {
+  Add,
   Block as BlockIcon,
   CheckCircleOutline as CheckCircleOutlineIcon,
   Edit as EditIcon,
@@ -62,15 +63,25 @@ export default function Users() {
   return (
     <>
       <PageTitle title={strings.users.title} dataCy="users-page-title" />
-      
+
       <Box gap={3} display="flex" flexDirection="column">
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="h6" component="h2">{strings.users.registerNew}</Typography>
-          <Button variant="contained" color="primary" onClick={openCreateModal} data-cy="open-create-user">
+        <Box
+          display={isMobile ? "" : "flex"}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={openCreateModal}
+            data-cy="open-create-user"
+            fullWidth={isMobile}
+            endIcon={<Add />}
+          >
             {strings.users.inputs.register}
           </Button>
         </Box>
-        <Box gap={2} display="grid" gridTemplateColumns="6fr 4fr">
+        <Box gap={2} display="grid" gridTemplateColumns={isMobile ? "1fr" : "3fr 2fr"}>
           <FormControl size="small">
             <InputLabel id="role-filter-label">{strings.filters.role.title}</InputLabel>
             <Select

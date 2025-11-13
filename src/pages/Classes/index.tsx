@@ -87,13 +87,13 @@ export default function Classes() {
         >
           <FormControl fullWidth
             sx={{
-              gap: 1,
+              gap: .5,
               display: "flex",
               flexDirection: "column",
             }}
           >
             <FormLabel>
-              <Typography color="primary">
+              <Typography color="primary" fontSize={isMobile ? 14 : 16}>
                 {strings.classes.activity}
               </Typography>
             </FormLabel>
@@ -107,13 +107,13 @@ export default function Classes() {
           </FormControl>
           <FormControl fullWidth
             sx={{
-              gap: 1,
+              gap: .5,
               display: "flex",
               flexDirection: "column",
             }}
           >
             <FormLabel>
-              <Typography color="primary">
+              <Typography color="primary" fontSize={isMobile ? 14 : 16}>
                 {strings.classes.level}
               </Typography>
             </FormLabel>

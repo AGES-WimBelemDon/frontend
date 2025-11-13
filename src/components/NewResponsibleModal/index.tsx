@@ -1,19 +1,19 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   IconButton,
+  TextField,
 } from "@mui/material";
 
 import { useNewResponsibleModal } from "./hook";
 import { strings } from "../../constants";
+import { useScreenSize } from "../../hooks/useScreenSize";
 import { DateInput } from "../Inputs/DateInput";
 import { SelectInput } from "../Inputs/SelectInput";
-import { TextInput } from "../Inputs/TextInput";
 
 export function NewResponsibleModal() {
   const {
@@ -22,6 +22,8 @@ export function NewResponsibleModal() {
     civilStateOptions,
     addResponsible,
   } = useNewResponsibleModal();
+
+  const { isMobile } = useScreenSize()
 
   return (
     <Dialog
@@ -39,22 +41,18 @@ export function NewResponsibleModal() {
     >
       <DialogTitle
         fontWeight="bold"
-        fontSize={24}
+        fontSize={isMobile ? 18 : 24}
         display="flex"
         alignItems="center"
         justifyContent="center"
         position="relative"
-        sx={{
-          fontWeight: "bold",
-          fontSize: 24,
-        }}
       >
         {strings.newResponsibleModal.title}
         <IconButton
           onClick={closeModal}
           sx={{
             position: "absolute",
-            right: 2, 
+            right: 2,
             top: "50%",
             transform: "translateY(-90%)",
           }}
@@ -63,79 +61,78 @@ export function NewResponsibleModal() {
         </IconButton>
       </DialogTitle>
 
-      <DialogContent>
-        <Box
-          gap={2}
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
-          border="2px solid"
-          borderColor="primary.main"
-          borderRadius={2}
-          width="100%"
-          padding={2}
-        >
-          <Box
-            gap={2}
-            flex={1}
-            display="flex"
-            flexDirection="column"
-          >
-            <TextInput
-              label={strings.newResponsibleModal.inputs.name}
-              placeholder={strings.newResponsibleModal.inputs.namePlaceholder}
-              id="1"
-            />
+      <DialogContent sx={{display: "flex", flexDirection: "column", gap: 3, padding: 1, overflow: "auto"}}>
+        <TextField
+          fullWidth
+          label={strings.newResponsibleModal.inputs.name}
+          placeholder={strings.newResponsibleModal.inputs.namePlaceholder}
+          id="1"
+          sx={{ mt: 1 }}
+          slotProps={{
+            inputLabel: { sx: { color: "primary.main" }, shrink: true },
+          }}
+        />
 
-            <DateInput id="1" label={strings.newResponsibleModal.inputs.birthDate} />
+        <DateInput id="1" label={strings.newResponsibleModal.inputs.birthDate} />
 
-            <TextInput
-              label={strings.newResponsibleModal.inputs.nis}
-              placeholder={strings.newResponsibleModal.inputs.nisPlaceholder}
-              id="3"
-            />
+        <TextField
+          fullWidth
+          label={strings.newResponsibleModal.inputs.nis}
+          placeholder={strings.newResponsibleModal.inputs.nisPlaceholder}
+          id="3"
+          slotProps={{
+            inputLabel: { sx: { color: "primary.main" }, shrink: true },
+          }}
+        />
 
-            <TextInput
-              label={strings.newResponsibleModal.inputs.phone}
-              placeholder={strings.newResponsibleModal.inputs.phonePlaceholder}
-              id="5"
-            />
-          </Box>
-          <Box
-            flex={1}
-            gap={2}
-            display="flex"
-            flexDirection="column"
-          >
-            <TextInput
-              label={strings.newResponsibleModal.inputs.cpf}
-              placeholder={strings.newResponsibleModal.inputs.cpfPlaceholder}
-              id="2"
-            />
+        <TextField
+          fullWidth
+          label={strings.newResponsibleModal.inputs.phone}
+          placeholder={strings.newResponsibleModal.inputs.phonePlaceholder}
+          id="5"
+          slotProps={{
+            inputLabel: { sx: { color: "primary.main" }, shrink: true },
+          }}
+        />
+        <TextField
+          fullWidth
+          label={strings.newResponsibleModal.inputs.cpf}
+          placeholder={strings.newResponsibleModal.inputs.cpfPlaceholder}
+          id="2"
+          slotProps={{
+            inputLabel: { sx: { color: "primary.main" }, shrink: true },
+          }}
+        />
 
-            <SelectInput
-              label={strings.newResponsibleModal.inputs.civilState}
-              options={civilStateOptions}
-              id="1"
-            />
+        <SelectInput
+          label={strings.newResponsibleModal.inputs.civilState}
+          options={civilStateOptions}
+          id="1"
+        />
 
-            <TextInput
-              label={strings.newResponsibleModal.inputs.address}
-              placeholder={strings.newResponsibleModal.inputs.addressPlaceholder}
-              id="4"
-            />
+        <TextField
+          fullWidth
+          label={strings.newResponsibleModal.inputs.address}
+          placeholder={strings.newResponsibleModal.inputs.addressPlaceholder}
+          id="4"
+          slotProps={{
+            inputLabel: { sx: { color: "primary.main" }, shrink: true },
+          }}
+        />
 
-            <TextInput
-              label={strings.newResponsibleModal.inputs.email}
-              placeholder={strings.newResponsibleModal.inputs.emailPlaceholder}
-              id="6"
-            />
-          </Box>
-        </Box>
+        <TextField
+          fullWidth
+          label={strings.newResponsibleModal.inputs.email}
+          placeholder={strings.newResponsibleModal.inputs.emailPlaceholder}
+          id="6"
+          slotProps={{
+            inputLabel: { sx: { color: "primary.main" }, shrink: true },
+          }}
+        />
       </DialogContent>
 
       <DialogActions>
-        <Button variant="contained" onClick={addResponsible}>
+        <Button variant="contained" onClick={addResponsible} fullWidth={isMobile}>
           {strings.newResponsibleModal.buttonText}
         </Button>
       </DialogActions>

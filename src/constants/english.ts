@@ -228,8 +228,8 @@ export const englishTextMap = {
     activitiesError: "Error loading activities",
   },
   frequencyCall: {
-    title: ({ activity, classTitle }: Params<"activity" | "classTitle">) => (
-      `Attendance - ${activity} - ${classTitle}`
+    title: ({ classTitle }: Params<"classTitle">) => (
+      `Attendance - ${classTitle}`
     ),
     save: "Save",
     loadingStudents: "Loading students...",
@@ -535,7 +535,7 @@ export const englishTextMap = {
       namePlaceholder: "Full Name",
       email: "Email",
       emailPlaceholder: "full.name@wimbelemdon.com.br",
-      register: "Register",
+      register: "Register New User",
     },
     toasts: {
       enabled: "User activated successfully",

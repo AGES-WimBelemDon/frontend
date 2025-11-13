@@ -87,14 +87,6 @@ export function PersonCard(personCardProps: PersonCardProps) {
             })
           }
           endIcon={<EditIcon />}
-          sx={{
-            textTransform: "none",
-            fontSize: 15,
-            fontWeight: "bold",
-            borderRadius: 4,
-            paddingY: 0.5,
-            paddingX: 1.5,
-          }}
         >
           {strings.personCard.editButton}
         </Button>

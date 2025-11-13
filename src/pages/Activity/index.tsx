@@ -65,7 +65,7 @@ export default function ActivityList() {
           </Typography>
         </Button>
 
-        <CardList>
+        <CardList rowGap={2}>
           {filteredActivities.length > 0 ? (
             filteredActivities.map((activity: Activity) => (
               <ActivityCard key={activity.id} content={activity} />

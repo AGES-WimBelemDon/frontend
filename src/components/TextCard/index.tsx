@@ -31,7 +31,8 @@ export function TextCard({
         borderRadius: 2,
         borderStyle: "solid",
         borderColor: "primary.main",
-        height: 125,
+        height: "auto",
+        minHeight: 125,
         minWidth: 125,
         width: "100%",
         opacity: disabled ? 0.5 : 1,
@@ -48,7 +49,7 @@ export function TextCard({
           <Icon fontSize="large" />
           <Typography
             sx={{ fontWeight: "bold" }}
-            variant="h5"
+            fontSize={20}
           >
             {title}
           </Typography>
