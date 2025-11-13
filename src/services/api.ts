@@ -28,7 +28,6 @@ const endpoints = {
     byUser: (userId: number) => `/classes/my-classes/${userId}`,
     byId: (id: number) => `/classes/${id}`,
     frequency: (id: number) => `/classes/${id}/frequency`,
-    byId: (id: number) => `/classes/${id}`
   },
   enrollments: {
     base: "/enrollments",
@@ -60,10 +59,12 @@ const endpoints = {
     base: "/frequency",
     availableByUser: (userId: number) => `/frequency/available-classes/${userId}`,
     general: "/frequency/general-attendance",
-    specific: "/frequency/class-attendance", 
+    specific: "/frequency/class-attendance",
   },
   levels: {
     base: "/level",
+    civilStates: "/filters/civil-states",
+    schoolYear: "/filters/school-year",
   },
   students: {
     base: "/students",

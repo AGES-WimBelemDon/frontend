@@ -1,5 +1,7 @@
+import dayjs from "dayjs";
+
 import { api, endpoints } from "./api";
-import type { ClassesModalForm } from "../components/ClassesModal/interface";
+import type { Classes } from "../components/ClassesModal/interface";
 import type { ApiClass, StudentFrequency } from "../types/classes";
 
 
@@ -23,66 +25,115 @@ export async function getClasses(): Promise<ApiClass[]> {
       data: [
         {
           id: ++id,
-          title: "Yoga Iniciante",
-          weekDay: "Seg, Qua",
-          schedule: "08:00 - 09:00",
-          level: "Iniciante",
-          activityId: "7",
-          teacher: "Professora A"
+          name: "Yoga Iniciante",
+          activityId: 7,
+          levelId: "1",
+          state: "ATIVA",
+          teachersId: [2],
+          isRecurrent: false,
+          startDate: "2024-01-01",
+          endDate: "2024-06-30",
+          startTime: dayjs("08:00", "HH:mm"),
+          endTime: dayjs("09:00", "HH:mm"),
+          weekDay: ["SEGUNDA", "QUARTA"]
         },
         {
           id: ++id,
-          title: "Yoga Intermediário",
-          weekDay: "Ter, Qui",
-          schedule: "09:00 - 10:00",
-          level: "Intermediário",
-          activityId: "7",
-          teacher: "Professor B"
+          name: "Yoga Intermediário",
+          activityId: 7,
+          levelId: "2",
+          state: "ATIVA",
+          teachersId: [1],
+          isRecurrent: false,
+          startDate: "2024-01-01",
+          endDate: "2024-06-30",
+          startTime: dayjs("09:00", "HH:mm"),
+          endTime: dayjs("10:00", "HH:mm"),
+          weekDay: ["TERCA", "QUINTA"]
         },
         {
           id: ++id,
-          title: "Bate-papo Semanal",
-          weekDay: "Sex",
-          schedule: "19:00 - 20:00",
-          level: "Todos os níveis",
-          activityId: "1",
-          teacher: "Professora C"
+          name: "Bate-papo Semanal",
+          activityId: 1,
+          levelId: "2",
+          state: "ATIVA",
+          teachersId: [5],
+          isRecurrent: false,
+          startDate: "2024-01-01",
+          endDate: "2024-06-30",
+          startTime: dayjs("19:00", "HH:mm"),
+          endTime: dayjs("20:00", "HH:mm"),
+          weekDay: ["SEXTA"]
         },
         {
           id: ++id,
-          title: "Tênis Iniciante",
-          weekDay: "Ter",
-          schedule: "18:30 - 19:30",
-          level: "Iniciante",
-          activityId: "2",
-          teacher: "Professor D"
+          name: "Tênis Iniciante",
+          activityId: 2,
+          levelId: "1",
+          state: "ATIVA",
+          teachersId: [1],
+          isRecurrent: false,
+          startDate: "2024-01-01",
+          endDate: "2024-06-30",
+          startTime: dayjs("07:00", "HH:mm"),
+          endTime: dayjs("08:00", "HH:mm"),
+          weekDay: ["TERCA"]
         },
         {
           id: ++id,
-          title: "Tênis Avançado",
-          weekDay: "Qui",
-          schedule: "07:00 - 08:00",
-          level: "Avançado",
-          activityId: "2",
-          teacher: "Professor E"
+          name: "Tênis Avançado",
+          activityId: 2,
+          levelId: "3",
+          state: "ATIVA",
+          teachersId: [1],
+          isRecurrent: false,
+          startDate: "2024-01-01",
+          endDate: "2024-06-30",
+          startTime: dayjs("07:00", "HH:mm"),
+          endTime: dayjs("08:00", "HH:mm"),
+          weekDay: ["QUINTA"]
         },
         {
           id: ++id,
-          title: "Programação",
-          weekDay: "Sab",
-          schedule: "10:00 - 11:30",
-          level: "Intermediário",
-          activityId: "8",
-          teacher: "Professora F"
+          name: "Tênis Avançado",
+          activityId: 2,
+          levelId: "3",
+          state: "ATIVA",
+          teachersId: [1],
+          isRecurrent: false,
+          startDate: "2024-01-01",
+          endDate: "2024-06-30",
+          startTime: dayjs("07:00", "HH:mm"),
+          endTime: dayjs("08:00", "HH:mm"),
+          weekDay: ["QUINTA"]
         },
         {
           id: ++id,
-          title: "Culinária Básica",
-          weekDay: "Sab",
-          schedule: "10:00 - 11:30",
-          level: "Iniciante",
-          activityId: "8",
-          teacher: "Professora G"
+          name: "Programação",
+          activityId: 8,
+          levelId: "1",
+          state: "ATIVA",
+          teachersId: [8],
+          isRecurrent: false,
+          startDate: "2024-01-01",
+          endDate: "2024-06-30",
+          startTime: dayjs("07:00", "HH:mm"),
+          endTime: dayjs("08:00", "HH:mm"),
+          weekDay: ["SEXTA"]
+        },
+        {
+          id: ++id,
+          name: "Culinária Básica",
+          activityId: 4,
+          levelId: "1",
+          state: "ATIVA",
+          teachersId: [7],
+          isRecurrent: false,
+          startDate: "2024-01-01",
+          endDate: "2024-06-30",
+          startTime: dayjs("15:00", "HH:mm"),
+          endTime: dayjs("16:00", "HH:mm"),
+          weekDay: ["QUARTA"]
         }
       ],
     });
@@ -109,7 +160,7 @@ export async function getClassFrequency({ id }: { id: number }): Promise<Student
 
 export async function patchClass({ id }: { id: number }) {
   try {
-    const response = await api.patch<ClassesModalForm>(endpoints.classes.byId(id))
+    const response = await api.patch<Classes>(endpoints.classes.byId(id))
     return response.status;
   } catch {
     return null;
