@@ -1,12 +1,8 @@
+import type { Classes } from "../components/ClassesModal/interface";
+
 export type ApiClass = {
   id: number;
-  title: string;
-  weekDay: string;
-  schedule: string;
-  level: string;
-  activityId: string;
-  teacher: string;
-};
+} & Classes;
 
 export type StudentFrequency = {
   id: number;

@@ -3,22 +3,19 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 
-import type { ClassesModalForm } from "./interface";
+import type { Classes } from "./interface";
 import { strings } from "../../constants";
 import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
+import { getLevelsFilter, getWeekDaysFilter } from "../../services/filters";
 
-const days = [
-  { label: "D", value: "D-0" },
-  { label: "S", value: "S-1" },
-  { label: "T", value: "T-2" },
-  { label: "Q", value: "Q-3" },
-  { label: "Q", value: "Q-4" },
-  { label: "S", value: "S-5" },
-  { label: "S", value: "S-6" },
-];
-const level = ["Infantil", "Fundamental", "Médio"];
+const days = await getWeekDaysFilter().then(res => res.map((day, i) => ({
+  id: `${i}` + `${day}`,
+  value: day,
+  symbol: day.charAt(0).toUpperCase(),
+})));
+const level = await getLevelsFilter();
 const steps = ["Dados", "Professor", "Alunos"];
 
 export function useClassesModal() {
@@ -34,14 +31,20 @@ export function useClassesModal() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
   const [selectedTeachers, setSelectedTeachers] = useState<number[]>([]);
-  
-  const { control, getValues, reset } = useForm<ClassesModalForm>({
+
+  const { control, getValues, reset } = useForm<Classes>({
     defaultValues: {
-      level: "",
-      recurring: false,
-      weekDays: [],
-      startTime: null,
-      endTime: null,
+      name: "",
+      activityId: 0,
+      levelId: "",
+      state: "true",
+      teachersId: [],
+      isRecurrent: false,
+      startDate: "",
+      endDate: "",
+      startTime: "",
+      endTime: "",
+      weekDay: [],
     },
   });
 
@@ -71,7 +74,7 @@ export function useClassesModal() {
     if (activeStep <= 0) {
       return false;
     }
-    
+
     setActiveStep((prev) => prev - 1);
     return true;
   };
@@ -98,9 +101,9 @@ export function useClassesModal() {
     }
   }
 
-  function createClass(data: ClassesModalForm): void {
+  function createClass(data: Classes): void {
     // TODO: Send to back and remove console.log
-    console.log({ ...data, selectedTeachers, selectedStudents});
+    console.log({ ...data, selectedTeachers, selectedStudents });
     showToast(strings.classesModal.createSuccessMessage, "success");
     closeModal();
   }

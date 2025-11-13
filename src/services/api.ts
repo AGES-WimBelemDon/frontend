@@ -59,10 +59,12 @@ const endpoints = {
     base: "/frequency",
     availableByUser: (userId: number) => `/frequency/available-classes/${userId}`,
     general: "/frequency/general-attendance",
-    specific: "/frequency/class-attendance", 
+    specific: "/frequency/class-attendance",
   },
   levels: {
     base: "/level",
+    civilStates: "/filters/civil-states",
+    schoolYear: "/filters/school-year",
   },
   students: {
     base: "/students",

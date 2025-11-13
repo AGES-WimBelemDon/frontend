@@ -144,7 +144,7 @@ export function ClassesModal() {
             <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
               <InputLabel id="level-select-label" sx={{ color: "text.primary" }}>{strings.classesModal.inputs.classLevel}</InputLabel>
               <Controller
-                name="level"
+                name="levelId"
                 control={control}
                 render={({ field }) => (
                   <Select
@@ -153,8 +153,8 @@ export function ClassesModal() {
                     label={strings.classesModal.inputs.classLevel}
                     displayEmpty
                   >
-                    {level.map((name) => (
-                      <MenuItem key={name} value={name} sx={{ backgroundColor: "background.default" }}>
+                    {level.map((name, index) => (
+                      <MenuItem key={`${name}` + `${index}`} value={name} sx={{ backgroundColor: "background.default" }}>
                         <ListItemText primary={name} />
                       </MenuItem>
                     ))}
@@ -164,7 +164,7 @@ export function ClassesModal() {
             </FormControl>
 
             <Controller
-              name="recurring"
+              name="isRecurrent"
               control={control}
               render={({ field }) => (
                 <FormControlLabel
@@ -185,23 +185,23 @@ export function ClassesModal() {
 
             <InputLabel sx={{ color: "text.primary" }}>{strings.filters.weekDays.title}</InputLabel>
             <Controller
-              name="weekDays"
+              name="weekDay"
               control={control}
               render={({ field }) => (
                 <FormGroup sx={{ flexDirection: "row", gap: 1 }}>
                   {days.map((day) => (
                     <Checkbox
-                      key={day.value}
+                      key={day.id}
                       disableRipple
-                      checked={field.value.includes(day.value)}
+                      checked={field.value.filter((d) => d === day.value).length > 0}
                       onChange={(_event, checked) => {
                         const newWeekDays = checked
-                          ? [...field.value, day.value]
+                          ? [...field.value, day]
                           : field.value.filter((d) => d !== day.value);
                         field.onChange(newWeekDays);
                       }}
-                      checkedIcon={<DaysCalendarIcon text={day.label} checked={true} />}
-                      icon={<DaysCalendarIcon text={day.label} checked={false} />}
+                      checkedIcon={<DaysCalendarIcon text={day.symbol} checked={true} />}
+                      icon={<DaysCalendarIcon text={day.symbol} checked={false} />}
                       sx={{
                         p: 0.3,
                         "&:hover": { backgroundColor: "transparent" },
@@ -315,7 +315,7 @@ export function ClassesModal() {
                             selectedStudents.filter((id) => id !== student.id)
                           );
                         } else {
-                          setSelectedStudents(selectedStudents => 
+                          setSelectedStudents(selectedStudents =>
                             [...selectedStudents, student.id]
                           );
                         }

@@ -54,7 +54,7 @@ export default function FrequencyClasses() {
               return (
                 <TextCard
                   key={c.id}
-                  title={c.title}
+                  title={c.name}
                   theme={index === 0 ? "dark" : "light"}
                   onClick={() => goTo("/frequencias/atividades", `/${activityId}/turmas/${c.id}/chamada`)}
                 />
@@ -63,5 +63,5 @@ export default function FrequencyClasses() {
         }
       </CardList>
     </>
-  );  
+  );
 }
