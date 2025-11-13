@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+
 import { strings } from "../../constants";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useStudents } from "../../hooks/useStudents";
@@ -46,22 +47,22 @@ export function useStudentsPage() {
     return new Date(date).toLocaleDateString("pt-BR");
   }
 
-    const filteredStudents = useMemo(() => {
-      if (isLoadingStudents || studentsError || !students) {
-        return [];
-      }
-      return students.filter((student) => {
-        const nameMatch =
+  const filteredStudents = useMemo(() => {
+    if (isLoadingStudents || studentsError || !students) {
+      return [];
+    }
+    return students.filter((student) => {
+      const nameMatch =
           fullName === "" ||
           student.fullName.toLowerCase().includes(fullName.toLowerCase());
 
-        const statusMatch =
+      const statusMatch =
           status === "" ||
           student.status === status;
   
-        return nameMatch && statusMatch;
-      });
-    }, [isLoadingStudents, studentsError, students, fullName, status]);
+      return nameMatch && statusMatch;
+    });
+  }, [isLoadingStudents, studentsError, students, fullName, status]);
   
   return {
     isLoadingStudents,

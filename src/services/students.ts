@@ -2,9 +2,9 @@ import type { AxiosError } from "axios";
 
 import { api, endpoints } from "./api";
 import { strings } from "../constants";
-import type { ApiStudent, Student, StudentResponsible } from "../types/students";
 import type { AddressResponse } from "../types/address";
 import type { SchoolYear, StudentStatus } from "../types/filters";
+import type { ApiStudent, Student, StudentResponsible } from "../types/students";
 
 
 export async function registerStudent(student: Partial<Student>): Promise<Pick<ApiStudent, "id">> {
@@ -75,7 +75,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Avenida Brasil",
             number: "456",
             complement: "",
-            code: "01400-000",
           } as AddressResponse,
         },
         {
@@ -95,7 +94,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Rua Augusta",
             number: "789",
             complement: "Casa 2",
-            code: "01300-000",
           } as AddressResponse,
         },
         {
@@ -115,7 +113,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Travessa das Laranjeiras",
             number: "21",
             complement: "Casa",
-            code: "02000-100",
           } as AddressResponse,
         },
         {
@@ -135,7 +132,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Rua do Comércio",
             number: "350",
             complement: "Bloco B",
-            code: "03000-200",
           } as AddressResponse,
         },
         {
@@ -155,7 +151,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Avenida Central",
             number: "1020",
             complement: "Sala 12",
-            code: "04000-300",
           } as AddressResponse,
         },
         {
@@ -175,7 +170,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Rua do Sol",
             number: "77",
             complement: "Apartamento 7",
-            code: "05000-400",
           } as AddressResponse,
         },
         {
@@ -195,7 +189,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Praça da Matriz",
             number: "1",
             complement: "",
-            code: "06000-500",
           } as AddressResponse,
         },
         {
@@ -215,7 +208,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Rua das Acácias",
             number: "410",
             complement: "Casa",
-            code: "07000-600",
           } as AddressResponse,
         },
         {
@@ -235,7 +227,6 @@ export async function getStudents(): Promise<Student[]> {
             street: "Estrada Velha",
             number: "999",
             complement: "Sitio",
-            code: "08000-700",
           } as AddressResponse,
         },
       ],

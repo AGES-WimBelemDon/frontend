@@ -1,5 +1,5 @@
 export type Address = {
-  code: string;
+  cep: string;
   street: string;
   number: string;
   complement?: string;

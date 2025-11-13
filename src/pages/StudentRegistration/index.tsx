@@ -39,7 +39,7 @@ export default function StudentRegistration() {
     isEditing,
     handleDeactivateStudent,
     formatDateToInput,
-    //handleActivateStudent,
+    handleActivateStudent,
     student,
   } = useStudentRegistration();
 
@@ -375,7 +375,7 @@ export default function StudentRegistration() {
           label={strings.studentRegistration.schoolName}
           fullWidth
           margin="normal"
-          defaultValue={isEditing ? student?.schoolName ?? "" : strings.filters.loading}
+          defaultValue={isEditing ? student?.schoolName ?? "" : ""}
           placeholder={strings.studentRegistration.schoolNamePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -430,14 +430,14 @@ export default function StudentRegistration() {
 
         <TextField
           required
-          name="address.code"
+          name="address.cep"
           label={strings.studentRegistration.address.zipCode}
           placeholder={strings.studentRegistration.address.zipCodePlaceholder}
           fullWidth
           margin="normal"
           type="string"
-          value={address?.code}
-          onChange={(e) => setAddress({ ...address, code: e.target.value })}
+          value={address?.cep}
+          onChange={(e) => setAddress({ ...address, cep: e.target.value })}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
             htmlInput: { maxLength: 8, minLength: 8, pattern: "[0-9]{8}" }
@@ -547,15 +547,13 @@ export default function StudentRegistration() {
               sx={{
                 color: "primary.contrastText",
                 borderColor: "primary.main",
-                // bgcolor:student?.status === "ATIVO" ? "error.main" : "success.main",
-                bgcolor:"error.main",
+                bgcolor:student?.status === "ATIVO" ? "error.main" : "success.main",
                 fontWeight: 500,
               }}
-              // onClick={student?.status === "ATIVO" ? handleDeactivateStudent : handleActivateStudent}
-              onClick ={handleDeactivateStudent}
+              onClick={student?.status === "ATIVO" ? handleDeactivateStudent : handleActivateStudent}
+
             >
-              {/* {student?.status === "ATIVO" ? strings.studentEdition.toggleStudentStatusOff : strings.studentEdition.toggleStudentStatusOn} */}
-              {strings.studentEdition.toggleStudentStatusOff}
+              {student?.status === "ATIVO" ? strings.studentEdition.toggleStudentStatusOff : strings.studentEdition.toggleStudentStatusOn}
             </Button>
           )}
           <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>

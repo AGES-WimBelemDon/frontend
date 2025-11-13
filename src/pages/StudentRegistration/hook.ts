@@ -11,6 +11,9 @@ import {
   addStudentDocument,
   registerAddress,
   registerStudent as apiRegisterStudent,
+  updateStudent as apiUpdateStudent,
+  updateStudentAddress as apiUpdateStudentAddress,
+  activateStudent as apiActivateStudent,
   getStudentById,
   getStudentAddress,
   deactivateStudent as apiDeactivateStudent
@@ -39,29 +42,28 @@ export function useStudentRegistration() {
   const isEditing = Boolean(studentId);
 
   function getAddressDetails() {
-    if (!address?.code) {
+    if (!address?.cep) {
       return Promise.resolve(null);
     }
 
-    if (address.code.length !== 8) {
+    if (address.cep.length !== 8) {
       return Promise.resolve(null);
     }
 
-    // [UPDATE] retorna a Promise (React Query pode usar o retorno), e mantém o setAddress
-    return fetchAddress(address.code).then((addr) => {
+    return fetchAddress(address.cep).then((addr) => {
       setAddress(addr);
       return addr;
     });
   }
 
   useQuery({
-    queryKey: ["addressByCep", address?.code],
+    queryKey: ["addressByCep", address?.cep],
     queryFn: getAddressDetails,
   })
 
   const studentQuery = useQuery({
     queryKey: ["studentById", studentId],
-    queryFn: () => getStudentById(studentId!), // non-null ok pois enabled condiciona
+    queryFn: () => getStudentById(studentId!),
     enabled: isEditing,
   });
 
@@ -76,14 +78,14 @@ export function useStudentRegistration() {
 
   function extractCep(addr?: AddressResponse | null): string {
     if (!addr) return "";
-    const a = addr as AddressResponse & { code?: string };
-    return a.code ?? addr.cep ?? "";
+    const a = addr as AddressResponse & { cep?: string };
+    return a.cep ?? addr.cep ?? "";
   }
 
   useEffect(() => {
     if (studentAddr) {
       setAddress({
-        code: extractCep(studentAddr),
+        cep: extractCep(studentAddr),
         street: studentAddr.street ?? "",
         number: studentAddr.number ?? "",
         state: studentAddr.state ?? "",
@@ -134,7 +136,7 @@ export function useStudentRegistration() {
       if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
         throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
       }
-      if (!addressData.code) {
+      if (!addressData.cep) {
         throw new Error(strings.studentRegistration.errors.addressCepRequired);
       }
 
@@ -160,6 +162,45 @@ export function useStudentRegistration() {
     }
   }
 
+  async function updateStudent(studentId: number, studentData: Partial<Student>, addressData: Partial<Address>): Promise<void> {
+    try {
+      if (!studentData.fullName) {
+        throw new Error(strings.studentRegistration.errors.fullNameRequired);
+      }
+
+      if (!studentData.dateOfBirth || studentData.dateOfBirth === undefined) {
+        throw new Error(strings.studentRegistration.errors.dateOfBirthRequired);
+      }
+
+      if (!studentData.registrationNumber) {
+        throw new Error(strings.studentRegistration.errors.registrationNumberRequired);
+      }
+
+      if (!studentData.schoolYear) {
+        throw new Error(strings.studentRegistration.errors.schoolYearRequired);
+      }
+
+      if (!studentData.gender) {
+        throw new Error(strings.studentRegistration.errors.genderRequired);
+      }
+      if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
+        throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
+      }
+      if (!addressData.cep) {
+        throw new Error(strings.studentRegistration.errors.addressCepRequired);
+      }
+
+      if (!addressData.number) {
+        throw new Error(strings.studentRegistration.errors.addressNumberRequired);
+      }
+      await apiUpdateStudent(studentId, studentData);
+      await apiUpdateStudentAddress(studentId, addressData);
+      showToast(strings.studentRegistration.successMessage, "success");
+    } catch (error) {
+      throw new Error("Error updating student: " + error);
+    }
+  }
+
   function filterByPrefix<T extends Record<string, unknown>>(
     formData: FormData,
     prefix: string
@@ -177,6 +218,37 @@ export function useStudentRegistration() {
       {} as Record<string, unknown>
     );
     return reducedEntries as Partial<T>;
+  }
+
+  async function handleActivateStudent() {
+    if (!studentId) return;
+    const confirm = window.confirm("Tem certeza que deseja ativar este educando?");
+    if (!confirm) return;
+  
+    try {
+      const studentData: Partial<Student> = {
+        status: "ATIVO",
+      };
+      await apiActivateStudent(studentId, studentData);
+      showToast("Aluno ativado com sucesso.", "success");
+      await queryClient.invalidateQueries({ queryKey: ["students"] });
+      goBack();
+    } catch (err: unknown) {
+      if (!(err instanceof Error)) {
+        showToast("Erro interno no servidor.", "error");
+        return;
+      }
+      showToast(err?.message , "error");
+    } 
+  }
+
+  function formatDateToInput(dateString: string | undefined): string {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   }
 
   async function handleDeactivateStudent() {
@@ -199,11 +271,25 @@ export function useStudentRegistration() {
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const studentData = filterByPrefix<Student>(formData, "student.");
     const addressData = filterByPrefix<Address>(formData, "address.");
 
+    if (isEditing) {
+      updateStudent(studentId!, studentData, addressData)
+        .then(() => {
+          documents.forEach((document) => {
+            addStudentDocument<Document>({ id: studentId! }, document);
+          });
+          goBack();
+        })
+        .catch((error) => {
+          showToast(error.message, "error");
+        });
+      return;
+    }
     registerStudent(studentData, addressData)
       .then((studentId) => {
         if (!studentId) {
@@ -236,5 +322,7 @@ export function useStudentRegistration() {
     isLoadingStudentAddress: addressQuery.isPending,
     studentAddressError: addressQuery.error,
     handleDeactivateStudent,
+    formatDateToInput,
+    handleActivateStudent,
   }
 }

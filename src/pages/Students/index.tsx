@@ -2,9 +2,9 @@ import { Add as AddIcon, PersonAdd as PersonAddIcon, Mode as ModeIcon } from "@m
 import { Box, Button, Card, CardContent, CircularProgress, Stack, Typography } from "@mui/material";
 
 import { useStudentsPage } from "./hook";
+import { StudentFilter } from "./studentsFilter";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
-import { StudentFilter } from "./studentsFilter";
 
 export default function Students() {
   const {
@@ -71,10 +71,10 @@ export default function Students() {
           {filteredStudents.map((student) => (
             <Card key={student.id} variant="outlined" 
               sx={{ borderRadius: 2, 
-                    border: "1px solid" , 
-                    color: student.status === "ATIVO" ? "text.main" : "grey.700", 
-                    background: "none"
-                  }}>
+                border: "1px solid" , 
+                color: student.status === "ATIVO" ? "text.main" : "grey.700", 
+                background: "none"
+              }}>
                     
               <CardContent>
                 <Box 
