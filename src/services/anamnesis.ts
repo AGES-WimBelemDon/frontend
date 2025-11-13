@@ -52,7 +52,7 @@ const mockQuestionSets: { [key: string]: Question[] } = {
 export async function getQuestions(formId: string): Promise<Question[]> {
   try {
     // TODO: This endpoint is a placeholder, replace with the actual endpoint
-    const response = await api.get<Question[]>(`${endpoints.anamnesis.base}/${formId}/questions`);
+    const response = await api.get<Question[]>(`${endpoints.assessment.base}/${formId}/questions`);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -63,12 +63,26 @@ export async function getQuestions(formId: string): Promise<Question[]> {
 
 export async function postAnamnese(submission: AnamneseSubmission): Promise<{ id: string }> {
   try {
-    const response = await api.post(endpoints.anamnesis.base, submission);
+    const response = await api.post(endpoints.assessment.base, submission);
     return response.data;
   } catch (error) {
     console.error("Error posting anamnese:", error);
     // Mock a successful response for development
     const newId = (Math.random() * 1000).toFixed(0).toString();
     return Promise.resolve({ id: newId });
+  }
+}
+
+export async function getFormTypes(): Promise<{ id: number, title: string, type: string }[]> {
+  try {
+    const response = await api.get(endpoints.assessment.forms);
+    return response.data
+  } catch (error) {
+    console.error("Error getting forms:", error);
+
+    return Promise.resolve([
+      { id: 1, title: "Psico", type: "PSICOLOGIA" },
+      { id: 2, title: "Serviço Social", type: "SERVIÇO SOCIAL" },
+    ])
   }
 }
