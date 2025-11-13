@@ -52,7 +52,7 @@ export async function createFamilyMemberAddress(
   } catch {
     throw new Error("Error creating family member address");
   }
-  }
+}
 
 export async function updateFamilyMember(
   familyMemberId: string,
