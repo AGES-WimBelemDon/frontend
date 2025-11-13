@@ -7,6 +7,7 @@ const endpoints = {
   classes: "/classes",
   familyMembers: {
     base: "/family-member",
+    byId: (id: string) => `/family-member/${id}`,
     byStudent: (studentId: string) => `/family-member/student/${studentId}`,
     address: (familyMemberId: string) => `/family-member/${familyMemberId}/address`,
   },

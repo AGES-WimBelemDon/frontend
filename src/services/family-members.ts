@@ -52,4 +52,60 @@ export async function createFamilyMemberAddress(
   } catch {
     throw new Error("Error creating family member address");
   }
+  }
+
+export async function updateFamilyMember(
+  familyMemberId: string,
+  data: Partial<CreateFamilyMemberData>
+): Promise<void> {
+  try {
+    await api.patch(endpoints.familyMembers.byId(familyMemberId), data);
+  } catch {
+    throw new Error("Failed to update family member");
+  }
+}
+
+export async function updateFamilyMemberAddress(
+  familyMemberId: string,
+  addressData: Partial<CreateAddressData>
+): Promise<void> {
+  try {
+    await api.patch(endpoints.familyMembers.address(familyMemberId), addressData);
+  } catch {
+    throw new Error("Failed to update family member address");
+  }
+}
+
+export async function deleteFamilyMember(familyMemberId: string): Promise<void> {
+  try {
+    await api.delete(endpoints.familyMembers.byId(familyMemberId));
+  } catch {
+    throw new Error("Failed to delete family member");
+  }
+}
+
+export async function deleteFamilyMemberAddress(familyMemberId: string): Promise<void> {
+  try {
+    await api.delete(endpoints.familyMembers.address(familyMemberId));
+  } catch {
+    throw new Error("Failed to delete family member address");
+  }
+}
+
+export async function getFamilyMemberById(familyMemberId: string): Promise<CreateFamilyMemberData> {
+  try {
+    const response = await api.get<CreateFamilyMemberData>(endpoints.familyMembers.byId(familyMemberId));
+    return response.data;
+  } catch {
+    throw new Error("Erro ao buscar responsável");
+  }
+}
+
+export async function getFamilyMemberAddress(familyMemberId: string): Promise<Partial<CreateAddressData>> {
+  try {
+    const response = await api.get<CreateAddressData>(endpoints.familyMembers.address(familyMemberId));
+    return response.data;
+  } catch {
+    return {};
+  }
 }
