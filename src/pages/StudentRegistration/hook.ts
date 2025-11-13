@@ -56,6 +56,7 @@ export function useStudentRegistration() {
     });
   }
 
+
   useQuery({
     queryKey: ["addressByCep", address?.cep],
     queryFn: getAddressDetails,
@@ -99,6 +100,7 @@ export function useStudentRegistration() {
 
   function handleAddDoc() {
     if (!docForm.fileName) return;
+
 
     setDocuments((docs) => [
       ...docs,
@@ -149,10 +151,12 @@ export function useStudentRegistration() {
         throw new Error("No ID returned from student registration");
       }
 
+
       const studentAddress = await registerAddress(newStudent.id, addressData);
       if (!studentAddress.id) {
         throw new Error("No ID returned from address registration");
       }
+
 
       showToast(strings.studentRegistration.successMessage, "success");
 

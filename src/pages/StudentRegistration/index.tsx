@@ -17,6 +17,7 @@ export default function StudentRegistration() {
   const { goBack } = useRoutes();
   const { isMobile } = useScreenSize();
 
+
   const {
     genderOptions,
     raceOptions,
@@ -123,7 +124,6 @@ export default function StudentRegistration() {
             <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
-
         <TextField
           required
           name="student.race"
@@ -140,6 +140,7 @@ export default function StudentRegistration() {
             <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
+
 
         <TextField
           name="student.enrollmentDate"
@@ -353,6 +354,7 @@ export default function StudentRegistration() {
           {strings.studentRegistration.details}
         </Typography>
 
+
         <TextField
           required
           name="student.schoolYear"
@@ -464,6 +466,7 @@ export default function StudentRegistration() {
             <TextField
               required
 
+
               name="address.number"
               label={strings.studentRegistration.address.number}
               placeholder={strings.studentRegistration.address.numberPlaceholder}
@@ -505,6 +508,7 @@ export default function StudentRegistration() {
               }}
             />
 
+
             <TextField
               name="address.neighborhood"
               label={strings.studentRegistration.address.neighborhood}
@@ -520,6 +524,7 @@ export default function StudentRegistration() {
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
             />
+
 
             <TextField
               name="address.complement"
