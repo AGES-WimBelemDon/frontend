@@ -4,10 +4,11 @@ import { useNavigate, useParams } from "react-router";
 
 import {
   getAnamneseFormsByStudent,
+  getFormTypes,
   getQuestions,
   postAnamnese,
 } from "../../../services/anamnesis";
-import type { AnamneseFormInfo, AnamneseSubmission, Question } from "../../../types/anamnesis";
+import type { AnamneseFormInfo, AnamneseFormType, AnamneseSubmission, Question } from "../../../types/anamnesis";
 
 export function useAnamneseForm() {
   const { studentId, formId } = useParams<{ studentId: string; formId: string }>();
@@ -17,6 +18,7 @@ export function useAnamneseForm() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [responses, setResponses] = useState<Record<string, string>>({});
   const [isCreating, setIsCreating] = useState(formId === "new");
+  const [formTypes, setFormTypes] = useState<AnamneseFormType[]>([])
 
   useEffect(function fetchStudentForms() {
     if (studentId) {
@@ -33,6 +35,10 @@ export function useAnamneseForm() {
       setResponses({});
     }
   }, [formId, isCreating]);
+
+  useEffect(function fetchFormTypes() {
+    getFormTypes().then(setFormTypes)
+  }, [])
 
   function handleResponseChange(questionId: string, value: string) {
     setResponses((prev) => ({ ...prev, [questionId]: value }));
@@ -79,6 +85,7 @@ export function useAnamneseForm() {
     formId: isCreating ? "new" : formId,
     responses,
     isCreating,
+    formTypes,
     handleResponseChange,
     handleSubmit,
     handleCreateNew,

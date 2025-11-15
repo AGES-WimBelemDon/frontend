@@ -17,3 +17,9 @@ export type AnamneseFormInfo = {
   id: string;
   date: string;
 };
+
+export type AnamneseFormType = {
+  id: number,
+  title: string,
+  type: string
+}

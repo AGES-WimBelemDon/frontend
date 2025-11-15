@@ -12,9 +12,6 @@ const endpoints = {
     base: "/address",
     byId: (id: number) => `/address/${id}`,
   },
-  anamnesis: {
-    base: "/anamnesis"
-  },
   assessment: {
     base: "/assessment",
     forms: "/assessment/forms",
