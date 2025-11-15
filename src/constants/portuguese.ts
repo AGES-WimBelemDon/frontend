@@ -260,6 +260,7 @@ export const portugueseTextMap = {
     cards: {
       takeAttendance: "Realizar Chamada",
       manageStudents: "Gerenciar Alunos",
+      manageAnamnesis: "Gerenciar Anamnese",
       manageActivities: "Gerenciar Atividades",
       manageClasses: "Gerenciar Turmas",
       manageUsers: "Gerenciar Usuários"
@@ -351,6 +352,7 @@ export const portugueseTextMap = {
     home: "Página Inicial",
     frequency: "Frequência",
     students: "Educandos",
+    anamnesis: "Anamnese",
     activities: "Atividades",
     classes: "Turmas",
     users: "Usuários",
