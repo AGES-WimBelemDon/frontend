@@ -29,7 +29,7 @@ export default function Home() {
         textAlign="center"
       >
         {strings.home.welcomeBack}
-        {!user?.displayName
+        {!user?.fullName
           ? "!"
           : (
             <>
@@ -39,7 +39,7 @@ export default function Home() {
                 fontWeight="bold"
                 fontSize={20}
               >
-                {user.displayName}!
+                {user.fullName}!
               </Typography>
             </>
           )

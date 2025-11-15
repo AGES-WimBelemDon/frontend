@@ -10,7 +10,7 @@ export function TextInput({
   id,
 }: {
   label: string;
-  placeholder: string;
+  placeholder?: string;
   id: string;
 }) {
   const { setText, searchParams } = useTextInput();
@@ -52,7 +52,7 @@ export function TextInput({
         width: "100%",
       }}
     >
-      <Typography fontSize={16} fontWeight="bold">
+      <Typography fontSize={16}>
         {label}
       </Typography>
 

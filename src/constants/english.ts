@@ -4,9 +4,12 @@ export const englishTextMap = {
   activityList: {
     title: "Activity List",
     createNew: "Create New Activity",
+    newActivity: "New Activity",
+    activityName: "Activity Name",
     loadingActivities: "Loading activities...",
     activitiesError: "Error loading activities",
     activitiesEmpty: "No activities found.",
+    viewClasses: "Show Classes",
     filters: {
       name: {
         title: "Name",
@@ -33,6 +36,14 @@ export const englishTextMap = {
       teacher: "Teacher:",
     },
   },
+  anamnesis: {
+    title: "Anamnesis Form",
+    createNew: "Create new form",
+    previousForms: "Previous Forms",
+    skip: "Skip",
+    save: "Save",
+    selectOrCreate: "Select a form or create a new one.",
+  },
   classes: {
     title: "My Classes",
     loadingClasses: "Loading classes...",
@@ -42,6 +53,20 @@ export const englishTextMap = {
     schedule: "Schedule",
     level: "Level",
     activity: "Activity",
+    card: {
+      level: "Level:",
+      teacher: "Teacher:"
+    },
+  },
+  classDetails: {
+    loading: "Loading class details...",
+    errorLoading: "Error loading class data.",
+    classNotFound: "Class not found.",
+    editClass: "Edit Class",
+    professor: "Teacher",
+    level: "Level",
+    frequency: "Frequency",
+    noStudents: "Class does not have students.",
   },
   dateInput: {
     selectDate: "Select date",
@@ -49,6 +74,31 @@ export const englishTextMap = {
   filters: {
     loading: "Loading filters...",
     all: "All",
+    formType: {
+      title: "Form Types",
+      psychology: "Psychology",
+      social: "Social Work",
+    },
+    userStatus: {
+      title: "User Status",
+      active: "Active",
+      inactive: "Inactive",
+    },
+    studentStatus: {
+      title: "Student Status",
+      active: "Active",
+      inactive: "Inactive",
+    },
+    frequencyStatus: {
+      title: "Attendance Status",
+      present: "Present",
+      absent: "Absent",
+    },
+    classState: {
+      title: "Class Status",
+      active: "Active",
+      inactive: "Inactive",
+    },
     race: {
       title: "Race",
       white: "White",
@@ -62,6 +112,9 @@ export const englishTextMap = {
       title: "Gender",
       male: "Male",
       female: "Female",
+      transMan: "Trans Man",
+      transWoman: "Trans Woman",
+      nonBinary: "Non-Binary",
       other: "Other",
     },
     socialPrograms: {
@@ -75,10 +128,30 @@ export const englishTextMap = {
     },
     employmentStatus: {
       title: "Employment Status",
+      student: "Student",
       employed: "Employed",
       unemployed: "Unemployed",
-      student: "Student",
+      intern: "Intern",
+      apprentice: "Apprentice",
+      selfEmployed: "Self-Employed",
       other: "Other",
+    },
+    schoolYear: {
+      title: "School Year",
+      infantileEducation: "Infantile Education",
+      elementary1: "Elementary 1",
+      elementary2: "Elementary 2",
+      elementary3: "Elementary 3",
+      elementary4: "Elementary 4",
+      elementary5: "Elementary 5",
+      elementary6: "Elementary 6",
+      elementary7: "Elementary 7",
+      elementary8: "Elementary 8",
+      elementary9: "Elementary 9",
+      highSchool1: "High School 1",
+      highSchool2: "High School 2",
+      highSchool3: "High School 3",
+      eja: "EJA",
     },
     educationLevel: {
       title: "Education Level",
@@ -92,17 +165,10 @@ export const englishTextMap = {
       completeHigher: "Higher Education Complete",
       posGraduation: "Post-Graduation",
     },
-    identityTypes: {
-      title: "Document Type",
-      rg: "RG",
-      cpf: "CPF",
-      birthCertificate: "Birth Certificate",
-    },
-    documentTypes: {
-      title: "Document Type",
-      residenceProof: "Proof of Residence",
-      incomeProof: "Proof of Income",
-      other: "Other",
+    noteTypes: {
+      title: "Note Types",
+      medical: "Medical",
+      none: "None",
     },
     weekDays: {
       title: "Week Day",
@@ -114,12 +180,38 @@ export const englishTextMap = {
       saturday: "Saturday",
       sunday: "Sunday",
     },
+    role: {
+      title: "Role",
+      admin: "Admin",
+      manager: "Manager",
+      teacher: "Teacher",
+      psychologist: "Psychologist",
+      psychology_intern: "Psychology Intern",
+      social_worker: "Social Worker",
+      social_work_intern: "Social Work Intern",
+    },
+    identityTypes: {
+      title: "Document Type",
+      rg: "RG",
+      cpf: "CPF",
+      birthCertificate: "Birth Certificate",
+      driverLicense: "Driver's License",
+      passport: "Passport",
+      voterRegistration: "Voter Registration",
+      ctps: "CTPS",
+      other: "Other",
+    },
+    documentTypes: {
+      title: "Document Type",
+      residenceProof: "Proof of Residence",
+      incomeProof: "Proof of Income",
+      other: "Other",
+    },
     levels: {
       title: "Level",
       beginner: "Beginner",
       intermediate: "Intermediate",
       advanced: "Advanced",
-      allLevels: "All Levels",
     },
     civilStates: {
       title: "Civil Status",
@@ -127,6 +219,7 @@ export const englishTextMap = {
       married: "Married",
       divorced: "Divorced",
       widowed: "Widowed",
+      stableUnion: "Stable Union",
     },
   },
   frequency: {
@@ -177,6 +270,22 @@ export const englishTextMap = {
       manageActivities: "Manage Activities",
       manageClasses: "Manage Classes",
       manageUsers: "Manage Users"
+    }
+  },
+  login: {
+    title: "Login",
+    loginWithGoogle: "Login with Google",
+    loggingIn: "Logging in...",
+    logoAlt: "Logo",
+    errors: {
+      invalidToken: "Invalid sign-in token. Please try again.",
+      notRegistered: "Your account is not registered in the system.",
+      inactive: "Your account is not active. Please contact an administrator.",
+      popupClosed: "Sign-in was cancelled before completion.",
+      popupBlocked: "The sign-in popup was blocked by your browser.",
+      popupCancelled: "Another sign-in attempt was in progress.",
+      network: "Network error during sign-in. Check your connection and try again.",
+      generic: "We couldn't sign you in. Please try again.",
     }
   },
   newResponsibleModal: {
@@ -245,6 +354,33 @@ export const englishTextMap = {
     successMessage: "Responsible added successfully!",
     pleaseFillAllFields: "Please fill in all required fields.",
   },
+  classesModal: {
+    title: "Create Class",
+    recurring: "Recurring Activity",
+    inputs: {
+      classLevel: "Class Level",
+      startTime: "Start Time",
+      endTime: "End Time",
+      level: "Level",
+      searchTeacher: "Search Teacher",
+      assignTeacher: "Assign Teacher",
+      searchStudent: "Search Student",
+      addStudent: "Add Student",
+    },
+    buttons: {
+      next: "Next",
+      back: "Back",
+      create: "Create",
+    },
+    steps: {
+      data: "Data",
+      teacher: "Teachers",
+      student: "Educandos",
+    },
+    createSuccessMessage: "Class created successfully!",
+    createErrorFillAllFields: "Please fill in all fields.",
+    createErrorGeneric: "Error creating class. Please try again.",
+  },
   personCard: {
     userImageAlt: "User image",
     fullName: "Full Name:",
@@ -276,6 +412,58 @@ export const englishTextMap = {
     techDemo: "Tech Demo"
   },
   studentRegistration: {
+    personalInformation: "Personal Information",
+    name: "Name",
+    socialName: "Social Name",
+    socialNamePlaceholder: "Social name",
+    namePlaceholder: "Full name",
+    dateOfBirth: "Date of Birth",
+    address: {
+      title: "Address",
+      state: "State",
+      city: "City",
+      neighborhood: "Neighborhood",
+      zipCode: "ZIP Code",
+      zipCodePlaceholder: "xxxxxxxx",
+      street: "Street",
+      number: "Number",
+      numberPlaceholder: "Number",
+      complement: "Complement",
+      complementPlaceholder: "Apartment, block, house, etc.",
+    },
+    enrollmentDate: "Registration Date",
+    documents: "Documents",
+    registrationNumber: "Identity Document (CPF)",
+    attachments: "Attachments",
+    attachMoreFiles: "Attach more documents",
+    selectFiles: "Select file",
+    selectedFile: "Selected file:",
+    fileCreatedAt: "File creation date:",
+    fileDescription: "File description",
+    cancelFileSend: "Cancel file upload",
+    addFileButton: "Add file",
+    toggleStudentStatusOn: "Activate student",
+    toggleStudentStatusOff: "Deactivate student",
+    details: "Details",
+    schoolName: "Current School",
+    schoolNamePlaceholder: "Enter student's current school",
+    editButton: "Edit",
+    saveButton: "Save",
+    cancelButton: "Cancel",
+    successMessage: "Student registered successfully!",
+    errorMessage: "Error registering student. Please try again.",
+    errors: {
+      fullNameRequired: "Student full name is required",
+      dateOfBirthRequired: "Student date of birth is required",
+      registrationNumberRequired: "Student registration number is required",
+      schoolYearRequired: "Student school year is required",
+      genderRequired: "Student gender is required",
+      enrollmentDateRequired: "Student enrollment date is required",
+      addressCepRequired: "Student address ZIP code is required",
+      addressNumberRequired: "Student address number is required",
+    },
+  },
+  studentEdition: {
     personalInformation: "Personal Information",
     name: "Name",
     namePlaceholder: "Full name",
@@ -310,11 +498,14 @@ export const englishTextMap = {
   },
   students: {
     title: "Students",
-    createNew: "Create New Student",
-    createResponsible: "Create Responsible",
+    createNew: "Add Student",
+    viewResponsible: "View Guardians",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     noStudents: "No students found",
+    editStudent: "Edit Student",
+    birthday: ({ date }: Params<"date">) => `Birthday: ${date}`,
+    registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
   },
   studentsResponsibles: {
     title: "Responsibles",
@@ -332,6 +523,7 @@ export const englishTextMap = {
       openErrorToast: "Open ERROR toast!",
       openInfoToast: "Open INFO toast!",
       openModal: "Open modal",
+      openClassesModal: "Create Class Modal",
       testToast: "Test Toast",
       testCloseableToast: "Test Closeable Toast"
     },
@@ -357,7 +549,6 @@ export const englishTextMap = {
     warning: ({ message }: Params<"message">) => (`Warning: ${message}`),
   },
   userProfile: {
-    login: "Sign in with Google",
     logout: "Sign out",
     switchToEnglish: "Switch to English",
     switchToPortuguese: "Switch to Portuguese",
@@ -366,5 +557,50 @@ export const englishTextMap = {
     title: "Manage Users",
     loadingUsers: "Loading users...",
     usersError: "Error loading users",
+    registerNew: "Register New User",
+    table: {
+      id: "ID",
+      name: "Name",
+      email: "Email",
+      status: "Status",
+      role: "Role",
+      actions: "Actions",
+    },
+    status: {
+      active: "Active",
+      inactive: "Inactive",
+    },
+    actions: {
+      edit: "Edit",
+      activate: "Activate",
+      deactivate: "Deactivate",
+    },
+    footer: {
+      showing: ({ count, total }: Params<"count" | "total">) => `Showing ${count} of ${total} ${total === "1" ? "user" : "users"}`,
+      updatedAt: ({ when }: Params<"when">) => (
+        `Updated at ${when}`
+      )
+    },
+    inputs: {
+      name: "Colaborator Name",
+      namePlaceholder: "Full Name",
+      email: "Email",
+      emailPlaceholder: "full.name@wimbelemdon.com.br",
+      register: "Register",
+    },
+    toasts: {
+      enabled: "User activated successfully",
+      disabled: "User deactivated successfully",
+      toggleError: "Couldn't update user status. Please try again.",
+    },
+  },
+  newActivityModal: {
+    title: "New Activity",
+    textFieldTitle: "Activity Name",
+    textFieldPlaceholder: "Insert name",
+    buttonText: "Register",
+    successToast: ({ activityName }: Params<"activityName">) => (
+      `Activity "${activityName}" registered!`
+    ),
   },
 } as const;

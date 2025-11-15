@@ -8,8 +8,9 @@ import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useToast } from "../../hooks/useToast";
-import { fetchAddress, type Address } from "../../services/address";
+import { fetchAddress } from "../../services/address";
 import { createFamilyMember, createFamilyMemberAddress } from "../../services/family-members";
+import type { Address } from "../../types/address";
 
 export function useNewResponsibleModal(studentId?: string) {
   const { showToast } = useToast();

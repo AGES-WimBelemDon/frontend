@@ -4,14 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { Document } from "./interface";
 import { strings } from "../../constants";
+import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
-import { fetchAddress, type Address } from "../../services/address";
-import type { EmploymentStatus, Gender, Race, SocialProgram } from "../../services/filters";
-import { addStudentDocument, registerStudent as apiRegisterStudent } from "../../services/students";
-import type { EducationLevel, Student } from "../../services/students";
+import { fetchAddress } from "../../services/address";
+import { addStudentDocument, registerAddress , registerStudent as apiRegisterStudent } from "../../services/students";
+import type { Address } from "../../types/address";
+import type { Student } from "../../types/students";
 
 export function useStudentRegistration() {
   const { showToast } = useToast()
+  const { goBack } = useRoutes();
 
   const [address, setAddress] = useState<Partial<Address> | null>(null);
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -56,38 +58,48 @@ export function useStudentRegistration() {
     setShowUploader(false);
   };
 
-  async function registerStudent(studentLikeObject: {
-    [k: string]: FormDataEntryValue;
-  }) {
+  async function registerStudent(studentData: Partial<Student>, addressData: Partial<Address>): Promise<number> {
     try {
-      const student: Partial<Student> = {
-        address: {
-          code: studentLikeObject.code as string,
-          street: studentLikeObject.street as string,
-          number: studentLikeObject.number as string,
-          complement: studentLikeObject.complement as string,
-          city: studentLikeObject.city as string,
-          state: studentLikeObject.state as string,
-          neighborhood: studentLikeObject.neighborhood as string,
-        },
-        fullName: studentLikeObject.fullName as string,
-        dateOfBirth: new Date(studentLikeObject.dateOfBirth as string),
-        registrationNumber: studentLikeObject.registrationNumber as string,
-        enrollmentDate: new Date(studentLikeObject.enrollmentDate as string),
-        race: studentLikeObject.race as Race,
-        schoolName: studentLikeObject.schoolName as string,
-        schoolYear: studentLikeObject.schoolYear as EducationLevel,
-        socialProgram: studentLikeObject.socialProgram as SocialProgram,
-        gender: studentLikeObject.gender as Gender,
-        employmentStatus: studentLikeObject.employmentStatus as EmploymentStatus,
+      if (!studentData.fullName) {
+        throw new Error(strings.studentRegistration.errors.fullNameRequired);
       }
 
-      const newStudent = await apiRegisterStudent(student);
+      if (!studentData.dateOfBirth || studentData.dateOfBirth === undefined) {
+        throw new Error(strings.studentRegistration.errors.dateOfBirthRequired);
+      }
 
+      if (!studentData.registrationNumber) {
+        throw new Error(strings.studentRegistration.errors.registrationNumberRequired);
+      }
+
+      if (!studentData.schoolYear) {
+        throw new Error(strings.studentRegistration.errors.schoolYearRequired);
+      }
+
+      if (!studentData.gender) {
+        throw new Error(strings.studentRegistration.errors.genderRequired);
+      }
+      // if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
+      //   throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
+      // }
+      if (!addressData.code) {
+        throw new Error(strings.studentRegistration.errors.addressCepRequired);
+      }
+
+      if (!addressData.number) {
+        throw new Error(strings.studentRegistration.errors.addressNumberRequired);
+      }
+
+      const newStudent = await apiRegisterStudent(studentData);
       if (!newStudent.id) {
         throw new Error("No ID returned from student registration");
       }
-
+      
+      const studentAddress = await registerAddress(newStudent.id, addressData);
+      if (!studentAddress.id) {
+        throw new Error("No ID returned from address registration");
+      }
+     
       showToast(strings.studentRegistration.successMessage, "success");
 
       return newStudent.id;
@@ -96,19 +108,43 @@ export function useStudentRegistration() {
     }
   }
 
+  function filterByPrefix<T extends Record<string, unknown>>(
+    formData: FormData,
+    prefix: string
+  ): Partial<T> {
+    const entries = Array.from(formData.entries());
+    const filteredEntries = entries.filter(
+      ([key, value]) => key.startsWith(prefix) && Boolean(value)
+    );
+    const reducedEntries = filteredEntries.reduce(
+      (acc, [key, value]) => {
+        const newKey = key.replace(prefix, "");
+        acc[newKey] = value;
+        return acc;
+      },
+      {} as Record<string, unknown>
+    );
+    return reducedEntries as Partial<T>;
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const studentData = Object.fromEntries(formData.entries());
-    
-    registerStudent(studentData)
+    const studentData = filterByPrefix<Student>(formData, "student.");
+    const addressData = filterByPrefix<Address>(formData, "address.");
+
+    registerStudent(studentData, addressData)
       .then((studentId) => {
+        if (!studentId) {
+          throw new Error("Student ID is undefined");
+        }
         documents.forEach((document) => {
           addStudentDocument<Document>({ id: studentId }, document);
         });
+        goBack();
       })
-      .catch(() => {
-        showToast(strings.studentRegistration.errorMessage, "error")
+      .catch((error) => {
+        showToast(error.message, "error");
       });
   }
 

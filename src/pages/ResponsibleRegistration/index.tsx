@@ -1,8 +1,7 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, CircularProgress, Stack, Typography } from "@mui/material";
 
-import { useStudentResponsible } from "./hook";
-import { NewResponsibleModal } from "../../components/NewResponsibleModal";
+import { useResponsibleRegistrationPage } from "./hook";
 import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
@@ -15,9 +14,8 @@ export default function ResponsibleRegistration() {
     isLoadingResponsibles,
     responsiblesError,
     responsibles,
-    studentId,
-  } = useStudentResponsible();
-  const isMobile = useScreenSize().isMobile;
+  } = useResponsibleRegistrationPage();
+  const { isMobile } = useScreenSize();
 
   if (isLoadingResponsibles) {
     return (
@@ -54,25 +52,24 @@ export default function ResponsibleRegistration() {
             ) : responsibles.map((responsible) => (
               <PersonCard
                 key={responsible.id}
-                fullName={responsible.fullName}
-                socialName={responsible.socialName || ""}
-                registrationNumber={responsible.registrationNumber}
-                dateOfBirth={responsible.dateOfBirth}
-                nis={responsible.nis || ""}
-                phoneNumber={responsible.phoneNumber}
-                email={responsible.email || ""}
+                fullName={responsible.name}
+                registrationNumber={responsible.cpf}
+                dateOfBirth={responsible.birthDate}
+                nis={responsible.nis}
+                phoneNumber={responsible.phone}
+                email={responsible.email}
                 address={responsible.address}
-                relationship={responsible.relationship || ""}
-                race={responsible.race || ""}
-                gender={responsible.gender || ""}
-                educationLevel={responsible.educationLevel || ""}
-                socialPrograms={responsible.socialPrograms || ""}
-                employmentStatus={responsible.employmentStatus || ""}
+                relationship={responsible.civilState}
+                educationLevel=""
+                employmentStatus=""
+                gender=""
+                race=""
+                socialPrograms=""
               />
             ))}
         </Stack>
       </Box>
-      <NewResponsibleModal studentId={studentId} />
+      {/* <NewResponsibleModal studentId={studentId} /> */}
     </>
   );
 }

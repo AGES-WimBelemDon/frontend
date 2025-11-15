@@ -43,12 +43,12 @@ export async function createFamilyMember(data: CreateFamilyMemberData): Promise<
 }
 
 export async function createFamilyMemberAddress(
-  familyMemberId: string, 
+  familyMemberId: string | number,
   addressData: CreateAddressData
 ): Promise<void> {
   try {
     console.log(`Creating address for family member ID ${familyMemberId} with data:`, addressData);
-    await api.post(endpoints.familyMembers.address(familyMemberId), addressData);
+    await api.post(endpoints.familyMembers.addressById(familyMemberId), addressData);
   } catch {
     throw new Error("Error creating family member address");
   }

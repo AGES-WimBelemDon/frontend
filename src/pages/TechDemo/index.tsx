@@ -1,6 +1,8 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 
+import ClassesModal from "../../components/ClassesModal";
+import { useClassesModal } from "../../components/ClassesModal/hook";
 import { NewResponsibleModal } from "../../components/NewResponsibleModal";
 import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hook";
 import { PageTitle } from "../../components/PageTitle";
@@ -13,6 +15,7 @@ export default function TechDemo() {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const { openModal } = useNewResponsibleModal();
+  const { openClassesModal } = useClassesModal();
 
   function showAPIInfo() {
     navigate("2?c2=4");
@@ -92,10 +95,18 @@ export default function TechDemo() {
         >
           {strings.techDemo.buttons.openModal}
         </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => openClassesModal()}
+        >
+          {strings.classes.createClass}
+        </Button>
       </Grid>
 
       <NewResponsibleModal />
-      
+      <ClassesModal />
+
       <Outlet />
     </>
   );

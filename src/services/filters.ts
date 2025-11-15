@@ -1,76 +1,109 @@
 import { api, endpoints } from "./api";
-import type { EducationLevel } from "./students";
+import type {
+  CivilState,
+  ClassState,
+  DocumentType,
+  EducationLevel,
+  EmploymentStatus,
+  FormType,
+  FrequencyStatus,
+  Gender,
+  IdentityType,
+  Level,
+  NoteTypes,
+  Race,
+  Role,
+  SchoolYear,
+  SocialPrograms,
+  StudentStatus,
+  UserStatus,
+  WeekDay,
+} from "../types/filters";
 
-export type Race = 
-  | "BRANCA"
-  | "PRETA"
-  | "PARDA"
-  | "AMARELA"
-  | "INDIGENA"
-  | "NA"
-;
 
-export type Gender = 
-  | "MASCULINO"
-  | "FEMININO"
-  | "OUTRO"
-;
+export async function getFormTypesFilter(): Promise<FormType[]> {
+  try {
+    const response = await api.get<FormType[]>(endpoints.filters.formTypes);
+    return response.data;
+  } catch {
+    // TODO: This should only work for development, remove in production
+    const mockResponse = await Promise.resolve({
+      data: [
+        "PSICOLOGIA" as FormType,
+        "SOCIAL" as FormType,
+      ],
+    });
+    return mockResponse.data;
+  }
+}
 
-export type SocialProgram = 
-  | "BOLSA_FAMILIA"
-  | "BPC_LOAS"
-  | "TARIFA_SOCIAL_DE_ENERGIA"
-  | "AUXILIO_GAS"
-  | "PROGRAMA_ESTADUAL"
-  | "PROGRAMA_MUNICIPAL_VIA_CRAS"
-;
+export async function getUserStatusFilter(): Promise<UserStatus[]> {
+  try {
+    const response = await api.get<UserStatus[]>(endpoints.filters.userStatus);
+    return response.data;
+  } catch {
+    // TODO: This should only work for development, remove in production
+    const mockResponse = await Promise.resolve({
+      data: [
+        "ATIVO" as UserStatus,
+        "INATIVO" as UserStatus,
+      ],
+    });
+    return mockResponse.data;
+  }
+}
 
-export type EmploymentStatus =
-  | "EMPREGADO"
-  | "DESEMPREGADO"
-  | "ESTUDANTE"
-  | "OUTRO"
-;
+export async function getStudentStatusFilter(): Promise<StudentStatus[]> {
+  try {
+    const response = await api.get<StudentStatus[]>(endpoints.filters.studentStatus);
+    return response.data;
+  } catch {
+    // TODO: This should only work for development, remove in production
+    const mockResponse = await Promise.resolve({
+      data: [
+        "ATIVO" as StudentStatus,
+        "INATIVO" as StudentStatus,
+      ],
+    });
+    return mockResponse.data;
+  }
+}
 
-export type IdentityType =
-  | "RG"
-  | "CPF"
-  | "CERTIDAO_NASCIMENTO"
-;
+export async function getFrequencyStatusFilter(): Promise<FrequencyStatus[]> {
+  try {
+    const response = await api.get<FrequencyStatus[]>(endpoints.filters.frequencyStatus);
+    return response.data;
+  } catch {
+    // TODO: This should only work for development, remove in production
+    const mockResponse = await Promise.resolve({
+      data: [
+        "PRESENTE" as FrequencyStatus,
+        "AUSENTE" as FrequencyStatus,
+      ],
+    });
+    return mockResponse.data;
+  }
+}
 
-export type DocumentType =
-  | "COMPROVANTE_RESIDENCIA"
-  | "COMPROVANTE_RENDA"
-  | "OUTRO"
-;
-
-export type WeekDay =
-  | "SEGUNDA"
-  | "TERCA"
-  | "QUARTA"
-  | "QUINTA"
-  | "SEXTA"
-  | "SABADO"
-  | "DOMINGO"
-;
-
-export type Level =
-  | "INICIANTE"
-  | "INTERMEDIARIO"
-  | "AVANCADO"
-  | "TODOS_NIVEIS"
-;
-
-export type CivilState =
-  | "SOLTEIRO"
-  | "CASADO"
-  | "DIVORCIADO"
-  | "VIUVO"
-;
+export async function getClassStateFilter(): Promise<ClassState[]> {
+  try {
+    const response = await api.get<ClassState[]>(endpoints.filters.classState);
+    return response.data;
+  } catch {
+    // TODO: This should only work for development, remove in production
+    const mockResponse = await Promise.resolve({
+      data: [
+        "ATIVA" as ClassState,
+        "INATIVA" as ClassState,
+      ],
+    });
+    return mockResponse.data;
+  }
+}
 
 export async function getRacesFilter(): Promise<Race[]> {
   try {
-    const response = await api.get<Race[]>(endpoints.filters.race);
+    const response = await api.get<Race[]>(endpoints.filters.races);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -88,29 +121,9 @@ export async function getRacesFilter(): Promise<Race[]> {
   }
 }
 
-export async function getSocialProgramsFilter(): Promise<SocialProgram[]> {
-  try {
-    const response = await api.get<SocialProgram[]>(endpoints.filters.socialPrograms);
-    return response.data;
-  } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "BOLSA_FAMILIA" as SocialProgram,
-        "BPC_LOAS" as SocialProgram,
-        "TARIFA_SOCIAL_DE_ENERGIA" as SocialProgram,
-        "AUXILIO_GAS" as SocialProgram,
-        "PROGRAMA_ESTADUAL" as SocialProgram,
-        "PROGRAMA_MUNICIPAL_VIA_CRAS" as SocialProgram,
-      ],
-    });
-    return mockResponse.data;
-  }
-}
-
 export async function getGendersFilter(): Promise<Gender[]> {
   try {
-    const response = await api.get<Gender[]>(endpoints.filters.gender);
+    const response = await api.get<Gender[]>(endpoints.filters.genders);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -125,6 +138,26 @@ export async function getGendersFilter(): Promise<Gender[]> {
   }
 }
 
+export async function getSocialProgramsFilter(): Promise<SocialPrograms[]> {
+  try {
+    const response = await api.get<SocialPrograms[]>(endpoints.filters.socialPrograms);
+    return response.data;
+  } catch {
+    // TODO: This should only work for development, remove in production
+    const mockResponse = await Promise.resolve({
+      data: [
+        "BOLSA_FAMILIA" as SocialPrograms,
+        "BPC_LOAS" as SocialPrograms,
+        "TARIFA_SOCIAL_DE_ENERGIA" as SocialPrograms,
+        "AUXILIO_GAS" as SocialPrograms,
+        "PROGRAMA_ESTADUAL" as SocialPrograms,
+        "PROGRAMA_MUNICIPAL_VIA_CRAS" as SocialPrograms,
+      ],
+    });
+    return mockResponse.data;
+  }
+}
+
 export async function getEmploymentStatusFilter(): Promise<EmploymentStatus[]> {
   try {
     const response = await api.get<EmploymentStatus[]>(endpoints.filters.employmentStatus);
@@ -133,10 +166,41 @@ export async function getEmploymentStatusFilter(): Promise<EmploymentStatus[]> {
     // TODO: This should only work for development, remove in production
     const mockResponse = await Promise.resolve({
       data: [
+        "ESTUDANTE" as EmploymentStatus,
         "EMPREGADO" as EmploymentStatus,
         "DESEMPREGADO" as EmploymentStatus,
-        "ESTUDANTE" as EmploymentStatus,
+        "ESTAGIARIO" as EmploymentStatus,
+        "APRENDIZ" as EmploymentStatus,
+        "AUTONOMO" as EmploymentStatus,
         "OUTRO" as EmploymentStatus,
+      ],
+    });
+    return mockResponse.data;
+  }
+}
+
+export async function getSchoolYearsFilter(): Promise<SchoolYear[]> {
+  try {
+    const response = await api.get<SchoolYear[]>(endpoints.filters.schoolYears);
+    return response.data;
+  } catch {
+    // TODO: This should only work for development, remove in production
+    const mockResponse = await Promise.resolve({
+      data: [
+        "EDUCACAO_INFANTIL" as SchoolYear,
+        "FUNDAMENTAL_1" as SchoolYear,
+        "FUNDAMENTAL_2" as SchoolYear,
+        "FUNDAMENTAL_3" as SchoolYear,
+        "FUNDAMENTAL_4" as SchoolYear,
+        "FUNDAMENTAL_5" as SchoolYear,
+        "FUNDAMENTAL_6" as SchoolYear,
+        "FUNDAMENTAL_7" as SchoolYear,
+        "FUNDAMENTAL_8" as SchoolYear,
+        "FUNDAMENTAL_9" as SchoolYear,
+        "ENSINO_MEDIO_1" as SchoolYear,
+        "ENSINO_MEDIO_2" as SchoolYear,
+        "ENSINO_MEDIO_3" as SchoolYear,
+        "EJA" as SchoolYear,
       ],
     });
     return mockResponse.data;
@@ -145,7 +209,7 @@ export async function getEmploymentStatusFilter(): Promise<EmploymentStatus[]> {
 
 export async function getStudentEducationLevelFilter(): Promise<EducationLevel[]> {
   try {
-    const response = await api.get<EducationLevel[]>(endpoints.filters.educationLevel);
+    const response = await api.get<EducationLevel[]>(endpoints.filters.educationLevels);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
@@ -166,34 +230,16 @@ export async function getStudentEducationLevelFilter(): Promise<EducationLevel[]
   }
 }
 
-export async function getIdentityTypesFilter(): Promise<IdentityType[]> {
+export async function getNoteTypesFilter(): Promise<NoteTypes[]> {
   try {
-    const response = await api.get<IdentityType[]>(endpoints.filters.identityTypes);
+    const response = await api.get<NoteTypes[]>(endpoints.filters.noteTypes);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
     const mockResponse = await Promise.resolve({
       data: [
-        "RG" as IdentityType,
-        "CPF" as IdentityType,
-        "CERTIDAO_NASCIMENTO" as IdentityType,
-      ],
-    });
-    return mockResponse.data;
-  }
-}
-
-export async function getDocumentTypesFilter(): Promise<DocumentType[]> {
-  try {
-    const response = await api.get<DocumentType[]>(endpoints.filters.documentTypes);
-    return response.data;
-  } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "COMPROVANTE_RESIDENCIA" as DocumentType,
-        "COMPROVANTE_RENDA" as DocumentType,
-        "OUTRO" as DocumentType,
+        "ATESTADO_MEDICO" as NoteTypes,
+        "SEM_JUSTIFICATIVA" as NoteTypes,
       ],
     });
     return mockResponse.data;
@@ -221,38 +267,60 @@ export async function getWeekDaysFilter(): Promise<WeekDay[]> {
   }
 }
 
-export async function getLevelsFilter(): Promise<Level[]> {
+export async function getRoleFilter(): Promise<Role[]> {
   try {
-    const response = await api.get<Level[]>(endpoints.filters.levels);
+    const response = await api.get<Role[]>(endpoints.filters.roles);
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
     const mockResponse = await Promise.resolve({
       data: [
-        "INICIANTE" as Level,
-        "INTERMEDIARIO" as Level,
-        "AVANCADO" as Level,
-        "TODOS_NIVEIS" as Level,
+        "ADMIN" as Role,
+        "MANAGER" as Role,
+        "TEACHER" as Role,
+        "PSYCHOLOGIST" as Role,
+        "INTERN" as Role,
       ],
     });
     return mockResponse.data;
   }
 }
 
+export async function getIdentityTypesFilter(): Promise<IdentityType[]> {
+  return [
+    "CERTIDAO_NASCIMENTO",
+    "CPF",
+    "RG",
+    "CNH",
+    "PASSAPORTE",
+    "TITULO_ELEITOR",
+    "CTPS",
+    "OUTRO",
+  ] as IdentityType[];
+}
+
+export async function getDocumentTypesFilter(): Promise<DocumentType[]> {
+  return [
+    "COMPROVANTE_RESIDENCIA",
+    "COMPROVANTE_RENDA",
+    "OUTRO",
+  ] as DocumentType[];
+}
+
+export async function getLevelsFilter(): Promise<Level[]> {
+  return [
+    "INICIANTE",
+    "INTERMEDIARIO",
+    "AVANCADO",
+  ] as Level[];
+}
+
 export async function getCivilStatesFilter(): Promise<CivilState[]> {
-  try {
-    const response = await api.get<CivilState[]>(endpoints.filters.civilStates);
-    return response.data;
-  } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "SOLTEIRO" as CivilState,
-        "CASADO" as CivilState,
-        "DIVORCIADO" as CivilState,
-        "VIUVO" as CivilState,
-      ],
-    });
-    return mockResponse.data;
-  }
+  return [
+    "SOLTEIRO",
+    "CASADO",
+    "DIVORCIADO",
+    "VIUVO",
+    "UNIAO_ESTAVEL",
+  ] as CivilState[];
 }

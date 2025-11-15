@@ -1,10 +1,30 @@
 <h1 style="text-align: center;">Contributing to WimBelemDon+ Frontend</h1>
 
-Thank you for your contribution! This document outlines our guidelines for branch names, commit messages, pull requests and others.
+Thank you for your contribution! This guide is organized by importance for developers getting started quickly.
+
+> **New to the project?** See [README.md](README.md) for project overview and basic setup.
 
 <h2>Table of Contents</h2>
 
-- [Branch Naming Conventions](#branch-naming-conventions)
+- [Development Setup](#development-setup)
+  - [Quick Development Start](#quick-development-start)
+    - [With Docker](#with-docker)
+    - [Without Docker](#without-docker)
+  - [Development vs Production Builds](#development-vs-production-builds)
+    - [Development Mode](#development-mode)
+    - [Production Mode](#production-mode)
+  - [Detailed Setup Instructions](#detailed-setup-instructions)
+    - [With Docker](#with-docker-1)
+    - [Without Docker](#without-docker-1)
+- [Environment Setup and Configuration](#environment-setup-and-configuration)
+  - [Git Configuration](#git-configuration)
+  - [Required Environment Variables](#required-environment-variables)
+    - [API Configuration](#api-configuration)
+    - [Firebase Authentication](#firebase-authentication)
+    - [Testing Configuration](#testing-configuration)
+- [Available Scripts](#available-scripts)
+  - [Debugging Tips](#debugging-tips)
+- [Environment Setup and Configuration](#environment-setup-and-configuration-1)
 - [Commit Message Guidelines](#commit-message-guidelines)
 - [Pull Requests](#pull-requests)
 - [Accessibility](#accessibility)
@@ -13,9 +33,171 @@ Thank you for your contribution! This document outlines our guidelines for branc
 - [Testing (E2E)](#testing-e2e)
 - [Secrets and Configuration](#secrets-and-configuration)
 - [Language](#language)
+- [Architecture and Development Guidelines](#architecture-and-development-guidelines)
+  - [Integration Flow Pattern](#integration-flow-pattern)
+  - [Data Flow Example: Students Page](#data-flow-example-students-page)
+  - [Page Creation Pattern](#page-creation-pattern)
+  - [Hook Responsibilities](#hook-responsibilities)
+    - [Page Hooks (`pages/*/hook.ts`)](#page-hooks-pageshookts)
+    - [Global Hooks (`hooks/*.ts`)](#global-hooks-hooksts)
+    - [Service Layer (`services/*.ts`)](#service-layer-servicests)
+  - [Naming Conventions](#naming-conventions)
+  - [TypeScript Guidelines](#typescript-guidelines)
+    - [Type vs Interface Usage](#type-vs-interface-usage)
+    - [Singular vs Plural Convention](#singular-vs-plural-convention)
+  - [State Management Guidelines](#state-management-guidelines)
+  - [Mock Data Strategy](#mock-data-strategy)
+  - [Context Architecture](#context-architecture)
+  - [Firebase Setup](#firebase-setup)
+    - [Creating Firebase Project](#creating-firebase-project)
+    - [Required Environment Variables](#required-environment-variables-1)
+    - [Production Secrets](#production-secrets)
+    - [Authentication Flow](#authentication-flow)
+  - [Development vs Production Differences](#development-vs-production-differences)
+- [Localization and UI Text Management](#localization-and-ui-text-management)
+  - [Using the Strings Object](#using-the-strings-object)
+  - [Adding New Text](#adding-new-text)
+  - [Dynamic Text with Parameters](#dynamic-text-with-parameters)
+  - [Language Switching](#language-switching)
+- [Error Handling Patterns](#error-handling-patterns)
+  - [Service Layer Error Handling](#service-layer-error-handling)
+  - [Component Error Handling](#component-error-handling)
+  - [Toast Notifications for User Feedback](#toast-notifications-for-user-feedback)
+- [Accessibility Guidelines](#accessibility-guidelines)
+  - [Required Accessibility Practices](#required-accessibility-practices)
+  - [Testing Accessibility](#testing-accessibility-1)
+  - [MUI Accessibility Features](#mui-accessibility-features)
+- [API Integration Guide](#api-integration-guide)
+  - [Adding a New API Endpoint](#adding-a-new-api-endpoint)
+  - [API Error Handling](#api-error-handling)
+  - [Authentication](#authentication)
+- [Technologies](#technologies)
+  - [Core Libraries](#core-libraries)
+  - [State \& Data Management](#state--data-management)
+  - [UI \& Styling](#ui--styling)
+  - [Build \& Tooling](#build--tooling)
 - [Thank You](#thank-you)
 
-## Branch Naming Conventions
+---
+
+## Development Setup
+
+### Quick Development Start
+
+#### With Docker
+```bash
+./scripts/dev-setup.sh # Must be run in a Unix-based terminal (Git Bash, WSL, macOS, Linux)
+docker compose up dev
+```
+Access at: http://localhost:5173/frontend/
+
+#### Without Docker
+```bash
+npm install
+npm run dev
+```
+Access at: http://localhost:5173/frontend/
+
+### Development vs Production Builds
+
+#### Development Mode
+- **Hot Module Replacement (HMR)** for instant updates
+- **Source maps** for debugging  
+- **Mock data fallbacks** when API is unavailable
+- **Development-only routes** (e.g., `/tech-demo`)
+
+#### Production Mode  
+- **Code splitting** and tree shaking for optimal bundle size
+- **Asset optimization** (images, fonts, etc.)
+- **PWA features** enabled (service worker, manifest, offline caching)
+- **Environment-specific configurations**
+
+### Detailed Setup Instructions
+
+#### With Docker
+This project provides a helper script that handles everything for you, even if you don't have Node installed.
+
+After cloning the repository, run (on a Unix-based terminal like Git Bash or WSL on Windows, or the default terminal on macOS/Linux):
+
+```sh
+./scripts/dev-setup.sh
+```
+
+This script will:
+1. Set up Git hooks so that pre-commit and pre-push verifications are in place
+2. Copy `node_modules` folder from the Docker container to the host machine
+
+**Important**: If changes are made to [`Dockerfile`, `docker-compose.yml`, `package.json`] files, you need to update your local `node_modules`:
+
+1. Docker setup (on a Unix-based terminal):
+```sh
+./scripts/setup_node_docker.sh
+```
+
+2. Rebuild the Docker image:
+```sh
+docker compose up dev --build
+```
+
+#### Without Docker
+Using Node v22.18:
+```sh
+npm install
+npm run dev
+```
+
+## Environment Setup and Configuration
+
+### Git Configuration
+
+Configure your Git credentials for the project:
+
+```sh
+git config user.name "Your Name"
+git config user.email your_email@example.com
+```
+
+**Important**: Use your academic email address to ensure proper attribution and access to academic resources. This email will be checked on commit and pull requests.
+
+### Required Environment Variables
+
+Copy `.env.example` to `.env` and configure the following variables:
+
+#### API Configuration
+- `VITE_API_URL` - Backend API base URL (e.g., `http://localhost:3000/api`)
+- `VITE_API_VERSION` - API version (e.g., `v1`)
+
+#### Firebase Authentication
+- `VITE_FIREBASE_API_KEY` - Firebase project API key
+- `VITE_FIREBASE_AUTH_DOMAIN` - Firebase auth domain (e.g., `project-id.firebaseapp.com`)
+- `VITE_FIREBASE_PROJECT_ID` - Firebase project ID
+- `VITE_FIREBASE_STORAGE_BUCKET` - Firebase storage bucket
+- `VITE_FIREBASE_MESSAGING_SENDER_ID` - Firebase messaging sender ID
+- `VITE_FIREBASE_APP_ID` - Firebase app ID
+
+#### Testing Configuration
+- `CYPRESS_BASE_URL` - Base URL for E2E tests (e.g., `http://localhost:5173/frontend`)
+- `CYPRESS_USE_MOCK_API_DATA` - Whether to use mock data in tests (`true`/`false`)
+
+## Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run lint:fix` | Run ESLint and auto-fix some issues |
+| `npm run preview` | Preview production build locally |
+| `npm run test` | Run Cypress E2E tests |
+
+### Debugging Tips
+
+- **React DevTools**: Install browser extension for component inspection
+- **Cypress**: Use `cy.debug()` and `cy.pause()` for test debugging
+- **Browser DevTools**: Press `F12` to open DevTools and find following tools:
+- **Network Tab**: Monitor API calls and response times
+- **Lighthouse**: Audit performance, accessibility, SEO, and PWA features
+
+## Environment Setup and Configuration
 
 We use **kebab-case** for branch names. Prefix branches according to the type of work:
 
@@ -135,6 +317,458 @@ Every new or updated UI component must follow these rules:
 
 All code, comments, commit messages, documentation, and any other texts (non UI) **must be** written in English.
 The only exception being PR description and comments, which can be written in Portuguese as that follows the project's language guidelines.
+
+## Architecture and Development Guidelines
+
+### Integration Flow Pattern
+
+Our frontend follows a consistent architectural pattern for data flow and state management:
+
+```
+UI Component → "HTML" for user interface only
+↓
+Page Hook → Local State Management
+↓
+Global Hook → React Query Caching
+↓
+Service → API Communication
+↓
+API -> HTTP Client
+```
+
+### Data Flow Example: Students Page
+
+1. **`Students/index.tsx`** - UI component that renders the page
+2. **`Students/hook.ts`** - Page-specific logic (navigation, local state, form handling)
+3. **`hooks/useStudents.ts`** - Global data fetching and caching with React Query
+4. **`services/students.ts`** - API calls and data transformation
+5. **`services/api.ts`** - HTTP client configuration and interceptors
+
+### Page Creation Pattern
+
+When creating a new page, follow this structure:
+
+1. **Create page component**: `src/pages/[PageName]/index.tsx`
+2. **Create page hook**: `src/pages/[PageName]/hook.ts` (named `use[PageName]Page()`)
+3. **Use existing global hooks**: Import from `src/hooks/`
+4. **Create new services if needed**: Add to `src/services/` if new data sources are required
+
+### Hook Responsibilities
+
+#### Page Hooks (`pages/*/hook.ts`)
+- Page-specific state management (filters, form state, UI state)
+- Navigation logic and route handling
+- Form submission and validation logic
+- UI interaction handlers (button clicks, modals)
+
+#### Global Hooks (`hooks/*.ts`)
+- Data fetching with React Query
+- Global state management and caching
+- Reusable business logic across multiple pages
+- API integration and error handling
+
+#### Service Layer (`services/*.ts`)
+- HTTP API communication
+- Data transformation and mapping
+- Mock data for development environment
+- Type definitions for API responses
+
+### Naming Conventions
+
+- **Page hooks**: `use[PageName]Page()` (e.g., `useStudentsPage()`, `useClassesPage()`)
+- **Global hooks**: `use[Entity]()` (e.g., `useStudents()`, `useActivities()`)
+- **Service files**: `[entity].ts` (e.g., `students.ts`, `activities.ts`)
+- **Page components**: `[PageName]/index.tsx` with default export
+
+### TypeScript Guidelines
+
+#### Type vs Interface Usage
+
+- **Use `type` for data models and domain entities** (always singular):
+  ```typescript
+  export type Student = {
+    id: string;
+    fullName: string;
+    // ...
+  }
+  
+  export type Activity = {
+    id: string;
+    name: string;
+    // ...
+  }
+  ```
+
+- **Use `interface` for component props and parameters**:
+  ```typescript
+  interface TextCardProps {
+    title: string;
+    theme: ThemeStyle;
+    onClick?: () => void;
+  }
+  
+  interface ActivityCardProps { 
+    content: Activity; // References the singular type
+  }
+  ```
+
+#### Singular vs Plural Convention
+
+- **Types are always singular**: `Student`, `Activity`, `User` (representing the shape of one entity)
+- **Variables, functions, and collections are plural**: `students`, `activities`, `users`
+- **Hooks and services use plural**: `useStudents()`, `getStudents()`, `students.ts`
+
+### State Management Guidelines
+
+- **Local UI state**: Use `useState` in page hooks
+- **Server state**: Use React Query in global hooks
+- **Form state**: Handle in page hooks, submit via services
+- **Navigation**: Use `useRoutes` hook for consistent routing
+
+### Mock Data Strategy
+
+The application uses a fallback mock data strategy in services:
+
+- **Development**: API calls fall back to mock data when backend is unavailable
+- **Production**: Mock data serves as temporary fallback (should be removed in production)
+- **Testing**: Controlled via `CYPRESS_USE_MOCK_API_DATA` environment variable
+
+When adding new API endpoints:
+1. Add real API call first
+2. Add mock data in `catch` block with TODO comment
+3. Ensure mock data structure matches API response
+
+### Context Architecture
+
+The application uses React Context for global state:
+
+- **AuthProvider**: Firebase authentication state and user management
+- **SidebarProvider**: Sidebar visibility and responsive behavior  
+- **ToastProvider**: Global toast notifications across the app
+
+These contexts wrap the entire application in `App.tsx` and are accessed via corresponding hooks (`useAuth`, `useSidebar`, `useToast`).
+
+### Firebase Setup
+
+Firebase is used for user authentication via Google OAuth. The application can run without Firebase configuration in development mode, but authentication features will be disabled.
+
+#### Creating Firebase Project
+
+1. **Create a Firebase project** at [Firebase Console](https://console.firebase.google.com/)
+2. **Enable Authentication** with Google provider:
+   - Go to Authentication > Sign-in method
+   - Enable Google provider
+   - Configure OAuth consent screen
+3. **Get your configuration** from Project Settings > General > Your apps
+4. **Copy configuration values** to your `.env` file
+
+#### Required Environment Variables
+
+All Firebase variables must start with `VITE_` to be available in the frontend build:
+
+```bash
+# Firebase Configuration (required for authentication)
+VITE_FIREBASE_API_KEY=your_api_key_here
+VITE_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com  
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
+VITE_FIREBASE_APP_ID=1:123456789:web:abcdef123456
+```
+
+#### Production Secrets
+
+- **Production**: All Firebase variables must be configured for authentication to work
+- **GitHub Actions**: Configure Firebase variables as repository secrets for deployment
+
+#### Authentication Flow
+
+The app uses `AuthContext` and `AuthProvider` for state management:
+- Login redirects users to Google OAuth
+- User state persists across browser sessions
+- Graceful fallback when authentication fails
+- Protected routes redirect unauthenticated users
+
+### Development vs Production Differences
+
+- **TechDemo page**: Only available in development (`import.meta.env.DEV`)
+- **Mock data**: Fallback behavior in development, should be removed in production
+- **Routing**: Uses `/frontend/` base path for GitHub Pages deployment
+
+## Localization and UI Text Management
+
+### Using the Strings Object
+
+**Always use the `strings` object for UI text** - never hardcode text directly in components:
+
+```typescript
+// Correct
+import { strings } from "../../constants";
+
+<Typography>{strings.home.welcomeBack}</Typography>
+<Button>{strings.buttons.save}</Button>
+
+// Incorrect
+<Typography>Bem-Vindo</Typography>
+<Button>Save</Button>
+```
+
+### Adding New Text
+
+1. **Add to Portuguese first** (primary language) in `src/constants/portuguese.ts`
+2. **Add corresponding English text** in `src/constants/english.ts` 
+3. **Use the same key structure** in both files
+
+```typescript
+// portuguese.ts
+export const portugueseTextMap = {
+  newFeature: {
+    title: "Nova Funcionalidade",
+    description: "Descrição da funcionalidade",
+  },
+} as const;
+
+// english.ts  
+export const englishTextMap = {
+  newFeature: {
+    title: "New Feature",
+    description: "Feature description",
+  },
+} as const;
+```
+
+### Dynamic Text with Parameters
+
+Use functions for dynamic text that requires parameters:
+
+```typescript
+// In constants file
+welcome: ({ name }: Params<"name">) => `Bem-vindo, ${name}!`,
+
+// In component
+<Typography>{strings.home.welcome({ name: user.name })}</Typography>
+```
+
+### Language Switching
+
+The application automatically:
+- Detects browser language (Portuguese or English)
+- Falls back to Portuguese as default
+- Saves user preference in localStorage
+- Uses `getUserLocale()` and `setUserLocale()` functions
+
+## Error Handling Patterns
+
+### Service Layer Error Handling
+
+Always implement proper error handling in services with fallback to mock data:
+
+```typescript
+export async function getUsers(): Promise<User[]> {
+  try {
+    const response = await api.get<User[]>(endpoints.users);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch users:", error);
+    // TODO: Remove mock data in production
+    return mockUsers; // Fallback for development
+  }
+}
+```
+
+### Component Error Handling
+
+Handle loading and error states in components:
+
+```typescript
+function UsersPage() {
+  const { users, isLoadingUsers, usersError } = useUsers();
+
+  if (isLoadingUsers) {
+    return <CircularProgress />;
+  }
+
+  if (usersError) {
+    return <Typography color="error">{strings.users.errorMessage}</Typography>;
+  }
+
+  return (
+    <div>
+      {users?.map(user => <UserCard key={user.id} user={user} />)}
+    </div>
+  );
+}
+```
+
+### Toast Notifications for User Feedback
+
+Use the toast system for user feedback on actions:
+
+```typescript
+const { showToast } = useToast();
+
+try {
+  await saveData();
+  showToast(strings.success.dataSaved, "success");
+} catch {
+  showToast(strings.errors.saveFailed, "error");
+}
+```
+
+## Accessibility Guidelines
+
+### Required Accessibility Practices
+
+1. **Semantic HTML**: Use proper HTML elements (`<button>`, `<nav>`, `<main>`, etc.)
+
+2. **ARIA Labels**: Provide descriptive labels for screen readers
+   ```tsx
+   <Button aria-label={strings.navigation.openMenu}>
+     <MenuIcon />
+   </Button>
+   ```
+
+3. **Alt Text**: All images must have descriptive alt text
+   ```tsx
+   <img src={logo} alt={strings.common.logoAlt} />
+   ```
+
+4. **Form Labels**: Every form input must have an associated label
+   ```tsx
+   <TextField 
+     label={strings.forms.email}
+     required
+     aria-describedby="email-helper"
+   />
+   ```
+
+5. **Color Contrast**: Ensure sufficient contrast ratios (use MUI theme colors)
+
+6. **Keyboard Navigation**: All interactive elements must be keyboard accessible
+
+### Testing Accessibility
+
+- Use `data-cy` attributes for E2E testing (not accessibility selectors)
+- Test with keyboard navigation (Tab, Enter, Space, Arrow keys)
+- Use Chrome Lighthouse accessibility audit
+- Test with screen readers when possible
+
+### MUI Accessibility Features
+
+Leverage MUI's built-in accessibility features:
+- Use `Typography` with proper variant hierarchy
+- Use `FormControl` and `FormLabel` for form grouping
+- Use `Tooltip` for additional context
+
+## API Integration Guide
+
+### Adding a New API Endpoint
+
+1. **Add endpoint to `services/api.ts`**:
+   ```typescript
+   const endpoints = {
+     // existing endpoints...
+     newEntity: {
+      base: "/new-entity",
+      byId: (id: string) => `/new-entity/${id}`
+    },
+   }
+   ```
+
+2. **Create service function** in appropriate service file:
+   ```typescript
+   export async function getNewEntity(): Promise<NewEntity[]> {
+     try {
+       const response = await api.get<NewEntity[]>(endpoints.newEntity);
+       return response.data;
+     } catch (error) {
+       console.error("Failed to fetch new entity:", error);
+       // TODO: Remove in production
+       return mockNewEntityData;
+     }
+   }
+   ```
+
+3. **Create global hook** in `hooks/`:
+   ```typescript
+   export function useNewEntity() {
+     const { isPending, error, data } = useQuery({
+       queryKey: ["newEntity"],
+       queryFn: getNewEntity,
+     });
+
+     return {
+       isLoadingNewEntity: isPending,
+       newEntityError: error,
+       newEntity: data,
+     };
+   }
+   ```
+
+4. **Use in page hook** for page-specific logic:
+   ```typescript
+   export function useNewEntityPage() {
+     const { newEntity, isLoadingNewEntity, newEntityError } = useNewEntity();
+     const { goTo } = useRoutes();
+
+     return {
+       newEntity,
+       isLoadingNewEntity,
+       newEntityError,
+       handleCreate: () => goTo('/new-entity/create'),
+     };
+   }
+   ```
+
+### API Error Handling
+
+- Always include proper error logging
+- Provide user-friendly error messages using strings
+- Implement loading states
+- Use React Query for caching and background updates
+
+### Authentication
+
+API calls automatically include Firebase auth tokens via axios interceptors in `services/api.ts`.
+
+## Technologies
+
+This project uses modern web development tools and libraries to build a performant PWA.
+
+### Core Libraries
+| Technology | Version | Purpose / Description |
+|---|---|---|
+| [React](https://reactjs.org/) | 19.1.1 | Core UI library for building components |
+| [React DOM](https://react.dev/reference/react-dom) | 19.1.1 | Rendering React components to the DOM |
+| [React Router](https://reactrouter.com/) | 7.8.0 | Declarative routing for single-page applications |
+| [TypeScript](https://www.typescriptlang.org/) | 5.8.3 | Adds static typing to JavaScript |
+
+### State & Data Management
+| Technology | Version | Purpose / Description |
+|---|---|---|
+| [TanStack React Query](https://tanstack.com/query/latest/docs/framework/react/installation) | 5.84.2 | Data fetching, caching, and state management |
+| [Axios](https://axios-http.com/) | 1.11.0 | HTTP client for API requests |
+| [Firebase](https://firebase.google.com/) | 12.1.0 | Backend services used for authentication |
+| [React-Hook-Form](https://react-hook-form.com/) | 7.65.0 | Form Validation |
+
+### UI & Styling
+| Technology | Version | Purpose / Description |
+|---|---|---|
+| [MUI](https://mui.com/) | 7.3.1 | Material UI components and icons |
+| [Emotion](https://emotion.sh/docs/introduction) | 11.14.x | Styled components and CSS-in-JS support |
+| [mui/x-date-pickers](https://mui.com/x/react-date-pickers/) | 8.14.1 | Ui Design for date and time selection |
+| [Dayjs](https://day.js.org/) | 1.11.18 | Date Formating |
+
+### Build & Tooling
+| Technology | Version | Purpose / Description |
+|---|---|---|
+| [Vite](https://vite.dev/) | 7.1.2 | Fast frontend bundler and development server |
+| [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react) | 5.0.0 | React plugin for Vite |
+| [ESLint](https://eslint.org/) | 9.33.0 | Linting tool to enforce code quality and consistency |
+| [Husky](https://typicode.github.io/husky/#/) | 9.1.7 | Git hooks to run tasks before committing |
+| [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) | 1.0.2 | Adds PWA support: service workers, manifest, offline caching |
+| [Cypress](https://www.cypress.io/) | 14.5.4 | End-to-end testing framework |
+| [cypress-dotenv](https://www.npmjs.com/package/cypress-dotenv) | 3.0.1 | Loads environment variables into Cypress tests |
 
 ## Thank You
 

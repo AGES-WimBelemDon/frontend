@@ -14,16 +14,27 @@ export function useStudentsPage() {
     goTo("/alunos", "/cadastro");
   };
 
-  function handleCreateResponsible(studentId: string) {
+  function handleCreateResponsible(studentId: number) {
     selectStudent(studentId);
     goTo("/alunos", `/${studentId}/responsaveis`);
   };
 
+  function handleEditStudents(studentId: number) {
+    selectStudent(studentId);
+    goTo("/alunos", `/${studentId}/editar`);
+  };
+
+  function formatDate(date: string): string {
+    return new Date(date).toLocaleDateString("pt-BR");
+  }
+  
   return {
     isLoadingStudents,
     studentsError,
     students,
     handleCreateNewStudent,
     handleCreateResponsible,
+    handleEditStudents,
+    formatDate,
   };
 }
