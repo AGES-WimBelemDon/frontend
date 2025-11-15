@@ -3,12 +3,12 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 
-import type { Classes } from "./interface";
 import { strings } from "../../constants";
 import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
 import { getLevelsFilter, getWeekDaysFilter } from "../../services/filters";
+import type { Classes } from "../../types/classes";
 import type { Id } from "../../types/id";
 
 const days = await getWeekDaysFilter().then(res => res.map((day, i) => ({
@@ -39,7 +39,7 @@ export function useClassesModal() {
       activityId: 0,
       levelId: "",
       state: "true",
-      teachersId: [],
+      teachers: [],
       isRecurrent: false,
       startDate: "",
       endDate: "",

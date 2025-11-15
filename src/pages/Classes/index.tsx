@@ -52,8 +52,6 @@ export default function Classes() {
     [classesError, showToast]
   );
 
-
-
   if (isLoadingClasses) {
     return (
       <>
@@ -188,9 +186,9 @@ export default function Classes() {
                   <strong>{strings.classes.card.level}</strong>{" "}{c.levelId}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
-                  {c.teachersId.map(teacherId => (
+                  {c.teachers.map(teacher => (
                     <>
-                      <strong>{strings.classes.card.teacher}</strong>{" "}{teacherId}
+                      <strong>{strings.classes.card.teacher}</strong>{" "}{teacher.fullName}
                     </>
                   ))}
                 </Typography>

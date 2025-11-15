@@ -1,8 +1,7 @@
 import dayjs from "dayjs";
 
 import { api, endpoints } from "./api";
-import type { Classes } from "../components/ClassesModal/interface";
-import type { ApiClass, StudentFrequency } from "../types/classes";
+import type { ApiClass, Classes, StudentFrequencyClass } from "../types/classes";
 import type { Id } from "../types/id";
 
 
@@ -30,7 +29,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           activityId: 7,
           levelId: "1",
           state: "ATIVA",
-          teachersId: [2],
+          teachers: [],
           isRecurrent: false,
           startDate: "2024-01-01",
           endDate: "2024-06-30",
@@ -44,7 +43,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           activityId: 7,
           levelId: "2",
           state: "ATIVA",
-          teachersId: [1],
+          teachers: [],
           isRecurrent: false,
           startDate: "2024-01-01",
           endDate: "2024-06-30",
@@ -58,7 +57,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           activityId: 1,
           levelId: "2",
           state: "ATIVA",
-          teachersId: [5],
+          teachers: [],
           isRecurrent: false,
           startDate: "2024-01-01",
           endDate: "2024-06-30",
@@ -72,7 +71,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           activityId: 2,
           levelId: "1",
           state: "ATIVA",
-          teachersId: [1],
+          teachers: [],
           isRecurrent: false,
           startDate: "2024-01-01",
           endDate: "2024-06-30",
@@ -86,7 +85,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           activityId: 2,
           levelId: "3",
           state: "ATIVA",
-          teachersId: [1],
+          teachers: [],
           isRecurrent: false,
           startDate: "2024-01-01",
           endDate: "2024-06-30",
@@ -100,7 +99,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           activityId: 2,
           levelId: "3",
           state: "ATIVA",
-          teachersId: [1],
+          teachers: [],
           isRecurrent: false,
           startDate: "2024-01-01",
           endDate: "2024-06-30",
@@ -114,7 +113,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           activityId: 8,
           levelId: "1",
           state: "ATIVA",
-          teachersId: [8],
+          teachers: [],
           isRecurrent: false,
           startDate: "2024-01-01",
           endDate: "2024-06-30",
@@ -128,7 +127,7 @@ export async function getClasses(): Promise<ApiClass[]> {
           activityId: 4,
           levelId: "1",
           state: "ATIVA",
-          teachersId: [7],
+          teachers: [],
           isRecurrent: false,
           startDate: "2024-01-01",
           endDate: "2024-06-30",
@@ -142,18 +141,25 @@ export async function getClasses(): Promise<ApiClass[]> {
   }
 }
 
-export async function getClassFrequency({ id }: { id: Id }): Promise<StudentFrequency[]> {
+export async function getClassFrequency({ id, date }: { id: Id; date: string }): Promise<StudentFrequencyClass> {
   try {
-    const response = await api.get<StudentFrequency[]>(endpoints.classes.frequency(id));
+    const classFrequencyPrefix = endpoints.frequencies.specific;
+    const classFrequencyQuery = new URLSearchParams({ classId: id.toString(), date });
+    const classFrequencyEndpoint = `${classFrequencyPrefix}?${classFrequencyQuery.toString()}`;
+    const response = await api.get<StudentFrequencyClass>(classFrequencyEndpoint);
     return response.data;
   } catch {
 
     const mockResponse = await Promise.resolve({
-      data: [
-        { id: 1, name: "Ana Souza", frequency: 90 },
-        { id: 2, name: "Carlos Lima", frequency: 75 },
-        { id: 3, name: "Fernanda Alves", frequency: 45 },
-      ]
+      data: {
+        classId: 1,
+        date: "2024-06-01",
+        studentList: [
+          { id: 1, name: "Ana Souza", frequency: 90 },
+          { id: 2, name: "Carlos Lima", frequency: 75 },
+          { id: 3, name: "Fernanda Alves", frequency: 45 },
+        ]
+      } as StudentFrequencyClass,
     });
     return mockResponse.data;
   }

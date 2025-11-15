@@ -23,10 +23,12 @@ export function useClasses() {
 
   async function getClassFrequency() {
     if (!currentClassId) {
-      return Promise.resolve([]);
+      return Promise.resolve(undefined);
     }
 
-    return apiGetClassFrequency({ id: currentClassId });
+    const date = new Date().toISOString().split("T")[0];
+
+    return apiGetClassFrequency({ id: currentClassId, date });
   }
 
   const {

@@ -1,12 +1,34 @@
-import type { Id } from "./id";
-import type { Classes } from "../components/ClassesModal/interface";
+import type { Dayjs } from "dayjs";
 
-export type ApiClass = {
+import type { Id } from "./id";
+import type { UserResponse } from "./users";
+
+export type Classes = {
+  name: string;
+  activityId: Id;
+  levelId: Id;
+  state: string;
+  teachers: UserResponse[];
+  isRecurrent: boolean;
+  startDate: string;
+  endDate: string;
+  startTime: Dayjs;
+  endTime: Dayjs;
+  weekDay: string[];
+}
+
+export type ApiClass = Classes & {
   id: Id;
-} & Classes;
+};
 
 export type StudentFrequency = {
   id: Id;
   name: string;
   frequency: number;
+}
+
+export type StudentFrequencyClass = {
+  classId: Id;
+  date: string;
+  studentList: StudentFrequency[];
 }

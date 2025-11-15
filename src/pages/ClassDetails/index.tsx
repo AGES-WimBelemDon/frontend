@@ -19,7 +19,7 @@ export default function ClassDetails() {
     classesError,
   } = useClassDetailsPage();
 
-  const { frequencyClass: students, frequencyClassError } = useClasses();
+  const { frequencyClass, frequencyClassError } = useClasses();
 
   function getFrequencyColor(value: number) {
     if (value < 50) {
@@ -48,7 +48,9 @@ export default function ClassDetails() {
     );
   }
 
-  if (!classData || !students) {
+  console.log(frequencyClass)
+
+  if (!classData || !frequencyClass) {
     return (
       <Typography textAlign="center">
         {strings.classDetails.classNotFound}
@@ -87,10 +89,10 @@ export default function ClassDetails() {
 
       <Box>
         <Typography>
-          {classData.teachersId.map(teacherId => (
+          {classData.teachers.map(teacher => (
             <>
               <strong>{strings.classDetails.professor}:</strong>{" "}
-              {teacherId}
+              {teacher.fullName}
             </>
           ))}
         </Typography>
@@ -101,10 +103,10 @@ export default function ClassDetails() {
       </Box>
 
       <Box mt={2} display="flex" flexDirection="column" gap={1.5}>
-        {students.length === 0 && (
+        {frequencyClass.studentList.length === 0 && (
           <Typography>{strings.classDetails.noStudents}</Typography>
         )}
-        {students.map((student, index) => (
+        {frequencyClass.studentList.map((student, index) => (
           <Card
             key={index}
             variant="outlined"

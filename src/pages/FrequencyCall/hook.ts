@@ -11,7 +11,7 @@ import type { Id } from "../../types/id";
 
 export function useFrequencyCall() {
   const { getActivityTitleById } = useActivities();
-  const { getClassTitleById, frequencyClass: apiStudents } = useClasses();
+  const { getClassTitleById, frequencyClass } = useClasses();
   const { getDate } = useDateInput();
   const { getPathParamId } = useRoutes();
   const { showToast } = useToast();
@@ -25,15 +25,15 @@ export function useFrequencyCall() {
   const [students, setStudents] = useState<FrequencyCardStudent[]>([]);
 
   useEffect(() => {
-    if (apiStudents) {
-      setStudents(apiStudents.map(apiStudent => ({
+    if (frequencyClass?.studentList) {
+      setStudents(frequencyClass.studentList.map(apiStudent => ({
         id: apiStudent.id,
         name: apiStudent.name,
         frequencyPercent: apiStudent.frequency,
         isPresent: true,
       })));
     }
-  }, [apiStudents]);
+  }, [frequencyClass]);
 
   function updatePresence(id: Id, present: boolean) {
     setStudents((prevList) =>

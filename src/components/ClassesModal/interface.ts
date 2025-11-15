@@ -1,6 +1,4 @@
-import type { Dayjs } from "dayjs";
-
-import type { Id } from "../../types/id";
+import type { Classes } from "../../types/classes";
 import type { Student } from "../../types/students";
 import type { UserResponse } from "../../types/users";
 
@@ -9,20 +7,6 @@ export interface FilterProps {
   name: string;
   placeholder: string;
   onChange: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export type Classes = {
-  name: string;
-  activityId: Id;
-  levelId: Id;
-  state: string;
-  teachersId: Id[];
-  isRecurrent: boolean;
-  startDate: string;
-  endDate: string;
-  startTime: Dayjs;
-  endTime: Dayjs;
-  weekDay: string[];
 }
 
 export interface UseClassesModalReturn {

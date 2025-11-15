@@ -25,6 +25,7 @@ import {
   Typography,
 } from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 import { Controller } from "react-hook-form";
 
 import { Filters } from "./filters";
@@ -193,11 +194,11 @@ export function ClassesModal() {
                     <Checkbox
                       key={day.id}
                       disableRipple
-                      checked={field.value.filter((d) => d === day.value).length > 0}
+                      checked={field.value.includes(day.value)}
                       onChange={(_event, checked) => {
                         const newWeekDays = checked
-                          ? [...field.value, day]
-                          : field.value.filter((d) => d !== day.value);
+                          ? [...field.value, day.value]
+                          : field.value.filter((d: string) => d !== day.value);
                         field.onChange(newWeekDays);
                       }}
                       checkedIcon={<DaysCalendarIcon text={day.symbol} checked={true} />}
@@ -224,7 +225,8 @@ export function ClassesModal() {
                   control={control}
                   render={({ field }) => (
                     <TimePicker
-                      {...field}
+                      value={field.value ? dayjs(field.value) : null}
+                      onChange={(v) => field.onChange(v ? v.toDate() : null)}
                       ampm={false}
                       sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
                     />
@@ -238,7 +240,8 @@ export function ClassesModal() {
                   control={control}
                   render={({ field }) => (
                     <TimePicker
-                      {...field}
+                      value={field.value ? dayjs(field.value) : null}
+                      onChange={(v) => field.onChange(v ? v.toDate() : null)}
                       ampm={false}
                       sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
                     />
