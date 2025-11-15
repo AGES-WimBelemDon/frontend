@@ -1,5 +1,6 @@
 import type { Dayjs } from "dayjs";
 
+import type { Id } from "../../types/id";
 import type { Student } from "../../types/students";
 import type { UserResponse } from "../../types/users";
 
@@ -12,10 +13,10 @@ export interface FilterProps {
 
 export type Classes = {
   name: string;
-  activityId: number;
-  levelId: string;
+  activityId: Id;
+  levelId: Id;
   state: string;
-  teachersId: number[];
+  teachersId: Id[];
   isRecurrent: boolean;
   startDate: string;
   endDate: string;

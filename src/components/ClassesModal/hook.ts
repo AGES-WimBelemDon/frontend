@@ -9,6 +9,7 @@ import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
 import { getLevelsFilter, getWeekDaysFilter } from "../../services/filters";
+import type { Id } from "../../types/id";
 
 const days = await getWeekDaysFilter().then(res => res.map((day, i) => ({
   id: `${i}` + `${day}`,
@@ -29,8 +30,8 @@ export function useClassesModal() {
   const isOpen = searchParams.get("action") === "open-classes-modal";
 
   const [activeStep, setActiveStep] = useState<number>(0);
-  const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
-  const [selectedTeachers, setSelectedTeachers] = useState<number[]>([]);
+  const [selectedStudents, setSelectedStudents] = useState<Id[]>([]);
+  const [selectedTeachers, setSelectedTeachers] = useState<Id[]>([]);
 
   const { control, getValues, reset } = useForm<Classes>({
     defaultValues: {

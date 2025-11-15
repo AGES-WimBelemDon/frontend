@@ -7,6 +7,7 @@ import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
+import type { Id } from "../../types/id";
 
 export function useFrequencyCall() {
   const { getActivityTitleById } = useActivities();
@@ -34,7 +35,7 @@ export function useFrequencyCall() {
     }
   }, [apiStudents]);
 
-  function updatePresence(id: number, present: boolean) {
+  function updatePresence(id: Id, present: boolean) {
     setStudents((prevList) =>
       prevList.map((i) =>
         i.id === id ? { ...i, isPresent: present } : i

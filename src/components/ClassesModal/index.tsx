@@ -154,7 +154,7 @@ export function ClassesModal() {
                     displayEmpty
                   >
                     {level.map((name, index) => (
-                      <MenuItem key={`${name}` + `${index}`} value={name} sx={{ backgroundColor: "background.default" }}>
+                      <MenuItem key={`${name}${index}`} value={name} sx={{ backgroundColor: "background.default" }}>
                         <ListItemText primary={name} />
                       </MenuItem>
                     ))}

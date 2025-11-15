@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { api, endpoints } from "./api";
 import type { Classes } from "../components/ClassesModal/interface";
 import type { ApiClass, StudentFrequency } from "../types/classes";
+import type { Id } from "../types/id";
 
 
 export async function createClasses(data: ApiClass): Promise<number | null> {
@@ -141,7 +142,7 @@ export async function getClasses(): Promise<ApiClass[]> {
   }
 }
 
-export async function getClassFrequency({ id }: { id: number }): Promise<StudentFrequency[]> {
+export async function getClassFrequency({ id }: { id: Id }): Promise<StudentFrequency[]> {
   try {
     const response = await api.get<StudentFrequency[]>(endpoints.classes.frequency(id));
     return response.data;

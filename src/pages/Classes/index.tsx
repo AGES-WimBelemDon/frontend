@@ -172,7 +172,7 @@ export default function Classes() {
                       color="text.primary"
                       fontWeight="bold"
                     >
-                      {c.schedule}
+                      {c.startTime.toString()} - {c.endTime.toString()}
                     </Typography>
                   </Box>
                 </Box>
@@ -182,13 +182,17 @@ export default function Classes() {
                   fontWeight="bold"
                   mb={1}
                 >
-                  {c.title}
+                  {c.name}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
-                  <strong>{strings.classes.card.level}</strong>{" "}{c.level}
+                  <strong>{strings.classes.card.level}</strong>{" "}{c.levelId}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
-                  <strong>{strings.classes.card.teacher}</strong>{" "}{c.teacher}
+                  {c.teachersId.map(teacherId => (
+                    <>
+                      <strong>{strings.classes.card.teacher}</strong>{" "}{teacherId}
+                    </>
+                  ))}
                 </Typography>
               </CardContent>
             </Card>

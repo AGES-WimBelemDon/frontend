@@ -8,6 +8,7 @@ import {
   postAnamnese,
 } from "../../../services/anamnesis";
 import type { AnamneseFormInfo, AnamneseSubmission, Question } from "../../../types/anamnesis";
+import type { Id } from "../../../types/id";
 
 export function useAnamneseForm() {
   const { studentId, formId } = useParams<{ studentId: string; formId: string }>();
@@ -34,7 +35,7 @@ export function useAnamneseForm() {
     }
   }, [formId, isCreating]);
 
-  function handleResponseChange(questionId: string, value: string) {
+  function handleResponseChange(questionId: Id, value: string) {
     setResponses((prev) => ({ ...prev, [questionId]: value }));
   }
 

@@ -67,7 +67,7 @@ export default function ClassDetails() {
         gap={2}
       >
         <Typography variant="h5" fontWeight="bold" color="primary.main">
-          {classData.title}
+          {classData.name}
         </Typography>
 
         <Button
@@ -87,12 +87,16 @@ export default function ClassDetails() {
 
       <Box>
         <Typography>
-          <strong>{strings.classDetails.professor}:</strong>{" "}
-          {classData.teacher || strings.classDetails.classNotFound}
+          {classData.teachersId.map(teacherId => (
+            <>
+              <strong>{strings.classDetails.professor}:</strong>{" "}
+              {teacherId}
+            </>
+          ))}
         </Typography>
         <Typography>
           <strong>{strings.classDetails.level}:</strong>{" "}
-          {classData.level || strings.classDetails.classNotFound}
+          {classData.levelId || strings.classDetails.classNotFound}
         </Typography>
       </Box>
 

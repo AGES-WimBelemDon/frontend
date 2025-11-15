@@ -50,7 +50,7 @@ const AnamnesisForm = () => {
             {questions.map((question) => (
               <TextField
                 key={question.id}
-                id={question.id}
+                id={question.id.toString()}
                 label={question.statement}
                 variant="standard"
                 value={responses[question.id] || ""}
