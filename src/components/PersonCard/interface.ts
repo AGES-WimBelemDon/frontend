@@ -14,4 +14,5 @@ export interface PersonCardProps {
   educationLevel: string;
   socialPrograms: string;
   employmentStatus: string;
+  onEditClick?: (id: string) => void;
 }

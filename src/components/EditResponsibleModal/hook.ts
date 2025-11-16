@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useScreenSize } from "../../hooks/useScreenSize";
 
 import type { EditResponsibleModalProps, ResponsibleFormData } from "./interface";
 import { useFilters } from "../../hooks/useFilters";
@@ -12,6 +13,7 @@ export function useEditResponsibleModal({
   onSuccess,
 }: EditResponsibleModalProps) {
   const { showToast } = useToast();
+  const { isMobile } = useScreenSize();
   const { raceOptions, genderOptions, educationLevelOptions, socialProgramsOptions, employmentStatusOptions } = useFilters();
 
   const [formData, setFormData] = useState<ResponsibleFormData>({});
@@ -19,12 +21,12 @@ export function useEditResponsibleModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    if (!responsibleId) return;
+
     async function fetchResponsibleData() {
       try {
-
         const data = await getFamilyMemberById(responsibleId);
         const addressData = await getFamilyMemberAddress(responsibleId);
-
 
         setFormData({
           fullName: data.fullName || "",
@@ -86,6 +88,7 @@ export function useEditResponsibleModal({
     setAddress,
     updateResponsible,
     isSubmitting,
+    isMobile,
     raceOptions,
     genderOptions,
     educationLevelOptions,

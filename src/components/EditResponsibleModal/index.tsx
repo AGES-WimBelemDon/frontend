@@ -47,7 +47,7 @@ export function EditResponsibleModal({
         justifyContent="center"
         position="relative"
       >
-        {strings.newResponsibleModal.title}
+        {strings.editResponsibleModal.title}
         <IconButton
           onClick={onClose}
           sx={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)" }}
@@ -58,7 +58,7 @@ export function EditResponsibleModal({
 
       <DialogContent sx={{ gap: 2, display: "flex", flexDirection: "column" }}>
         <Typography variant="h6" fontWeight="bold">
-          {strings.newResponsibleModal.personalInformation}
+          {strings.editResponsibleModal.personalInformation}
         </Typography>
 
         <Box
@@ -71,49 +71,49 @@ export function EditResponsibleModal({
           padding={2}
         >
           <TextField
-            label={strings.newResponsibleModal.inputs.name}
+            label={strings.editResponsibleModal.inputs.name}
             value={formData.fullName || ""}
             onChange={(e) => updateField("fullName", e.target.value)}
           />
           <TextField
-            label={strings.newResponsibleModal.inputs.socialName}
+            label={strings.editResponsibleModal.inputs.socialName}
             value={formData.socialName || ""}
             onChange={(e) => updateField("socialName", e.target.value)}
           />
           <TextField
-            label={strings.newResponsibleModal.inputs.registrationNumber}
+            label={strings.editResponsibleModal.inputs.registrationNumber}
             value={formData.registrationNumber || ""}
             onChange={(e) => updateField("registrationNumber", e.target.value)}
           />
           <TextField
-            label={strings.newResponsibleModal.inputs.birthDate}
+            label={strings.editResponsibleModal.inputs.birthDate}
             type="date"
             value={formData.dateOfBirth || ""}
             onChange={(e) => updateField("dateOfBirth", e.target.value)}
             InputLabelProps={{ shrink: true }}
           />
           <TextField
-            label={strings.newResponsibleModal.inputs.nis}
+            label={strings.editResponsibleModal.inputs.nis}
             value={formData.nis || ""}
             onChange={(e) => updateField("nis", e.target.value)}
           />
           <TextField
-            label={strings.newResponsibleModal.inputs.phone}
+            label={strings.editResponsibleModal.inputs.phone}
             value={formData.phoneNumber || ""}
             onChange={(e) => updateField("phoneNumber", e.target.value)}
           />
           <TextField
-            label={strings.newResponsibleModal.inputs.email}
+            label={strings.editResponsibleModal.inputs.email}
             value={formData.email || ""}
             onChange={(e) => updateField("email", e.target.value)}
           />
           <TextField
-            label={strings.newResponsibleModal.inputs.relationship}
+            label={strings.editResponsibleModal.inputs.relationship}
             value={formData.relationship || ""}
             onChange={(e) => updateField("relationship", e.target.value)}
           />
           <TextField
-            label={strings.newResponsibleModal.inputs.race}
+            label={strings.editResponsibleModal.inputs.race}
             select
             value={formData.race || ""}
             onChange={(e) => updateField("race", e.target.value)}
@@ -125,7 +125,7 @@ export function EditResponsibleModal({
             ))}
           </TextField>
           <TextField
-            label={strings.newResponsibleModal.inputs.gender}
+            label={strings.editResponsibleModal.inputs.gender}
             select
             value={formData.gender || ""}
             onChange={(e) => updateField("gender", e.target.value)}
@@ -137,7 +137,7 @@ export function EditResponsibleModal({
             ))}
           </TextField>
           <TextField
-            label={strings.newResponsibleModal.inputs.educationLevel}
+            label={strings.editResponsibleModal.inputs.educationLevel}
             select
             value={formData.educationLevel || ""}
             onChange={(e) => updateField("educationLevel", e.target.value)}
@@ -149,7 +149,7 @@ export function EditResponsibleModal({
             ))}
           </TextField>
           <TextField
-            label={strings.newResponsibleModal.inputs.socialPrograms}
+            label={strings.editResponsibleModal.inputs.socialPrograms}
             select
             value={formData.socialPrograms || ""}
             onChange={(e) => updateField("socialPrograms", e.target.value)}
@@ -161,7 +161,7 @@ export function EditResponsibleModal({
             ))}
           </TextField>
           <TextField
-            label={strings.newResponsibleModal.inputs.employmentStatus}
+            label={strings.editResponsibleModal.inputs.employmentStatus}
             select
             value={formData.employmentStatus || ""}
             onChange={(e) => updateField("employmentStatus", e.target.value)}
@@ -175,7 +175,7 @@ export function EditResponsibleModal({
         </Box>
 
         <Typography variant="h6" fontWeight="bold" mt={2}>
-          {strings.newResponsibleModal.addressInformation}
+          {strings.editResponsibleModal.addressInformation}
         </Typography>
         <Box
           gap={2}
@@ -234,7 +234,7 @@ export function EditResponsibleModal({
 
       <DialogActions sx={{ px: 3, pb: 2 }}>
         <Button variant="contained" onClick={updateResponsible} disabled={isSubmitting}>
-          {isSubmitting ? strings.genericActions.loading : strings.newResponsibleModal.buttonText}
+          {isSubmitting ? strings.genericActions.loading : strings.genericActions.save}
         </Button>
       </DialogActions>
     </Dialog>

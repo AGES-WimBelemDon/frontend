@@ -1,13 +1,16 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, CircularProgress, Stack, Typography } from "@mui/material";
+import { useState } from "react";
 
 import { useStudentResponsible } from "./hook";
 import { NewResponsibleModal } from "../../components/NewResponsibleModal";
 import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hook";
+import { EditResponsibleModal } from "../../components/EditResponsibleModal";
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
 import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ResponsibleRegistration() {
   const { openModal } = useNewResponsibleModal();
@@ -18,6 +21,26 @@ export default function ResponsibleRegistration() {
     studentId,
   } = useStudentResponsible();
   const isMobile = useScreenSize().isMobile;
+  const queryClient = useQueryClient();
+  
+  const [editingResponsibleId, setEditingResponsibleId] = useState<string | null>(null);
+
+  const handleEditClick = (responsibleId: string) => {
+    setEditingResponsibleId(responsibleId);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditingResponsibleId(null);
+  };
+
+  const handleEditSuccess = () => {
+    if (studentId) {
+      queryClient.invalidateQueries({ 
+        queryKey: ["responsibles", studentId] 
+      });
+    }
+    setEditingResponsibleId(null);
+  };
 
   if (isLoadingResponsibles) {
     return (
@@ -54,6 +77,7 @@ export default function ResponsibleRegistration() {
             ) : responsibles.map((responsible) => (
               <PersonCard
                 key={responsible.id}
+                id={responsible.id}
                 fullName={responsible.fullName}
                 socialName={responsible.socialName || ""}
                 registrationNumber={responsible.registrationNumber}
@@ -68,11 +92,21 @@ export default function ResponsibleRegistration() {
                 educationLevel={responsible.educationLevel || ""}
                 socialPrograms={responsible.socialPrograms || ""}
                 employmentStatus={responsible.employmentStatus || ""}
+                onEditClick={handleEditClick}
               />
             ))}
         </Stack>
       </Box>
       <NewResponsibleModal studentId={studentId} />
+      {editingResponsibleId && (
+        <EditResponsibleModal
+          isOpen={!!editingResponsibleId}
+          responsibleId={editingResponsibleId}
+          studentId={studentId}
+          onClose={handleCloseEditModal}
+          onSuccess={handleEditSuccess}
+        />
+      )}
     </>
   );
 }

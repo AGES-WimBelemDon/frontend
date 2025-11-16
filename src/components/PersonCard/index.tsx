@@ -21,6 +21,13 @@ export function PersonCard(personCardProps: PersonCardProps) {
     }, 300);
   };
 
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Previne que o clique no botão dispare o flip do card
+    if (cardData.id && cardData.onEditClick) {
+      cardData.onEditClick(cardData.id);
+    }
+  };
+
   function formatDate(date: string): string {
     return new Date(date).toLocaleDateString("pt-BR");
   }
@@ -99,24 +106,7 @@ export function PersonCard(personCardProps: PersonCardProps) {
               size="small"
               variant="contained"
               fullWidth
-              // onClick={() =>
-              //   setCardData({
-              //     fullName: "New Full Name",
-              //     socialName: "New Social Name",
-              //     registrationNumber: "New CPF",
-              //     dateOfBirth: "New Date of Birth",
-              //     nis: "New NIS",
-              //     phoneNumber: "New Phone Number",
-              //     email: "New Email",
-              //     address: "New Address",
-              //     relationship: "New Relationship",
-              //     race: "New Race",
-              //     gender: "New Gender",
-              //     educationLevel: "New Education Level",
-              //     socialPrograms: "New Social Programs",
-              //     employmentStatus: "New Employment Status"
-              //   })
-              // }
+              onClick={handleEditClick}
               endIcon={<EditIcon />}
               sx={{
                 textTransform: "none",
