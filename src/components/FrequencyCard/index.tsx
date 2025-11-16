@@ -33,14 +33,22 @@ export function FrequencyCard({
       }}
     >
       <CardContent sx={{ padding: 0 }}>
-        <Typography variant="subtitle1" fontWeight="bold" fontSize={16}>
-          {name}
-        </Typography>
-        <Typography variant="body2" fontSize={14} color="grey.900">
-          {strings.frequencyCard.frequency({
-            percent: frequencyPercent.toString(),
-          })}
-        </Typography>
+        {!isGeneral ? (
+          <>
+            <Typography variant="subtitle1" fontWeight="bold" fontSize={16}>
+              {name}
+            </Typography>
+            <Typography variant="body2" fontSize={14} color="grey.900">
+              {strings.frequencyCard.frequency({
+                percent: frequencyPercent.toString(),
+              })}
+            </Typography>
+          </>
+        ) : (
+          <Typography variant="subtitle1" fontWeight="bold" fontSize={20}>
+            {name}
+          </Typography>
+        )}
       </CardContent>
       <Box gap={2} display="flex" flexDirection="row">
         {isGeneral ? null : (
@@ -59,7 +67,6 @@ export function FrequencyCard({
           onClick={() => onChangePresence(FrequencyStatus.PRESENTE)}
           sx={{ textTransform: "none", fontWeight: "bold" }}
         >
-          {isDesktop && strings.frequencyCard.active}
           <CheckIcon sx={{ ml: isDesktop ? 0.5 : 0 }} />
         </Button>
         <Button
@@ -71,7 +78,6 @@ export function FrequencyCard({
           onClick={() => onChangePresence(FrequencyStatus.AUSENTE)}
           sx={{ textTransform: "none", fontWeight: "bold" }}
         >
-          {isDesktop && strings.frequencyCard.inactive}
           <CloseIcon sx={{ ml: isDesktop ? 0.5 : 0 }} />
         </Button>
       </Box>

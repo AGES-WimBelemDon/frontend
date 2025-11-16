@@ -5,6 +5,7 @@ import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { TextCard } from "../../components/TextCard";
 import { strings } from "../../constants";
+import { useEffect } from "react";
 
 export default function FrequencyClasses() {
   const {
@@ -27,7 +28,11 @@ export default function FrequencyClasses() {
   }
 
   if (classesError || !classes) {
-    return <Typography color="error">{strings.frequencyClasses.classesError}</Typography>;
+    return (
+      <Typography color="error">
+        {strings.frequencyClasses.classesError}
+      </Typography>
+    );
   }
 
   return (
@@ -37,31 +42,31 @@ export default function FrequencyClasses() {
         dataCy="frequency-classes"
       />
       <CardList>
-        {
-          classes.length === 0
-            ? (
-              <Box
-                gap={2}
-                display="flex"
-                flexDirection="column"
-              >
-                <Typography>{strings.frequencyClasses.noClasses}</Typography>
-                <Button variant="outlined" onClick={goBack}>
-                  {strings.frequencyClasses.goBack}
-                </Button>
-              </Box>
-            ) : classes.map((c, index) => {
-              return (
-                <TextCard
-                  key={c.id}
-                  title={c.name}
-                  theme={index === 0 ? "dark" : "light"}
-                  onClick={() => goTo("/frequencias/atividades", `/${activityId}/turmas/${c.id}/chamada`)}
-                />
-              );
-            })
-        }
+        {classes.length === 0 ? (
+          <Box gap={2} display="flex" flexDirection="column">
+            <Typography>{strings.frequencyClasses.noClasses}</Typography>
+            <Button variant="outlined" onClick={goBack}>
+              {strings.frequencyClasses.goBack}
+            </Button>
+          </Box>
+        ) : (
+          classes.map((c, index) => {
+            return (
+              <TextCard
+                key={c.id}
+                title={c.name}
+                theme={index === 0 ? "dark" : "light"}
+                onClick={() =>
+                  goTo(
+                    "/frequencias/atividades",
+                    `/${activityId}/turmas/${c.id}/chamada`
+                  )
+                }
+              />
+            );
+          })
+        )}
       </CardList>
     </>
-  );  
+  );
 }

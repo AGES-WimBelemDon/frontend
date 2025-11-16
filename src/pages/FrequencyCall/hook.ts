@@ -61,7 +61,7 @@ export function useFrequencyCall() {
       .map((frequency) => ({
         id: frequency.studentId?.toString() ?? "",
         name: frequency.studentFullName ?? "Sem nome",
-        frequencyPercent: frequency.attendancePercetage ?? 0,
+        frequencyPercent: frequency.attendancePercentage ?? 0,
         isPresent: frequency.status ?? "AUSENTE",
         notes: frequency.notes,
       }));

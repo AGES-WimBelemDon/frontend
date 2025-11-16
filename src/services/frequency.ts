@@ -72,7 +72,7 @@ export type ClassStudentResponse = {
   studentId: number;
   frequencyId: number;
   studentFullName: string;
-  attendancePercetage: number;
+  attendancePercentage: number;
   status: FrequencyStatus;
   notes: NoteTypes | null;
 }
