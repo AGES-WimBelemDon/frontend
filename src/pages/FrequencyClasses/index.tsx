@@ -5,7 +5,6 @@ import { CardList } from "../../components/CardList";
 import { PageTitle } from "../../components/PageTitle";
 import { TextCard } from "../../components/TextCard";
 import { strings } from "../../constants";
-import { useEffect } from "react";
 
 export default function FrequencyClasses() {
   const {
