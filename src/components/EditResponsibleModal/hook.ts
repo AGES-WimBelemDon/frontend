@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useScreenSize } from "../../hooks/useScreenSize";
+
 
 import type { EditResponsibleModalProps, ResponsibleFormData } from "./interface";
 import { useFilters } from "../../hooks/useFilters";
+import { useScreenSize } from "../../hooks/useScreenSize";
 import { useToast } from "../../hooks/useToast";
 import { updateFamilyMember, updateFamilyMemberAddress, getFamilyMemberAddress, getFamilyMemberById } from "../../services/family-members";
 import type { CreateAddressData } from "../../services/family-members";

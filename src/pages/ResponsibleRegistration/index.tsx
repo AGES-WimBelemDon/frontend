@@ -1,16 +1,17 @@
-import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, CircularProgress, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
+import AddIcon from "@mui/icons-material/Add";
+import { Box, Button, CircularProgress, Stack, Typography } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
+
 import { useStudentResponsible } from "./hook";
+import { EditResponsibleModal } from "../../components/EditResponsibleModal";
 import { NewResponsibleModal } from "../../components/NewResponsibleModal";
 import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hook";
-import { EditResponsibleModal } from "../../components/EditResponsibleModal";
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
 import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function ResponsibleRegistration() {
   const { openModal } = useNewResponsibleModal();
