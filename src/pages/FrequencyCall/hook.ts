@@ -1,4 +1,4 @@
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import type {
   FrequencyCardStudent,
@@ -30,7 +30,6 @@ export function useFrequencyCall() {
   const classTitle = !classId ? "" : getClassTitleById(classId);
 
   const date = getDate("1");
-  
 
   const {
     attendances,
@@ -46,7 +45,7 @@ export function useFrequencyCall() {
       setDate(formattedDate, "1");
       setIsFirstLoad(false);
     }
-  }, [isFirstLoad, setDate])  ;
+  }, [isFirstLoad, setDate]);
 
   useEffect(() => {
     if (!attendances) {
@@ -68,28 +67,23 @@ export function useFrequencyCall() {
     setStudents(frequencyCards);
   }, [attendances]);
 
-  
-
   function updatePresence(id: string, present: FrequencyStatus) {
     setStudents((prevList) =>
-      prevList.map((student) => 
-        student.id === id 
-          ? { ...student, isPresent: present } 
-          : student
+      prevList.map((student) =>
+        student.id === id ? { ...student, isPresent: present } : student
       )
     );
   }
 
-  function updateNote(id: string, note: NoteTypes) {
-    setStudents(prev =>
-      prev.map(student =>
+  function updateNote(id: string, note: NoteTypes | "") {
+    setStudents((prev) =>
+      prev.map((student) =>
         student.id === id
-          ? { ...student, notes: note }
+          ? { ...student, notes: note === "" ? null : note }
           : student
       )
     );
   }
-  
 
   async function registerCall() {
     const date = getDate("1");
@@ -111,31 +105,34 @@ export function useFrequencyCall() {
 
   async function updateCall() {
     const date = getDate("1");
-  
+
     if (!students || students.length === 0) {
       return showToast(strings.frequencyCall.errorNoStudents, "error", true);
     }
-  
+
     if (!date) {
       return showToast(strings.frequencyCall.errorNoDate, "error", true);
     }
 
-    const studentList: ClassStudentUpdateResponse[] = students.map(student => ({
-      studentId: Number(student.id),
-      frequencyId:
-        attendances?.studentList.find(f => f.studentId === Number(student.id))
-          ?.frequencyId ?? 0,
-      status: student.isPresent,
-      notes: student.notes,
-    }));
-  
+    const studentList: ClassStudentUpdateResponse[] = students.map(
+      (student) => ({
+        studentId: Number(student.id),
+        frequencyId:
+          attendances?.studentList.find(
+            (f) => f.studentId === Number(student.id)
+          )?.frequencyId ?? 0,
+        status: student.isPresent,
+        notes: student.notes,
+      })
+    );
+
     try {
       await updateAttendanceClass({
         classId: Number(classId),
         date,
         studentList,
       });
-  
+
       return showToast(strings.frequencyCall.successSave, "success", true);
     } catch (error) {
       console.error(error);
@@ -149,6 +146,6 @@ export function useFrequencyCall() {
     registerCall,
     updateNote,
     activityTitle,
-    classTitle
+    classTitle,
   };
 }

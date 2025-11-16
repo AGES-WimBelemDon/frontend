@@ -69,7 +69,7 @@ export function CustomSelectButton({
         }}
       >
         {options.map((opt: NoteOption) => (
-          <MenuItem key={opt.value} value={opt.value}>
+          <MenuItem key={opt.value} value={opt.value ?? ""}  sx={{ minHeight: 40 }}>
             {opt.label}
           </MenuItem>
         ))}

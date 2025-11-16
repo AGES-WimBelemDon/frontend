@@ -73,7 +73,7 @@ export function FrequencyCall() {
               frequencyPercent={item.frequencyPercent}
               isPresent={item.isPresent}
               onChangePresence={(present) => updatePresence(item.id, present)}
-              onChangeNote={(value) => updateNote(item.id, value)}
+              onChangeNote={(value) => updateNote(item.id, value === null ? "" : value)}
               notes={item.notes}
             />
           </ListItem>

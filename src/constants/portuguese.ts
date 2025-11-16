@@ -169,6 +169,7 @@ export const portugueseTextMap = {
       title: "Tipo de Nota",
       medical: "Atestado Médico",
       none: "Sem Justificativa",
+      empty: "(vazio)",
     },
     weekDays: {
       title: "Dia da Semana",

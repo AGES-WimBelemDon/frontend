@@ -169,6 +169,7 @@ export const englishTextMap = {
       title: "Note Types",
       medical: "Medical",
       none: "None",
+      empty: "(empty)",
     },
     weekDays: {
       title: "Week Day",

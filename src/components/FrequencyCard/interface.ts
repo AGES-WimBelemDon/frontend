@@ -1,6 +1,6 @@
 export interface FrequencyCardProps extends FrequencyCardStudent {
   onChangePresence: (present:FrequencyStatus) => void,
-  onChangeNote?: (value: NoteTypes) => void;
+  onChangeNote?: (value: NoteTypes | null) => void;
   isGeneral?: boolean;
 }
 

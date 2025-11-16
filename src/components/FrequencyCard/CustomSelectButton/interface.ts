@@ -1,7 +1,8 @@
+import { strings } from "../../../constants";
 import { NoteTypes } from "../interface";
 
 export type NoteOption = {
-value: NoteTypes;
+value: NoteTypes | string;
 label: string;
 };
 
@@ -12,6 +13,7 @@ onChange: (value: NoteTypes) => void;
 }
 
 export const noteOptions: NoteOption[] = [
-  { value: NoteTypes.ATESTADO_MEDICO, label: "Atestado Médico" },
-  { value: NoteTypes.SEM_JUSTIFICATIVA, label: "Sem Justificativa" }
+  { value: "", label: strings.filters.noteTypes.empty },
+  { value: NoteTypes.ATESTADO_MEDICO, label: strings.filters.noteTypes.medical },
+  { value: NoteTypes.SEM_JUSTIFICATIVA, label: strings.filters.noteTypes.none}
 ];
