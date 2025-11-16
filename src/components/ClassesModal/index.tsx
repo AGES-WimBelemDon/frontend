@@ -23,8 +23,9 @@ import {
   Step,
   StepLabel,
   Typography,
+  TextField,
 } from "@mui/material";
-import { TimePicker } from "@mui/x-date-pickers";
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { Controller } from "react-hook-form";
 
@@ -142,7 +143,23 @@ export function ClassesModal() {
       <DialogContent sx={{ overflow: "auto" }}>
         {activeStep === 0 && (
           <Box display="flex" flexDirection="column" gap={2}>
+
+
+            <FormControl sx={{ color: "text.primary" }}>
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label={strings.classesModal.inputs.className}
+                    sx={{ label: { color: "text.primary" } }}
+                  />
+                )}
+              />
+            </FormControl>
             <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
+
               <InputLabel id="level-select-label" sx={{ color: "text.primary" }}>{strings.classesModal.inputs.classLevel}</InputLabel>
               <Controller
                 name="levelId"
@@ -152,11 +169,10 @@ export function ClassesModal() {
                     {...field}
                     labelId="level-select-label"
                     label={strings.classesModal.inputs.classLevel}
-                    displayEmpty
                   >
-                    {level.map((name, index) => (
-                      <MenuItem key={`${name}${index}`} value={name} sx={{ backgroundColor: "background.default" }}>
-                        <ListItemText primary={name} />
+                    {level.map((level) => (
+                      <MenuItem key={level.id} value={level.id} sx={{ backgroundColor: "background.default" }}>
+                        <ListItemText primary={level.name} />
                       </MenuItem>
                     ))}
                   </Select>
@@ -213,6 +229,35 @@ export function ClassesModal() {
               )}
             />
 
+            <Box flex={1}>
+              <InputLabel sx={{ color: "text.primary" }}>{strings.classesModal.inputs.startDate}</InputLabel>
+              <Controller
+                name="startDate"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    value={field.value ? dayjs(field.value) : null}
+                    onChange={(v) => field.onChange(v ? v.toDate() : null)}
+                    format="DD/MM/YYYY"
+
+                    sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
+                  />
+                )}
+              />
+              <InputLabel sx={{ color: "text.primary" }}>{strings.classesModal.inputs.endDate}</InputLabel>
+              <Controller
+                name="endDate"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    value={field.value ? dayjs(field.value) : null}
+                    onChange={(v) => field.onChange(v ? v.toDate() : null)}
+                    format="DD/MM/YYYY"
+                    sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
+                  />
+                )}
+              />
+            </Box>
             <Box
               gap={1}
               display="flex"

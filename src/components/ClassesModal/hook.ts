@@ -11,13 +11,14 @@ import { getLevelsFilter, getWeekDaysFilter } from "../../services/filters";
 import type { Classes } from "../../types/classes";
 import type { Id } from "../../types/id";
 
+
 const days = await getWeekDaysFilter().then(res => res.map((day, i) => ({
   id: `${i}` + `${day}`,
   value: day,
   symbol: day.charAt(0).toUpperCase(),
 })));
 const level = await getLevelsFilter();
-const steps = ["Dados", "Professor", "Alunos"];
+const steps = [strings.classesModal.steps.data, strings.classesModal.steps.teacher, strings.classesModal.steps.student];
 
 export function useClassesModal() {
   const { showToast } = useToast();
