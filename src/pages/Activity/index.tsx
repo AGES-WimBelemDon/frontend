@@ -19,7 +19,6 @@ export default function ActivityList() {
     name,
     setName,
     filteredActivities,
-    loadActivities
   } = useActivityPage();
     
   const {
@@ -29,8 +28,8 @@ export default function ActivityList() {
     closeModal,
     handleSubmit,
     editingActivity,
-  } = useNewActivityModal(() => loadActivities());
-    
+  } = useNewActivityModal();
+
 
   if (isLoadingActivities) {
     return (

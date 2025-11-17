@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useQueryClient } from "@tanstack/react-query";
+
 import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
 import { createActivity, updateActivity } from "../../services/activities";
@@ -10,10 +12,11 @@ export interface ActivityToEdit {
   name: string;
 }
 
-export function useNewActivityModal(onSuccess?: () => void) {
+export function useNewActivityModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [editingActivity, setEditingActivity] = useState<ActivityToEdit | null>(null);
 
+  const queryClient = useQueryClient();
   const { showToast } = useToast();
 
   function openCreateModal() {
@@ -36,7 +39,9 @@ export function useNewActivityModal(onSuccess?: () => void) {
     const formData = new FormData(e.currentTarget);
     const activityName = formData.get("activityName")?.toString().trim();
 
-    if (!activityName) return;
+    if (!activityName) {
+      return;
+    }
 
     if (editingActivity) {
       await updateActivity(editingActivity.id, { name: activityName });
@@ -45,23 +50,16 @@ export function useNewActivityModal(onSuccess?: () => void) {
         strings.newActivityModal.editSuccessToast({ activityName }),
         "success"
       );
-
-      if (onSuccess) onSuccess();
-    }
-
-    else {
-      if (onSuccess) {
-        await onSuccess(); 
-      } else {
-        await createActivity({ name: activityName } as Omit<Activity, "id">);
-      }
+    } else {
+      await createActivity({ name: activityName } as Omit<Activity, "id">);
     
       showToast(
         strings.newActivityModal.successToast({ activityName }),
         "success"
       );
     }
-    
+
+    queryClient.invalidateQueries({ queryKey: ["activities"] });
 
     closeModal();
   }

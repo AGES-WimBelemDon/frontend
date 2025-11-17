@@ -1,67 +1,35 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+import { useQuery } from "@tanstack/react-query";
 
 import { useScreenSize } from "../../hooks/useScreenSize";
-import { getActivities, createActivity } from "../../services/activities";
-import type { Activity } from "../../types/activities";
+import { getActivities } from "../../services/activities";
 
 export function useActivityPage() {
   const { isMobile } = useScreenSize();
 
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [isLoadingActivities, setIsLoadingActivities] = useState(true);
-  const [activitiesError, setActivitiesError] = useState<Error | null>(null);
-
   const [name, setName] = useState("");
+  
+  const {
+    isPending,
+    error,
+    data,
+  } = useQuery({
+    queryKey: ["activities"],
+    queryFn: getActivities
+  })
 
-  async function loadActivities() {
-    try {
-      setIsLoadingActivities(true);
-      const data = await getActivities();
-      setActivities(data);
-      setActivitiesError(null);
-    } catch (error) {
-      if (error instanceof Error) {
-        setActivitiesError(error);
-      } else {
-        setActivitiesError(new Error("Erro desconhecido ao carregar atividades"));
-      }
-    } finally {
-      setIsLoadingActivities(false);
-    }
-  }
-
-  async function createActivityAndReload(activityData: Omit<Activity, "id">) {
-    try {
-      await createActivity(activityData);
-      await loadActivities();
-      return true;
-    } catch (error) {
-      if (error instanceof Error) {
-        setActivitiesError(error);
-      } else {
-        setActivitiesError(new Error("Erro desconhecido ao criar atividade"));
-      }
-      return false;
-    }
-  }
-
-  useEffect(() => {
-    loadActivities();
-  }, []);
-
-  const filteredActivities = activities.filter((a) =>
-    a.name.toLowerCase().includes(name.toLowerCase())
-  );
+  const filteredActivities = data?.filter(activity =>
+    activity.name.toLowerCase().includes(name.toLowerCase())
+  ) || [];
 
   return {
-    isLoadingActivities,
-    activitiesError,
+    isLoadingActivities: isPending,
+    activitiesError: error,
     isMobile,
     name,
     setName,
-    activities,
+    activities: data,
     filteredActivities,
-    loadActivities,
-    createActivityAndReload
   };
 }
