@@ -10,13 +10,7 @@ export type Address = {
   state: string;
 }
 
-export interface AddressResponse {
+export type AddressResponse = Address & {
   id: Id;
-  street: string;
-  city: string;
-  state: string;
-  cep: string;
-  neighborhood: string;
   number?: string;
-  complement?: string;
 }

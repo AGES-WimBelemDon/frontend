@@ -464,8 +464,6 @@ export default function StudentRegistration() {
             />
             <TextField
               required
-
-
               name="address.number"
               label={strings.studentRegistration.address.number}
               placeholder={strings.studentRegistration.address.numberPlaceholder}
@@ -528,7 +526,6 @@ export default function StudentRegistration() {
             <TextField
               name="address.complement"
               label={strings.studentRegistration.address.complement}
-              value={address?.complement}
               placeholder={strings.studentRegistration.address.complementPlaceholder}
               fullWidth
               margin="normal"

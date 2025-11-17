@@ -79,9 +79,9 @@ export async function updateStudent(studentId: number, data: Partial<Student>): 
   }
 }
 
-export async function updateStudentAddress(addressId: number, data: Partial<AddressResponse>): Promise<void> {
+export async function updateStudentAddress(addressId: Id, data: Partial<AddressResponse>): Promise<void> {
   try {
-    await api.patch(endpoints.address(addressId), data);
+    await api.patch(endpoints.address.byId(addressId), data);
   } catch (error: unknown) {
     const axiosError = error as AxiosError;
     const status = axiosError.response?.status;
