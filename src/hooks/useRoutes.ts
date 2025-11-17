@@ -24,6 +24,19 @@ export function useRoutes() {
   }
 
   function goBack() {
+    const previousRoute = window.location.pathname.split("/")[1];
+
+    const routesWithHistory = ["alunos", "turmas", "anamnese"];
+    if (previousRoute && routesWithHistory.includes(previousRoute)) {
+      navigate(`/${previousRoute}`);
+      return;
+    }
+
+    if (window.history.length <= 2) {
+      navigate("/");
+      return;
+    }
+
     navigate(-1);
   }
 

@@ -308,7 +308,10 @@ export const portugueseTextMap = {
   classesModal: {
     recurring: "Atividade Recorrente",
     inputs: {
+      className: "Nome da Turma",
       classLevel: "Nível da Turma",
+      startDate: "Data de InÍcio",
+      endDate: "Data de Encerramento",
       startTime: "Horário de Início",
       endTime: "Horário de Término",
       level: "Nível",
@@ -500,6 +503,7 @@ export const portugueseTextMap = {
     logout: "Sair",
     switchToEnglish: "Mudar para Inglês",
     switchToPortuguese: "Mudar para Português",
+    goBack: "Voltar"
   },
   users: {
     title: "Gerenciar Usuários",
@@ -524,7 +528,7 @@ export const portugueseTextMap = {
       deactivate: "Desativar",
     },
     footer: {
-      showing: ({ count, total }: Params<"count"  | "total">) => `Mostrando ${count} de ${total} ${total === "1" ? "usuário" : "usuários"}`,
+      showing: ({ count, total }: Params<"count" | "total">) => `Mostrando ${count} de ${total} ${total === "1" ? "usuário" : "usuários"}`,
       updatedAt: ({ when }: Params<"when">) => `Atualizado em ${when}`
     },
     inputs: {

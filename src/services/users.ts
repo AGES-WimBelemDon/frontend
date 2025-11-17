@@ -1,4 +1,5 @@
 import { api, endpoints } from "./api";
+import type { Id } from "../types/id";
 import type { UserRegister, UserResponse, GetUsersParams } from "../types/users";
 
 
@@ -84,7 +85,7 @@ export async function updateUser(userId: number, payload: Partial<UserRegister>)
   }
 }
 
-export async function disableUser(userId: number): Promise<void> {
+export async function disableUser(userId: Id): Promise<void> {
   try {
     await api.patch(endpoints.users.disableById(userId));
   } catch (error) {
@@ -93,7 +94,7 @@ export async function disableUser(userId: number): Promise<void> {
   }
 }
 
-export async function enableUser(userId: number): Promise<void> {
+export async function enableUser(userId: Id): Promise<void> {
   try {
     await api.patch(endpoints.users.enableById(userId));
   } catch (error) {

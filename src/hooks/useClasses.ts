@@ -4,12 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useRoutes } from "./useRoutes";
 import { getClasses, getClassFrequency as apiGetClassFrequency } from "../services/classes";
+import type { Id } from "../types/id";
 
 
 export function useClasses() {
   const { getPathParamId } = useRoutes();
   const classId = getPathParamId("turmas");
-  const [currentClassId, setCurrentClassId] = useState<number | null>(classId ? Number(classId) : null);
+  const [currentClassId, setCurrentClassId] = useState<Id | null>(classId ?? null);
   const { isPending, error, data } = useQuery({
     queryKey: ["classes"],
     queryFn: getClasses,
@@ -17,15 +18,17 @@ export function useClasses() {
 
   function getClassTitleById() {
     const classItem = data?.find(classItem => classItem.id === currentClassId);
-    return classItem ? classItem.title : "Turma Desconhecida";
+    return classItem ? classItem.name : "Turma Desconhecida";
   }
 
   async function getClassFrequency() {
     if (!currentClassId) {
-      return Promise.resolve([]);
+      return Promise.resolve(undefined);
     }
 
-    return apiGetClassFrequency({ id: currentClassId });
+    const date = new Date().toISOString().split("T")[0];
+
+    return apiGetClassFrequency({ id: currentClassId, date });
   }
 
   const {
