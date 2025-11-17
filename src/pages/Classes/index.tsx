@@ -97,8 +97,8 @@ export default function Classes() {
             <Autocomplete
               options={activities || []}
               getOptionLabel={(option) => option.name}
-              value={activities?.find((a) => a.id === activityFilter) || null}
-              onChange={(_, newValue) => setActivityFilter(newValue?.id || null)}
+              value={activities?.find((a) => String(a.id) === activityFilter) || null}
+              onChange={(_, newValue) => setActivityFilter(String(newValue?.id) || null)}
               renderInput={(params) => <TextField {...params} />}
             />
           </FormControl>
@@ -139,7 +139,7 @@ export default function Classes() {
           {filteredClasses.map((c) => (
             <Card
               key={c.id}
-              onClick={() => handleClassClick(c.id)}
+              onClick={() => handleClassClick(String(c.id))}
               sx={{
                 backgroundColor: "background.default",
                 borderRadius: 2,
@@ -152,13 +152,16 @@ export default function Classes() {
                 <Box display="flex" alignItems="center" gap={3} mb={1}>
                   <Box display="flex" alignItems="center" gap={0.5}>
                     <Event sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold" }} />
-                    <Typography
-                      variant="body2"
-                      color="text.primary"
-                      fontWeight="bold"
-                    >
-                      {c.weekDay}
-                    </Typography>
+                    {c.schedules.map(schedule => (
+                      <Typography
+                        key={schedule.id}
+                        variant="body2"
+                        color="text.primary"
+                        fontWeight="bold"
+                      >
+                        {schedule.dayOfWeek}
+                      </Typography>
+                    ))}
                   </Box>
                   <Box display="flex" alignItems="center" gap={0.5}>
                     <AccessTime sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold" }} />

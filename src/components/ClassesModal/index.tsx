@@ -202,7 +202,7 @@ export function ClassesModal() {
 
             <InputLabel sx={{ color: "text.primary" }}>{strings.filters.weekDays.title}</InputLabel>
             <Controller
-              name="weekDay"
+              name="dayOfWeek"
               control={control}
               render={({ field }) => (
                 <FormGroup sx={{ flexDirection: "row", gap: 1 }}>

@@ -251,14 +251,14 @@ export function useFilters() {
     queryFn: () => queryFunction(getEmploymentStatusFilter, employmentStatusFilterOptionsMap, "employmentStatus"),
     staleTime: Infinity
   })
-
+  
   const { data: schoolYearOptions } = useQuery({
     queryKey: ["filters", "schoolYears"],
     queryFn: () => queryFunction(getSchoolYearsFilter, schoolYearFilterOptionsMap, "schoolYear"),
     staleTime: Infinity
   })
 
-  const { data: educationLevels } = useQuery({
+  const { data: educationLevelOptions } = useQuery({
     queryKey: ["filters", "educationLevels"],
     queryFn: () => queryFunction(getStudentEducationLevelFilter, educationLevelFilterOptionsMap, "educationLevel"),
     staleTime: Infinity
@@ -313,11 +313,11 @@ export function useFilters() {
     frequencyStatusOptions,
     classStateOptions,
     raceOptions,
+    educationLevelOptions,
     genderOptions,
     socialProgramsOptions,
     employmentStatusOptions,
     schoolYearOptions,
-    educationLevels,
     identityTypesOptions,
     documentTypesOptions,
     noteTypesOptions,

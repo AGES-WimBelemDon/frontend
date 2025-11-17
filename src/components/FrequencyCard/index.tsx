@@ -1,24 +1,19 @@
-import {
-  Add as AddIcon,
-  Check as CheckIcon,
-  Close as CloseIcon
-} from "@mui/icons-material";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Box,
-  Button,
-} from "@mui/material";
+import { Check as CheckIcon, Close as CloseIcon } from "@mui/icons-material";
+import { Card, CardContent, Typography, Box, Button } from "@mui/material";
 
-import type { FrequencyCardProps } from "./interface";
+import { CustomSelectButton } from "./CustomSelectButton";
+import { FrequencyStatus, type FrequencyCardProps } from "./interface";
 import { strings } from "../../constants";
+import { noteOptions } from "./CustomSelectButton/interface";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function FrequencyCard({
   name,
   frequencyPercent,
   isPresent,
+  notes,
+  isGeneral,
+  onChangeNote,
   onChangePresence,
 }: FrequencyCardProps) {
   const { isDesktop } = useScreenSize();
@@ -38,50 +33,52 @@ export function FrequencyCard({
       }}
     >
       <CardContent sx={{ padding: 0 }}>
-        <Typography
-          variant="subtitle1"
-          fontWeight="bold"
-          fontSize={16}
-        >
-          {name}
-        </Typography>
-        <Typography
-          variant="body2"
-          fontSize={14}
-          color="grey.900"
-        >
-          {strings.frequencyCard.frequency({ percent: frequencyPercent.toString() })}
-        </Typography>
+        {!isGeneral ? (
+          <>
+            <Typography variant="subtitle1" fontWeight="bold" fontSize={16}>
+              {name}
+            </Typography>
+            <Typography variant="body2" fontSize={14} color="grey.900">
+              {strings.frequencyCard.frequency({
+                percent: frequencyPercent.toString(),
+              })}
+            </Typography>
+          </>
+        ) : (
+          <Typography variant="subtitle1" fontWeight="bold" fontSize={20}>
+            {name}
+          </Typography>
+        )}
       </CardContent>
       <Box gap={2} display="flex" flexDirection="row">
-        <Button
-          sx={{
-            backgroundColor: "grey.500",
-            color: "white",
-            borderRadius: 1.5,
-            textTransform: "none",
-            fontWeight: "bold",
-          }}
-          size="medium"
-        >
-          {isDesktop ? strings.frequencyCard.absentDetails : ""}
-          <AddIcon />
-        </Button>
+        {isGeneral ? null : (
+          <CustomSelectButton
+            note={notes}
+            options={noteOptions}
+            onChange={onChangeNote ?? (() => {})}
+          />
+        )}
         <Button
           size="medium"
           color="success"
-          variant={isPresent ? "contained" : "outlined"}
-          onClick={() => onChangePresence(true)}
+          variant={
+            isPresent == FrequencyStatus.PRESENTE ? "contained" : "outlined"
+          }
+          onClick={() => onChangePresence(FrequencyStatus.PRESENTE)}
+          sx={{ textTransform: "none", fontWeight: "bold" }}
         >
-          <CheckIcon />
+          <CheckIcon sx={{ ml: isDesktop ? 0.5 : 0 }} />
         </Button>
         <Button
           size="medium"
           color="error"
-          variant={!isPresent ? "contained" : "outlined"}
-          onClick={() => onChangePresence(false)}
+          variant={
+            isPresent == FrequencyStatus.AUSENTE ? "contained" : "outlined"
+          }
+          onClick={() => onChangePresence(FrequencyStatus.AUSENTE)}
+          sx={{ textTransform: "none", fontWeight: "bold" }}
         >
-          <CloseIcon />
+          <CloseIcon sx={{ ml: isDesktop ? 0.5 : 0 }} />
         </Button>
       </Box>
     </Card>

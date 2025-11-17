@@ -1,59 +1,73 @@
 import { useState } from "react";
 
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Button, Card, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Card, Typography } from "@mui/material";
 
 import type { PersonCardProps } from "./interface";
-import userImg from "../../assets/userImg.png";
 import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
+import { formatAddress } from "../../services/address";
 
-export function PersonCard(personCardProps: PersonCardProps) {
-  const [cardData, setCardData] = useState<PersonCardProps>(personCardProps);
-
+export function PersonCard(cardData: PersonCardProps) {
   const { isMobile } = useScreenSize();
+  const [showMore, setShowMore] = useState(false);
+  const [isFlipping, setIsFlipping] = useState(false);
+
+  const handleCardClick = () => {
+    setIsFlipping(true);
+    setTimeout(() => {
+      setShowMore(!showMore);
+      setIsFlipping(false);
+    }, 300);
+  };
+
+  function formatDate(date: string): string {
+    return new Date(date).toLocaleDateString("pt-BR");
+  }
 
   const dataEntries = [
-    { label: strings.personCard.name, value: cardData.name },
-    { label: strings.personCard.cpf, value: cardData.cpf },
-    { label: strings.personCard.birthDate, value: cardData.birthDate },
-    { label: strings.personCard.civilState, value: cardData.civilState },
+    { label: strings.personCard.registrationNumber, value: cardData.registrationNumber },
+    { label: strings.personCard.relationship, value: cardData.relationship },
+    { label: strings.personCard.dateOfBirth, value: formatDate(cardData.dateOfBirth) },
     { label: strings.personCard.nis, value: cardData.nis },
-    { label: strings.personCard.phone, value: cardData.phone },
+    { label: strings.personCard.phoneNumber, value: cardData.phoneNumber },
     { label: strings.personCard.email, value: cardData.email },
-    { label: strings.personCard.address, value: cardData.address },
-  ]
+    { label: strings.personCard.race, value: cardData.race },
+    { label: strings.personCard.gender, value: cardData.gender },
+    { label: strings.personCard.educationLevel, value: cardData.educationLevel },
+    { label: strings.personCard.socialPrograms, value: cardData.socialPrograms },
+    { label: strings.personCard.employmentStatus, value: cardData.employmentStatus },
+    { label: strings.personCard.address, value: formatAddress(cardData.address) },
+  ];
 
   return (
     <Card
       sx={{
-        gap: 2,
-        display: "flex",
-        flexDirection: "row",
+        gap: 0,
         borderRadius: 3,
         boxShadow: 3,
         width: "100% ",
         backgroundColor: "background.default",
         padding: 1.5,
+        transformStyle: "preserve-3d",
+        transition: "transform 0.4s",
+        transform: isFlipping ? "rotateY(90deg)" : "rotateY(0deg)",
+        ":hover": { cursor: "pointer" }
       }}
+      onClick={handleCardClick}
     >
-      <CardMedia
-        component="img"
-        sx={{ width: "9vh", height: "100%", borderRadius: 3 }}
-        image={userImg}
-        alt={strings.personCard.userImageAlt}
-      />
+      <Typography fontSize={isMobile ? 16 : 20} width="100%">
+        <strong>{cardData.fullName}</strong>
+        <strong>{cardData.socialName ? " (" + cardData.socialName + ")" : ""}</strong>
+      </Typography>
       <Box
-        gap={1.2}
+        gap={1}
         rowGap={0}
-        display={isMobile ? "grid" : "flex"}
-        flexWrap="wrap"
-        sx={{
-          width: "100%",
-          gridTemplateColumns: "1fr 1fr"
-        }}
+        display={showMore ? "grid" : "flex"}
+        gridTemplateColumns={showMore ? "1fr 1fr 1fr" : "none"}
+        width="100%"
       >
-        {dataEntries.map((entry, index) => (
+        {showMore ? dataEntries.map((entry, index) => (
           <Typography
             key={`${entry.label}-${entry.value}-${index}`}
             component="span"
@@ -61,44 +75,63 @@ export function PersonCard(personCardProps: PersonCardProps) {
           >
             <strong>{entry.label}</strong> {entry.value}
           </Typography>
-        ))}
+        )) :
+          <Box width="100%" display={"block"} >
+            <Typography fontSize={16} width="100%">
+              <strong>{strings.personCard.relationship}</strong> {cardData.relationship}
+            </Typography>
+            <Typography fontSize={16} width="100%">
+              <strong>{strings.personCard.phoneNumber}</strong> {cardData.phoneNumber}
+            </Typography>
+            <Typography fontSize={16} width="100%">
+              <strong>{strings.personCard.registrationNumber}</strong> {cardData.registrationNumber}
+            </Typography>
+          </Box>
+        }
+        {!showMore ? 
+          <Box
+            display="flex"
+            alignItems="end"
+            justifyContent="flex-end"
+            padding={1}
+          >
+            <Button
+              size="small"
+              variant="contained"
+              fullWidth
+              // onClick={() =>
+              //   setCardData({
+              //     fullName: "New Full Name",
+              //     socialName: "New Social Name",
+              //     registrationNumber: "New CPF",
+              //     dateOfBirth: "New Date of Birth",
+              //     nis: "New NIS",
+              //     phoneNumber: "New Phone Number",
+              //     email: "New Email",
+              //     address: "New Address",
+              //     relationship: "New Relationship",
+              //     race: "New Race",
+              //     gender: "New Gender",
+              //     educationLevel: "New Education Level",
+              //     socialPrograms: "New Social Programs",
+              //     employmentStatus: "New Employment Status"
+              //   })
+              // }
+              endIcon={<EditIcon />}
+              sx={{
+                textTransform: "none",
+                fontSize: 15,
+                fontWeight: "bold",
+                borderRadius: 4,
+                paddingY: 0.5,
+                paddingX: 1.5,
+              }}
+            >
+              {strings.genericActions.edit}
+            </Button>
+          </Box>
+          : <></>}
       </Box>
-
-      <Box
-        display="flex"
-        alignItems="end"
-        justifyContent="flex-end"
-        padding={1}
-      >
-        <Button
-          size="small"
-          variant="contained"
-          fullWidth
-          onClick={() =>
-            setCardData({
-              name: "New name",
-              cpf: "New cpf",
-              birthDate: "New date",
-              civilState: "New state",
-              nis: "New nis",
-              phone: "New phone",
-              email: "New email",
-              address: "New address",
-            })
-          }
-          endIcon={<EditIcon />}
-          sx={{
-            textTransform: "none",
-            fontSize: 15,
-            fontWeight: "bold",
-            borderRadius: 4,
-            paddingY: 0.5,
-            paddingX: 1.5,
-          }}
-        >
-          {strings.personCard.editButton}
-        </Button>
-      </Box>
-    </Card>
+    </Card >
   );
 }

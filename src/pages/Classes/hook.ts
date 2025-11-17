@@ -27,7 +27,7 @@ export function useClassesPage() {
     return classes.filter((c) => {
       return (
         (!activityFilter || c.activityId === activityFilter)
-        && (!dayFilter || c.weekDay.includes(dayFilter.toString()))
+        && (!dayFilter || c.schedules.map(schedule => schedule.dayOfWeek).includes(dayFilter.toString()))
         && (!levelFilter || c.levelId === levelFilter)
       );
     });

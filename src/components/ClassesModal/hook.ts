@@ -8,7 +8,7 @@ import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
 import { getLevelsFilter, getWeekDaysFilter } from "../../services/filters";
-import type { Classes } from "../../types/classes";
+import type { CreateClasses } from "../../types/classes";
 import type { Id } from "../../types/id";
 
 
@@ -34,19 +34,18 @@ export function useClassesModal() {
   const [selectedStudents, setSelectedStudents] = useState<Id[]>([]);
   const [selectedTeachers, setSelectedTeachers] = useState<Id[]>([]);
 
-  const { control, getValues, reset } = useForm<Classes>({
+  const { control, getValues, reset } = useForm<CreateClasses>({
     defaultValues: {
       name: "",
       activityId: 0,
       levelId: "",
-      state: "true",
-      teachers: [],
+      teacherIds: [],
       isRecurrent: false,
       startDate: "",
       endDate: "",
       startTime: "",
       endTime: "",
-      weekDay: [],
+      dayOfWeek: [],
     },
   });
 
@@ -103,7 +102,7 @@ export function useClassesModal() {
     }
   }
 
-  function createClass(data: Classes): void {
+  function createClass(data: CreateClasses): void {
     // TODO: Send to back and remove console.log
     console.log({ ...data, selectedTeachers, selectedStudents });
     showToast(strings.classesModal.createSuccessMessage, "success");

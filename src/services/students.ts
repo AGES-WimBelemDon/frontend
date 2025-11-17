@@ -1,6 +1,5 @@
 import { api, endpoints } from "./api";
 import type { AddressResponse } from "../types/address";
-import type { SchoolYear, StudentStatus } from "../types/filters";
 import type { Id } from "../types/id";
 import type { ApiStudent, Student, StudentResponsible } from "../types/students";
 
@@ -10,7 +9,7 @@ export async function registerStudent(student: Partial<Student>): Promise<Pick<A
     const response = await api.post(endpoints.students.base, student);
     return response.data;
   } catch {
-    throw new Error("Error registering student");
+    throw new Error("Error on servicesRegisterStudent");
   }
 }
 
@@ -19,7 +18,7 @@ export async function registerAddress(studentId: Id, address: Partial<AddressRes
     const response = await api.post(endpoints.students.addressById(studentId), address);
     return response.data;
   } catch {
-    throw new Error("Error registering address");
+    throw new Error("Error on servicesRegisterAddress");
   }
 }
 
@@ -32,7 +31,7 @@ export async function addStudentDocument<Doc>(studentId: Pick<ApiStudent, "id">,
       },
     });
   } catch {
-    throw new Error("Error adding student document");
+    throw new Error("Error on servicesAddStudentDocument");
   }
 }
 
@@ -52,193 +51,7 @@ export async function getStudents(): Promise<Student[]> {
     );
     return studentsWithAddress;
   } catch {
-    // TODO: This should only work for development, remove in production
-    let id = 0;
-    const mockResponse = await Promise.resolve({
-      data: [
-        {
-          id: ++id,
-          fullName: "João Pedro",
-          dateOfBirth: "2006-07-20",
-          registrationNumber: "2023002",
-          enrollmentDate: "2023-02-01",
-          status: "ATIVO" as StudentStatus,
-          level: "ENSINO_MEDIO_2" as SchoolYear,
-          address: {
-            id: "1",
-            cep: "01400-000",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Jardim Paulista",
-            street: "Avenida Brasil",
-            number: "456",
-            complement: "",
-            code: "01400-000",
-          } as AddressResponse,
-        },
-        {
-          id: ++id,
-          fullName: "Pedro Henrique",
-          dateOfBirth: "2007-01-05",
-          registrationNumber: "2023003",
-          enrollmentDate: "2023-03-10",
-          status: "ATIVO" as StudentStatus,
-          level: "ENSINO_MEDIO_1" as SchoolYear,
-          address: {
-            id: "2",
-            cep: "01300-000",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Consolação",
-            street: "Rua Augusta",
-            number: "789",
-            complement: "Casa 2",
-            code: "01300-000",
-          } as AddressResponse,
-        },
-        {
-          id: ++id,
-          fullName: "Ana Beatriz",
-          dateOfBirth: "2008-04-12",
-          registrationNumber: "2023004",
-          enrollmentDate: "2023-04-05",
-          status: "ATIVO" as StudentStatus,
-          level: "FUNDAMENTAL_2" as SchoolYear,
-          address: {
-            id: "3",
-            cep: "02000-100",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Tatuapé",
-            street: "Travessa das Laranjeiras",
-            number: "21",
-            complement: "Casa",
-            code: "02000-100",
-          } as AddressResponse,
-        },
-        {
-          id: ++id,
-          fullName: "Carla Souza",
-          dateOfBirth: "2009-11-02",
-          registrationNumber: "2023005",
-          enrollmentDate: "2023-05-20",
-          status: "ATIVO" as StudentStatus,
-          level: "FUNDAMENTAL_1" as SchoolYear,
-          address: {
-            id: "4",
-            cep: "03000-200",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Brás",
-            street: "Rua do Comércio",
-            number: "350",
-            complement: "Bloco B",
-            code: "03000-200",
-          } as AddressResponse,
-        },
-        {
-          id: ++id,
-          fullName: "Felipe Ramos",
-          dateOfBirth: "2004-09-18",
-          registrationNumber: "2023006",
-          enrollmentDate: "2022-12-10",
-          status: "ATIVO" as StudentStatus,
-          level: "ENSINO_MEDIO_3" as SchoolYear,
-          address: {
-            id: "5",
-            cep: "04000-300",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Itaim Bibi",
-            street: "Avenida Central",
-            number: "1020",
-            complement: "Sala 12",
-            code: "04000-300",
-          } as AddressResponse,
-        },
-        {
-          id: ++id,
-          fullName: "Marina Costa",
-          dateOfBirth: "2010-06-25",
-          registrationNumber: "2023007",
-          enrollmentDate: "2023-06-01",
-          status: "ATIVO" as StudentStatus,
-          level: "FUNDAMENTAL_1" as SchoolYear,
-          address: {
-            id: "6",
-            cep: "05000-400",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Vila Nova",
-            street: "Rua do Sol",
-            number: "77",
-            complement: "Apartamento 7",
-            code: "05000-400",
-          } as AddressResponse,
-        },
-        {
-          id: ++id,
-          fullName: "Gustavo Lima",
-          dateOfBirth: "2003-02-14",
-          registrationNumber: "2023008",
-          enrollmentDate: "2021-08-23",
-          status: "ATIVO" as StudentStatus,
-          level: "ENSINO_MEDIO_2" as SchoolYear,
-          address: {
-            id: "7",
-            cep: "06000-500",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Centro",
-            street: "Praça da Matriz",
-            number: "1",
-            complement: "",
-            code: "06000-500",
-          } as AddressResponse,
-        },
-        {
-          id: ++id,
-          fullName: "Renata Almeida",
-          dateOfBirth: "2005-12-30",
-          registrationNumber: "2023009",
-          enrollmentDate: "2023-01-20",
-          status: "ATIVO" as StudentStatus,
-          level: "ENSINO_MEDIO_1" as SchoolYear,
-          address: {
-            id: "8",
-            cep: "07000-600",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Jardim das Flores",
-            street: "Rua das Acácias",
-            number: "410",
-            complement: "Casa",
-            code: "07000-600",
-          } as AddressResponse,
-        },
-        {
-          id: ++id,
-          fullName: "Thiago Nunes",
-          dateOfBirth: "2002-01-09",
-          registrationNumber: "2023010",
-          enrollmentDate: "2020-03-11",
-          status: "INATIVO" as StudentStatus,
-          level: "ENSINO_MEDIO_2" as SchoolYear,
-          address: {
-            id: "9",
-            cep: "08000-700",
-            city: "São Paulo",
-            state: "SP",
-            neighborhood: "Zona Rural",
-            street: "Estrada Velha",
-            number: "999",
-            complement: "Sitio",
-            code: "08000-700",
-          } as AddressResponse,
-        },
-      ],
-    });
-    return mockResponse.data as Student[];
+    throw new Error("Error on servicesGetStudents");
   }
 }
 
@@ -247,45 +60,6 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
     const response = await api.get<StudentResponsible[]>(endpoints.familyMembers.byStudentId(studentId));
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    let id = 0;
-    const mockResponse = await Promise.resolve({
-      data: [
-        {
-          id: ++id,
-          name: "Leonardo Scheidt",
-          cpf: "123.456.789-00",
-          birthDate: "1990-05-15",
-          civilState: "Solteiro(a)",
-          nis: "12345678900",
-          phone: "(11) 91234-5678",
-          email: "leonardo@example.com",
-          address: "Rua A, 123, São Paulo, SP",
-        },
-        {
-          id: ++id,
-          name: "Maria Silva",
-          cpf: "987.654.321-00",
-          birthDate: "1985-10-22",
-          civilState: "Casado(a)",
-          nis: "98765432100",
-          phone: "(21) 99876-5432",
-          email: "maria.silva@example.com",
-          address: "Avenida B, 456, Rio de Janeiro, RJ",
-        },
-        {
-          id: ++id,
-          name: "Carlos Oliveira",
-          cpf: "111.222.333-44",
-          birthDate: "1978-03-08",
-          civilState: "Divorciado(a)",
-          nis: "11122233344",
-          phone: "(31) 98765-4321",
-          email: "carlos.oliveira@example.com",
-          address: "Rua C, 789, Belo Horizonte, MG",
-        },
-      ]
-    })
-    return mockResponse.data;
+    throw new Error("Error on servicesGetStudentResponsibles");
   }
 }

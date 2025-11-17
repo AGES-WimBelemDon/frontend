@@ -29,14 +29,21 @@ export type ApiStudent = Student & {
   id: Id;
 }
 
-export type StudentResponsible = {
+export interface StudentResponsible {
   id: Id;
-  name: string;
-  cpf: string;
-  birthDate: string;
-  civilState: string;
-  nis: string;
-  phone: string;
+  fullName: string;
+  relationship: string;
+  phoneNumber: string;
+  studentIds: number[];
+  dateOfBirth: string;
+  registrationNumber: string;
   email: string;
-  address: string;
+  socialName: string;
+  race: string;
+  gender: string;
+  educationLevel: string;
+  socialPrograms: string;
+  employmentStatus: string;
+  nis: string;
+  address: AddressResponse;
 }
