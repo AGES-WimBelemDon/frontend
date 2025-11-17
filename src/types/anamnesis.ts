@@ -1,19 +1,21 @@
+import type { Id } from "./id";
+
 export type Question = {
-  id: string;
+  id: Id;
   statement: string;
 };
 
 export type AnamneseResponse = {
-  questionId: string;
+  questionId: Id;
   response: string;
 };
 
 export type AnamneseSubmission = {
-  formId: string;
+  formId: Id;
   responses: AnamneseResponse[];
 };
 
 export type AnamneseFormInfo = {
-  id: string;
+  id: Id;
   date: string;
 };

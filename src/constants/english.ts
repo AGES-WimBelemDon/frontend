@@ -324,7 +324,10 @@ export const englishTextMap = {
     title: "Create Class",
     recurring: "Recurring Activity",
     inputs: {
+      className: "Class Name",
       classLevel: "Class Level",
+      startDate: "Start Date",
+      endDate: "End Date",
       startTime: "Start Time",
       endTime: "End Time",
       level: "Level",
@@ -516,6 +519,7 @@ export const englishTextMap = {
     logout: "Sign out",
     switchToEnglish: "Switch to English",
     switchToPortuguese: "Switch to Portuguese",
+    goBack: "Go Back"
   },
   users: {
     title: "Manage Users",

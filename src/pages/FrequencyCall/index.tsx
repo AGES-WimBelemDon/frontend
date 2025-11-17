@@ -25,9 +25,6 @@ export function FrequencyCall() {
     classTitle,
   } = useFrequencyCall();
 
-  if (!students) {
-    return <Typography color="error">{strings.frequencyCall.studentsError}</Typography>;
-  }
   return (
     <Box
       sx={{
@@ -58,11 +55,14 @@ export function FrequencyCall() {
           marginY: 2,
         }}
       />
-
+      {!students.length && (
+        <Typography variant="body1" color="error">
+          {strings.frequencyCall.studentsError}
+        </Typography>
+      )}
       <List sx={{
         width: "100%",
         height: "100%",
-
         overflowY: "hidden"
       }}>
         {students.map((item: FrequencyCardStudent) => (
@@ -84,8 +84,7 @@ export function FrequencyCall() {
           <Button
             onClick={() => registerCall()}
             variant="outlined"
-            disabled={students.length == 0 ? false : true}
-              
+            disabled={students.length === 0}
           >
             {strings.frequencyCall.create}
           </Button>

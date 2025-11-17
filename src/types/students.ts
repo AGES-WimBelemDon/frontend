@@ -1,9 +1,10 @@
 import type { AddressResponse } from "./address";
 import type { EducationLevel, EmploymentStatus, Gender, Race, SchoolYear, SocialPrograms, StudentStatus } from "./filters";
+import type { Id } from "./id";
 
 
 export type Student = {
-  id: number;
+  id: Id;
   address: AddressResponse;
   fullName: string;
   dateOfBirth: string;
@@ -25,11 +26,11 @@ export type Student = {
 }
 
 export type ApiStudent = Student & {
-  id: number;
+  id: Id;
 }
 
 export type StudentResponsible = {
-  id: number;
+  id: Id;
   name: string;
   cpf: string;
   birthDate: string;

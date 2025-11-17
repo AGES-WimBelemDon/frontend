@@ -1,3 +1,5 @@
+import type { Id } from "../../types/id";
+
 export interface FrequencyCardProps extends FrequencyCardStudent {
   onChangePresence: (present:FrequencyStatus) => void,
   onChangeNote?: (value: NoteTypes | null) => void;
@@ -19,7 +21,7 @@ export const FrequencyStatus = {
 export type FrequencyStatus = (typeof FrequencyStatus)[keyof typeof FrequencyStatus]
 
 export type FrequencyCardStudent = {
-  id: string;
+  id: Id;
   name: string;
   frequencyPercent: number;
   isPresent: FrequencyStatus;

@@ -1,6 +1,7 @@
 import { api, endpoints } from "./api";
 import type { AddressResponse } from "../types/address";
 import type { SchoolYear, StudentStatus } from "../types/filters";
+import type { Id } from "../types/id";
 import type { ApiStudent, Student, StudentResponsible } from "../types/students";
 
 
@@ -13,7 +14,7 @@ export async function registerStudent(student: Partial<Student>): Promise<Pick<A
   }
 }
 
-export async function registerAddress(studentId: number, address: Partial<AddressResponse>): Promise<Pick<AddressResponse, "id">> {
+export async function registerAddress(studentId: Id, address: Partial<AddressResponse>): Promise<Pick<AddressResponse, "id">> {
   try {
     const response = await api.post(endpoints.students.addressById(studentId), address);
     return response.data;

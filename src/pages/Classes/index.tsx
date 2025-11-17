@@ -33,7 +33,6 @@ export default function Classes() {
     activities,
     activityFilter,
     setActivityFilter,
-    levelFilter,
     setLevelFilter,
     levelOptions,
     filteredClasses,
@@ -51,8 +50,6 @@ export default function Classes() {
     },
     [classesError, showToast]
   );
-
-
 
   if (isLoadingClasses) {
     return (
@@ -119,9 +116,7 @@ export default function Classes() {
             </FormLabel>
             <Autocomplete
               options={levelOptions || []}
-              getOptionLabel={(option) => option.label}
-              value={levelOptions?.find((l) => l.id === levelFilter) || null}
-              onChange={(_, newValue) => setLevelFilter(newValue?.id || "")}
+              onChange={(_, newValue) => setLevelFilter(newValue)}
               renderInput={(params) => <TextField {...params} />}
             />
           </FormControl>
@@ -157,13 +152,16 @@ export default function Classes() {
                 <Box display="flex" alignItems="center" gap={3} mb={1}>
                   <Box display="flex" alignItems="center" gap={0.5}>
                     <Event sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold" }} />
-                    <Typography
-                      variant="body2"
-                      color="text.primary"
-                      fontWeight="bold"
-                    >
-                      {c.weekDay}
-                    </Typography>
+                    {c.schedules.map(schedule => (
+                      <Typography
+                        key={schedule.id}
+                        variant="body2"
+                        color="text.primary"
+                        fontWeight="bold"
+                      >
+                        {schedule.dayOfWeek}
+                      </Typography>
+                    ))}
                   </Box>
                   <Box display="flex" alignItems="center" gap={0.5}>
                     <AccessTime sx={{ color: "primary.main", fontSize: 20, fontWeight: "bold" }} />
@@ -172,7 +170,7 @@ export default function Classes() {
                       color="text.primary"
                       fontWeight="bold"
                     >
-                      {c.schedule}
+                      {c.startTime.toString()} - {c.endTime.toString()}
                     </Typography>
                   </Box>
                 </Box>
@@ -185,10 +183,14 @@ export default function Classes() {
                   {c.name}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
-                  <strong>{strings.classes.card.level}</strong>{" "}{c.level}
+                  <strong>{strings.classes.card.level}</strong>{" "}{c.levelId}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
-                  <strong>{strings.classes.card.teacher}</strong>{" "}{c.teacher}
+                  {c.teachers.map(teacher => (
+                    <>
+                      <strong>{strings.classes.card.teacher}</strong>{" "}{teacher.fullName}
+                    </>
+                  ))}
                 </Typography>
               </CardContent>
             </Card>

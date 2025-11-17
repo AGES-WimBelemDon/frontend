@@ -13,11 +13,12 @@ import { useClasses } from "../../hooks/useClasses";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
 import type { ClassStudentUpdateResponse } from "../../services/frequency";
+import type { Id } from "../../types/id";
 
 export function useFrequencyCall() {
+  const { getDate, setDate } = useDateInput();
   const { getActivityTitleById } = useActivities();
   const { getClassTitleById } = useClasses();
-  const { getDate, setDate } = useDateInput();
   const { getPathParamId } = useRoutes();
   const { showToast } = useToast();
   const [students, setStudents] = useState<FrequencyCardStudent[] | []>([]);
@@ -67,7 +68,7 @@ export function useFrequencyCall() {
     setStudents(frequencyCards);
   }, [attendances]);
 
-  function updatePresence(id: string, present: FrequencyStatus) {
+  function updatePresence(id: Id, present: FrequencyStatus) {
     setStudents((prevList) =>
       prevList.map((student) =>
         student.id === id ? { ...student, isPresent: present } : student
@@ -75,7 +76,7 @@ export function useFrequencyCall() {
     );
   }
 
-  function updateNote(id: string, note: NoteTypes | "") {
+  function updateNote(id: Id, note: NoteTypes | "") {
     setStudents((prev) =>
       prev.map((student) =>
         student.id === id
