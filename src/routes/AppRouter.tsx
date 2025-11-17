@@ -8,6 +8,7 @@ import Classes from "../pages/Classes";
 import Frequency from "../pages/Frequency";
 import { FrequencyCall } from "../pages/FrequencyCall";
 import FrequencyClasses from "../pages/FrequencyClasses";
+import { FrequencyGeneralCall } from "../pages/FrequencyGeneralCall";
 import Home from "../pages/Home";
 import Layout from "../pages/Layout";
 import Login from "../pages/Login";
@@ -32,9 +33,10 @@ function AppRouter() {
           <Route path="anamnese" element={<SelectForm />} />
           <Route path="anamnese/form/:id" element={<AnamnesisForm />} />
           <Route path="atividades" element={<ActivityList />} />
-          <Route path="frequencias/atividades" element={<Frequency />} />
-          <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />} />
-          <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall />} />
+          <Route path="frequencias/atividades" element={<Frequency />}/>
+          <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>
+          <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall/>} />
+          <Route path="frequencias/chamada-geral" element={<FrequencyGeneralCall/>} />
           <Route path="tech-demo" element={<TechDemo />}>
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>

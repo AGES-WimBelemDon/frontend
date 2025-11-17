@@ -137,9 +137,9 @@ export default function Users() {
                   <TableCell>{strings.filters.role[user.role]}</TableCell>
                   <TableCell sx={{ position: "sticky", right: 0, zIndex: 4, backgroundColor: "background.default", "tr:hover &": { backgroundColor: "background.paper" } }} align="right">
                     <Box sx={{ display: "inline-flex", gap: 0.5 }}>
-                      <Tooltip title={strings.personCard.editButton} placement="top" arrow>
+                      <Tooltip title={strings.genericActions.edit} placement="top" arrow>
                         <span>
-                          <IconButton size="small" aria-label={strings.personCard.editButton} onClick={() => openEditModal(user)} sx={{ bgcolor: "background.default" }}>
+                          <IconButton size="small" aria-label={strings.genericActions.edit} onClick={() => openEditModal(user)} sx={{ bgcolor: "background.default" }}>
                             <EditIcon fontSize="small" />
                           </IconButton>
                         </span>

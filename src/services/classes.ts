@@ -1,107 +1,42 @@
 import { api, endpoints } from "./api";
-import type { ApiClass, StudentFrequency } from "../types/classes";
+import type { Classes, CreateClasses, StudentFrequencyClass } from "../types/classes";
+import type { Id } from "../types/id";
 
-
-export async function createClasses(data: ApiClass): Promise<number | null> {
+export async function createClasses(data: CreateClasses): Promise<number> {
   try {
     const response = await api.post(endpoints.classes.base, data)
     return response.status;
   } catch {
-    return null;
+    throw new Error("Error on servicesCreateClasses")
   }
 }
 
-export async function getClasses(): Promise<ApiClass[]> {
+export async function getClasses(): Promise<Classes[]> {
   try {
-    const response = await api.get<ApiClass[]>(endpoints.classes.base);
+    const response = await api.get<Classes[]>(endpoints.classes.base);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    let id = 0;
-    const mockResponse = await Promise.resolve({
-      data: [
-        {
-          id: ++id,
-          title: "Yoga Iniciante",
-          weekDay: "Seg, Qua",
-          schedule: "08:00 - 09:00",
-          level: "Iniciante",
-          activityId: "7",
-          teacher: "Professora A"
-        },
-        {
-          id: ++id,
-          title: "Yoga Intermediário",
-          weekDay: "Ter, Qui",
-          schedule: "09:00 - 10:00",
-          level: "Intermediário",
-          activityId: "7",
-          teacher: "Professor B"
-        },
-        {
-          id: ++id,
-          title: "Bate-papo Semanal",
-          weekDay: "Sex",
-          schedule: "19:00 - 20:00",
-          level: "Todos os níveis",
-          activityId: "1",
-          teacher: "Professora C"
-        },
-        {
-          id: ++id,
-          title: "Tênis Iniciante",
-          weekDay: "Ter",
-          schedule: "18:30 - 19:30",
-          level: "Iniciante",
-          activityId: "2",
-          teacher: "Professor D"
-        },
-        {
-          id: ++id,
-          title: "Tênis Avançado",
-          weekDay: "Qui",
-          schedule: "07:00 - 08:00",
-          level: "Avançado",
-          activityId: "2",
-          teacher: "Professor E"
-        },
-        {
-          id: ++id,
-          title: "Programação",
-          weekDay: "Sab",
-          schedule: "10:00 - 11:30",
-          level: "Intermediário",
-          activityId: "8",
-          teacher: "Professora F"
-        },
-        {
-          id: ++id,
-          title: "Culinária Básica",
-          weekDay: "Sab",
-          schedule: "10:00 - 11:30",
-          level: "Iniciante",
-          activityId: "8",
-          teacher: "Professora G"
-        }
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetClasses")
   }
 }
 
-export async function getClassFrequency({ id }: { id: number }): Promise<StudentFrequency[]> {
+export async function getClassFrequency({ id, date }: { id: Id; date: string }): Promise<StudentFrequencyClass> {
   try {
-    const response = await api.get<StudentFrequency[]>(endpoints.classes.frequency(id));
+    const classFrequencyPrefix = endpoints.frequencies.specific;
+    const classFrequencyQuery = new URLSearchParams({ classId: id.toString(), date });
+    const classFrequencyEndpoint = `${classFrequencyPrefix}?${classFrequencyQuery.toString()}`;
+    const response = await api.get<StudentFrequencyClass>(classFrequencyEndpoint);
     return response.data;
   } catch {
+    throw new Error("Error on servicesGetClassFrequency")
+  }
+}
 
-    const mockResponse = await Promise.resolve({
-      data: [
-        { id: 1, name: "Ana Souza", frequency: 90 },
-        { id: 2, name: "Carlos Lima", frequency: 75 },
-        { id: 3, name: "Fernanda Alves", frequency: 45 },
-      ]
-    });
-    return mockResponse.data;
+export async function patchClass({ id }: { id: number }) {
+  try {
+    const response = await api.patch<Classes>(endpoints.classes.byId(id))
+    return response.status;
+  } catch {
+    throw new Error("Error on servicesPatchClass")
   }
 }

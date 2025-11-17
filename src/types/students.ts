@@ -1,9 +1,10 @@
 import type { AddressResponse } from "./address";
 import type { EducationLevel, EmploymentStatus, Gender, Race, SchoolYear, SocialPrograms, StudentStatus } from "./filters";
+import type { Id } from "./id";
 
 
 export type Student = {
-  id: number;
+  id: Id;
   address: AddressResponse;
   fullName: string;
   dateOfBirth: string;
@@ -25,17 +26,24 @@ export type Student = {
 }
 
 export type ApiStudent = Student & {
-  id: number;
+  id: Id;
 }
 
-export type StudentResponsible = {
-  id: number;
-  name: string;
-  cpf: string;
-  birthDate: string;
-  civilState: string;
-  nis: string;
-  phone: string;
+export interface StudentResponsible {
+  id: Id;
+  fullName: string;
+  relationship: string;
+  phoneNumber: string;
+  studentIds: number[];
+  dateOfBirth: string;
+  registrationNumber: string;
   email: string;
-  address: string;
+  socialName: string;
+  race: string;
+  gender: string;
+  educationLevel: string;
+  socialPrograms: string;
+  employmentStatus: string;
+  nis: string;
+  address: AddressResponse;
 }

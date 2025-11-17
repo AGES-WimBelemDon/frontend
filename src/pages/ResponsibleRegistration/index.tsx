@@ -7,6 +7,9 @@ import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hoo
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
 import { strings } from "../../constants";
+import { useScreenSize } from "../../hooks/useScreenSize";
+import { formatEnum } from "../ResponsibleRegistration/formatEnum";
+
 
 export default function ResponsibleRegistration() {
   const { openModal } = useNewResponsibleModal();
@@ -14,7 +17,9 @@ export default function ResponsibleRegistration() {
     isLoadingResponsibles,
     responsiblesError,
     responsibles,
+    studentId,
   } = useResponsibleRegistrationPage();
+  const { isMobile } = useScreenSize();
 
   if (isLoadingResponsibles) {
     return (
@@ -26,13 +31,26 @@ export default function ResponsibleRegistration() {
   }
 
   if (responsiblesError || !responsibles) {
-    return <Typography color="error">{strings.studentsResponsibles.responsiblesError}</Typography>;
+    return (
+      <Typography color="error">
+        {strings.studentsResponsibles.responsiblesError}
+      </Typography>
+    );
   }
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <PageTitle title={strings.studentsResponsibles.title} dataCy="responsible-registration" />
+      <Box
+        display="flex"
+        flexDirection={isMobile ? "column" : "row"}
+        paddingBottom={2}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <PageTitle
+          title={strings.studentsResponsibles.title}
+          dataCy="responsible-registration"
+        />
         <Button
           variant="contained"
           color="primary"
@@ -43,28 +61,35 @@ export default function ResponsibleRegistration() {
         </Button>
       </Box>
 
-      {/* TODO: Fix this hardcoded magic number */}
-      <Box sx={{ maxWidth: 720 }}>
+      <Box sx={{ width: "100%" }}>
         <Stack spacing={2}>
-          {
-            responsibles.length === 0 ? (
-              <Typography>{strings.studentsResponsibles.noResponsibles}</Typography>
-            ) : responsibles.map((responsible) => (
+          {responsibles.length === 0 ? (
+            <Typography>{strings.studentsResponsibles.noResponsibles}</Typography>
+          ) : (
+            responsibles.map((responsible) => (
               <PersonCard
                 key={responsible.id}
-                name={responsible.name}
-                cpf={responsible.cpf}
-                birthDate={responsible.birthDate}
-                civilState={responsible.civilState}
+                fullName={responsible.fullName}
+                registrationNumber={responsible.registrationNumber}
+                dateOfBirth={responsible.dateOfBirth}
                 nis={responsible.nis}
-                phone={responsible.phone}
+                phoneNumber={responsible.phoneNumber}
                 email={responsible.email}
-                address={responsible.address}
+                address={responsible.address} 
+                relationship={responsible.relationship}
+                educationLevel={formatEnum(responsible.educationLevel)}
+                employmentStatus={formatEnum(responsible.employmentStatus)}
+                gender={formatEnum(responsible.gender)}
+                race={formatEnum(responsible.race)}
+                socialPrograms={formatEnum(responsible.socialPrograms)}
+                socialName={responsible.socialName}
               />
-            ))}
+            ))
+          )}
         </Stack>
       </Box>
-      <NewResponsibleModal />
+
+      <NewResponsibleModal studentId={studentId?.toString()} />
     </>
   );
 }
