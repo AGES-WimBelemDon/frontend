@@ -200,7 +200,10 @@ export function useStudentRegistration() {
         throw new Error(strings.studentRegistration.errors.addressNumberRequired);
       }
       await apiUpdateStudent(studentId, studentData);
-      await apiUpdateStudentAddress(studentId, addressData);
+      const studentAddress = await getStudentAddress(studentId);
+      if (studentAddress?.id) {
+        await apiUpdateStudentAddress(studentAddress.id, addressData);
+      }
       showToast(strings.studentRegistration.successMessage, "success");
     } catch (error) {
       throw new Error("Error updating student: " + error);

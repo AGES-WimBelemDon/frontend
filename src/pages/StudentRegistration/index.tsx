@@ -505,7 +505,6 @@ export default function StudentRegistration() {
               }}
             />
 
-
             <TextField
               name="address.neighborhood"
               label={strings.studentRegistration.address.neighborhood}
@@ -522,11 +521,11 @@ export default function StudentRegistration() {
               }}
             />
 
-
             <TextField
               name="address.complement"
               label={strings.studentRegistration.address.complement}
               placeholder={strings.studentRegistration.address.complementPlaceholder}
+              defaultValue={isEditing ? address?.complement ?? "" : ""}
               fullWidth
               margin="normal"
               slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
