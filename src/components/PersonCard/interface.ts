@@ -1,3 +1,5 @@
+import type { AddressResponse } from "../../types/address";
+
 export interface PersonCardProps {
   id?: string;
   fullName: string;
@@ -7,7 +9,7 @@ export interface PersonCardProps {
   nis: string;
   phoneNumber: string;
   email: string;
-  address: string;
+  address: AddressResponse | string;
   relationship: string;
   race: string;
   gender: string;
