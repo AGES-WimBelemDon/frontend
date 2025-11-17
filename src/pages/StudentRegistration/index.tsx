@@ -16,11 +16,11 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 export default function StudentRegistration() {
   const { goBack } = useRoutes();
   const { isMobile } = useScreenSize();
-  
+
+
   const {
     genderOptions,
     raceOptions,
-    educationLevelOptions,
     schoolYearOptions,
     identityTypesOptions,
     socialProgramsOptions,
@@ -37,10 +37,16 @@ export default function StudentRegistration() {
     handleSubmit,
     address,
     setAddress,
+    isEditing,
+    handleDeactivateStudent,
+    formatDateToInput,
+    handleActivateStudent,
+    student,
   } = useStudentRegistration();
 
   return (
     <Box
+      key={student?.id || "new"}
       component="form"
       sx={{
         gap: 4,
@@ -71,6 +77,7 @@ export default function StudentRegistration() {
           fullWidth
           margin="normal"
           placeholder={strings.studentRegistration.namePlaceholder}
+          defaultValue={isEditing ? student?.fullName ?? "" : ""}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -81,6 +88,7 @@ export default function StudentRegistration() {
           fullWidth
           margin="normal"
           placeholder={strings.studentRegistration.socialNamePlaceholder}
+          defaultValue={isEditing ? student?.socialName ?? "" : ""}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -93,6 +101,7 @@ export default function StudentRegistration() {
           fullWidth
           margin="normal"
           type="date"
+          defaultValue={isEditing ? formatDateToInput(student?.dateOfBirth) : ""}
           slotProps={{
             htmlInput: { max: new Date().toISOString().slice(0, 10), min: "1925-01-01" },
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -104,7 +113,7 @@ export default function StudentRegistration() {
           name="student.gender"
           label={strings.filters.gender.title}
           select={!!genderOptions}
-          defaultValue={!genderOptions ? strings.filters.loading : ""}
+          defaultValue={isEditing ? student?.gender ?? "" : !genderOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -115,13 +124,12 @@ export default function StudentRegistration() {
             <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
-
         <TextField
           required
           name="student.race"
           label={strings.filters.race.title}
           select={!!raceOptions}
-          defaultValue={!raceOptions ? strings.filters.loading : ""}
+          defaultValue={isEditing ? student?.race ?? "" : !raceOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -132,12 +140,14 @@ export default function StudentRegistration() {
             <MenuItem key={id} value={id}>{label}</MenuItem>
           ))}
         </TextField>
-    
+
+
         <TextField
           name="student.enrollmentDate"
           label={strings.studentRegistration.enrollmentDate}
           fullWidth
           margin="normal"
+          defaultValue={isEditing ? student?.enrollmentDate ?? "" : ""}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
@@ -160,6 +170,7 @@ export default function StudentRegistration() {
         <TextField
           required
           name="student.registrationNumber"
+          defaultValue={isEditing ? student?.registrationNumber ?? "" : ""}
           label={strings.studentRegistration.registrationNumber}
           placeholder="xxx.xxx.xxx-xx"
           fullWidth
@@ -345,27 +356,10 @@ export default function StudentRegistration() {
 
         <TextField
           required
-          name="student.educationLevel"
-          label={strings.filters.educationLevel.title}
-          select={!!educationLevelOptions}
-          defaultValue={!educationLevelOptions ? strings.filters.loading : ""}
-          fullWidth
-          margin="normal"
-          slotProps={{
-            inputLabel: { sx: { color: "primary.main" }, shrink: true },
-          }}
-        >
-          {educationLevelOptions?.map(({ id, label }) => (
-            <MenuItem key={id} value={id}>{label}</MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          required
           name="student.schoolYear"
           label={strings.filters.schoolYear.title}
           select={!!schoolYearOptions}
-          defaultValue={!schoolYearOptions ? strings.filters.loading : ""}
+          defaultValue={isEditing ? student?.schoolYear ?? "" : !schoolYearOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -382,6 +376,7 @@ export default function StudentRegistration() {
           label={strings.studentRegistration.schoolName}
           fullWidth
           margin="normal"
+          defaultValue={isEditing ? student?.schoolName ?? "" : ""}
           placeholder={strings.studentRegistration.schoolNamePlaceholder}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
@@ -392,7 +387,7 @@ export default function StudentRegistration() {
           name="student.socialPrograms"
           label={strings.filters.socialPrograms.title}
           select={!!socialProgramsOptions}
-          defaultValue={!socialProgramsOptions ? strings.filters.loading : ""}
+          defaultValue={isEditing ? student?.socialPrograms ?? "" : !socialProgramsOptions ? strings.filters.loading : ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -408,7 +403,7 @@ export default function StudentRegistration() {
           name="student.employmentStatus"
           label={strings.filters.employmentStatus.title}
           select={!!employmentStatusOptions}
-          defaultValue={!employmentStatusOptions ? strings.filters.loading : employmentStatusOptions.find(option => option.id.toLowerCase() === "estudante")?.id || ""}
+          defaultValue={isEditing ? student?.employmentStatus ?? "" : !employmentStatusOptions ? strings.filters.loading : employmentStatusOptions.find(option => option.id.toLowerCase() === "estudante")?.id || ""}
           fullWidth
           margin="normal"
           slotProps={{
@@ -436,14 +431,14 @@ export default function StudentRegistration() {
 
         <TextField
           required
-          name="address.code"
+          name="address.cep"
           label={strings.studentRegistration.address.zipCode}
           placeholder={strings.studentRegistration.address.zipCodePlaceholder}
           fullWidth
           margin="normal"
           type="string"
-          value={address?.code}
-          onChange={(e) => setAddress({ ...address, code: e.target.value })}
+          value={address?.cep}
+          onChange={(e) => setAddress({ ...address, cep: e.target.value })}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
             htmlInput: { maxLength: 8, minLength: 8, pattern: "[0-9]{8}" }
@@ -469,14 +464,14 @@ export default function StudentRegistration() {
             />
             <TextField
               required
-              
               name="address.number"
               label={strings.studentRegistration.address.number}
               placeholder={strings.studentRegistration.address.numberPlaceholder}
+              defaultValue={isEditing ? address?.number ?? "" : ""}
               fullWidth
               margin="normal"
-              slotProps={{ 
-                inputLabel: { sx: { color: "primary.main" }, shrink: true }, 
+              slotProps={{
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
             />
             <TextField
@@ -509,7 +504,7 @@ export default function StudentRegistration() {
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
             />
-            
+
             <TextField
               name="address.neighborhood"
               label={strings.studentRegistration.address.neighborhood}
@@ -525,12 +520,12 @@ export default function StudentRegistration() {
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
             />
-            
+
             <TextField
               name="address.complement"
               label={strings.studentRegistration.address.complement}
-              value={address?.complement}
               placeholder={strings.studentRegistration.address.complementPlaceholder}
+              defaultValue={isEditing ? address?.complement ?? "" : ""}
               fullWidth
               margin="normal"
               slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
@@ -546,17 +541,21 @@ export default function StudentRegistration() {
             mt: 2,
           }}
         >
-          {/* <Button                           deixar bonito depois e chamar quando fizer ediçao (criar nova variavel no hook)
-            variant="contained"
-            sx={{
-              color: "primary.contrastText",
-              borderColor: "primary.main",
-              bgcolor: "error.main",
-              fontWeight: 500,
-            }}
-          >
-            {strings.studentEdition.toggleStudentStatusOff}
-          </Button>  */}
+          {isEditing && (
+            <Button
+              variant="contained"
+              sx={{
+                color: "primary.contrastText",
+                borderColor: "primary.main",
+                bgcolor:student?.status === "ATIVO" ? "error.main" : "success.main",
+                fontWeight: 500,
+              }}
+              onClick={student?.status === "ATIVO" ? handleDeactivateStudent : handleActivateStudent}
+
+            >
+              {student?.status === "ATIVO" ? strings.studentEdition.toggleStudentStatusOff : strings.studentEdition.toggleStudentStatusOn}
+            </Button>
+          )}
           <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
             {strings.genericActions.save}
           </Button>
@@ -569,8 +568,8 @@ export default function StudentRegistration() {
           >
             {strings.genericActions.cancel}
           </Button>
-          
-        </Box> 
+
+        </Box>
       </Grid>
     </Box>
   );
