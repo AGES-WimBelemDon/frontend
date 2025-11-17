@@ -5,4 +5,3 @@ export function formatEnum(value?: string) {
     .replace(/_/g, " ")
     .replace(/\b\w/g, (l) => l.toUpperCase());
 }
-  

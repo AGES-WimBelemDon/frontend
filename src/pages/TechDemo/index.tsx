@@ -36,7 +36,15 @@ export default function TechDemo() {
           nis="123123"
           phoneNumber="51-987654321"
           email="leo@gmail.com"
-          address="Av. Ipiranga, 6681 - Partenon"
+          address={{
+            id: 1,
+            cep: "90619-900",
+            city: "Porto Alegre",
+            state: "RS",
+            neighborhood: "Partenon",
+            street: "Av. Ipiranga, 6681 - Partenon",
+            number: "6681",
+          }}
           educationLevel=""
           employmentStatus=""
           gender=""

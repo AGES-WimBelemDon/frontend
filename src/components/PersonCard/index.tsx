@@ -6,9 +6,9 @@ import { Box, Button, Card, Typography } from "@mui/material";
 import type { PersonCardProps } from "./interface";
 import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
+import { formatAddress } from "../../services/address";
 
-export function PersonCard(personCardProps: PersonCardProps) {
-  const cardData = personCardProps;
+export function PersonCard(cardData: PersonCardProps) {
   const { isMobile } = useScreenSize();
   const [showMore, setShowMore] = useState(false);
   const [isFlipping, setIsFlipping] = useState(false);
@@ -37,7 +37,7 @@ export function PersonCard(personCardProps: PersonCardProps) {
     { label: strings.personCard.educationLevel, value: cardData.educationLevel },
     { label: strings.personCard.socialPrograms, value: cardData.socialPrograms },
     { label: strings.personCard.employmentStatus, value: cardData.employmentStatus },
-    { label: strings.personCard.address, value: cardData.address },
+    { label: strings.personCard.address, value: formatAddress(cardData.address) },
   ];
 
   return (

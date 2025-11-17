@@ -3,6 +3,7 @@ import { useNavigate, type Location } from "react-router";
 export type ValidRoute = 
   | "/"
   | "/frequencias/atividades"
+  | "/frequencias/chamada-geral"
   | "/alunos"
   | "/anamnese"
   | "/atividades"
@@ -24,6 +25,19 @@ export function useRoutes() {
   }
 
   function goBack() {
+    const previousRoute = window.location.pathname.split("/")[1];
+
+    const routesWithHistory = ["alunos", "turmas", "anamnese"];
+    if (previousRoute && routesWithHistory.includes(previousRoute)) {
+      navigate(`/${previousRoute}`);
+      return;
+    }
+
+    if (window.history.length <= 2) {
+      navigate("/");
+      return;
+    }
+
     navigate(-1);
   }
 
@@ -42,6 +56,7 @@ export function useRoutes() {
     "/atividades",
     "/anamnese",
     "/frequencias/atividades",
+    "/frequencias/chamada-geral",
     "/login",
     "/turmas",
     "/usuarios",

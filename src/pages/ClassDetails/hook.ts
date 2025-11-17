@@ -13,7 +13,7 @@ export function useClassDetailsPage() {
   const { goTo } = useRoutes();
 
   const classData = useMemo(
-    () => classes?.find((c) => c.id === Number(id)),
+    () => classes?.find((c) => c.id === id),
     [classes, id]
   );
 

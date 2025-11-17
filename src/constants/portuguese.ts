@@ -169,6 +169,7 @@ export const portugueseTextMap = {
       title: "Tipo de Nota",
       medical: "Atestado Médico",
       none: "Sem Justificativa",
+      empty: "(vazio)",
     },
     weekDays: {
       title: "Dia da Semana",
@@ -242,6 +243,8 @@ export const portugueseTextMap = {
     frequency: ({ percent }: Params<"percent">) => (
       `Frequência: ${percent}%`
     ),
+    active: "Ativo",
+    inactive: "Inativo",
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
@@ -250,17 +253,29 @@ export const portugueseTextMap = {
     noClasses: "Nenhuma turma encontrada para esta atividade.",
     goBack: "Voltar para Atividades",
   },
-  header: {
-    goToHome: "Ir para a página inicial",
-    logoAlt: "Logotipo do WimBelemDon",
+  frequencyGeneralCall: {
+    title: "Chamada Geral",
+    save: "Salvar",
+    loadingStudents: "Carregando estudantes...",
+    studentsError: "Erro ao carregar estudantes",
+    errorNoStudents: "Erro ao salvar a chamada, estudantes não encontrados",
+    errorNoDate: "Erro ao salvar chamada, por favor insira uma data",
+    successSave: "Frequência salva com sucesso",
+    errorInvalidDate: "Formato de data inválido",
+    errorServer: "Erro inesperado no servidor",
   },
   genericActions: {
     cancel: "Cancelar",
+    create: "Criar",
     delete: "Excluir",
     edit: "Editar",
     loading: "Carregando...",
     save: "Salvar",
     viewDetails: "Ver Detalhes",
+  },
+  header: {
+    goToHome: "Ir para a página inicial",
+    logoAlt: "Logotipo do WimBelemDon",
   },
   home: {
     welcomeBack: "Bem vindo(a) de volta",
@@ -357,7 +372,10 @@ export const portugueseTextMap = {
   classesModal: {
     recurring: "Atividade Recorrente",
     inputs: {
+      className: "Nome da Turma",
       classLevel: "Nível da Turma",
+      startDate: "Data de InÍcio",
+      endDate: "Data de Encerramento",
       startTime: "Horário de Início",
       endTime: "Horário de Término",
       level: "Nível",
@@ -552,6 +570,7 @@ export const portugueseTextMap = {
     logout: "Sair",
     switchToEnglish: "Mudar para Inglês",
     switchToPortuguese: "Mudar para Português",
+    goBack: "Voltar"
   },
   users: {
     title: "Gerenciar Usuários",
@@ -576,7 +595,7 @@ export const portugueseTextMap = {
       deactivate: "Desativar",
     },
     footer: {
-      showing: ({ count, total }: Params<"count"  | "total">) => `Mostrando ${count} de ${total} ${total === "1" ? "usuário" : "usuários"}`,
+      showing: ({ count, total }: Params<"count" | "total">) => `Mostrando ${count} de ${total} ${total === "1" ? "usuário" : "usuários"}`,
       updatedAt: ({ when }: Params<"when">) => `Atualizado em ${when}`
     },
     inputs: {

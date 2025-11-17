@@ -9,7 +9,7 @@ export interface PersonCardProps {
   nis: string;
   phoneNumber: string;
   email: string;
-  address: AddressResponse | string;
+  address: AddressResponse;
   relationship: string;
   race: string;
   gender: string;

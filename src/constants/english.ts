@@ -169,6 +169,7 @@ export const englishTextMap = {
       title: "Note Types",
       medical: "Medical",
       none: "None",
+      empty: "(empty)",
     },
     weekDays: {
       title: "Week Day",
@@ -242,6 +243,8 @@ export const englishTextMap = {
     frequency: ({ percent }: Params<"percent">) => (
       `Attendance: ${percent}%`
     ),
+    active: "Active",
+    inactive: "Inactive",
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Take Attendance - ${activity}`,
@@ -252,11 +255,23 @@ export const englishTextMap = {
   },
   genericActions: {
     cancel: "Cancel",
+    create: "Create",
     delete: "Delete",
     edit: "Edit",
     loading: "Loading...",
     save: "Save",
     viewDetails: "View Details",
+  },
+  frequencyGeneralCall: {
+    title: "General Attendance",
+    save: "Save",
+    loadingStudents: "Loading students...",
+    studentsError: "Error loading students",
+    errorNoStudents: "Error saving attendance, students not found",
+    errorNoDate: "Error saving attendance, please enter a date",
+    successSave: "Attendance saved successfully",
+    errorInvalidDate: "Invalid date format",
+    errorServer: "An unexpected internal server error occurred",
   },
   header: {
     goToHome: "Go to home page",
@@ -358,7 +373,10 @@ export const englishTextMap = {
     title: "Create Class",
     recurring: "Recurring Activity",
     inputs: {
+      className: "Class Name",
       classLevel: "Class Level",
+      startDate: "Start Date",
+      endDate: "End Date",
       startTime: "Start Time",
       endTime: "End Time",
       level: "Level",
@@ -552,6 +570,7 @@ export const englishTextMap = {
     logout: "Sign out",
     switchToEnglish: "Switch to English",
     switchToPortuguese: "Switch to Portuguese",
+    goBack: "Go Back"
   },
   users: {
     title: "Manage Users",

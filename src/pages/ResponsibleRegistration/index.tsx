@@ -8,7 +8,6 @@ import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
 import { strings } from "../../constants";
 import { useScreenSize } from "../../hooks/useScreenSize";
-import { formatAddress } from "../../services/address";
 import { formatEnum } from "../ResponsibleRegistration/formatEnum";
 
 
@@ -76,12 +75,12 @@ export default function ResponsibleRegistration() {
                 nis={responsible.nis}
                 phoneNumber={responsible.phoneNumber}
                 email={responsible.email}
-                address={formatAddress(responsible.address)} 
+                address={responsible.address} 
                 relationship={responsible.relationship}
                 educationLevel={formatEnum(responsible.educationLevel)}
                 employmentStatus={formatEnum(responsible.employmentStatus)}
-                gender={responsible.gender}
-                race={responsible.race}
+                gender={formatEnum(responsible.gender)}
+                race={formatEnum(responsible.race)}
                 socialPrograms={formatEnum(responsible.socialPrograms)}
                 socialName={responsible.socialName}
               />
