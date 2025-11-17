@@ -169,6 +169,7 @@ export const portugueseTextMap = {
       title: "Tipo de Nota",
       medical: "Atestado Médico",
       none: "Sem Justificativa",
+      empty: "(vazio)",
     },
     weekDays: {
       title: "Dia da Semana",
@@ -231,6 +232,7 @@ export const portugueseTextMap = {
     title: ({ activity, classTitle }: Params<"activity" | "classTitle">) => (
       `Chamada - ${activity} - ${classTitle}`
     ),
+    create: "Nova chamada",
     save: "Salvar",
     loadingStudents: "Carregando estudantes...",
     studentsError: "Erro ao carregar estudantes",
@@ -243,6 +245,8 @@ export const portugueseTextMap = {
     frequency: ({ percent }: Params<"percent">) => (
       `Frequência: ${percent}%`
     ),
+    active: "Ativo",
+    inactive: "Inativo",
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Realizar Chamada - ${activity}`,
@@ -250,6 +254,17 @@ export const portugueseTextMap = {
     classesError: "Erro ao carregar turmas",
     noClasses: "Nenhuma turma encontrada para esta atividade.",
     goBack: "Voltar para Atividades",
+  },
+  frequencyGeneralCall: {
+    title: "Chamada Geral",
+    save: "Salvar",
+    loadingStudents: "Carregando estudantes...",
+    studentsError: "Erro ao carregar estudantes",
+    errorNoStudents: "Erro ao salvar a chamada, estudantes não encontrados",
+    errorNoDate: "Erro ao salvar chamada, por favor insira uma data",
+    successSave: "Frequência salva com sucesso",
+    errorInvalidDate: "Formato de data inválido",
+    errorServer: "Erro inesperado no servidor",
   },
   header: {
     goToHome: "Ir para a página inicial",

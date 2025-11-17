@@ -169,6 +169,7 @@ export const englishTextMap = {
       title: "Note Types",
       medical: "Medical",
       none: "None",
+      empty: "(empty)",
     },
     weekDays: {
       title: "Week Day",
@@ -231,6 +232,7 @@ export const englishTextMap = {
     title: ({ activity, classTitle }: Params<"activity" | "classTitle">) => (
       `Attendance - ${activity} - ${classTitle}`
     ),
+    create: "New attendance",
     save: "Save",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
@@ -243,6 +245,8 @@ export const englishTextMap = {
     frequency: ({ percent }: Params<"percent">) => (
       `Attendance: ${percent}%`
     ),
+    active: "Active",
+    inactive: "Inactive",
   },
   frequencyClasses: {
     title: ({ activity }: Params<"activity">) => `Take Attendance - ${activity}`,
@@ -250,6 +254,17 @@ export const englishTextMap = {
     classesError: "Error loading classes",
     noClasses: "No classes found for this activity.",
     goBack: "Back to Activities",
+  },
+  frequencyGeneralCall: {
+    title: "General Attendance",
+    save: "Save",
+    loadingStudents: "Loading students...",
+    studentsError: "Error loading students",
+    errorNoStudents: "Error saving attendance, students not found",
+    errorNoDate: "Error saving attendance, please enter a date",
+    successSave: "Attendance saved successfully",
+    errorInvalidDate: "Invalid date format",
+    errorServer: "An unexpected internal server error occurred",
   },
   header: {
     goToHome: "Go to home page",

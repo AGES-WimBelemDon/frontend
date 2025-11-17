@@ -58,7 +58,7 @@ const endpoints = {
   },
   frequencies: {
     base: "/frequency",
-    availableByUser: (userId: Id) => `/frequency/available-classes/${userId}`,
+    availableByUser: "frequency/available-classes",
     general: "/frequency/general-attendance",
     specific: "/frequency/class-attendance",
   },

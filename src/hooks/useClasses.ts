@@ -16,8 +16,9 @@ export function useClasses() {
     queryFn: getClasses,
   });
 
-  function getClassTitleById() {
-    const classItem = data?.find(classItem => classItem.id === currentClassId);
+  function getClassTitleById(id: string) {
+    if (!data) return "Carregando...";
+    const classItem = data.find(c => c.id == id);
     return classItem ? classItem.name : "Turma Desconhecida";
   }
 
