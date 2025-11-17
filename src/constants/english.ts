@@ -504,6 +504,7 @@ export const englishTextMap = {
     logout: "Sign out",
     switchToEnglish: "Switch to English",
     switchToPortuguese: "Switch to Portuguese",
+    goBack: "Go Back"
   },
   users: {
     title: "Manage Users",

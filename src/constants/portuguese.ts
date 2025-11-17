@@ -503,6 +503,7 @@ export const portugueseTextMap = {
     logout: "Sair",
     switchToEnglish: "Mudar para Inglês",
     switchToPortuguese: "Mudar para Português",
+    goBack: "Voltar"
   },
   users: {
     title: "Gerenciar Usuários",
