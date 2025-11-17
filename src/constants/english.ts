@@ -621,5 +621,6 @@ export const englishTextMap = {
     successToast: ({ activityName }: Params<"activityName">) => (
       `Activity "${activityName}" registered!`
     ),
+    editSuccessToast: ({ activityName }: Params<"activityName">) => `Activity "${activityName}" updated successfully!`,
   },
 } as const;

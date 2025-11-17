@@ -13,7 +13,16 @@ import {
 import type { NewActivityModalProps } from "./interface";
 import { strings } from "../../constants";
 
-export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivityModalProps) {
+export function NewActivityModal({ isOpen, closeModal, handleSubmit, editingActivity }: NewActivityModalProps) {
+
+  const title = editingActivity 
+    ? "Editar atividade"
+    : strings.newActivityModal.title;
+
+  const buttonText = editingActivity
+    ? "Salvar alterações"
+    : strings.newActivityModal.buttonText;
+
   return (
     <Dialog
       open={isOpen}
@@ -34,7 +43,7 @@ export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivi
         justifyContent="center"
         position="relative"
       >
-        {strings.newActivityModal.title}
+        {title}
 
         <IconButton
           onClick={closeModal}
@@ -55,7 +64,6 @@ export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivi
           id="activityForm"
           component="form"
           onSubmit={handleSubmit}
-          // TODO: Find a better workaround. This is useful to allow spacing for MUI's "out of box" label
           sx={{ mt: 1 }}
         >
           <TextField
@@ -63,6 +71,7 @@ export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivi
             name="activityName"
             label={strings.newActivityModal.textFieldTitle}
             fullWidth
+            defaultValue={editingActivity?.name ?? ""}
           />
         </Box>
       </DialogContent>
@@ -73,7 +82,7 @@ export function NewActivityModal({ isOpen, closeModal, handleSubmit }: NewActivi
           type="submit"
           form="activityForm"
         >
-          {strings.newActivityModal.buttonText}
+          {buttonText}
         </Button>
       </DialogActions>
     </Dialog>
