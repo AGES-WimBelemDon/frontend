@@ -1,19 +1,29 @@
 import { api, endpoints } from "./api";
-import type { Classes, CreateClasses, StudentFrequencyClass } from "../types/classes";
+import type { ApiClass, Classes, CreateClass, CreateEnrollment, StudentFrequencyClass } from "../types/classes";
 import type { Id } from "../types/id";
 
-export async function createClasses(data: CreateClasses): Promise<number> {
+
+export async function createClasses(data: CreateClass): Promise<ApiClass["id"] | null> {
   try {
     const response = await api.post(endpoints.classes.base, data)
-    return response.status;
+    console.log(response);
+    return response.data.id;
   } catch {
     throw new Error("Error on servicesCreateClasses")
   }
 }
 
-export async function getClasses(): Promise<Classes[]> {
+export function createEnrollment(enrollment: CreateEnrollment): void {
   try {
-    const response = await api.get<Classes[]>(endpoints.classes.base);
+    api.post(endpoints.enrollments.base, enrollment);
+  } catch {
+    throw new Error("Error on servicesCreateEnrollment");
+  }
+}
+
+export async function getClasses(): Promise<ApiClass[]> {
+  try {
+    const response = await api.get<ApiClass[]>(endpoints.classes.base);
     return response.data;
   } catch {
     throw new Error("Error on servicesGetClasses")

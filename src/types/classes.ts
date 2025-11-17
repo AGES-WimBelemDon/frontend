@@ -3,6 +3,7 @@ import type { Dayjs } from "dayjs";
 import type { ClassState } from "./filters";
 import type { Id } from "./id";
 import type { UserResponse } from "./users";
+// import type { Student } from "./students";
 
 export type CreateClasses = {
   name: string;
@@ -41,6 +42,17 @@ export type ApiClass = Classes & {
   startTime: string;
   endTime: string;
 };
+
+export type CreateEnrollment = {
+  classId: Id;
+  studentsId: Id[];
+}
+
+export type CreateClass = Omit<Classes, "teachers" | "schedules"> & ApiClass & {
+  teacherIds: Id[];
+  dayOfWeek: string[];
+}
+export type CreateClassForm = CreateClass & Pick<CreateEnrollment, "studentsId">;
 
 export type StudentFrequency = {
   id: Id;

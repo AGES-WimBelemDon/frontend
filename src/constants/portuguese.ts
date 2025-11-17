@@ -379,6 +379,7 @@ export const portugueseTextMap = {
       startTime: "Horário de Início",
       endTime: "Horário de Término",
       level: "Nível",
+      searchActivity: "Buscar Atividade",
       searchTeacher: "Pesquisar Professor",
       assignTeacher: "Atribuir Professor",
       searchStudent: "Pesquisar Educando",
@@ -391,6 +392,7 @@ export const portugueseTextMap = {
     },
     steps: {
       data: "Dados",
+      activity: "Atividade",
       teacher: "Professor",
       student: "Educando",
     },

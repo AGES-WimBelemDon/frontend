@@ -56,6 +56,8 @@ const endpoints = {
     noteTypes: "/filters/note-types",
     weekDays: "/filters/week-days",
     roles: "/filters/roles",
+    civilStates: "/filters/civil-states",
+    schoolYear: "/filters/school-year",
   },
   frequencies: {
     base: "/frequency",
@@ -65,8 +67,6 @@ const endpoints = {
   },
   levels: {
     base: "/level",
-    civilStates: "/filters/civil-states",
-    schoolYear: "/filters/school-year",
   },
   students: {
     base: "/students",

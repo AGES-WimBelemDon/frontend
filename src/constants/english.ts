@@ -380,6 +380,7 @@ export const englishTextMap = {
       startTime: "Start Time",
       endTime: "End Time",
       level: "Level",
+      searchActivity: "Search Activity",
       searchTeacher: "Search Teacher",
       assignTeacher: "Assign Teacher",
       searchStudent: "Search Student",
@@ -392,6 +393,7 @@ export const englishTextMap = {
     },
     steps: {
       data: "Data",
+      activity: "Activity",
       teacher: "Teachers",
       student: "Educandos",
     },

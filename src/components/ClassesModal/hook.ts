@@ -4,11 +4,13 @@ import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router";
 
 import { strings } from "../../constants";
+import { useActivities } from "../../hooks/useActivities";
 import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
+import { createClasses } from "../../services/classes";
 import { getLevelsFilter, getWeekDaysFilter } from "../../services/filters";
-import type { CreateClasses } from "../../types/classes";
+import type { CreateClass, CreateClassForm } from "../../types/classes";
 import type { Id } from "../../types/id";
 
 
@@ -18,15 +20,17 @@ const days = await getWeekDaysFilter().then(res => res.map((day, i) => ({
   symbol: day.charAt(0).toUpperCase(),
 })));
 const level = await getLevelsFilter();
-const steps = [strings.classesModal.steps.data, strings.classesModal.steps.teacher, strings.classesModal.steps.student];
+const steps = [strings.classesModal.steps.data, strings.classesModal.steps.activity, strings.classesModal.steps.teacher, strings.classesModal.steps.student];
 
 export function useClassesModal() {
   const { showToast } = useToast();
   const { students, isLoadingStudents, studentsError } = useStudents();
   const { users, isLoadingUsers, usersError } = useUsers();
+  const { activities, isLoadingActivities, activitiesError } = useActivities();
   const [searchParams, setSearchParams] = useSearchParams();
   const [nameStudent, setNameStudent] = useState("");
   const [nameTeacher, setNameTeacher] = useState("");
+  const [activityName, setActivityName] = useState("");
 
   const isOpen = searchParams.get("action") === "open-classes-modal";
 
@@ -34,12 +38,13 @@ export function useClassesModal() {
   const [selectedStudents, setSelectedStudents] = useState<Id[]>([]);
   const [selectedTeachers, setSelectedTeachers] = useState<Id[]>([]);
 
-  const { control, getValues, reset } = useForm<CreateClasses>({
+  const { control, getValues, reset } = useForm<CreateClassForm>({
     defaultValues: {
       name: "",
       activityId: 0,
       levelId: "",
       teacherIds: [],
+      studentsId: [],
       isRecurrent: false,
       startDate: "",
       endDate: "",
@@ -82,19 +87,21 @@ export function useClassesModal() {
 
   function handleSubmit() {
     const formData = getValues();
-
-    if (!formData || selectedTeachers.length === 0 || selectedStudents.length === 0) {
+    //TEM QUE DESENVOLVER
+    // const {StudentsId, ClassData} = formData()
+    if (!formData) {
       showToast(strings.classesModal.createErrorFillAllFields, "error");
       return;
     }
-
     try {
-      createClass(formData);
-
+      const classId = createClass(formData);
+      if (!classId) {
+        throw new Error("Error in ClassesModalcreateClass");
+      }
+      // DESENVOLVER DEPOIS
+      // createEnrollment({ classId, studentsId });
       setActiveStep(0);
       reset();
-      setSelectedStudents([]);
-      setSelectedTeachers([]);
       setNameStudent("");
       setNameTeacher("");
     } catch {
@@ -102,11 +109,16 @@ export function useClassesModal() {
     }
   }
 
-  function createClass(data: CreateClasses): void {
-    // TODO: Send to back and remove console.log
-    console.log({ ...data, selectedTeachers, selectedStudents });
-    showToast(strings.classesModal.createSuccessMessage, "success");
-    closeModal();
+  async function createClass(data: CreateClass): Promise<Id | null> {
+    try {
+      const classId = await createClasses(data);
+      showToast(strings.classesModal.createSuccessMessage, "success");
+      closeModal();
+      return classId;
+    } catch {
+      showToast(strings.classesModal.createErrorGeneric, "error");
+      return null;
+    }
   }
 
   const filteredStudents = useMemo(() => {
@@ -134,6 +146,20 @@ export function useClassesModal() {
 
   }, [isLoadingUsers, usersError, users, nameTeacher])
 
+
+  const filteredActivities = useMemo(() => {
+    if (isLoadingActivities || activitiesError || !activities) {
+      return []
+    }
+    return activities.filter((activity) => {
+      const nameMatch =
+        activityName === "" ||
+        activity.name.toLowerCase().includes(activityName.toLowerCase());
+      return nameMatch;
+    })
+
+  }, [isLoadingActivities, activitiesError, activities, activityName])
+
   return {
     isOpen,
     closeModal,
@@ -153,6 +179,9 @@ export function useClassesModal() {
     selectedStudents,
     setSelectedStudents,
     filteredStudents,
+    activityName,
+    setActivityName,
+    filteredActivities,
     handleBack,
     handleNext,
     isLastStep,
