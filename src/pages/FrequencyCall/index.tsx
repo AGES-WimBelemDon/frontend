@@ -86,14 +86,14 @@ export function FrequencyCall() {
             variant="outlined"
             disabled={students.length === 0}
           >
-            {strings.frequencyCall.create}
+            {strings.genericActions.create}
           </Button>
           <Button
             onClick={() => updateCall()}
             variant="contained"
             color="primary"
           >
-            {strings.frequencyCall.save}
+            {strings.genericActions.save}
           </Button>
         </List>
       </Box>

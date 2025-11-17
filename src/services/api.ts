@@ -114,6 +114,14 @@ axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error("API Error:", error);
+    if (error.response) {
+      console.error("Response status:", error.response.status);
+      console.error("Response data:", error.response.data);
+      if (error.response.data?.message && Array.isArray(error.response.data.message)) {
+        console.error("Error messages:", error.response.data.message);
+      }
+      console.error("Response headers:", error.response.headers);
+    }
     return Promise.reject(error);
   }
 );

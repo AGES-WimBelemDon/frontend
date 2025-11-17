@@ -91,7 +91,7 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
       }}
     >
       <DialogTitle display="flex" alignItems="center" justifyContent="center" position="relative">
-        {initialValues ? strings.personCard.editButton : strings.users.registerNew}
+        {initialValues ? strings.genericActions.edit : strings.users.registerNew}
 
         <IconButton
           onClick={closeModal}
@@ -162,7 +162,7 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
 
       <DialogActions sx={{ paddingX: 3 }}>
         <Button variant="contained" type="submit" form="registerUserForm" disabled={isSaving}>
-          {initialValues ? strings.personCard.editButton : strings.users.inputs.register}
+          {initialValues ? strings.genericActions.edit : strings.users.inputs.register}
         </Button>
       </DialogActions>
     </Dialog>
