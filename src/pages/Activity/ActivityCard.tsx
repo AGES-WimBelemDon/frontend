@@ -1,13 +1,12 @@
-import { Edit } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
 import { Box, Typography, Button, IconButton } from "@mui/material";
 
 import type { ActivityCardProps } from "./interface";
-import { strings } from "../../constants";
 
-export function ActivityCard({ content }: ActivityCardProps) {
+
+export function ActivityCard({ content, onEdit }: ActivityCardProps) {
   return (
     <Box
-      key={content.id}
       gap={1.5}
       display="flex"
       flexDirection="column"
@@ -17,15 +16,28 @@ export function ActivityCard({ content }: ActivityCardProps) {
       borderRadius={2}
       borderColor="grey.300"
       boxShadow="0px 1px 4px rgba(0,0,0,0.1)"
+      data-cy={`activity-card-${content.id}`}
     >
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Typography variant="subtitle1" fontWeight="bold">
           {content.name}
         </Typography>
-        <IconButton size="small" color="primary">
-          <Edit fontSize="small" />
-        </IconButton>
+
+        {onEdit && (
+          <IconButton
+            size="small"
+            color="primary"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit();
+            }}
+            aria-label={`editar-atividade-${content.id}`}
+          >
+            <EditIcon fontSize="small" />
+          </IconButton>
+        )}
       </Box>
+
       <Button
         variant="outlined"
         fullWidth
@@ -34,8 +46,9 @@ export function ActivityCard({ content }: ActivityCardProps) {
           textTransform: "none",
         }}
       >
-        {strings.activityList.viewClasses}
+        Ver turmas
       </Button>
     </Box>
   );
 }
+

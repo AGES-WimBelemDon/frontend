@@ -1,49 +1,67 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useActivities } from "../../hooks/useActivities";
-import { useRoutes } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
+import { getActivities, createActivity } from "../../services/activities";
+import type { Activity } from "../../types/activities";
 
 export function useActivityPage() {
-  const { goTo } = useRoutes();
   const { isMobile } = useScreenSize();
 
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [isLoadingActivities, setIsLoadingActivities] = useState(true);
+  const [activitiesError, setActivitiesError] = useState<Error | null>(null);
+
   const [name, setName] = useState("");
-  const [area, setArea] = useState("all");
-  const [frequency, setFrequency] = useState("all");
 
-  const { isLoadingActivities, activitiesError, activities } = useActivities();
-
-  const filteredActivities = useMemo(() => {
-    if (isLoadingActivities || activitiesError || !activities) {
-      return [];
+  async function loadActivities() {
+    try {
+      setIsLoadingActivities(true);
+      const data = await getActivities();
+      setActivities(data);
+      setActivitiesError(null);
+    } catch (error) {
+      if (error instanceof Error) {
+        setActivitiesError(error);
+      } else {
+        setActivitiesError(new Error("Erro desconhecido ao carregar atividades"));
+      }
+    } finally {
+      setIsLoadingActivities(false);
     }
-    return activities.filter((activity) => {
-      const nameMatch =
-        name === "" ||
-        activity.name.toLowerCase().includes(name.toLowerCase());
-      const areaMatch =
-        area === "all" ||
-        activity.area.toLowerCase() === area.toLowerCase();
-      const frequencyMatch =
-        frequency === "all" ||
-        activity.frequency.toLowerCase() === frequency.toLowerCase();
+  }
 
-      return nameMatch && areaMatch && frequencyMatch;
-    });
-  }, [isLoadingActivities, activitiesError, activities, name, area, frequency]);
+  async function createActivityAndReload(activityData: Omit<Activity, "id">) {
+    try {
+      await createActivity(activityData);
+      await loadActivities();
+      return true;
+    } catch (error) {
+      if (error instanceof Error) {
+        setActivitiesError(error);
+      } else {
+        setActivitiesError(new Error("Erro desconhecido ao criar atividade"));
+      }
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    loadActivities();
+  }, []);
+
+  const filteredActivities = activities.filter((a) =>
+    a.name.toLowerCase().includes(name.toLowerCase())
+  );
 
   return {
     isLoadingActivities,
     activitiesError,
-    goTo,
     isMobile,
     name,
     setName,
-    area,
-    setArea,
-    frequency,
-    setFrequency,
+    activities,
     filteredActivities,
+    loadActivities,
+    createActivityAndReload
   };
 }

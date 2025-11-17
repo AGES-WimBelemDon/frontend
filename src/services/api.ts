@@ -7,7 +7,9 @@ import type { Id } from "../types/id";
 const endpoints = {
   activities: {
     base: "/activities",
-    byId: (id: Id) => `/activities/${id}`
+    byId: (id: Id) => `/activities/${id}`,
+    patch: (id: Id) => `/activities/${id}`,
+    put: () => `/activities`,
   },
   address: {
     base: "/address",

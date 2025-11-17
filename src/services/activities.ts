@@ -1,7 +1,6 @@
 import { api, endpoints } from "./api";
 import type { Activity } from "../types/activities";
 
-
 export async function getActivities(): Promise<Activity[]> {
   try {
     const response = await api.get<Activity[]>(endpoints.activities.base);
@@ -71,4 +70,20 @@ export async function getActivities(): Promise<Activity[]> {
     });
     return mockResponse.data;
   }
+}
+
+export async function updateActivity(
+  id: string,
+  payload: { name: string }
+): Promise<Activity> {
+  const response = await api.patch<Activity>(
+    endpoints.activities.patch(id),
+    payload
+  );
+  return response.data;
+}
+
+export async function createActivity(activity: Omit<Activity, "id">): Promise<Activity> {
+  const response = await api.post<Activity>(endpoints.activities.base, activity);
+  return response.data;
 }

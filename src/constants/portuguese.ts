@@ -552,5 +552,6 @@ export const portugueseTextMap = {
     successToast: ({ activityName }: Params<"activityName">) => (
       `Atividade "${activityName}" cadastrada!`
     ),
+    editSuccessToast: ({ activityName }: Params<"activityName">) => `Atividade "${activityName}" atualizada com sucesso!`,
   },
 } as const;
