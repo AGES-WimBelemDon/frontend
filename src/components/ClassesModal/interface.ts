@@ -1,29 +1,12 @@
-import type { Dayjs } from "dayjs";
-
+import type { Classes } from "../../types/classes";
 import type { Student } from "../../types/students";
 import type { UserResponse } from "../../types/users";
-
-export type ClassesModalData = {
-  activity: string;
-  level: string;
-  periodicity: string;
-  date: string;
-  active: string;
-}
 
 export interface FilterProps {
   label: string;
   name: string;
   placeholder: string;
   onChange: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export type ClassesModalForm = {
-  level: string;
-  recurring: boolean;
-  weekDays: string[];
-  startTime: Dayjs | null;
-  endTime: Dayjs | null;
 }
 
 export interface UseClassesModalReturn {
@@ -35,7 +18,7 @@ export interface UseClassesModalReturn {
   setNameStudent: React.Dispatch<React.SetStateAction<string>>;
   setNameTeacher: React.Dispatch<React.SetStateAction<string>>;
   closeModal(): void;
-  createClass(data: ClassesModalForm): boolean;
+  createClass(data: Classes): boolean;
   openClassesModal(): void;
   setSelectedStudents: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedTeachers: React.Dispatch<React.SetStateAction<string[]>>;

@@ -29,14 +29,28 @@ export default function TechDemo() {
 
       <Grid container spacing={2} marginBottom={2}>
         <PersonCard
-          name="Leonardo M"
-          cpf="123.456.789-10"
-          birthDate="07/07/2004"
-          civilState="Namorando"
+          fullName="Leonardo M"
+          registrationNumber="123.456.789-10"
+          dateOfBirth="07/07/2004"
+          relationship="Namorando"
           nis="123123"
-          phone="51-987654321"
+          phoneNumber="51-987654321"
           email="leo@gmail.com"
-          address="Av. Ipiranga, 6681 - Partenon"
+          address={{
+            id: 1,
+            cep: "90619-900",
+            city: "Porto Alegre",
+            state: "RS",
+            neighborhood: "Partenon",
+            street: "Av. Ipiranga, 6681 - Partenon",
+            number: "6681",
+          }}
+          educationLevel=""
+          employmentStatus=""
+          gender=""
+          race=""
+          socialPrograms=""
+          socialName=""
         />
       </Grid>
 

@@ -354,7 +354,6 @@ export default function StudentRegistration() {
           {strings.studentRegistration.details}
         </Typography>
 
-
         <TextField
           required
           name="student.schoolYear"
@@ -562,7 +561,7 @@ export default function StudentRegistration() {
             </Button>
           )}
           <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
-            {strings.studentRegistration.saveButton}
+            {strings.genericActions.save}
           </Button>
           <Button
             variant="contained"
@@ -571,7 +570,7 @@ export default function StudentRegistration() {
             type="button"
             onClick={goBack}
           >
-            {strings.studentRegistration.cancelButton}
+            {strings.genericActions.cancel}
           </Button>
 
         </Box>

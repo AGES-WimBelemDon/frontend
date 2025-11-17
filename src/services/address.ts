@@ -2,7 +2,12 @@ import type { Address } from "../types/address";
 
 
 export function formatAddress(address: Address): string {
-  return `${address.street}, ${address.number}${address.complement ? `, ${address.complement}` : ""} - ${address.neighborhood}, ${address.city} - ${address.state}, ${address.cep}`;
+  const fields = [address.street, address.number];
+  if (address.complement) {
+    fields.push(`, ${address.complement}`);
+  }
+  fields.push(` - ${address.neighborhood}`, `${address.city} - ${address.state}`, address.cep);
+  return fields.join(", ");
 }
 
 export async function fetchAddress(cep: string): Promise<Partial<Address> | null> {

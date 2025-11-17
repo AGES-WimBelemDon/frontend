@@ -21,10 +21,12 @@ export function useUserProfile() {
 
   const [displayedName, setDisplayedName] = useState<string>("");
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-
+  
   const isSidebarOpened = sidebarState === "opened" || sidebarState === "opening";
   const showProfileName = user && (isAnimating || progressRef.current > 0);
   const profileNameMaxWidth = getSidebarWidth(deviceSize);
+
+  const canShowBackButton = window.location.pathname !== "/frontend/";
 
   async function handleSignOut() {
     try {
@@ -119,6 +121,8 @@ export function useUserProfile() {
     isSidebarOpened,
     profileNameMaxWidth,
     currentLocale,
+    sidebarState,
     handleLanguageToggle,
+    canShowBackButton
   };
 }

@@ -1,5 +1,6 @@
 import type { Address } from "./address";
 import type { Role, UserStatus } from "./filters";
+import type { Id } from "./id";
 
 export type GetUsersParams = {
   status?: UserStatus;
@@ -7,7 +8,7 @@ export type GetUsersParams = {
 }
 
 export type UserResponse = {
-  id: number;
+  id: Id;
   fullName: string;
   email: string;
   status: UserStatus;

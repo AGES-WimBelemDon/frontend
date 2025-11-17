@@ -18,7 +18,9 @@ import {
   getStudentAddress,
   deactivateStudent as apiDeactivateStudent
 } from "../../services/students";
-import type { Address, AddressResponse } from "../../types/address";
+import type { AddressResponse } from "../../types/address";
+import type { Address } from "../../types/address";
+import type { Id } from "../../types/id";
 import type { Student } from "../../types/students";
 
 export function useStudentRegistration() {
@@ -114,7 +116,7 @@ export function useStudentRegistration() {
     setShowUploader(false);
   };
 
-  async function registerStudent(studentData: Partial<Student>, addressData: Partial<Address>): Promise<number> {
+  async function registerStudent(studentData: Partial<Student>, addressData: Partial<Address>): Promise<Id> {
     try {
       if (!studentData.fullName) {
         throw new Error(strings.studentRegistration.errors.fullNameRequired);

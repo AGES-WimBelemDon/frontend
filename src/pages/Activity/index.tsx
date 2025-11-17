@@ -20,13 +20,16 @@ export default function ActivityList() {
     setName,
     filteredActivities,
   } = useActivityPage();
-
+    
   const {
     isOpen,
-    openModal,
+    openCreateModal,
+    openEditModal,
     closeModal,
     handleSubmit,
+    editingActivity,
   } = useNewActivityModal();
+
 
   if (isLoadingActivities) {
     return (
@@ -48,14 +51,14 @@ export default function ActivityList() {
   return (
     <>
       <PageTitle title={strings.activityList.title} dataCy="activity-list" />
-      
+
       <Box gap={3} display="flex" flexDirection="column">
         <ActivityFilter name={name} onNameChange={setName} />
-        
+
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          onClick={openModal}
+          onClick={openCreateModal}
           sx={{
             alignSelf: isMobile ? "auto" : "flex-start",
           }}
@@ -68,16 +71,22 @@ export default function ActivityList() {
         <CardList>
           {filteredActivities.length > 0 ? (
             filteredActivities.map((activity: Activity) => (
-              <ActivityCard key={activity.id} content={activity} />
+              <ActivityCard
+                key={activity.id}
+                content={activity}
+                onEdit={() => openEditModal({ ...activity, id: activity.id.toString() })}
+              />
             ))
           ) : (
             <Typography>{strings.activityList.activitiesEmpty}</Typography>
           )}
         </CardList>
       </Box>
+
       <NewActivityModal
         isOpen={isOpen}
         closeModal={closeModal}
+        editingActivity={editingActivity}
         handleSubmit={handleSubmit}
       />
     </>

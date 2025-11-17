@@ -4,6 +4,7 @@ import { strings } from "../../constants";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
+import type { Id } from "../../types/id";
 
 export function useStudentsPage() {
   const {
@@ -22,12 +23,12 @@ export function useStudentsPage() {
     goTo("/alunos", "/cadastro");
   };
 
-  function handleCreateResponsible(studentId: number) {
+  function handleCreateResponsible(studentId: Id) {
     selectStudent(studentId);
     goTo("/alunos", `/${studentId}/responsaveis`);
   };
 
-  function handleEditStudents(studentId: number) {
+  function handleEditStudents(studentId: Id) {
     selectStudent(studentId);
     goTo("/alunos", `/${studentId}/editar`);
   };

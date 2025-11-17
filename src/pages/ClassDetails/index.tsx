@@ -19,7 +19,7 @@ export default function ClassDetails() {
     classesError,
   } = useClassDetailsPage();
 
-  const { frequencyClass: students, frequencyClassError } = useClasses();
+  const { frequencyClass, frequencyClassError } = useClasses();
 
   function getFrequencyColor(value: number) {
     if (value < 50) {
@@ -48,7 +48,9 @@ export default function ClassDetails() {
     );
   }
 
-  if (!classData || !students) {
+  console.log(frequencyClass)
+
+  if (!classData || !frequencyClass) {
     return (
       <Typography textAlign="center">
         {strings.classDetails.classNotFound}
@@ -67,7 +69,7 @@ export default function ClassDetails() {
         gap={2}
       >
         <Typography variant="h5" fontWeight="bold" color="primary.main">
-          {classData.title}
+          {classData.name}
         </Typography>
 
         <Button
@@ -87,20 +89,24 @@ export default function ClassDetails() {
 
       <Box>
         <Typography>
-          <strong>{strings.classDetails.professor}:</strong>{" "}
-          {classData.teacher || strings.classDetails.classNotFound}
+          {classData.teachers.map(teacher => (
+            <>
+              <strong>{strings.classDetails.professor}:</strong>{" "}
+              {teacher.fullName}
+            </>
+          ))}
         </Typography>
         <Typography>
           <strong>{strings.classDetails.level}:</strong>{" "}
-          {classData.level || strings.classDetails.classNotFound}
+          {classData.levelId || strings.classDetails.classNotFound}
         </Typography>
       </Box>
 
       <Box mt={2} display="flex" flexDirection="column" gap={1.5}>
-        {students.length === 0 && (
+        {frequencyClass.studentList.length === 0 && (
           <Typography>{strings.classDetails.noStudents}</Typography>
         )}
-        {students.map((student, index) => (
+        {frequencyClass.studentList.map((student, index) => (
           <Card
             key={index}
             variant="outlined"

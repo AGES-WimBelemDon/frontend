@@ -3,6 +3,7 @@ import { Box, IconButton, Tooltip, Typography, Button } from "@mui/material";
 
 import { useUserProfile } from "./hook";
 import { strings } from "../../constants";
+import { BackButton } from "../BackButton";
 
 export function UserProfile() {
   const {
@@ -11,10 +12,12 @@ export function UserProfile() {
     showProfileName,
     displayedName,
     isMobile,
+    sidebarState,
     isSidebarOpened,
     profileNameMaxWidth,
     currentLocale,
     handleLanguageToggle,
+    canShowBackButton,
   } = useUserProfile();
 
   if (isMobile && !isSidebarOpened) {
@@ -32,7 +35,7 @@ export function UserProfile() {
         alignItems="center"
       >
         <Tooltip title={strings.userProfile.logout}>
-          <Box component="span">
+          <Box component="span" display="grid">
             <IconButton
               aria-label={strings.userProfile.logout}
               data-cy="header-profile-button"
@@ -48,55 +51,64 @@ export function UserProfile() {
           </Box>
         </Tooltip>
         {showProfileName && (
-          <Tooltip title={displayedName}>
-            <Typography
-              variant="body1"
-              fontWeight="bold"
-              overflow="hidden"
-              display="-webkit-box"
-              maxWidth={profileNameMaxWidth === "100%" ? "85%" : `${profileNameMaxWidth - 100}px`}
-              sx={{
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                wordBreak: "break-word",
-              }}
-            >
-              {displayedName}
-            </Typography>
-          </Tooltip>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Tooltip title={displayedName}>
+              <Typography
+                variant="body1"
+                fontWeight="bold"
+                overflow="hidden"
+                display="-webkit-box"
+                maxWidth={profileNameMaxWidth === "100%" ? "85%" : `${profileNameMaxWidth - 100}px`}
+                sx={{
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: "vertical",
+                  wordBreak: "break-word",
+                }}
+              >
+                {displayedName}
+              </Typography>
+            </Tooltip>
+            {sidebarState === "opened" && (
+              <Tooltip title={currentLocale === "pt-BR" ? strings.userProfile.switchToEnglish : strings.userProfile.switchToPortuguese}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={handleLanguageToggle}
+                  startIcon={<Language />}
+                  sx={{
+                    minWidth: "auto",
+                    px: 1,
+                    py: 0.5,
+                    fontSize: "12px",
+                    textTransform: "none",
+                    borderColor: "primary.main",
+                    color: "primary.main",
+                    backgroundColor: "background.paper",
+                    "&:hover": {
+                      backgroundColor: "background.default",
+                    },
+                  }}
+                >
+                  {currentLocale === "pt-BR" ? "🇧🇷 PT" : "🇺🇸 EN"}
+                </Button>
+              </Tooltip>
+            )}
+          </Box>
         )}
       </Box>
 
-      <Box
-        position="fixed"
-        bottom={16}
-        right={16}
-        zIndex={1000}
-      >
-        <Tooltip title={currentLocale === "pt-BR" ? strings.userProfile.switchToEnglish : strings.userProfile.switchToPortuguese}>
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={handleLanguageToggle}
-            startIcon={<Language />}
-            sx={{
-              minWidth: "auto",
-              px: 1,
-              py: 0.5,
-              fontSize: "12px",
-              textTransform: "none",
-              borderColor: "primary.main",
-              color: "primary.main",
-              backgroundColor: "background.paper",
-              "&:hover": {
-                backgroundColor: "background.default",
-              },
-            }}
-          >
-            {currentLocale === "pt-BR" ? "🇧🇷 PT" : "🇺🇸 EN"}
-          </Button>
-        </Tooltip>
-      </Box>
+      {canShowBackButton && (
+        <Box
+          position="fixed"
+          bottom={16}
+          right={16}
+          zIndex={1000}
+        >
+          <Tooltip title={strings.userProfile.goBack}>
+            <BackButton />
+          </Tooltip>
+        </Box>
+      )}
     </>
   );
 }

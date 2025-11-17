@@ -1,49 +1,35 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
-import { useActivities } from "../../hooks/useActivities";
-import { useRoutes } from "../../hooks/useRoutes";
+import { useQuery } from "@tanstack/react-query";
+
 import { useScreenSize } from "../../hooks/useScreenSize";
+import { getActivities } from "../../services/activities";
 
 export function useActivityPage() {
-  const { goTo } = useRoutes();
   const { isMobile } = useScreenSize();
 
   const [name, setName] = useState("");
-  const [area, setArea] = useState("all");
-  const [frequency, setFrequency] = useState("all");
+  
+  const {
+    isPending,
+    error,
+    data,
+  } = useQuery({
+    queryKey: ["activities"],
+    queryFn: getActivities
+  })
 
-  const { isLoadingActivities, activitiesError, activities } = useActivities();
-
-  const filteredActivities = useMemo(() => {
-    if (isLoadingActivities || activitiesError || !activities) {
-      return [];
-    }
-    return activities.filter((activity) => {
-      const nameMatch =
-        name === "" ||
-        activity.name.toLowerCase().includes(name.toLowerCase());
-      const areaMatch =
-        area === "all" ||
-        activity.area.toLowerCase() === area.toLowerCase();
-      const frequencyMatch =
-        frequency === "all" ||
-        activity.frequency.toLowerCase() === frequency.toLowerCase();
-
-      return nameMatch && areaMatch && frequencyMatch;
-    });
-  }, [isLoadingActivities, activitiesError, activities, name, area, frequency]);
+  const filteredActivities = data?.filter(activity =>
+    activity.name.toLowerCase().includes(name.toLowerCase())
+  ) || [];
 
   return {
-    isLoadingActivities,
-    activitiesError,
-    goTo,
+    isLoadingActivities: isPending,
+    activitiesError: error,
     isMobile,
     name,
     setName,
-    area,
-    setArea,
-    frequency,
-    setFrequency,
+    activities: data,
     filteredActivities,
   };
 }

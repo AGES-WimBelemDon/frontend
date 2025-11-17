@@ -1,3 +1,5 @@
+import type { Id } from "./id";
+
 export type Address = {
   cep: string;
   street: string;
@@ -9,7 +11,7 @@ export type Address = {
 }
 
 export interface AddressResponse {
-  id: string;
+  id: Id;
   street: string;
   city: string;
   state: string;

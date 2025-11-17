@@ -23,8 +23,10 @@ import {
   Step,
   StepLabel,
   Typography,
+  TextField,
 } from "@mui/material";
-import { TimePicker } from "@mui/x-date-pickers";
+import { DatePicker, TimePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 import { Controller } from "react-hook-form";
 
 import { Filters } from "./filters";
@@ -141,21 +143,36 @@ export function ClassesModal() {
       <DialogContent sx={{ overflow: "auto" }}>
         {activeStep === 0 && (
           <Box display="flex" flexDirection="column" gap={2}>
+
+
+            <FormControl sx={{ color: "text.primary" }}>
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label={strings.classesModal.inputs.className}
+                    sx={{ label: { color: "text.primary" } }}
+                  />
+                )}
+              />
+            </FormControl>
             <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
+
               <InputLabel id="level-select-label" sx={{ color: "text.primary" }}>{strings.classesModal.inputs.classLevel}</InputLabel>
               <Controller
-                name="level"
+                name="levelId"
                 control={control}
                 render={({ field }) => (
                   <Select
                     {...field}
                     labelId="level-select-label"
                     label={strings.classesModal.inputs.classLevel}
-                    displayEmpty
                   >
-                    {level.map((name) => (
-                      <MenuItem key={name} value={name} sx={{ backgroundColor: "background.default" }}>
-                        <ListItemText primary={name} />
+                    {level.map((level) => (
+                      <MenuItem key={level.id} value={level.id} sx={{ backgroundColor: "background.default" }}>
+                        <ListItemText primary={level.name} />
                       </MenuItem>
                     ))}
                   </Select>
@@ -164,7 +181,7 @@ export function ClassesModal() {
             </FormControl>
 
             <Controller
-              name="recurring"
+              name="isRecurrent"
               control={control}
               render={({ field }) => (
                 <FormControlLabel
@@ -185,23 +202,23 @@ export function ClassesModal() {
 
             <InputLabel sx={{ color: "text.primary" }}>{strings.filters.weekDays.title}</InputLabel>
             <Controller
-              name="weekDays"
+              name="dayOfWeek"
               control={control}
               render={({ field }) => (
                 <FormGroup sx={{ flexDirection: "row", gap: 1 }}>
                   {days.map((day) => (
                     <Checkbox
-                      key={day.value}
+                      key={day.id}
                       disableRipple
                       checked={field.value.includes(day.value)}
                       onChange={(_event, checked) => {
                         const newWeekDays = checked
                           ? [...field.value, day.value]
-                          : field.value.filter((d) => d !== day.value);
+                          : field.value.filter((d: string) => d !== day.value);
                         field.onChange(newWeekDays);
                       }}
-                      checkedIcon={<DaysCalendarIcon text={day.label} checked={true} />}
-                      icon={<DaysCalendarIcon text={day.label} checked={false} />}
+                      checkedIcon={<DaysCalendarIcon text={day.symbol} checked={true} />}
+                      icon={<DaysCalendarIcon text={day.symbol} checked={false} />}
                       sx={{
                         p: 0.3,
                         "&:hover": { backgroundColor: "transparent" },
@@ -212,6 +229,35 @@ export function ClassesModal() {
               )}
             />
 
+            <Box flex={1}>
+              <InputLabel sx={{ color: "text.primary" }}>{strings.classesModal.inputs.startDate}</InputLabel>
+              <Controller
+                name="startDate"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    value={field.value ? dayjs(field.value) : null}
+                    onChange={(v) => field.onChange(v ? v.toDate() : null)}
+                    format="DD/MM/YYYY"
+
+                    sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
+                  />
+                )}
+              />
+              <InputLabel sx={{ color: "text.primary" }}>{strings.classesModal.inputs.endDate}</InputLabel>
+              <Controller
+                name="endDate"
+                control={control}
+                render={({ field }) => (
+                  <DatePicker
+                    value={field.value ? dayjs(field.value) : null}
+                    onChange={(v) => field.onChange(v ? v.toDate() : null)}
+                    format="DD/MM/YYYY"
+                    sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
+                  />
+                )}
+              />
+            </Box>
             <Box
               gap={1}
               display="flex"
@@ -224,7 +270,8 @@ export function ClassesModal() {
                   control={control}
                   render={({ field }) => (
                     <TimePicker
-                      {...field}
+                      value={field.value ? dayjs(field.value) : null}
+                      onChange={(v) => field.onChange(v ? v.toDate() : null)}
                       ampm={false}
                       sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
                     />
@@ -238,7 +285,8 @@ export function ClassesModal() {
                   control={control}
                   render={({ field }) => (
                     <TimePicker
-                      {...field}
+                      value={field.value ? dayjs(field.value) : null}
+                      onChange={(v) => field.onChange(v ? v.toDate() : null)}
                       ampm={false}
                       sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
                     />
@@ -315,7 +363,7 @@ export function ClassesModal() {
                             selectedStudents.filter((id) => id !== student.id)
                           );
                         } else {
-                          setSelectedStudents(selectedStudents => 
+                          setSelectedStudents(selectedStudents =>
                             [...selectedStudents, student.id]
                           );
                         }

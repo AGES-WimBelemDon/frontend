@@ -21,7 +21,7 @@ import {
   getNoteTypesFilter,
   getRoleFilter
 } from "../services/filters";
-import type { CivilState, ClassState, DocumentType, EducationLevel, EmploymentStatus, FormType, FrequencyStatus, Gender, IdentityType, Level, NoteTypes, Race, Role, SchoolYear, SocialPrograms, StudentStatus, UserStatus, WeekDay } from "../types/filters";
+import type { CivilState, ClassState, DocumentType, EducationLevel, EmploymentStatus, FormType, FrequencyStatus, Gender, IdentityType, NoteTypes, Race, Role, SchoolYear, SocialPrograms, StudentStatus, UserStatus, WeekDay } from "../types/filters";
 
 export type FilterOption<T> = {
   id: T;
@@ -161,12 +161,6 @@ const documentTypesFilterOptionsMap: Record<DocumentType, keyof typeof strings.f
   OUTRO: "other",
 }
 
-const levelsFilterOptionsMap: Record<Level, keyof typeof strings.filters.levels> = {
-  INICIANTE: "beginner",
-  INTERMEDIARIO: "intermediate",
-  AVANCADO: "advanced",
-}
-
 const civilStatesFilterOptionsMap: Record<CivilState, keyof typeof strings.filters.civilStates> = {
   SOLTEIRO: "single",
   CASADO: "married",
@@ -257,14 +251,14 @@ export function useFilters() {
     queryFn: () => queryFunction(getEmploymentStatusFilter, employmentStatusFilterOptionsMap, "employmentStatus"),
     staleTime: Infinity
   })
-
+  
   const { data: schoolYearOptions } = useQuery({
     queryKey: ["filters", "schoolYears"],
     queryFn: () => queryFunction(getSchoolYearsFilter, schoolYearFilterOptionsMap, "schoolYear"),
     staleTime: Infinity
   })
 
-  const { data: educationLevels } = useQuery({
+  const { data: educationLevelOptions } = useQuery({
     queryKey: ["filters", "educationLevels"],
     queryFn: () => queryFunction(getStudentEducationLevelFilter, educationLevelFilterOptionsMap, "educationLevel"),
     staleTime: Infinity
@@ -302,7 +296,7 @@ export function useFilters() {
 
   const { data: levelOptions } = useQuery({
     queryKey: ["filters", "levels"],
-    queryFn: () => queryFunction(getLevelsFilter, levelsFilterOptionsMap, "levels"),
+    queryFn: () => getLevelsFilter().then(levels => levels.map(level => level.name)),
     staleTime: Infinity
   })
 
@@ -319,11 +313,11 @@ export function useFilters() {
     frequencyStatusOptions,
     classStateOptions,
     raceOptions,
+    educationLevelOptions,
     genderOptions,
     socialProgramsOptions,
     employmentStatusOptions,
     schoolYearOptions,
-    educationLevels,
     identityTypesOptions,
     documentTypesOptions,
     noteTypesOptions,
