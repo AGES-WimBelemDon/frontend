@@ -33,7 +33,6 @@ export default function Classes() {
     activities,
     activityFilter,
     setActivityFilter,
-    levelFilter,
     setLevelFilter,
     levelOptions,
     filteredClasses,
@@ -117,9 +116,7 @@ export default function Classes() {
             </FormLabel>
             <Autocomplete
               options={levelOptions || []}
-              getOptionLabel={(option) => option.label}
-              value={levelOptions?.find((l) => l.id === levelFilter) || null}
-              onChange={(_, newValue) => setLevelFilter(newValue?.id || "")}
+              onChange={(_, newValue) => setLevelFilter(newValue)}
               renderInput={(params) => <TextField {...params} />}
             />
           </FormControl>
