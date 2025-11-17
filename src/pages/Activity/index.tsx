@@ -9,7 +9,9 @@ import { NewActivityModal } from "../../components/NewActivityModal";
 import { useNewActivityModal } from "../../components/NewActivityModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
+import { getClassesByActivity } from "../../services/classes";
 import type { Activity } from "../../types/activities";
+
 
 export default function ActivityList() {
   const {
@@ -29,6 +31,16 @@ export default function ActivityList() {
     handleSubmit,
     editingActivity,
   } = useNewActivityModal();
+
+  async function handleViewClasses(activityId: number) {
+    try {
+      const classes = await getClassesByActivity(activityId);
+      console.log("Turmas carregadas:", classes);
+
+    } catch (error) {
+      console.error("Erro ao carregar turmas:", error);
+    }
+  }
 
 
   if (isLoadingActivities) {
@@ -74,7 +86,13 @@ export default function ActivityList() {
               <ActivityCard
                 key={activity.id}
                 content={activity}
-                onEdit={() => openEditModal({ ...activity, id: activity.id.toString() })}
+                onEdit={() =>
+                  openEditModal({
+                    ...activity,
+                    id: activity.id.toString(),
+                  })
+                }
+                onViewClasses={() => handleViewClasses(Number(activity.id))}
               />
             ))
           ) : (

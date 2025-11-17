@@ -1,5 +1,5 @@
 import { api, endpoints } from "./api";
-import type { Classes, CreateClasses, StudentFrequencyClass } from "../types/classes";
+import type { ApiClass, Classes, CreateClasses, StudentFrequencyClass } from "../types/classes";
 import type { Id } from "../types/id";
 
 export async function createClasses(data: CreateClasses): Promise<number> {
@@ -38,5 +38,21 @@ export async function patchClass({ id }: { id: number }) {
     return response.status;
   } catch {
     throw new Error("Error on servicesPatchClass")
+  }
+}
+
+export async function getClassesByActivity(activityId: number): Promise<ApiClass[]> {
+  try {
+    const response = await api.get<ApiClass[]>(endpoints.classes.base, {
+      params: {
+        activityId,
+        state: "ALL", 
+      },
+    });
+
+    return response.data;
+
+  } catch {
+    throw new Error("Error on servicesGetClassesByActivity")
   }
 }

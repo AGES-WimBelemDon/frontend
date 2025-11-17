@@ -41,6 +41,7 @@ function AppRouter() {
             <Route path=":id" element={<TechDemoMockAPI />} />
           </Route>
           <Route path="turmas" element={<Classes />} />
+          <Route path="turmas/atividade/:activityId" element={<Classes />} />
           <Route path="turmas/:id" element={<ClassDetails />} />
           <Route path="usuarios" element={<Users />} />
         </Route>

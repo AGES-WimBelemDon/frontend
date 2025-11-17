@@ -1,9 +1,11 @@
 import type { Activity } from "../../types/activities";
 
-export interface ActivityCardProps { 
-  content: Activity
+export interface ActivityCardProps {
+  content: Activity;
   onEdit?: () => void;
+  onViewClasses?: () => void;
 }
+
 
 export interface ActivityFilterProps {
   name: string;
