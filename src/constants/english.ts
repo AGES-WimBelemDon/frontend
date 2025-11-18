@@ -71,6 +71,12 @@ export const englishTextMap = {
   dateInput: {
     selectDate: "Select date",
   },
+  errorBoundary: {
+    title: "Oops",
+    message: "Something went wrong. You can reload the page or go back to the home screen.",
+    goHome: "Go Home",
+    reload: "Reload",
+  },
   filters: {
     loading: "Loading filters...",
     all: "All",

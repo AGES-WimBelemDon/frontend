@@ -71,6 +71,12 @@ export const portugueseTextMap = {
   dateInput: {
     selectDate: "Selecione a data",
   },
+  errorBoundary: {
+    title: "Ops",
+    message: "Algo deu errado. Você pode recarregar a página ou voltar para a tela inicial.",
+    goHome: "Ir para a página inicial",
+    reload: "Recarregar",
+  },
   filters: {
     loading: "Carregando filtros...",
     all: "Todos",
