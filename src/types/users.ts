@@ -22,6 +22,10 @@ export type UserRegister = {
   address?: Address;
 };
 
+export type UserEdit = Partial<Omit<UserRegister, "name">> & {
+  fullName?: string;
+}
+
 export type UserLogin = {
   token: string;
 };

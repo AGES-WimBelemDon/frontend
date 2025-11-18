@@ -1,3 +1,5 @@
+import type { Id } from "../../types/id";
+
 export type RegisterUserFormValues = {
   name: string;
   email: string;
@@ -7,5 +9,5 @@ export type RegisterUserFormValues = {
 export interface RegisterUserModalProps {
   isOpen: boolean;
   closeModal(): void;
-  initialValues?: Partial<RegisterUserFormValues & { id?: number }>;
+  initialValues?: Partial<RegisterUserFormValues & { id?: Id }>;
 }

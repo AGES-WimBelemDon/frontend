@@ -1,6 +1,6 @@
 import { api, endpoints } from "./api";
 import type { Id } from "../types/id";
-import type { UserRegister, UserResponse, GetUsersParams } from "../types/users";
+import type { UserRegister, UserResponse, GetUsersParams, UserEdit } from "../types/users";
 
 
 export async function registerUser(user: UserRegister): Promise<UserResponse> {
@@ -65,7 +65,7 @@ export async function getUsers({
   }
 }
 
-export async function getUserById(userId: number): Promise<UserResponse> {
+export async function getUserById(userId: Id): Promise<UserResponse> {
   try {
     const response = await api.get<UserResponse>(endpoints.users.byId(userId));
     return response.data;
@@ -75,7 +75,7 @@ export async function getUserById(userId: number): Promise<UserResponse> {
   }
 }
 
-export async function updateUser(userId: number, payload: Partial<UserRegister>): Promise<UserResponse> {
+export async function updateUser(userId: Id, payload: Partial<UserEdit>): Promise<UserResponse> {
   try {
     const response = await api.patch<UserResponse>(endpoints.users.byId(userId), payload);
     return response.data;
