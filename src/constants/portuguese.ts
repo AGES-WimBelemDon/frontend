@@ -375,6 +375,12 @@ export const portugueseTextMap = {
     successMessage: "Responsável adicionado com sucesso!",
     pleaseFillAllFields: "Por favor, preencha todos os campos obrigatórios.",
   },
+  notFound: {
+    title: "Página não encontrada",
+    message: "A página que você tentou acessar não existe.",
+    goHome: "Ir para a página inicial",
+    reload: "Recarregar",
+  },
   classesModal: {
     recurring: "Atividade Recorrente",
     inputs: {

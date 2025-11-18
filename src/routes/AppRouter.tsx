@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 
 import ErrorBoundary from "./ErrorBoundary";
+import NotFound from "./NotFound";
 import ActivityList from "../pages/Activity";
 import AnamnesisForm from "../pages/Anamnese/Form";
 import SelectForm from "../pages/Anamnese/SelectForm";
@@ -25,6 +26,7 @@ function AppRouter() {
     <BrowserRouter basename="/frontend/">
       <ErrorBoundary>
         <Routes>
+          <Route path="*" element={<NotFound />} />
           <Route path="login" element={<Login />} />
           <Route element={<Layout />}>
             <Route index element={<Home />} />

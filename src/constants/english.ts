@@ -375,6 +375,12 @@ export const englishTextMap = {
     successMessage: "Responsible added successfully!",
     pleaseFillAllFields: "Please fill in all required fields.",
   },
+  notFound: {
+    title: "Page not found",
+    message: "The page you're looking for doesn't exist.",
+    goHome: "Go Home",
+    reload: "Reload",
+  },
   classesModal: {
     title: "Create Class",
     recurring: "Recurring Activity",
