@@ -137,7 +137,7 @@ export function useStudentRegistration() {
       if (!studentData.gender) {
         throw new Error(strings.studentRegistration.errors.genderRequired);
       }
-      if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
+      if (!studentData.enrollmentDate) {
         throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
       }
       if (!addressData.cep) {
@@ -164,7 +164,11 @@ export function useStudentRegistration() {
 
       return newStudent.id;
     } catch (error) {
-      throw new Error("Error registering student: " + error);
+      console.error("Error registering student:", error);
+      if (error instanceof Error && error.message) {
+        throw new Error(error.message);
+      }
+      throw new Error(strings.studentRegistration.errorMessage);
     }
   }
 
@@ -206,7 +210,11 @@ export function useStudentRegistration() {
       }
       showToast(strings.studentRegistration.successMessage, "success");
     } catch (error) {
-      throw new Error("Error updating student: " + error);
+      console.error("Error updating student:", error);
+      if (error instanceof Error && error.message) {
+        throw new Error(error.message);
+      }
+      throw new Error(strings.studentRegistration.errorMessage);
     }
   }
 
