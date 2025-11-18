@@ -22,7 +22,18 @@ export function PersonCard(cardData: PersonCardProps) {
   };
 
   function formatDate(date: string): string {
-    return new Date(date).toLocaleDateString("pt-BR");
+
+    let dateOnly = date;
+    if (date.includes("T")) {
+      dateOnly = date.split("T")[0];
+    }
+    if (date.includes(" ")) {
+      dateOnly = date.split(" ")[0];
+    }
+    const [year, month, day] = dateOnly.split("-");
+    const localDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    
+    return localDate.toLocaleDateString("pt-BR");
   }
 
   const dataEntries = [
@@ -39,6 +50,13 @@ export function PersonCard(cardData: PersonCardProps) {
     { label: strings.personCard.employmentStatus, value: cardData.employmentStatus },
     { label: strings.personCard.address, value: formatAddress(cardData.address) },
   ];
+
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); 
+    if (cardData.onEdit && cardData.id) {
+      cardData.onEdit(cardData.id);
+    }
+  };
 
   return (
     <Card
@@ -99,24 +117,7 @@ export function PersonCard(cardData: PersonCardProps) {
               size="small"
               variant="contained"
               fullWidth
-              // onClick={() =>
-              //   setCardData({
-              //     fullName: "New Full Name",
-              //     socialName: "New Social Name",
-              //     registrationNumber: "New CPF",
-              //     dateOfBirth: "New Date of Birth",
-              //     nis: "New NIS",
-              //     phoneNumber: "New Phone Number",
-              //     email: "New Email",
-              //     address: "New Address",
-              //     relationship: "New Relationship",
-              //     race: "New Race",
-              //     gender: "New Gender",
-              //     educationLevel: "New Education Level",
-              //     socialPrograms: "New Social Programs",
-              //     employmentStatus: "New Employment Status"
-              //   })
-              // }
+              onClick={handleEditClick}
               endIcon={<EditIcon />}
               sx={{
                 textTransform: "none",

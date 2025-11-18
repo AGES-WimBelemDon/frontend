@@ -30,6 +30,8 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
     setAddress,
     addResponsible,
     isSubmitting,
+    formData,
+    isEditing,
   } = useNewResponsibleModal(studentId);
 
   return (
@@ -59,7 +61,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
           fontSize: 24,
         }}
       >
-        {strings.newResponsibleModal.title}
+        {isEditing ? strings.newResponsibleModal.editTitle : strings.newResponsibleModal.title}
         <IconButton
           onClick={closeModal}
           sx={{
@@ -76,6 +78,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
       <Box component={"form"} 
         onSubmit={addResponsible}
         id="form"
+        key={isEditing ? `edit-${formData.registrationNumber}` : "new"}
       >
         <DialogContent
           sx={{
@@ -103,6 +106,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               id="fullName"
               required
               name="fullName"
+              defaultValue={formData.fullName || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -112,6 +116,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               placeholder={strings.newResponsibleModal.inputs.socialNamePlaceholder}
               id="socialName"
               name="socialName"
+              defaultValue={formData.socialName || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -122,6 +127,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               id="registrationNumber"
               required
               name="registrationNumber"
+              defaultValue={formData.registrationNumber || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -132,7 +138,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               name="dateOfBirth"
               required
               type="date"
-        
+              defaultValue={formData.dateOfBirth || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -143,6 +149,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               placeholder={strings.newResponsibleModal.inputs.nisPlaceholder}
               id="nis"
               name="nis"
+              defaultValue={formData.nis || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -153,6 +160,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               id="phoneNumber"
               name="phoneNumber"
               required
+              defaultValue={formData.phoneNumber || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -162,6 +170,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               select={!!employmentStatusOptions}
               id="employmentStatus"
               name="employmentStatus"
+              defaultValue={formData.employmentStatus || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -175,6 +184,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               placeholder={strings.newResponsibleModal.inputs.emailPlaceholder}
               id="email"
               name="email"
+              defaultValue={formData.email || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -185,6 +195,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               id="relationship"
               required
               name="relationship"
+              defaultValue={formData.relationship || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -194,6 +205,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               select={!!raceOptions}
               id="race"
               name="race"
+              defaultValue={formData.race || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -207,6 +219,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               select={!!genderOptions}
               id="gender"
               name="gender"
+              defaultValue={formData.gender || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -220,6 +233,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               select={!!educationLevelOptions}
               id="educationLevel"
               name="educationLevel"
+              defaultValue={formData.educationLevel || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -233,6 +247,7 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               select={!!socialProgramsOptions}
               id="socialPrograms"
               name="socialPrograms"
+              defaultValue={formData.socialPrograms || ""}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -386,7 +401,9 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
         >
           {isSubmitting
             ? strings.genericActions.loading
-            : strings.newResponsibleModal.buttonText}
+            : isEditing 
+              ? strings.newResponsibleModal.updateButton
+              : strings.newResponsibleModal.buttonText}
         </Button>
       </DialogActions>
     </Dialog>
