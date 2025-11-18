@@ -5,26 +5,21 @@ import { useSearchParams } from "react-router";
 
 import { strings } from "../../constants";
 import { useActivities } from "../../hooks/useActivities";
+import { useFilters } from "../../hooks/useFilters";
 import { useStudents } from "../../hooks/useStudents";
 import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
 import { createClasses } from "../../services/classes";
-import { getLevelsFilter, getWeekDaysFilter } from "../../services/filters";
-import type { CreateClass, CreateClassForm } from "../../types/classes";
+import type { CreateClassForm } from "../../types/classes";
 import type { Id } from "../../types/id";
 
 
-const days = await getWeekDaysFilter().then(res => res.map((day, i) => ({
-  id: `${i}` + `${day}`,
-  value: day,
-  symbol: day.charAt(0).toUpperCase(),
-})));
-const level = await getLevelsFilter();
 const steps = [strings.classesModal.steps.data, strings.classesModal.steps.activity, strings.classesModal.steps.teacher, strings.classesModal.steps.student];
 
 export function useClassesModal() {
   const { showToast } = useToast();
   const { students, isLoadingStudents, studentsError } = useStudents();
+  const { levelOptions, weekDaysOptions } = useFilters()
   const { users, isLoadingUsers, usersError } = useUsers();
   const { activities, isLoadingActivities, activitiesError } = useActivities();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,6 +32,12 @@ export function useClassesModal() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [selectedStudents, setSelectedStudents] = useState<Id[]>([]);
   const [selectedTeachers, setSelectedTeachers] = useState<Id[]>([]);
+
+  const days = weekDaysOptions?.map(({ id, label }) => ({
+    id,
+    value: label,
+    symbol: label.charAt(0).toUpperCase(),
+  }));
 
   const { control, getValues, reset } = useForm<CreateClassForm>({
     defaultValues: {
@@ -109,7 +110,7 @@ export function useClassesModal() {
     }
   }
 
-  async function createClass(data: CreateClass): Promise<Id | null> {
+  async function createClass(data: CreateClassForm): Promise<Id | null> {
     try {
       const classId = await createClasses(data);
       showToast(strings.classesModal.createSuccessMessage, "success");
@@ -167,8 +168,8 @@ export function useClassesModal() {
     activeStep,
     steps,
     control,
-    level,
-    days,
+    levelOptions,
+    days: days || [],
     nameTeacher,
     setNameTeacher,
     selectedTeachers,
