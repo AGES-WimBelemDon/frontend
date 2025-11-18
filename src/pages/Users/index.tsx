@@ -186,7 +186,7 @@ export default function Users() {
       <RegisterUserModal
         isOpen={isModalOpen}
         closeModal={closeModal}
-        initialValues={editingUser ? { name: editingUser.fullName, email: editingUser.email, role: editingUser.role } : undefined}
+        initialValues={editingUser ? { id: editingUser.id, name: editingUser.fullName, email: editingUser.email, role: editingUser.role } : undefined}
       />
     </>
   );

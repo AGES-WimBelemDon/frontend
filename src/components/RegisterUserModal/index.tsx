@@ -24,7 +24,7 @@ import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { registerUser as apiRegisterUser, updateUser as apiUpdateUser } from "../../services/users";
 import type { Role } from "../../types/filters";
-import type { UserRegister } from "../../types/users";
+import type { UserEdit, UserRegister } from "../../types/users";
 
 const SUGGESTED_DOMAIN = "wimbelemdon.com.br";
 
@@ -34,6 +34,7 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
   const queryClient = useQueryClient();
   const { roleOptions } = useFilters();
   const [emailInput, setEmailInput] = useState(initialValues?.email ?? "");
+  const editingId = initialValues?.id;
 
   useEffect(() => {
     if (isOpen) {
@@ -51,19 +52,22 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
       const email = data.get("email");
       const role = data.get("role");
 
-      if (!name || !email || !role) {
+      if (!name || !role || (!editingId && !email)) {
         throw new Error("All fields are required");
       }
 
-      const payload: UserRegister = {
-        name: name as string,
-        email: email as string,
-        role: role as Role,
-      };
-
-      if (initialValues?.id) {
-        await apiUpdateUser(initialValues.id, payload);
+      if (editingId !== undefined) {
+        const payload: UserEdit = {
+          fullName: name as string,
+          role: role as Role,
+        };
+        await apiUpdateUser(editingId, payload);
       } else {
+        const payload: UserRegister = {
+          name: name as string,
+          email: email as string,
+          role: role as Role,
+        };
         await apiRegisterUser(payload);
       }
 
@@ -117,29 +121,31 @@ export function RegisterUserModal({ isOpen, closeModal, initialValues }: Registe
             fullWidth
           />
 
-          <Autocomplete
-            freeSolo
-            inputValue={emailInput.replaceAll(" ", "")}
-            onInputChange={(_, newInput) => setEmailInput(newInput.replaceAll(" ", ""))}
-            options={(() => {
-              const val = emailInput ?? "";
-              if (!val || val.includes("@")) {
-                return [];
-              }
-              const email = val.replaceAll(" ", "");
-              return [`${email}@${SUGGESTED_DOMAIN}`];
-            })()}
-            renderInput={(params: AutocompleteRenderInputParams) => (
-              <TextField
-                {...params}
-                required
-                label={strings.users.inputs.email}
-                type="email"
-                name="email"
-                fullWidth
-              />
-            )}
-          />
+          {!editingId && (
+            <Autocomplete
+              freeSolo
+              inputValue={emailInput.replaceAll(" ", "")}
+              onInputChange={(_, newInput) => setEmailInput(newInput.replaceAll(" ", ""))}
+              options={(() => {
+                const val = emailInput ?? "";
+                if (!val || val.includes("@")) {
+                  return [];
+                }
+                const email = val.replaceAll(" ", "");
+                return [`${email}@${SUGGESTED_DOMAIN}`];
+              })()}
+              renderInput={(params: AutocompleteRenderInputParams) => (
+                <TextField
+                  {...params}
+                  required
+                  label={strings.users.inputs.email}
+                  type="email"
+                  name="email"
+                  fullWidth
+                />
+              )}
+            />
+          )}
 
           <FormControl fullWidth>
             <InputLabel id="role-label" required>{strings.filters.role.title}</InputLabel>
