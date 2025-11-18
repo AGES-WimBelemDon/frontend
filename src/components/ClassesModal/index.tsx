@@ -41,7 +41,7 @@ export function ClassesModal() {
     activeStep,
     steps,
     control,
-    level,
+    levelOptions,
     days,
     nameTeacher,
     setNameTeacher,
@@ -170,9 +170,9 @@ export function ClassesModal() {
                     labelId="level-select-label"
                     label={strings.classesModal.inputs.classLevel}
                   >
-                    {level.map((level) => (
-                      <MenuItem key={level.id} value={level.id} sx={{ backgroundColor: "background.default" }}>
-                        <ListItemText primary={level.name} />
+                    {levelOptions?.map((level, index) => (
+                      <MenuItem key={`${level}-${index}`} value={`${level}-${index}`} sx={{ backgroundColor: "background.default" }}>
+                        <ListItemText primary={level} />
                       </MenuItem>
                     ))}
                   </Select>

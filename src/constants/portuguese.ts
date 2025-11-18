@@ -71,6 +71,12 @@ export const portugueseTextMap = {
   dateInput: {
     selectDate: "Selecione a data",
   },
+  errorBoundary: {
+    title: "Ops",
+    message: "Algo deu errado. Você pode recarregar a página ou voltar para a tela inicial.",
+    goHome: "Ir para a página inicial",
+    reload: "Recarregar",
+  },
   filters: {
     loading: "Carregando filtros...",
     all: "Todos",
@@ -271,7 +277,10 @@ export const portugueseTextMap = {
     edit: "Editar",
     loading: "Carregando...",
     save: "Salvar",
+    saveEdit: "Salvar Alterações",
     viewDetails: "Ver Detalhes",
+    toggleStatusOn: "Ativar",
+    toggleStatusOff: "Desativar",
   },
   header: {
     goToHome: "Ir para a página inicial",
@@ -369,6 +378,12 @@ export const portugueseTextMap = {
     successMessage: "Responsável adicionado com sucesso!",
     pleaseFillAllFields: "Por favor, preencha todos os campos obrigatórios.",
   },
+  notFound: {
+    title: "Página não encontrada",
+    message: "A página que você tentou acessar não existe.",
+    goHome: "Ir para a página inicial",
+    reload: "Recarregar",
+  },
   classesModal: {
     recurring: "Atividade Recorrente",
     inputs: {
@@ -460,8 +475,6 @@ export const portugueseTextMap = {
     fileDescription: "Descrição do arquivo",
     cancelFileSend: "Cancelar envio do arquivo",
     addFileButton: "Adicionar arquivo",
-    toggleStudentStatusOn: "Ativar estudante",
-    toggleStudentStatusOff: "Desativar estudante",
     details: "Detalhes",
     schoolName: "Escola Atual",
     schoolNamePlaceholder: "Digite a escola atual do Educando",
@@ -530,7 +543,7 @@ export const portugueseTextMap = {
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
-    editStudent: "Editar Educando",
+    viewStudent: "Ver Detalhes",
     birthday: ({ date }: Params<"date">) => `Aniversário: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
     status: ({ status }: Params<"status">) => `Status: ${status}`,

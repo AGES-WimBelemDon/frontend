@@ -71,6 +71,12 @@ export const englishTextMap = {
   dateInput: {
     selectDate: "Select date",
   },
+  errorBoundary: {
+    title: "Oops",
+    message: "Something went wrong. You can reload the page or go back to the home screen.",
+    goHome: "Go Home",
+    reload: "Reload",
+  },
   filters: {
     loading: "Loading filters...",
     all: "All",
@@ -260,7 +266,10 @@ export const englishTextMap = {
     edit: "Edit",
     loading: "Loading...",
     save: "Save",
+    saveEdit: "Save Changes",
     viewDetails: "View Details",
+    toggleStatusOn: "Activate",
+    toggleStatusOff: "Deactivate",
   },
   frequencyGeneralCall: {
     title: "General Attendance",
@@ -368,6 +377,12 @@ export const englishTextMap = {
     },
     successMessage: "Responsible added successfully!",
     pleaseFillAllFields: "Please fill in all required fields.",
+  },
+  notFound: {
+    title: "Page not found",
+    message: "The page you're looking for doesn't exist.",
+    goHome: "Go Home",
+    reload: "Reload",
   },
   classesModal: {
     title: "Create Class",
@@ -515,8 +530,6 @@ export const englishTextMap = {
     fileDescription: "File description",
     cancelFileSend: "Cancel file upload",
     addFileButton: "Add file",
-    toggleStudentStatusOn: "Activate student",
-    toggleStudentStatusOff: "Deactivate student",
     details: "Details",
     schoolName: "Current School",
     schoolNamePlaceholder: "Enter student's current school",
@@ -530,7 +543,7 @@ export const englishTextMap = {
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     noStudents: "No students found",
-    editStudent: "Edit Student",
+    viewStudent: "View Details",
     birthday: ({ date }: Params<"date">) => `Birthday: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
     status: ({ status }: Params<"status">) => `Status: ${status}`,
