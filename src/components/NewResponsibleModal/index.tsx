@@ -279,10 +279,10 @@ export function NewResponsibleModal({ studentId }: NewResponsibleModalProps) {
               required
               margin="normal"
               type="number"
-              value={address?.code || ""}
+              value={address?.cep || ""}
               onChange={(e) => {
                 const value = e.target.value.slice(0, 8);
-                setAddress({ ...address, code: value });
+                setAddress({ ...address, cep: value });
               }}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },

@@ -2,15 +2,18 @@
 import { useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useRoutes } from "./useRoutes";
 import { api, endpoints } from "../services/api";
 import { getStudentResponsibles as apiGetStudentResponsibles, getStudents } from "../services/students";
+import { deactivateStudent as apiDeactivateStudent } from "../services/students";
 import type { Id } from "../types/id";
 
 export function useStudents() {
   const { getPathParamId } = useRoutes();
   const studentId = getPathParamId("alunos");
+  const queryClient = useQueryClient();
   const [currentStudentId, setCurrentStudentId] = useState<Id | null>(studentId ?? null);
 
   const {
@@ -47,6 +50,11 @@ export function useStudents() {
     return responsiblesWithAddress;
   }
 
+  async function deactivate(id: number) {
+    await apiDeactivateStudent(id);
+    await queryClient.invalidateQueries({ queryKey: ["students"] });
+  }
+
   const {
     isPending: isLoadingResponsibles,
     error: responsiblesError,
@@ -68,5 +76,6 @@ export function useStudents() {
 
     currentStudentId,
     selectStudent: setCurrentStudentId,
+    deactivateStudent: deactivate,
   };
 }

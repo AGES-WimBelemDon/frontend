@@ -71,6 +71,12 @@ export const portugueseTextMap = {
   dateInput: {
     selectDate: "Selecione a data",
   },
+  errorBoundary: {
+    title: "Ops",
+    message: "Algo deu errado. Você pode recarregar a página ou voltar para a tela inicial.",
+    goHome: "Ir para a página inicial",
+    reload: "Recarregar",
+  },
   filters: {
     loading: "Carregando filtros...",
     all: "Todos",
@@ -271,7 +277,10 @@ export const portugueseTextMap = {
     edit: "Editar",
     loading: "Carregando...",
     save: "Salvar",
+    saveEdit: "Salvar Alterações",
     viewDetails: "Ver Detalhes",
+    toggleStatusOn: "Ativar",
+    toggleStatusOff: "Desativar",
   },
   header: {
     goToHome: "Ir para a página inicial",
@@ -377,6 +386,12 @@ export const portugueseTextMap = {
     successMessage: "Responsável adicionado com sucesso!",
     pleaseFillAllFields: "Por favor, preencha todos os campos obrigatórios.",
   },
+  notFound: {
+    title: "Página não encontrada",
+    message: "A página que você tentou acessar não existe.",
+    goHome: "Ir para a página inicial",
+    reload: "Recarregar",
+  },
   classesModal: {
     recurring: "Atividade Recorrente",
     inputs: {
@@ -468,8 +483,6 @@ export const portugueseTextMap = {
     fileDescription: "Descrição do arquivo",
     cancelFileSend: "Cancelar envio do arquivo",
     addFileButton: "Adicionar arquivo",
-    toggleStudentStatusOn: "Ativar estudante",
-    toggleStudentStatusOff: "Desativar estudante",
     details: "Detalhes",
     schoolName: "Escola Atual",
     schoolNamePlaceholder: "Digite a escola atual do Educando",
@@ -477,7 +490,12 @@ export const portugueseTextMap = {
     saveButton: "Salvar",
     cancelButton: "Cancelar",
     successMessage: "Estudante cadastrado com sucesso!",
+    updateSuccess: "Estudante atualizado com sucesso!",
     errorMessage: "Erro ao cadastrar estudante. Por favor, tente novamente.",
+    confirmationMessage: "Tem certeza que deseja desativar este educando?",
+    activationConfirmationMessage: "Tem certeza que deseja ativar este educando?",
+    deactivationSuccess: "Estudante desativado com sucesso",
+    activationSuccess: "Estudante ativado com sucesso",
     errors: {
       fullNameRequired: "O nome completo do estudante é obrigatório",
       dateOfBirthRequired: "A data de nascimento do estudante é obrigatória",
@@ -487,6 +505,10 @@ export const portugueseTextMap = {
       enrollmentDateRequired: "A data de cadastro do estudante é obrigatória",
       addressCepRequired: "O CEP do endereço do estudante é obrigatório",
       addressNumberRequired: "O número do endereço do estudante é obrigatório",
+      internalError: "Erro interno no servidor",
+      studentNotFound: "Aluno não encontrado",
+      invalidData: "Dados inválidos",
+      searchStudentError: "Erro ao buscar o aluno",
     },
   },
   studentEdition: {
@@ -529,9 +551,14 @@ export const portugueseTextMap = {
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
-    editStudent: "Editar Educando",
+    viewStudent: "Ver Detalhes",
     birthday: ({ date }: Params<"date">) => `Aniversário: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
+    status: ({ status }: Params<"status">) => `Status: ${status}`,
+    filter:{
+      search: "Nome do educando",
+      title: "Nome"
+    },
   },
   studentsResponsibles: {
     title: "Responsáveis",

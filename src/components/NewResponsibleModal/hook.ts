@@ -127,15 +127,15 @@ export function useNewResponsibleModal(studentId?: string) {
   };
 
   function getAddressDetails() {
-    if (!address?.code) {
+    if (!address?.cep) {
       return Promise.resolve(null);
     }
   
-    if (address.code.length !== 8) {
+    if (address.cep.length !== 8) {
       return Promise.resolve(null);
     }
   
-    return fetchAddress(address.code).then((addressData) => {
+    return fetchAddress(address.cep).then((addressData) => {
       if (addressData) {
         setAddress(prev => ({ ...prev, ...addressData }));
       }
@@ -144,9 +144,9 @@ export function useNewResponsibleModal(studentId?: string) {
   }
     
   useQuery({
-    queryKey: ["address", address?.code],
+    queryKey: ["address", address?.cep],
     queryFn: getAddressDetails,
-    enabled: !!address?.code && address.code.length === 8,
+    enabled: !!address?.cep && address.cep.length === 8,
   })
   
   async function addResponsible(e : React.FormEvent<HTMLFormElement>) {
@@ -179,7 +179,7 @@ export function useNewResponsibleModal(studentId?: string) {
       return;
     }
 
-    if(!address?.code || address.code.length !== 8){
+    if(!address?.cep || address.cep.length !== 8){
       showToast(strings.newResponsibleModal.requiredFields.cep, "error");
       return;
     }
@@ -227,7 +227,7 @@ export function useNewResponsibleModal(studentId?: string) {
         neighborhood: address.neighborhood!,
         city: address.city!,
         state: address.state!,
-        cep: address.code!,
+        cep: address.cep!,
         number: address.number!,
         complement: address.complement || undefined,
       };
