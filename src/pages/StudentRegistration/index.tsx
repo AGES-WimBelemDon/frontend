@@ -545,30 +545,29 @@ export default function StudentRegistration() {
             <Button
               variant="contained"
               sx={{
+                flexGrow: 1,
                 color: "primary.contrastText",
                 borderColor: "primary.main",
                 bgcolor:student?.status === "ATIVO" ? "error.main" : "success.main",
                 fontWeight: 500,
               }}
               onClick={student?.status === "ATIVO" ? handleDeactivateStudent : handleActivateStudent}
-
             >
-              {student?.status === "ATIVO" ? strings.studentEdition.toggleStudentStatusOff : strings.studentEdition.toggleStudentStatusOn}
+              {student?.status === "ATIVO" ? strings.genericActions.toggleStatusOff : strings.genericActions.toggleStatusOn}
             </Button>
           )}
-          <Button type="submit" variant="contained" color="primary" sx={{ flex: 1 }}>
-            {strings.genericActions.save}
+          <Button type="submit" variant="contained" color="primary" sx={{ flexGrow: 1 }}>
+            {strings.genericActions.saveEdit}
           </Button>
           <Button
+            sx={{ flexGrow: 1 }}
             variant="contained"
             color="error"
-            sx={{ flex: 1 }}
             type="button"
             onClick={goBack}
           >
             {strings.genericActions.cancel}
           </Button>
-
         </Box>
       </Grid>
     </Box>

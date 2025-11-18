@@ -1,4 +1,5 @@
 import { Container, Box, Typography, Button } from "@mui/material";
+
 import { strings } from "../constants";
 
 export default function NotFound() {
