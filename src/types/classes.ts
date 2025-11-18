@@ -1,5 +1,3 @@
-import type { Dayjs } from "dayjs";
-
 import type { ClassState } from "./filters";
 import type { Id } from "./id";
 import type { UserResponse } from "./users";
@@ -28,9 +26,10 @@ export type Classes = {
   isRecurrent: boolean;
   startDate: string;
   endDate: string | null;
-  startTime: Dayjs;
-  endTime: Dayjs;
+  startTime: string;
+  endTime: string;
   schedules: WeekDay[];
+  studentIds?: Id[];
 }
 
 export type WeekDay = {
@@ -45,14 +44,14 @@ export type ApiClass = Classes & {
 
 export type CreateEnrollment = {
   classId: Id;
-  studentsId: Id[];
+  studentIds: Id[];
 }
 
 export type CreateClass = Omit<Classes, "teachers" | "schedules"> & ApiClass & {
   teacherIds: Id[];
   dayOfWeek: string[];
 }
-export type CreateClassForm = CreateClass & Pick<CreateEnrollment, "studentsId">;
+export type CreateClassForm = CreateClass & Pick<CreateEnrollment, "studentIds">;
 
 export type StudentFrequency = {
   id: Id;

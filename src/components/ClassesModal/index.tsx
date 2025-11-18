@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
@@ -30,12 +32,13 @@ import { Controller } from "react-hook-form";
 import { Filters } from "./filters";
 import { useClassesModal } from "./hook";
 import { strings } from "../../constants";
+import { ClassesModalContext } from "../../contexts/ClassesModal/ClassesModalContext";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function ClassesModal() {
+  const { isOpen, closeModal, classData } = useContext(ClassesModalContext);
+
   const {
-    isOpen,
-    closeModal,
     activeStep,
     steps,
     control,
@@ -54,7 +57,7 @@ export function ClassesModal() {
     handleNext,
     isLastStep,
     handleSubmit,
-  } = useClassesModal();
+  } = useClassesModal({ isOpen, closeModal, classData });
 
   const { isMobile } = useScreenSize();
 
@@ -168,9 +171,9 @@ export function ClassesModal() {
                     labelId="level-select-label"
                     label={strings.classesModal.inputs.classLevel}
                   >
-                    {levelOptions?.map((level, index) => (
-                      <MenuItem key={`${level}-${index}`} value={`${level}-${index}`} sx={{ backgroundColor: "background.default" }}>
-                        <ListItemText primary={level} />
+                    {levelOptions?.map((level) => (
+                      <MenuItem key={level.id} value={level.id} sx={{ backgroundColor: "background.default" }}>
+                        <ListItemText primary={level.name} />
                       </MenuItem>
                     ))}
                   </Select>
@@ -189,11 +192,11 @@ export function ClassesModal() {
                     <Checkbox
                       key={day.id}
                       disableRipple
-                      checked={field.value.includes(day.value)}
+                      checked={field.value.includes(day.id)}
                       onChange={(_event, checked) => {
                         const newWeekDays = checked
-                          ? [...field.value, day.value]
-                          : field.value.filter((d: string) => d !== day.value);
+                          ? [...field.value, day.id]
+                          : field.value.filter((d: string) => d !== day.id);
                         field.onChange(newWeekDays);
                       }}
                       checkedIcon={<DaysCalendarIcon text={day.symbol} checked={true} />}
@@ -400,7 +403,7 @@ export function ClassesModal() {
               }}
             >
               <Controller
-                name="studentsId"
+                name="studentIds"
                 control={control}
                 render={({ field }) => (
                   <>

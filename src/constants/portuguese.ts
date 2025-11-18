@@ -62,8 +62,10 @@ export const portugueseTextMap = {
     loading: "Carregando turma...",
     errorLoading: "Não foi possível carregar os dados da turma.",
     classNotFound: "Turma não encontrada.",
+    title: "Detalhes da Turma",
     editClass: "Editar Turma",
-    professor: "Responsável",
+    professor: "Professor",
+    teachers: "Professores",
     level: "Nível",
     frequency: "Frequência",
     noStudents: "Nenhum aluno cadastrado nesta turma.",
@@ -412,8 +414,10 @@ export const portugueseTextMap = {
       student: "Educando",
     },
     createSuccessMessage: "Turma criada com sucesso!",
+    editSucessMessage: "Turma editada com sucesso!",
     createErrorFillAllFields: "Por favor, preencha todos os campos.",
     createErrorGeneric: "Erro ao criar turma. Por favor, tente novamente.",
+    editErrorGeneric: "Erro ao editar a classe. Por favor, tente novamente."
   },
   personCard: {
     userImageAlt: "Imagem do usuário",
@@ -549,7 +553,7 @@ export const portugueseTextMap = {
     birthday: ({ date }: Params<"date">) => `Aniversário: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
     status: ({ status }: Params<"status">) => `Status: ${status}`,
-    filter:{
+    filter: {
       search: "Nome do educando",
       title: "Nome"
     },

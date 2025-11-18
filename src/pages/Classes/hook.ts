@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 
-import { useClassesModal } from "../../components/ClassesModal/hook";
 import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
 import { useFilters } from "../../hooks/useFilters";
@@ -14,7 +13,6 @@ export function useClassesPage() {
   const { weekDaysOptions, levelOptions } = useFilters();
   const { goTo } = useRoutes();
   const { isMobile } = useScreenSize();
-  const { openClassesModal } = useClassesModal();
 
   const [activityFilter, setActivityFilter] = useState<Id | null>(null);
   const [dayFilter, setDayFilter] = useState<Id | null>(null);
@@ -54,6 +52,5 @@ export function useClassesPage() {
     isMobile,
     filteredClasses,
     handleClassClick,
-    openClassesModal,
   };
 }

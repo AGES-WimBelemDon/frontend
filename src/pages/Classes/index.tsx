@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 
 import {
   Add as AddIcon,
@@ -20,12 +20,14 @@ import {
 
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
-import ClassesModal from "../../components/ClassesModal";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
+import { ClassesModalContext } from "../../contexts/ClassesModal/ClassesModalContext";
 import { useToast } from "../../hooks/useToast";
 
 export default function Classes() {
+  const { openModal } = useContext(ClassesModalContext);
+
   const {
     isLoadingClasses,
     classesError,
@@ -37,7 +39,6 @@ export default function Classes() {
     levelOptions,
     filteredClasses,
     handleClassClick,
-    openClassesModal,
   } = useClassesPage();
 
   const { showToast } = useToast();
@@ -125,7 +126,7 @@ export default function Classes() {
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          onClick={openClassesModal}
+          onClick={() => openModal()}
           sx={{
             alignSelf: isMobile ? "auto" : "flex-start",
           }}
@@ -197,8 +198,6 @@ export default function Classes() {
           ))}
         </CardList>
       </Box>
-
-      <ClassesModal />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { api, endpoints } from "./api";
-import type { ApiClass, Classes, CreateClass, CreateEnrollment, StudentFrequencyClass } from "../types/classes";
+import type { ApiClass, Classes, CreateClass, StudentFrequencyClass } from "../types/classes";
 import type { Id } from "../types/id";
 
 
@@ -10,14 +10,6 @@ export async function createClasses(data: CreateClass): Promise<ApiClass["id"] |
     return response.data.id;
   } catch {
     throw new Error("Error on servicesCreateClasses")
-  }
-}
-
-export function createEnrollment(enrollment: CreateEnrollment): void {
-  try {
-    api.post(endpoints.enrollments.base, enrollment);
-  } catch {
-    throw new Error("Error on servicesCreateEnrollment");
   }
 }
 
@@ -42,9 +34,9 @@ export async function getClassFrequency({ id, date }: { id: Id; date: string }):
   }
 }
 
-export async function patchClass({ id }: { id: number }) {
+export async function patchClass(id: Id, Classdata: Classes) {
   try {
-    const response = await api.patch<Classes>(endpoints.classes.byId(id))
+    const response = await api.patch<Classes>(endpoints.classes.byId(id), Classdata)
     return response.status;
   } catch {
     throw new Error("Error on servicesPatchClass")

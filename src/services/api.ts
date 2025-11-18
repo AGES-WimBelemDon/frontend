@@ -33,7 +33,9 @@ const endpoints = {
   },
   enrollments: {
     base: "/enrollments",
-    byId: (id: Id) => `/enrollments/${id}`,
+    byClassId: (id: Id) => `/enrollments/?classId=${id}`,
+    bystudentId: (id: Id) => `/enrollments/?studentId=${id}`,
+    byStudentClassIds: (studentId: Id, classId: Id) => `/enrollments/?studentId=${studentId}&classId=${classId}`
   },
   familyMembers: {
     base: "/family-member",

@@ -62,8 +62,10 @@ export const englishTextMap = {
     loading: "Loading class details...",
     errorLoading: "Error loading class data.",
     classNotFound: "Class not found.",
+    title: "Class Details",
     editClass: "Edit Class",
     professor: "Teacher",
+    teachers: "Teachers",
     level: "Level",
     frequency: "Frequency",
     noStudents: "Class does not have students.",
@@ -413,8 +415,10 @@ export const englishTextMap = {
       student: "Educandos",
     },
     createSuccessMessage: "Class created successfully!",
+    editSucessMessage: "Class edited successfully",
     createErrorFillAllFields: "Please fill in all fields.",
     createErrorGeneric: "Error creating class. Please try again.",
+    editErrorGeneric: "Error editing class. Please try again."
   },
   personCard: {
     userImageAlt: "User image",
