@@ -312,22 +312,7 @@ export async function getLevelsFilter(): Promise<Level[]> {
     const response = await api.get<Level[]>(endpoints.levels.base);
     return response.data;
   } catch {
-    let id = 0;
-    return [{
-      id: `${++id}`,
-      name: "Iniciante",
-      description: "Nivel Iniciante",
-    },
-    {
-      id: `${++id}`,
-      name: "Intermediário",
-      description: "Nivel Intermediário",
-    },
-    {
-      id: `${++id}`,
-      name: "Avançado",
-      description: "Nivel Avançado",
-    }];
+    throw new Error("Error on servicesGetLevelsFilter")
   }
 }
 
