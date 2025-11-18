@@ -17,8 +17,8 @@ import {
   getFamilyMemberById,
   getFamilyMemberAddress
 } from "../../services/family-members";
-import type { Address } from "../../types/address";
 import type { CreateFamilyMemberData } from "../../services/family-members";
+import type { Address } from "../../types/address";
 
 export function useNewResponsibleModal(studentId?: string) {
   const { showToast } = useToast();
@@ -43,69 +43,69 @@ export function useNewResponsibleModal(studentId?: string) {
   const editId = searchParams.get("editId");
 
   const loadResponsibleData = useCallback(async (id: string) => {
-  try {
-    const [responsibleData, addressData] = await Promise.all([
-      getFamilyMemberById(id),
-      getFamilyMemberAddress(id)
-    ]);
+    try {
+      const [responsibleData, addressData] = await Promise.all([
+        getFamilyMemberById(id),
+        getFamilyMemberAddress(id)
+      ]);
 
-    let formattedDate = responsibleData.dateOfBirth;
-    if (formattedDate) {
-      if (formattedDate.includes("T")) {
-        formattedDate = formattedDate.split("T")[0];
+      let formattedDate = responsibleData.dateOfBirth;
+      if (formattedDate) {
+        if (formattedDate.includes("T")) {
+          formattedDate = formattedDate.split("T")[0];
+        }
+        if (formattedDate.includes(" ")) {
+          formattedDate = formattedDate.split(" ")[0];
+        }
+        const parsedDate = new Date(formattedDate);
+        if (!isNaN(parsedDate.getTime())) {
+          formattedDate = parsedDate.toISOString().split("T")[0];
+        }
       }
-      if (formattedDate.includes(" ")) {
-        formattedDate = formattedDate.split(" ")[0];
-      }
-      const parsedDate = new Date(formattedDate);
-      if (!isNaN(parsedDate.getTime())) {
-        formattedDate = parsedDate.toISOString().split("T")[0];
-      }
-    }
 
-    setFormData({
-      fullName: responsibleData.fullName,
-      socialName: responsibleData.socialName,
-      registrationNumber: responsibleData.registrationNumber,
-      dateOfBirth: formattedDate || "",
-      nis: responsibleData.nis,
-      phoneNumber: responsibleData.phoneNumber,
-      email: responsibleData.email,
-      relationship: responsibleData.relationship,
-      race: responsibleData.race,
-      gender: responsibleData.gender,
-      educationLevel: responsibleData.educationLevel,
-      socialPrograms: responsibleData.socialPrograms,
-      employmentStatus: responsibleData.employmentStatus,
-    });
-
-    if (addressData && addressData.cep) {
-      setAddress({
-        code: addressData.cep,
-        street: addressData.street,
-        neighborhood: addressData.neighborhood,
-        city: addressData.city,
-        state: addressData.state,
-        number: addressData.number,
-        complement: addressData.complement,
+      setFormData({
+        fullName: responsibleData.fullName,
+        socialName: responsibleData.socialName,
+        registrationNumber: responsibleData.registrationNumber,
+        dateOfBirth: formattedDate || "",
+        nis: responsibleData.nis,
+        phoneNumber: responsibleData.phoneNumber,
+        email: responsibleData.email,
+        relationship: responsibleData.relationship,
+        race: responsibleData.race,
+        gender: responsibleData.gender,
+        educationLevel: responsibleData.educationLevel,
+        socialPrograms: responsibleData.socialPrograms,
+        employmentStatus: responsibleData.employmentStatus,
       });
+
+      if (addressData && addressData.cep) {
+        setAddress({
+          code: addressData.cep,
+          street: addressData.street,
+          neighborhood: addressData.neighborhood,
+          city: addressData.city,
+          state: addressData.state,
+          number: addressData.number,
+          complement: addressData.complement,
+        });
+      }
+    } catch (error) {
+      console.error("Error loading responsible data:", error);
+      showToast(strings.newResponsibleModal.errorLoadingResponsible, "error");
     }
-  } catch (error) {
-    console.error("Error loading responsible data:", error);
-    showToast(strings.newResponsibleModal.errorLoadingResponsible, "error");
-  }
-}, [showToast]);
+  }, [showToast]);
 
   useEffect(() => {
-  if (editId && isOpen) {
-    setEditingId(editId);
-    loadResponsibleData(editId);
-  } else {
-    setEditingId(null);
-    setFormData({});
-    setAddress(null);
-  }
-}, [editId, isOpen, loadResponsibleData]);
+    if (editId && isOpen) {
+      setEditingId(editId);
+      loadResponsibleData(editId);
+    } else {
+      setEditingId(null);
+      setFormData({});
+      setAddress(null);
+    }
+  }, [editId, isOpen, loadResponsibleData]);
 
   function openModal(editId?: string) {
     const params = new URLSearchParams(searchParams);
@@ -244,11 +244,11 @@ export function useNewResponsibleModal(studentId?: string) {
         }
         showToast(strings.newResponsibleModal.updateSuccessMessage, "success");
       } else {
-  const familyMemberResponse = await createFamilyMember(familyMemberPayload as CreateFamilyMemberData);
+        const familyMemberResponse = await createFamilyMember(familyMemberPayload as CreateFamilyMemberData);
   
-  await createFamilyMemberAddress(familyMemberResponse.id, addressPayload);
-  showToast(strings.newResponsibleModal.successMessage, "success");
-}
+        await createFamilyMemberAddress(familyMemberResponse.id, addressPayload);
+        showToast(strings.newResponsibleModal.successMessage, "success");
+      }
     
       await queryClient.invalidateQueries({ 
         queryKey: ["responsibles", studentId] 
