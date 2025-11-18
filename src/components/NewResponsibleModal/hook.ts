@@ -81,7 +81,7 @@ export function useNewResponsibleModal(studentId?: string) {
 
       if (addressData && addressData.cep) {
         setAddress({
-          code: addressData.cep,
+          cep: addressData.cep,
           street: addressData.street,
           neighborhood: addressData.neighborhood,
           city: addressData.city,
