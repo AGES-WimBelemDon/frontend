@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import {
   Box,
@@ -22,10 +22,16 @@ export default function ClassDetails() {
 
   const { classEnrollment, classEnrollmentError, isLoadingClassEnrollment } =
     useEnrollment();
-  const { classes, frequencyClass, frequencyClassError, getClassTitleById } = useClasses();
+  const { classes, frequencyClass, frequencyClassError, getClassTitleById, selectClass, currentClassId } = useClasses();
   const { getPathParamId } = useRoutes();
 
   const classId = getPathParamId("turmas");
+
+  useEffect(() => {
+    if (classId && classId !== currentClassId) {
+      selectClass(classId);
+    }
+  }, [classId, selectClass, currentClassId]);
 
   const classData = classes?.find((c) => c.id == classId);
 

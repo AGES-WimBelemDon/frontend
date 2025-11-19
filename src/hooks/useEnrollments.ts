@@ -14,16 +14,18 @@ export function useEnrollment() {
   const { currentClassId, selectClass, classes } = useClasses();
 
   async function getEnrollmentByClassId(id: Id | null): Promise<EnrollmentDetails[]> {
-    if (!data || !id) return []
+    if (!id) {
+      return [];
+    }
     const classItem = await apiGetEnrollmentByClassId(id);
-    const getClassDetails = (classId: Id) => classes?.find((c) => c.id === classId)
+    const getClassDetails = (classId: Id) => classes?.find((c) => c.id === classId);
     return classItem.map((item) => {
-      const classDetails = getClassDetails(item.class.id)
+      const classDetails = getClassDetails(item.class.id);
       return {
         ...item,
-        teachers: classDetails?.teachers ?? []
-      } as EnrollmentDetails
-    })
+        teachers: classDetails?.teachers ?? [],
+      } as EnrollmentDetails;
+    });
   }
 
   const { isPending: isLoadingClassEnrollment, error: errorClassEnrollment, data: classEnrollment } = useQuery({

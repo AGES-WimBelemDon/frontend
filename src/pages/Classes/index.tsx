@@ -99,7 +99,7 @@ export default function Classes() {
               options={activities || []}
               getOptionLabel={(option) => option.name}
               value={activities?.find((a) => String(a.id) === activityFilter) || null}
-              onChange={(_, newValue) => setActivityFilter(String(newValue?.id) || null)}
+              onChange={(_, newValue) => setActivityFilter(newValue ? String(newValue.id) : null)}
               renderInput={(params) => <TextField {...params} />}
             />
           </FormControl>

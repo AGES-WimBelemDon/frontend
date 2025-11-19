@@ -9,8 +9,9 @@ import { NewActivityModal } from "../../components/NewActivityModal";
 import { useNewActivityModal } from "../../components/NewActivityModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
-import { getClassesByActivity } from "../../services/classes";
+import { useRoutes } from "../../hooks/useRoutes";
 import type { Activity } from "../../types/activities";
+import type { Id } from "../../types/id";
 
 
 export default function ActivityList() {
@@ -32,14 +33,10 @@ export default function ActivityList() {
     editingActivity,
   } = useNewActivityModal();
 
-  async function handleViewClasses(activityId: number) {
-    try {
-      const classes = await getClassesByActivity(activityId);
-      console.log("Turmas carregadas:", classes);
+  const { goTo } = useRoutes();
 
-    } catch (error) {
-      console.error("Erro ao carregar turmas:", error);
-    }
+  function handleViewClasses(activityId: Id) {
+    goTo("/turmas", `?activityId=${activityId}`);
   }
 
 
@@ -92,7 +89,7 @@ export default function ActivityList() {
                     id: activity.id.toString(),
                   })
                 }
-                onViewClasses={() => handleViewClasses(Number(activity.id))}
+                onViewClasses={() => handleViewClasses(activity.id)}
               />
             ))
           ) : (

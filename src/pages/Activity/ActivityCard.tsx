@@ -1,17 +1,10 @@
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Typography, Button, IconButton } from "@mui/material";
-import { useNavigate } from "react-router";
 
 import type { ActivityCardProps } from "./interface";
 
 
-export function ActivityCard({ content, onEdit }: ActivityCardProps) {
-  const navigate = useNavigate();
-
-  function handleViewClasses() {
-    navigate(`/turmas/atividade/${content.id}`);
-  }
-
+export function ActivityCard({ content, onEdit, onViewClasses }: ActivityCardProps) {
   return (
     <Box
       gap={1.5}
@@ -48,7 +41,7 @@ export function ActivityCard({ content, onEdit }: ActivityCardProps) {
       <Button
         variant="outlined"
         fullWidth
-        onClick={handleViewClasses}
+        onClick={onViewClasses}
         sx={{
           fontWeight: "bold",
           textTransform: "none",

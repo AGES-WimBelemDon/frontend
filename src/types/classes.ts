@@ -51,7 +51,7 @@ export type CreateClass = Omit<Classes, "teachers" | "schedules"> & ApiClass & {
   teacherIds: Id[];
   dayOfWeek: Id[];
 }
-export type CreateClassForm = CreateClass & Pick<CreateEnrollment, "studentIds">;
+export type CreateClassForm =  Pick<CreateEnrollment, "studentIds"> & Omit<CreateClass, "startTime" | "endTime"> & { dayOfWeekSelection?: WeekDay[]; startTime?: string | Date; endTime?: string | Date }
 
 export type StudentFrequency = {
   id: Id;

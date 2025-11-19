@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
@@ -19,13 +19,39 @@ export function useClassesPage() {
   const [dayFilter, setDayFilter] = useState<Id | null>(null);
   const [levelFilter, setLevelFilter] = useState<Level | null>(null);
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    const params = new URLSearchParams(window.location.search);
+    const activityIdParam = params.get("activityId");
+    if (activityIdParam) {
+      setActivityFilter(activityIdParam as Id);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    const params = new URLSearchParams(window.location.search);
+    if (activityFilter) {
+      params.set("activityId", String(activityFilter));
+    } else {
+      params.delete("activityId");
+    }
+    const newSearch = params.toString();
+    const newUrl = `${window.location.pathname}${newSearch ? `?${newSearch}` : ""}`;
+    window.history.replaceState({}, "", newUrl);
+  }, [activityFilter]);
+
   const filteredClasses = useMemo(() => {
     if (isLoadingClasses || classesError || !classes) {
       return [];
     }
     return classes.filter((c) => {
       return (
-        (!activityFilter || c.activityId === activityFilter)
+        (!activityFilter || c.activityId == activityFilter)
         && (!dayFilter || c.schedules.map(schedule => schedule.dayOfWeek).includes(dayFilter.toString()))
         && (!levelFilter || c.levelId === levelFilter.id)
       );
