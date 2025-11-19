@@ -9,29 +9,29 @@ export function useAttendances(classId: number, date: string) {
     queryKey: ["attendances", classId, date],
     queryFn: () => getAttendanceClass(classId, date)
   });
-      
+
   async function createAttendanceClass(classId: number, date: string): Promise<ClassAttendence> {
-    const response = await registerAttendanceClass({ classId, date } );
+    const response = await registerAttendanceClass({ classId, date });
     await queryClient.invalidateQueries({
       queryKey: ["attendances", classId, date],
     });
     return response;
   }
 
-  async function updateAttendanceClass(body: UpdateClassAttendance) : Promise<UpdateClassAttendance>{
-  
+  async function updateAttendanceClass(body: UpdateClassAttendance): Promise<UpdateClassAttendance> {
+
     const response = await editAttendanceClass(body)
     await queryClient.invalidateQueries({
       queryKey: ["attendances", classId, date],
     });
-    return response 
+    return response
   }
 
   return {
     isLoadingAttendances: isPending,
     attendancesError: error,
     attendances: data,
-    refetchAttendances : refetch,
+    refetchAttendances: refetch,
     createAttendanceClass,
     updateAttendanceClass,
   }

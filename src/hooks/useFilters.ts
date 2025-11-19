@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { strings } from "../constants";
-import { 
-  getEmploymentStatusFilter, 
-  getGendersFilter, 
-  getRacesFilter, 
-  getSocialProgramsFilter, 
+import {
+  getEmploymentStatusFilter,
+  getGendersFilter,
+  getRacesFilter,
+  getSocialProgramsFilter,
   getStudentEducationLevelFilter,
   getIdentityTypesFilter,
   getDocumentTypesFilter,
@@ -239,7 +239,7 @@ export function useFilters() {
     queryFn: () => queryFunction(getGendersFilter, genderFilterOptionsMap, "gender"),
     staleTime: Infinity
   })
-  
+
   const { data: socialProgramsOptions } = useQuery({
     queryKey: ["filters", "socialPrograms"],
     queryFn: () => queryFunction(getSocialProgramsFilter, socialProgramOptionsMap, "socialPrograms"),
@@ -251,7 +251,7 @@ export function useFilters() {
     queryFn: () => queryFunction(getEmploymentStatusFilter, employmentStatusFilterOptionsMap, "employmentStatus"),
     staleTime: Infinity
   })
-  
+
   const { data: schoolYearOptions } = useQuery({
     queryKey: ["filters", "schoolYears"],
     queryFn: () => queryFunction(getSchoolYearsFilter, schoolYearFilterOptionsMap, "schoolYear"),
@@ -296,7 +296,7 @@ export function useFilters() {
 
   const { data: levelOptions } = useQuery({
     queryKey: ["filters", "levels"],
-    queryFn: () => getLevelsFilter().then(levels => levels.map(level => level.name)),
+    queryFn: () => getLevelsFilter(),
     staleTime: Infinity
   })
 

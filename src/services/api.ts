@@ -33,7 +33,9 @@ const endpoints = {
   },
   enrollments: {
     base: "/enrollments",
-    byId: (id: Id) => `/enrollments/${id}`,
+    byClassId: (id: Id) => `/enrollments/?classId=${id}`,
+    bystudentId: (id: Id) => `/enrollments/?studentId=${id}`,
+    byStudentClassIds: (studentId: Id, classId: Id) => `/enrollments/?studentId=${studentId}&classId=${classId}`
   },
   familyMembers: {
     base: "/family-member",
@@ -56,6 +58,8 @@ const endpoints = {
     noteTypes: "/filters/note-types",
     weekDays: "/filters/week-days",
     roles: "/filters/roles",
+    civilStates: "/filters/civil-states",
+    schoolYear: "/filters/school-year",
   },
   frequencies: {
     base: "/frequency",
@@ -65,8 +69,6 @@ const endpoints = {
   },
   levels: {
     base: "/level",
-    civilStates: "/filters/civil-states",
-    schoolYear: "/filters/school-year",
   },
   students: {
     base: "/students",

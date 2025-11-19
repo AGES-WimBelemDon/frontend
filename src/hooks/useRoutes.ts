@@ -1,6 +1,8 @@
 import { useNavigate, type Location } from "react-router";
 
-export type ValidRoute = 
+import type { Id } from "../types/id";
+
+export type ValidRoute =
   | "/"
   | "/frequencias/atividades"
   | "/frequencias/chamada-geral"
@@ -11,7 +13,7 @@ export type ValidRoute =
   | "/turmas"
   | "/usuarios"
   | "/tech-demo"
-;
+  ;
 
 export type LocationState = {
   from?: Location;
@@ -41,7 +43,7 @@ export function useRoutes() {
     navigate(-1);
   }
 
-  function getPathParamId(previousParamName: string) {
+  function getPathParamId(previousParamName: string): Id | null {
     const pathSegments = window.location.pathname.split("/").filter(Boolean);
     const paramIndex = pathSegments.indexOf(previousParamName);
     if (paramIndex !== -1 && paramIndex + 1 < pathSegments.length) {

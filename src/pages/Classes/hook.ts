@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 
-import { useClassesModal } from "../../components/ClassesModal/hook";
 import { useActivities } from "../../hooks/useActivities";
 import { useClasses } from "../../hooks/useClasses";
 import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
+import type { Level } from "../../types/filters";
 import type { Id } from "../../types/id";
 
 export function useClassesPage() {
@@ -14,11 +14,10 @@ export function useClassesPage() {
   const { weekDaysOptions, levelOptions } = useFilters();
   const { goTo } = useRoutes();
   const { isMobile } = useScreenSize();
-  const { openClassesModal } = useClassesModal();
 
   const [activityFilter, setActivityFilter] = useState<Id | null>(null);
   const [dayFilter, setDayFilter] = useState<Id | null>(null);
-  const [levelFilter, setLevelFilter] = useState<Id | null>(null);
+  const [levelFilter, setLevelFilter] = useState<Level | null>(null);
 
   const filteredClasses = useMemo(() => {
     if (isLoadingClasses || classesError || !classes) {
@@ -28,7 +27,7 @@ export function useClassesPage() {
       return (
         (!activityFilter || c.activityId === activityFilter)
         && (!dayFilter || c.schedules.map(schedule => schedule.dayOfWeek).includes(dayFilter.toString()))
-        && (!levelFilter || c.levelId === levelFilter)
+        && (!levelFilter || c.levelId === levelFilter.id)
       );
     });
   }, [isLoadingClasses, classesError, classes, activityFilter, dayFilter, levelFilter]);
@@ -54,6 +53,5 @@ export function useClassesPage() {
     isMobile,
     filteredClasses,
     handleClassClick,
-    openClassesModal,
   };
 }
