@@ -100,6 +100,7 @@ export default function Classes() {
               getOptionLabel={(option) => option.name}
               value={activities?.find((a) => String(a.id) === activityFilter) || null}
               onChange={(_, newValue) => setActivityFilter(newValue ? String(newValue.id) : null)}
+              data-cy="classes-filter-activity"
               renderInput={(params) => <TextField {...params} />}
             />
           </FormControl>
@@ -120,6 +121,7 @@ export default function Classes() {
               getOptionLabel={(option) => option.name}
               onChange={(_, newValue) => setLevelFilter(newValue)}
               renderInput={(params) => <TextField {...params} />}
+              data-cy="classes-filter-level"
             />
           </FormControl>
         </Box>
@@ -131,6 +133,7 @@ export default function Classes() {
           sx={{
             alignSelf: isMobile ? "auto" : "flex-start",
           }}
+          data-cy="classes-create-button"
         >
           <Typography fontWeight="bold" variant="button">
             {strings.classes.createClass}
@@ -149,6 +152,7 @@ export default function Classes() {
                 borderColor: "grey.400",
                 boxShadow: "none",
               }}
+              data-cy={`class-card-${c.id}`}
             >
               <CardContent>
                 <Box display="flex" alignItems="center" gap={3} mb={1}>

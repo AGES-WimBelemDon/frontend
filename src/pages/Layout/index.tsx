@@ -1,5 +1,7 @@
+import { useEffect } from "react";
+
 import { Box, CircularProgress } from "@mui/material";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 
 import { useLayout } from "./useLayout";
 import { ClassesModal } from "../../components/ClassesModal";
@@ -12,6 +14,22 @@ import { useRoutes } from "../../hooks/useRoutes";
 export default function Layout() {
   const { allowedRoutes } = useRoutes();
   const { isVerifying } = useLayout();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    function onUnauthorized(event: Event) {
+      const custom = event as CustomEvent<{ loginPath?: string }>; 
+      const loginPath = custom?.detail?.loginPath;
+      if (!loginPath) {
+        return;
+      }
+      const path = loginPath.replace(/^\/frontend\/?/, "");
+      navigate(path, { replace: true });
+    }
+    window.addEventListener("app:unauthorized", onUnauthorized as EventListener);
+    
+    return () => window.removeEventListener("app:unauthorized", onUnauthorized as EventListener);
+  }, [navigate]);
 
   return (
     <Box display="flex" height="100vh">

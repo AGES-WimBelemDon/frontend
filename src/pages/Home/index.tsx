@@ -1,11 +1,12 @@
 import { Typography, Divider } from "@mui/material";
-import { useNavigate } from "react-router";
+
 
 import { CardList } from "../../components/CardList";
 import { sidebarOptionsMapper } from "../../components/Sidebar/interface";
 import { TextCard } from "../../components/TextCard";
 import { strings } from "../../constants";
 import { useAuth } from "../../hooks/useAuth";
+import { useRoutes } from "../../hooks/useRoutes";
 import type { ValidRoute } from "../../hooks/useRoutes";
 
 const cards: { title: string; goTo: ValidRoute }[] = [
@@ -18,7 +19,7 @@ const cards: { title: string; goTo: ValidRoute }[] = [
 
 export default function Home() {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const { goTo } = useRoutes();
 
   return (
     <>
@@ -54,7 +55,7 @@ export default function Home() {
             key={card.title}
             title={card.title}
             theme="light"
-            onClick={() => navigate(card.goTo)}
+            onClick={() => goTo(card.goTo)}
             icon={sidebarOptionsMapper[card.goTo]?.icon}
           />
         ))}

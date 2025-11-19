@@ -2,7 +2,7 @@ import { Check as CheckIcon, Close as CloseIcon } from "@mui/icons-material";
 import { Card, CardContent, Typography, Box, Button } from "@mui/material";
 
 import { CustomSelectButton } from "./CustomSelectButton";
-import { FrequencyStatus, type FrequencyCardProps } from "./interface";
+import type { FrequencyCardProps } from "./interface";
 import { strings } from "../../constants";
 import { noteOptions } from "./CustomSelectButton/interface";
 import { useScreenSize } from "../../hooks/useScreenSize";
@@ -62,9 +62,9 @@ export function FrequencyCard({
           size="medium"
           color="success"
           variant={
-            isPresent == FrequencyStatus.PRESENTE ? "contained" : "outlined"
+            isPresent == "PRESENTE" ? "contained" : "outlined"
           }
-          onClick={() => onChangePresence(FrequencyStatus.PRESENTE)}
+          onClick={() => onChangePresence("PRESENTE")}
           sx={{ textTransform: "none", fontWeight: "bold" }}
         >
           <CheckIcon sx={{ ml: isDesktop ? 0.5 : 0 }} />
@@ -73,9 +73,9 @@ export function FrequencyCard({
           size="medium"
           color="error"
           variant={
-            isPresent == FrequencyStatus.AUSENTE ? "contained" : "outlined"
+            isPresent == "AUSENTE" ? "contained" : "outlined"
           }
-          onClick={() => onChangePresence(FrequencyStatus.AUSENTE)}
+          onClick={() => onChangePresence("AUSENTE")}
           sx={{ textTransform: "none", fontWeight: "bold" }}
         >
           <CloseIcon sx={{ ml: isDesktop ? 0.5 : 0 }} />

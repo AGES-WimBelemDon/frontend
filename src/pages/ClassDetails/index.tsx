@@ -22,16 +22,16 @@ export default function ClassDetails() {
 
   const { classEnrollment, classEnrollmentError, isLoadingClassEnrollment } =
     useEnrollment();
-  const { classes, frequencyClass, frequencyClassError, getClassTitleById, selectClass, currentClassId } = useClasses();
-  const { getPathParamId } = useRoutes();
+  const { classes, getClassTitleById, selectClass } = useClasses();
+  const { getPathParamId, goTo } = useRoutes();
 
   const classId = getPathParamId("turmas");
 
   useEffect(() => {
-    if (classId && classId !== currentClassId) {
+    if (classId) {
       selectClass(classId);
     }
-  }, [classId, selectClass, currentClassId]);
+  }, [classId, selectClass]);
 
   const classData = classes?.find((c) => c.id == classId);
 
@@ -43,16 +43,6 @@ export default function ClassDetails() {
     }
   }
 
-  function getFrequencyColor(value: number) {
-    if (value < 50) {
-      return "error.main";
-    }
-    if (value < 80) {
-      return "warning.main";
-    }
-    return "success.main";
-  }
-
   if (isLoadingClassEnrollment) {
     return (
       <Box textAlign="center" mt={6}>
@@ -62,7 +52,7 @@ export default function ClassDetails() {
     );
   }
 
-  if (classEnrollmentError || frequencyClassError) {
+  if (classEnrollmentError) {
     return (
       <Typography color="error" textAlign="center">
         {strings.classDetails.errorLoading}
@@ -70,7 +60,7 @@ export default function ClassDetails() {
     );
   }
 
-  if (!frequencyClass || !classEnrollment) {
+  if (!classEnrollment) {
     return (
       <Typography textAlign="center">
         {strings.classDetails.classNotFound}
@@ -105,6 +95,7 @@ export default function ClassDetails() {
             width: { xs: "auto", sm: "auto" },
           }}
           onClick={handleOpenModal}
+          data-cy="class-details-edit-button"
         >
           {strings.classDetails.editClass}
         </Button>
@@ -114,16 +105,9 @@ export default function ClassDetails() {
         {strings.students.title}
       </Typography>
       {classEnrollment.map((classData) => {
-        // This finds the matching frequency data for each student.
-        // Note: This assumes the student's full name is a unique identifier.
-        // Using a unique ID (e.g., s.id === classData.student.id) would be more robust if available.
-        const studentFrequency = frequencyClass.studentList.find(
-          (s) => s.name === classData.student.fullName
-        );
-
         return (
           <Card
-            key={classData.student.id} // Assuming student.id is available for a stable key
+            key={classData.student.id}
             variant="outlined"
             sx={{
               borderRadius: 2,
@@ -143,21 +127,14 @@ export default function ClassDetails() {
                 "&:last-child": { pb: 2 },
               }}
             >
-              <Typography fontWeight="bold">
-                {classData.student.fullName}
-              </Typography>
-              {studentFrequency ? (
-                <Typography
-                  color={getFrequencyColor(studentFrequency.frequency)}
-                >
-                  <strong>
-                    {strings.classDetails.frequency}:{" "}
-                    {studentFrequency.frequency}%
-                  </strong>
-                </Typography>
-              ) : (
-                <Typography>Frequency not available</Typography>
-              )}
+              <Typography fontWeight="bold">{classData.student.fullName}</Typography>
+              <Button
+                variant="outlined"
+                onClick={() => goTo("/alunos", `/${classData.student.id}/editar`)}
+                data-cy={`class-student-edit-${classData.student.id}`}
+              >
+                {strings.students.viewStudent}
+              </Button>
             </CardContent>
           </Card>
         );

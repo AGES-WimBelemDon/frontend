@@ -29,7 +29,7 @@ export function StudentFilter({ name, onNameChange, status, onStatusChange }: St
         />
       </Box>
       <Box display="flex" flexDirection="column" gap={0.5} sx={{ minWidth: { xs: "100%", sm: "20%" } }}>
-        <Typography>Status</Typography>
+        <Typography>{strings.filters.studentStatus.title}</Typography>
         <TextField
           select
           variant="outlined"
@@ -37,9 +37,9 @@ export function StudentFilter({ name, onNameChange, status, onStatusChange }: St
           value={status}
           onChange={(e) => onStatusChange(e.target.value)}
         >
-          <MenuItem value="">Todos</MenuItem>
-          <MenuItem value="ATIVO">Ativo</MenuItem>
-          <MenuItem value="INATIVO">Inativo</MenuItem>
+          <MenuItem value="">{strings.filters.all}</MenuItem>
+          <MenuItem value="ATIVO">{strings.filters.studentStatus.active}</MenuItem>
+          <MenuItem value="INATIVO">{strings.filters.studentStatus.inactive}</MenuItem>
         </TextField>
       </Box>
     </Box>

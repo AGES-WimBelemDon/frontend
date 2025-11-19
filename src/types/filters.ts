@@ -15,7 +15,7 @@ export type Race =
   | "AMARELA"
   | "INDIGENA"
   | "NA"
-  ;
+;
 
 export type Gender =
   | "MASCULINO"
@@ -24,7 +24,7 @@ export type Gender =
   | "MULHER_TRANS"
   | "NAO_BINARIO"
   | "OUTRO"
-  ;
+;
 
 export type SocialPrograms =
   | "BOLSA_FAMILIA"
@@ -33,7 +33,7 @@ export type SocialPrograms =
   | "AUXILIO_GAS"
   | "PROGRAMA_ESTADUAL"
   | "PROGRAMA_MUNICIPAL_VIA_CRAS"
-  ;
+;
 
 export type EmploymentStatus =
   | "ESTUDANTE"
@@ -43,7 +43,7 @@ export type EmploymentStatus =
   | "APRENDIZ"
   | "AUTONOMO"
   | "OUTRO"
-  ;
+;
 
 export type SchoolYear =
   | "EDUCACAO_INFANTIL"
@@ -60,7 +60,7 @@ export type SchoolYear =
   | "ENSINO_MEDIO_2"
   | "ENSINO_MEDIO_3"
   | "EJA"
-  ;
+;
 
 export type EducationLevel =
   | "NENHUM"
@@ -72,12 +72,12 @@ export type EducationLevel =
   | "SUPERIOR_INCOMPLETO"
   | "SUPERIOR_COMPLETO"
   | "POS_GRADUACAO"
-  ;
+;
 
 export type NoteTypes =
   | "ATESTADO_MEDICO"
   | "SEM_JUSTIFICATIVA"
-  ;
+;
 
 export type WeekDay =
   | "SEGUNDA"
@@ -97,7 +97,7 @@ export type Role =
   | "psychology_intern"
   | "social_worker"
   | "social_work_intern"
-  ;
+;
 
 export type IdentityType =
   | "CERTIDAO_NASCIMENTO"
@@ -108,20 +108,19 @@ export type IdentityType =
   | "TITULO_ELEITOR"
   | "CTPS"
   | "OUTRO"
-  ;
+;
 
 export type DocumentType =
   | "COMPROVANTE_RESIDENCIA"
   | "COMPROVANTE_RENDA"
   | "OUTRO"
-  ;
+;
 
 export type Level = {
   id: string;
   name: string;
   description: string;
-}
-  ;
+};
 
 export type CivilState =
   | "SOLTEIRO"
@@ -129,4 +128,4 @@ export type CivilState =
   | "DIVORCIADO"
   | "VIUVO"
   | "UNIAO_ESTAVEL"
-  ;
+;

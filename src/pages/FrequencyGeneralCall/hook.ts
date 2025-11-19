@@ -1,10 +1,12 @@
 import { useEffect, useState, useCallback } from "react";
 
-import type { FrequencyStatus } from "../../components/FrequencyCard/interface";
 import { useDateInput } from "../../components/Inputs/DateInput/hook";
 import { strings } from "../../constants";
 import { useToast } from "../../hooks/useToast";
-import { getGeneralAttendance, updateGeneralAttendance, type GeneralAttendanceStudent } from "../../services/frequency";
+import { getGeneralAttendance, updateGeneralAttendance } from "../../services/frequency";
+import type { FrequencyStatus } from "../../types/filters";
+import type { GeneralAttendanceStudent } from "../../types/frequency";
+import type { Id } from "../../types/id";
 
 export function useFrequencyGeneralCall() {
   const { getDate, setDate } = useDateInput();
@@ -13,7 +15,6 @@ export function useFrequencyGeneralCall() {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const [students, setStudents] = useState<GeneralAttendanceStudent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const loadGeneralAttendance = useCallback(async (date: string) => {
     setIsLoading(true);
@@ -60,7 +61,7 @@ export function useFrequencyGeneralCall() {
     void loadGeneralAttendance(date);
   }, [date, loadGeneralAttendance]);
 
-  function updatePresence(studentId: number, present: FrequencyStatus) {
+  function updatePresence(studentId: Id, present: FrequencyStatus) {
     setStudents((prevList) =>
       prevList.map((student) =>
         student.studentId === studentId

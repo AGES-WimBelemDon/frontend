@@ -26,7 +26,7 @@ export function useUserProfile() {
   const showProfileName = user && (isAnimating || progressRef.current > 0);
   const profileNameMaxWidth = getSidebarWidth(deviceSize);
 
-  const canShowBackButton = window.location.pathname !== "/frontend/";
+  const canShowBackButton = String(window.location.pathname).replace(/^\/frontend\/?/, "") !== "/";
 
   async function handleSignOut() {
     try {

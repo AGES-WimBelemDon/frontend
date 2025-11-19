@@ -1,10 +1,10 @@
 import AddIcon from "@mui/icons-material/Add";
 import { Button, MenuItem, Select, Box, Typography, type SelectChangeEvent } from "@mui/material";
 
+import type { CustomSelectButtonProps, NoteOption } from "./interface";
 import { strings } from "../../../constants";
 import { useScreenSize } from "../../../hooks/useScreenSize";
-import type { NoteTypes } from "../interface";
-import type { CustomSelectButtonProps, NoteOption } from "./interface";
+import type { NoteTypes } from "../../../types/filters";
 
 export function CustomSelectButton({
   note,

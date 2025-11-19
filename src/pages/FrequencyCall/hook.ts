@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
 
-import type {
-  FrequencyCardStudent,
-  FrequencyStatus,
-  NoteTypes,
-} from "../../components/FrequencyCard/interface";
 import { useDateInput } from "../../components/Inputs/DateInput/hook";
 import { strings } from "../../constants";
 import { useActivities } from "../../hooks/useActivities";
@@ -12,7 +7,8 @@ import { useAttendances } from "../../hooks/useAttendances";
 import { useClasses } from "../../hooks/useClasses";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
-import type { ClassStudentUpdateResponse } from "../../services/frequency";
+import type { FrequencyStatus, NoteTypes } from "../../types/filters";
+import type { ClassStudentUpdateResponse, FrequencyCardStudent } from "../../types/frequency";
 import type { Id } from "../../types/id";
 
 export function useFrequencyCall() {

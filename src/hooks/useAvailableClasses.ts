@@ -15,7 +15,7 @@ export function useAvailableClasses() {
       }
       const available = await getAvailableClasses();
       available.sort((a,b) => {
-        return a.classId - b.classId
+        return Number(a.classId) - Number(b.classId)
       })
       return available
     },
