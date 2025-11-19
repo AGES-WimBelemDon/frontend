@@ -1,7 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 
 import { getAuthToken, logout } from "./auth.firebase";
-import type { FormType } from "../types/filters";
 import type { Id } from "../types/id";
 
 const endpoints = {
@@ -14,16 +13,12 @@ const endpoints = {
     base: "/address",
     byId: (id: Id) => `/address/${id}`,
   },
-  anamnesis: {
-    base: "/anamnesis"
-  },
   assessment: {
     base: "/assessment",
     forms: "/assessment/forms",
-    questionsByFormType: (formType: FormType) => `/assessment/forms/${formType}/questions`,
-    submitByStudent: (studentId: Id) => `/assessment/student/${studentId}/assessments`,
-    createAnswersByStudent: (studentId: Id) => `/assessment/student/${studentId}/answers`,
-    getByStudent: (studentId: Id) => `/assessment/student/${studentId}/assessments`,
+    questionsByFormType: (formType: string) => `/assessment/form/${formType}/questions`,
+    studentAssesments: (studentId: Id, formType: string) => `/assessment/student/${studentId}/assessments?formType=${formType}`,
+    createAnswersByStudent: (studentId: Id) => `/assessment/student/${studentId}/assessments`,
   },
   classes: {
     base: "/classes",

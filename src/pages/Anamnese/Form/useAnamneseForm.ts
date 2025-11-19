@@ -1,88 +1,157 @@
 import { useEffect, useState } from "react";
 
+import dayjs from "dayjs";
 import { useNavigate, useParams } from "react-router";
 
+import { useStudents } from "../../../hooks/useStudents";
 import {
   getAnamneseFormsByStudent,
+  getFormTypes,
   getQuestions,
+  patchAnamnese,
   postAnamnese,
 } from "../../../services/anamnesis";
-import type { AnamneseFormInfo, AnamneseSubmission, Question } from "../../../types/anamnesis";
+import type { AnamneseFormType, AnamneseSubmission, AnamneseUpdate, Question } from "../../../types/anamnesis";
 import type { Id } from "../../../types/id";
 
-export function useAnamneseForm() {
-  const { studentId, formId } = useParams<{ studentId: string; formId: string }>();
-  const navigate = useNavigate();
+type ResponsesState = Record<Id, { content: string; answerId: Id | null }>;
 
-  const [forms, setForms] = useState<AnamneseFormInfo[]>([]);
+export function useAnamneseForm() {
+  const { formType, formId } = useParams<{ formType: string, formId: string }>();
+  const navigate = useNavigate();
+  const [formDates, setFormDates] = useState<string[]>([]);
+  const [responses, setResponses] = useState<ResponsesState>({});
+  const [initialResponses, setInitialResponses] = useState<ResponsesState>({});
+  const [isCreating, setIsCreating] = useState(false);
+  const [formTypes, setFormTypes] = useState<AnamneseFormType[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [responses, setResponses] = useState<Record<string, string>>({});
-  const [isCreating, setIsCreating] = useState(formId === "new");
+
+  const { currentStudentId } = useStudents();
+
+  useEffect(function fetchQuestions() {
+    if (formType) {
+      getQuestions(formType).then(setQuestions);
+    }
+  }, [formType]);
 
   useEffect(function fetchStudentForms() {
-    if (studentId) {
-      getAnamneseFormsByStudent(studentId).then(setForms);
+    if (currentStudentId && formType) {
+      getAnamneseFormsByStudent(currentStudentId, formType).then(r => {
+        const uniqueDates = [...new Set(r.map(form => form.submissionDate))];
+        setFormDates(uniqueDates);
+      });
     }
-  }, [studentId]);
-  
-  useEffect(function fetchQuestions() {
-    if (formId && formId !== "new" && !isCreating) {
-      getQuestions(formId).then(setQuestions);
+  }, [currentStudentId, formType]);
+
+  useEffect(function fetchFormTypes() {
+    getFormTypes().then(setFormTypes);
+  }, []);
+
+  useEffect(function fetchResponses() {
+    if (formId && formId !== "new" && currentStudentId && formType) {
+      getAnamneseFormsByStudent(currentStudentId, formType).then(r => {
+        const submissionAnswers = r.filter(answer => answer.submissionDate === formId);
+        const answers = submissionAnswers.reduce((acc, answer) => {
+          acc[answer.questionId] = { content: answer.content, answerId: answer.answerId };
+          return acc;
+        }, {} as ResponsesState);
+        setResponses(answers);
+        setInitialResponses(answers);
+      });
     } else {
-      // When creating a new form, we can fetch template questions
-      getQuestions("new").then(setQuestions);
       setResponses({});
+      setInitialResponses({});
     }
-  }, [formId, isCreating]);
+  }, [formId, currentStudentId, formType]);
 
   function handleResponseChange(questionId: Id, value: string) {
-    setResponses((prev) => ({ ...prev, [questionId]: value }));
+    setResponses((prev) => ({
+      ...prev,
+      [questionId]: {
+        ...prev[questionId],
+        content: value,
+        answerId: prev[questionId]?.answerId ?? null,
+      },
+    }));
   }
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (!formId && !isCreating) {
+    if (!currentStudentId || !formType || (!formId && !isCreating)) {
       return;
     }
 
-    const submission = {
-      formId: isCreating ? undefined : formId,
-      studentId,
-      responses: Object.entries(responses).map(([questionId, response]) => ({
-        questionId,
-        response,
-      })),
-    };
+    const submissionDate = formId !== "new" ? formId : dayjs().toString();
 
-    const result = await postAnamnese(submission as AnamneseSubmission);
-    if (isCreating && result) {
-      setIsCreating(false);
-      // Navigate to the newly created form
-      navigate(`/alunos/${studentId}/anamnese/${result.id}`, { replace: true });
+    const answersToPost = [];
+    const answersToPatch = [];
+
+    for (const questionId in responses) {
+      const response = responses[questionId];
+      const initialResponse = initialResponses[questionId];
+
+      if (initialResponse) { // Existing answer
+        if (response.content !== initialResponse.content) {
+          answersToPatch.push({ answerId: Number(response.answerId), content: response.content });
+        }
+      } else { // New answer
+        answersToPost.push({ questionId: Number(questionId), content: response.content });
+      }
+    }
+
+    const promises = [];
+
+    if (submissionDate) {
+      if (answersToPost.length > 0) {
+        const submission: Omit<AnamneseSubmission, "formType"> = {
+          submissionDate,
+          answers: answersToPost,
+        };
+        promises.push(postAnamnese(submission, currentStudentId));
+      }
+
+      if (answersToPatch.length > 0) {
+        const submission: AnamneseUpdate = {
+          updates: answersToPatch,
+        };
+        promises.push(patchAnamnese(submission));
+
+      }
+    }
+
+    if (promises.length > 0) {
+      const results = await Promise.all(promises);
+      if (isCreating && results.length > 0 && results[0]) {
+        setIsCreating(false);
+        const newSubmissionDate = results[0][0].submissionDate;
+        navigate(`/alunos/${currentStudentId}/anamnese/form/${formType}/${newSubmissionDate}`, { replace: true });
+      }
     }
     // TODO: Add toast notification on success/error
   }
 
   function handleCreateNew() {
     setIsCreating(true);
+    navigate(`/alunos/${currentStudentId}/anamnese/form/${formType}/new`);
   }
 
   function handleFormChange(newFormId: string) {
     if (newFormId) {
       setIsCreating(false);
-      navigate(`/alunos/${studentId}/anamnese/${newFormId}`);
+      navigate(`/alunos/${currentStudentId}/anamnese/form/${formType}/${newFormId}`);
     }
   }
 
   return {
-    forms,
-    questions,
-    formId: isCreating ? "new" : formId,
+    formId,
     responses,
+    questions,
     isCreating,
+    formTypes,
+    formDates,
     handleResponseChange,
     handleSubmit,
     handleCreateNew,
     handleFormChange,
   };
-};
+}

@@ -8,11 +8,11 @@ import { strings } from "../../../constants";
 
 const AnamnesisForm = () => {
   const {
-    forms,
-    questions,
-    formId,
+    formDates,
     responses,
     isCreating,
+    questions,
+    formId,
     handleResponseChange,
     handleSubmit,
     handleCreateNew,
@@ -29,13 +29,13 @@ const AnamnesisForm = () => {
         justifyContent="end"
         marginBottom={3}
       >
-        {forms.length > 0 && (
+        {formDates.length > 0 && (
           <FormControl variant="standard" sx={{ minWidth: 150 }}>
             <InputLabel>{strings.anamnesis.previousForms}</InputLabel>
             <Select value={formId || ""} onChange={(e) => handleFormChange(e.target.value)}>
-              {forms.map((form) => (
-                <MenuItem key={form.id} value={form.id}>
-                  {dayjs(form.date).format("DD/MM/YYYY")}
+              {formDates.map((date) => (
+                <MenuItem key={date} value={date}>
+                  {dayjs(date).format("DD/MM/YYYY")}
                 </MenuItem>
               ))}
             </Select>
@@ -49,12 +49,12 @@ const AnamnesisForm = () => {
           <CardList rowGap={5} columnGap={5}>
             {questions.map((question) => (
               <TextField
-                key={question.id}
-                id={question.id.toString()}
+                key={question.questionId}
+                id={question.questionId.toString()}
                 label={question.statement}
                 variant="standard"
-                value={responses[question.id] || ""}
-                onChange={(e) => handleResponseChange(question.id, e.target.value)}
+                value={responses[question.questionId]?.content || ""}
+                onChange={(e) => handleResponseChange(question.questionId, e.target.value)}
               />
             ))}
           </CardList>
@@ -64,7 +64,6 @@ const AnamnesisForm = () => {
             justifyContent="end"
             marginTop={5}
           >
-            <Button variant="outlined">{strings.anamnesis.skip}</Button>
             <Button variant="contained" type="submit">
               {strings.anamnesis.save}
             </Button>
@@ -78,4 +77,3 @@ const AnamnesisForm = () => {
 };
 
 export default AnamnesisForm;
-
