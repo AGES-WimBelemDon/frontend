@@ -8,7 +8,7 @@ import { strings } from "../../../constants";
 
 const AnamnesisForm = () => {
   const {
-    forms,
+    formDates,
     responses,
     isCreating,
     questions,
@@ -29,13 +29,13 @@ const AnamnesisForm = () => {
         justifyContent="end"
         marginBottom={3}
       >
-        {forms.length > 0 && (
+        {formDates.length > 0 && (
           <FormControl variant="standard" sx={{ minWidth: 150 }}>
             <InputLabel>{strings.anamnesis.previousForms}</InputLabel>
             <Select value={formId || ""} onChange={(e) => handleFormChange(e.target.value)}>
-              {forms.map((form) => (
-                <MenuItem key={form.id} value={form.id}>
-                  {dayjs(form.date).format("DD/MM/YYYY")}
+              {formDates.map((date) => (
+                <MenuItem key={date} value={date}>
+                  {dayjs(date).format("DD/MM/YYYY")}
                 </MenuItem>
               ))}
             </Select>

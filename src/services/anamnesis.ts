@@ -1,23 +1,19 @@
-import dayjs from "dayjs";
-
 import { api, endpoints } from "./api";
-import type { AnamneseFormInfo, AnamneseSubmission, Question } from "../types/anamnesis";
+import type { AnamneseFormAnswer, AnamneseSubmission, Question } from "../types/anamnesis";
+import type { Id } from "../types/id";
 
 
-export async function getAnamneseFormsByStudent(studentId: string): Promise<AnamneseFormInfo[]> {
+export async function getAnamneseFormsByStudent(studentId: Id, formType: string): Promise<AnamneseFormAnswer[]> {
   try {
-    // TODO: This endpoint is a placeholder, replace with the actual endpoint
-    const response = await api.get<AnamneseFormInfo[]>(`/students/${studentId}/anamnese-forms`);
+    const response = await api.get<AnamneseFormAnswer[]>(endpoints.assessment.studentAssesments(studentId, formType));
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
     console.warn(`Mocking anamnese forms for studentId: ${studentId}`);
-    const mockForms: AnamneseFormInfo[] = [
-      { id: "1", date: "2023-03-12" },
-      { id: "2", date: "2023-09-25" },
-      { id: "3", date: "2024-02-18" },
-      { id: "4", date: "2024-08-01" },
-      { id: "new", date: dayjs().format("YYYY-MM-DD") },
+    const mockForms: AnamneseFormAnswer[] = [
+      { id: "1", questionId: "1-1", content: "Some content for question 1-1", submissionDate: "2023-03-12" },
+      { id: "2", questionId: "1-2", content: "Some content for question 1-2", submissionDate: "2023-03-12" },
+      { id: "3", questionId: "2-1", content: "Some content for question 2-1", submissionDate: "2023-09-25" },
+      { id: "4", questionId: "2-2", content: "Some content for question 2-2", submissionDate: "2023-09-25" },
     ];
     return Promise.resolve(mockForms);
   }
@@ -61,15 +57,15 @@ export async function getQuestions(formId: string): Promise<Question[]> {
   }
 }
 
-export async function postAnamnese(submission: AnamneseSubmission): Promise<{ id: string }> {
+export async function postAnamnese(submission: AnamneseSubmission, studentId: Id): Promise<AnamneseFormAnswer[]> {
   try {
-    const response = await api.post(endpoints.assessment.base, submission);
+    const response = await api.post(endpoints.assessment.createAnswersByStudent(studentId), submission);
     return response.data;
   } catch (error) {
     console.error("Error posting anamnese:", error);
     // Mock a successful response for development
     const newId = (Math.random() * 1000).toFixed(0).toString();
-    return Promise.resolve({ id: newId });
+    return Promise.resolve([{ id: newId, questionId: 0, content: "mock", submissionDate: "mock" }]);
   }
 }
 

@@ -3,10 +3,12 @@ import { PageTitle } from "../../../components/PageTitle";
 import { TextCard } from "../../../components/TextCard";
 import { strings } from "../../../constants";
 import { useRoutes } from "../../../hooks/useRoutes";
+import { useStudents } from "../../../hooks/useStudents";
 import { useAnamneseForm } from "../Form/useAnamneseForm";
 
 export default function SelectForm() {
-  const { formTypes, handleSelectFormType } = useAnamneseForm()
+  const { formTypes } = useAnamneseForm()
+  const { currentStudentId } = useStudents()
   const { goTo } = useRoutes();
 
   return (
@@ -18,10 +20,7 @@ export default function SelectForm() {
             key={card.id}
             title={card.title}
             theme="light"
-            onClick={() => {
-              handleSelectFormType(card.id)
-              goTo("/anamnese", `/form/${card.id}`)
-            }}
+            onClick={() => { goTo("/alunos", `/${currentStudentId}/anamnese/form/${card.type}`) }}
           />
         ))}
       </CardList>

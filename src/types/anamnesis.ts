@@ -8,18 +8,22 @@ export type Question = {
 };
 
 export type AnamneseResponse = {
-  questionId: Id;
-  response: string;
+  questionId?: number;
+  answerId?: number
+  content?: string;
+  submissionDate?: string;
 };
 
 export type AnamneseSubmission = {
-  formId: Id;
-  responses: AnamneseResponse[];
+  submissionDate: string;
+  answers: AnamneseResponse[];
 };
 
-export type AnamneseFormInfo = {
+export type AnamneseFormAnswer = {
   id: Id;
-  date: string;
+  content: string,
+  submissionDate: string;
+  questionId: Id;
 };
 
 export type AnamneseFormType = {
