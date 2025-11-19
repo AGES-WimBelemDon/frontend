@@ -422,7 +422,7 @@ export const portugueseTextMap = {
       student: "Educando",
     },
     createSuccessMessage: "Turma criada com sucesso!",
-    editSucessMessage: "Turma editada com sucesso!",
+    editSuccessMessage: "Turma editada com sucesso!",
     createErrorFillAllFields: "Por favor, preencha todos os campos.",
     createErrorGeneric: "Erro ao criar turma. Por favor, tente novamente.",
     editErrorGeneric: "Erro ao editar a classe. Por favor, tente novamente."

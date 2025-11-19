@@ -423,7 +423,7 @@ export const englishTextMap = {
       student: "Educandos",
     },
     createSuccessMessage: "Class created successfully!",
-    editSucessMessage: "Class edited successfully",
+    editSuccessMessage: "Class edited successfully",
     createErrorFillAllFields: "Please fill in all fields.",
     createErrorGeneric: "Error creating class. Please try again.",
     editErrorGeneric: "Error editing class. Please try again."

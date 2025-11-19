@@ -98,38 +98,37 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
   }
 
   async function handleSubmit() {
-    const { studentIds, dayOfWeekSelection, ...classData } = getValues() as FormValues;
+    const { studentIds, dayOfWeekSelection, ...classFormData } = getValues() as FormValues;
 
     const dayOfWeekStrings = (dayOfWeekSelection ?? []).map((d) => {
       // @ts-expect-error -- value exists
       return d.value;
     });
 
-    if (!classData) {
+    if (!classFormData) {
       showToast(strings.classesModal.createErrorFillAllFields, "error");
       return;
     }
 
     try {
-      console.log(classData, classData.id)
-      if (isEditing && classData) {
+      if (isEditing && classFormData) {
         const formattedClassData = {
-          ...classData,
-          startTime: formatTime(classData.startTime),
-          endTime: formatTime(classData.endTime),
+          ...classFormData,
+          startTime: formatTime(classFormData.startTime),
+          endTime: formatTime(classFormData.endTime),
         };
         await patchClass(classData.id, formattedClassData);
-        showToast(strings.classesModal.editSucessMessage, "success");
+        showToast(strings.classesModal.editSuccessMessage, "success");
       } else {
         const formattedClassData = {
-          ...classData,
-          startDate: formatDate(classData.startDate),
-          startTime: formatTime(classData.startTime),
-          endTime: formatTime(classData.endTime),
+          ...classFormData,
+          startDate: formatDate(classFormData.startDate),
+          startTime: formatTime(classFormData.startTime),
+          endTime: formatTime(classFormData.endTime),
           dayOfWeek: dayOfWeekStrings,
         };
-        if (classData.endDate) {
-          formattedClassData.endDate = formatDate(classData.endDate);
+        if (classFormData.endDate) {
+          formattedClassData.endDate = formatDate(classFormData.endDate);
         }
         const classId = await createClasses(formattedClassData);
         if (!classId) {
