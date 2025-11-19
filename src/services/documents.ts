@@ -10,7 +10,7 @@ export async function addStudentDocument<UploadResponse>(
   documentData: CreateStudentFile
 ): Promise<UploadResponse> {
   try {
-    delete documentData.file;
+    // delete documentData.file;
     const result = await api.post<UploadResponse>(
       `${endpoints.documents.generatePreUpload}`,
       documentData
