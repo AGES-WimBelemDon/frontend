@@ -1,7 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 
 import { getAuthToken, logout } from "./auth.firebase";
-import type { FormType } from "../types/filters";
 import type { Id } from "../types/id";
 
 const endpoints = {
