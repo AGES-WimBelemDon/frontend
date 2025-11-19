@@ -483,6 +483,8 @@ export const portugueseTextMap = {
     registrationNumber: "Documento de Identidade (CPF)",
     attachments: "Anexos",
     attachMoreFiles: "Anexar mais documentos",
+    viewFiles: "Ver arquivos anexados",
+    documentAdded: "Documento adicionado com sucesso!",
     selectFiles: "Selecionar arquivo",
     selectedFile: "Arquivo selecionado:",
     fileCreatedAt: "Data de criação do arquivo:",

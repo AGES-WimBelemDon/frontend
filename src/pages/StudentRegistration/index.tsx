@@ -12,11 +12,13 @@ import { strings } from "../../constants";
 import { useFilters } from "../../hooks/useFilters";
 import { useRoutes } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
+import { useStudents } from "../../hooks/useStudents";
+import { FileContentType } from "../../types/fileTypes";
+import type { Id } from "../../types/id";
 
 export default function StudentRegistration() {
   const { goBack } = useRoutes();
   const { isMobile } = useScreenSize();
-
 
   const {
     genderOptions,
@@ -24,8 +26,10 @@ export default function StudentRegistration() {
     schoolYearOptions,
     identityTypesOptions,
     socialProgramsOptions,
-    employmentStatusOptions
+    employmentStatusOptions,
   } = useFilters();
+
+  const {currentStudentId} = useStudents();
 
   const {
     documents,
@@ -34,7 +38,9 @@ export default function StudentRegistration() {
     docForm,
     setDocForm,
     handleAddDoc,
+    handleFileSelect,
     handleSubmit,
+    viewDocumentsByStudent,
     address,
     setAddress,
     isEditing,
@@ -103,7 +109,10 @@ export default function StudentRegistration() {
           type="date"
           defaultValue={isEditing ? formatDateToInput(student?.dateOfBirth) : ""}
           slotProps={{
-            htmlInput: { max: new Date().toISOString().slice(0, 10), min: "1925-01-01" },
+            htmlInput: {
+              max: new Date().toISOString().slice(0, 10),
+              min: "1925-01-01",
+            },
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
           }}
         />
@@ -121,7 +130,9 @@ export default function StudentRegistration() {
           }}
         >
           {genderOptions?.map(({ id, label }) => (
-            <MenuItem key={id} value={id}>{label}</MenuItem>
+            <MenuItem key={id} value={id}>
+              {label}
+            </MenuItem>
           ))}
         </TextField>
         <TextField
@@ -137,10 +148,11 @@ export default function StudentRegistration() {
           }}
         >
           {raceOptions?.map(({ id, label }) => (
-            <MenuItem key={id} value={id}>{label}</MenuItem>
+            <MenuItem key={id} value={id}>
+              {label}
+            </MenuItem>
           ))}
         </TextField>
-
 
         <TextField
           name="student.enrollmentDate"
@@ -180,7 +192,9 @@ export default function StudentRegistration() {
           }}
         >
           {identityTypesOptions?.map((identityType) => (
-            <MenuItem key={identityType.id} value={identityType.id}>{identityType.label}</MenuItem>
+            <MenuItem key={identityType.id} value={identityType.id}>
+              {identityType.label}
+            </MenuItem>
           ))}
         </TextField>
         <Typography
@@ -190,22 +204,30 @@ export default function StudentRegistration() {
           {strings.studentRegistration.attachments}
         </Typography>
 
-        <Box
-          sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: "auto", mb: 2 }}
-        >
+        <Box sx={{ maxHeight: { xs: 180, md: 240 }, overflowY: "auto", mb: 2 }}>
           {documents.map((doc) => (
             <Box key={doc.id} mb={1.25}>
-              <Typography variant="caption" color="primary.main" sx={{ mb: 0.5 }}>
-                {doc.documentType}
+              <Typography
+                variant="caption"
+                color="primary.main"
+                sx={{ mb: 0.5 }}
+              >
+                {doc.contentType}
               </Typography>
               <Box display="flex" gap={1.25}>
                 <TextField
-                  value={doc.fileName}
+                  value={doc.originalName}
                   size="small"
                   sx={{ flex: 1 }}
                   disabled
                 />
-                <Button variant="outlined" size="small" onClick={() => setShowUploader(true)}>{strings.studentRegistration.editButton}</Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => setShowUploader(true)}
+                >
+                  {strings.studentRegistration.editButton}
+                </Button>
               </Box>
             </Box>
           ))}
@@ -227,20 +249,17 @@ export default function StudentRegistration() {
               id="fileInputUpload2"
               type="file"
               hidden
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  setDocForm((f) => ({
-                    ...f,
-                    fileName: file.name,
-                    fileType: file.type || file.name.split(".").pop() || "",
-                    origin: file.webkitRelativePath || file.name,
-                    date: new Date(file.lastModified).toISOString().slice(0, 10),
-                  }));
-                  setShowUploader(true);
-                }
-              }}
+              onChange={(e) => handleFileSelect(e, currentStudentId?.toString() || "")}
             />
+
+            <Button
+              variant="outlined"
+              fullWidth
+              sx={{ my: 1 }}
+              onClick={() =>  viewDocumentsByStudent(currentStudentId?.toString())}
+            >
+              {strings.studentRegistration.viewFiles}
+            </Button>
           </>
         )}
 
@@ -273,16 +292,18 @@ export default function StudentRegistration() {
                       fileName: file.name,
                       fileType: file.type || file.name.split(".").pop() || "",
                       origin: file.webkitRelativePath || file.name,
-                      date: new Date(file.lastModified).toISOString().slice(0, 10),
+                      date: new Date(file.lastModified)
+                        .toISOString()
+                        .slice(0, 10),
                     }));
                   }
                 }}
               />
             </Button>
 
-            {docForm.fileName && (
+            {docForm.originalName && (
               <Typography variant="body2" sx={{ mb: 1 }}>
-                {strings.studentRegistration.selectedFile}{" "}{docForm.fileName}
+                {strings.studentRegistration.selectedFile} {docForm.originalName}
               </Typography>
             )}
 
@@ -291,7 +312,7 @@ export default function StudentRegistration() {
               type="date"
               fullWidth
               margin="dense"
-              value={docForm.date}
+              value={docForm.createdAt}
               slotProps={{
                 inputLabel: { sx: { color: "primary.main" }, shrink: true },
               }}
@@ -315,10 +336,10 @@ export default function StudentRegistration() {
                 color="error"
                 onClick={() => {
                   setDocForm({
-                    fileName: "",
-                    fileType: "",
-                    origin: "",
-                    date: "",
+                    studentId: "" as Id,
+                    originalName: "",
+                    contentType: FileContentType.PDF,
+                    createdAt: "",
                     description: "",
                   });
                   setShowUploader(false);
@@ -329,7 +350,7 @@ export default function StudentRegistration() {
               <Button
                 onClick={handleAddDoc}
                 variant="contained"
-                disabled={!docForm.fileName}
+                disabled={!docForm.originalName}
                 sx={{ ml: "auto" }}
               >
                 {strings.studentRegistration.addFileButton}
@@ -367,7 +388,9 @@ export default function StudentRegistration() {
           }}
         >
           {schoolYearOptions?.map(({ id, label }) => (
-            <MenuItem key={id} value={id}>{label}</MenuItem>
+            <MenuItem key={id} value={id}>
+              {label}
+            </MenuItem>
           ))}
         </TextField>
 
@@ -395,7 +418,9 @@ export default function StudentRegistration() {
           }}
         >
           {socialProgramsOptions?.map(({ id, label }) => (
-            <MenuItem key={id} value={id}>{label}</MenuItem>
+            <MenuItem key={id} value={id}>
+              {label}
+            </MenuItem>
           ))}
         </TextField>
 
@@ -411,7 +436,9 @@ export default function StudentRegistration() {
           }}
         >
           {employmentStatusOptions?.map(({ id, label }) => (
-            <MenuItem key={id} value={id}>{label}</MenuItem>
+            <MenuItem key={id} value={id}>
+              {label}
+            </MenuItem>
           ))}
         </TextField>
 
@@ -441,7 +468,7 @@ export default function StudentRegistration() {
           onChange={(e) => setAddress({ ...address, cep: e.target.value })}
           slotProps={{
             inputLabel: { sx: { color: "primary.main" }, shrink: true },
-            htmlInput: { maxLength: 8, minLength: 8, pattern: "[0-9]{8}" }
+            htmlInput: { maxLength: 8, minLength: 8, pattern: "[0-9]{8}" },
           }}
         />
 
@@ -457,7 +484,12 @@ export default function StudentRegistration() {
               slotProps={{
                 htmlInput: {
                   readOnly: true,
-                  sx: { cursor: "not-allowed", borderColor: "grey.600", onFocus: { borderColor: "grey.600", color: "grey.600" }, color: "grey.600" }
+                  sx: {
+                    cursor: "not-allowed",
+                    borderColor: "grey.600",
+                    onFocus: { borderColor: "grey.600", color: "grey.600" },
+                    color: "grey.600",
+                  },
                 },
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
@@ -484,7 +516,12 @@ export default function StudentRegistration() {
               slotProps={{
                 htmlInput: {
                   readOnly: true,
-                  sx: { cursor: "not-allowed", borderColor: "grey.600", onFocus: { borderColor: "grey.600", color: "grey.600" }, color: "grey.600" }
+                  sx: {
+                    cursor: "not-allowed",
+                    borderColor: "grey.600",
+                    onFocus: { borderColor: "grey.600", color: "grey.600" },
+                    color: "grey.600",
+                  },
                 },
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
@@ -499,7 +536,12 @@ export default function StudentRegistration() {
               slotProps={{
                 htmlInput: {
                   readOnly: true,
-                  sx: { cursor: "not-allowed", borderColor: "grey.600", onFocus: { borderColor: "grey.600", color: "grey.600" }, color: "grey.600" }
+                  sx: {
+                    cursor: "not-allowed",
+                    borderColor: "grey.600",
+                    onFocus: { borderColor: "grey.600", color: "grey.600" },
+                    color: "grey.600",
+                  },
                 },
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
@@ -515,7 +557,12 @@ export default function StudentRegistration() {
               slotProps={{
                 htmlInput: {
                   readOnly: true,
-                  sx: { cursor: "not-allowed", borderColor: "grey.600", onFocus: { borderColor: "grey.600", color: "grey.600" }, color: "grey.600" }
+                  sx: {
+                    cursor: "not-allowed",
+                    borderColor: "grey.600",
+                    onFocus: { borderColor: "grey.600", color: "grey.600" },
+                    color: "grey.600",
+                  },
                 },
                 inputLabel: { sx: { color: "grey.600" }, shrink: true },
               }}
@@ -528,7 +575,9 @@ export default function StudentRegistration() {
               defaultValue={isEditing ? address?.complement ?? "" : ""}
               fullWidth
               margin="normal"
-              slotProps={{ inputLabel: { sx: { color: "primary.main" }, shrink: true } }}
+              slotProps={{
+                inputLabel: { sx: { color: "primary.main" }, shrink: true },
+              }}
             />
           </>
         )}

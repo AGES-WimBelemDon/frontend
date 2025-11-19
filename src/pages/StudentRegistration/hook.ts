@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -8,7 +8,13 @@ import { useRoutes } from "../../hooks/useRoutes";
 import { useToast } from "../../hooks/useToast";
 import { fetchAddress } from "../../services/address";
 import {
+  addDocumentInFirebase,
   addStudentDocument,
+  confirmUpload,
+  downloadDocumentsIndividually,
+  getDocumentByStudent,
+} from "../../services/documents";
+import {
   registerAddress,
   registerStudent as apiRegisterStudent,
   updateStudent as apiUpdateStudent,
@@ -16,32 +22,37 @@ import {
   activateStudent as apiActivateStudent,
   getStudentById,
   getStudentAddress,
-  deactivateStudent as apiDeactivateStudent
+  deactivateStudent as apiDeactivateStudent,
 } from "../../services/students";
 import type { AddressResponse } from "../../types/address";
 import type { Address } from "../../types/address";
+import {
+  FileContentType,
+  type CreateStudentFile,
+  type UploadResponse,
+} from "../../types/fileTypes";
 import type { Id } from "../../types/id";
 import type { Student } from "../../types/students";
 
 export function useStudentRegistration() {
-  const { showToast } = useToast()
+  const { showToast } = useToast();
   const { goBack, getPathParamId } = useRoutes();
   const queryClient = useQueryClient();
 
   const [address, setAddress] = useState<Partial<Address> | null>(null);
   const [documents, setDocuments] = useState<Document[]>([]);
   const [showUploader, setShowUploader] = useState(false);
-  const [docForm, setDocForm] = useState({
-    fileName: "",
-    fileType: "",
-    origin: "",
-    date: "",
+  const [docForm, setDocForm] = useState<CreateStudentFile>({
+    studentId: "" as Id,
+    originalName: "",
+    contentType: FileContentType.PDF,
+    createdAt: "",
     description: "",
   });
 
   const editingId = getPathParamId("alunos");
-  const studentId = editingId ? Number(editingId) : null;
-  const isEditing = Boolean(studentId);
+  const studentId = editingId ?? null;
+  const isEditing = studentId !== null;
 
   function getAddressDetails() {
     if (!address?.cep) {
@@ -58,11 +69,10 @@ export function useStudentRegistration() {
     });
   }
 
-
   useQuery({
     queryKey: ["addressByCep", address?.cep],
     queryFn: getAddressDetails,
-  })
+  });
 
   const studentQuery = useQuery({
     queryKey: ["studentById", studentId],
@@ -99,24 +109,51 @@ export function useStudentRegistration() {
     }
   }, [studentAddr]);
 
+  const handleFileSelect = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    studentId: string
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setDocForm((d) => ({
+      ...d,
+      studentId: studentId as Id,
+      originalName: file.name,
+      contentType: (file.type as FileContentType) || FileContentType.TEXT,
+      createdAt: new Date(file.lastModified).toISOString().slice(0, 10),
+      file: file,
+    }));
+
+    setShowUploader(true);
+  };
 
   function handleAddDoc() {
-    if (!docForm.fileName) return;
-
+    if (!docForm.originalName) return;
 
     setDocuments((docs) => [
       ...docs,
       {
         ...docForm,
-        id: Date.now(),
+        id: crypto.randomUUID(),
       } as Document,
     ]);
 
-    setDocForm({ fileName: "", fileType: "", origin: "", date: "", description: "" });
-    setShowUploader(false);
-  };
+    setDocForm({
+      studentId: "" as Id,
+      originalName: "",
+      contentType: FileContentType.PDF,
+      createdAt: "",
+      description: "",
+    });
 
-  async function registerStudent(studentData: Partial<Student>, addressData: Partial<Address>): Promise<Id> {
+    setShowUploader(false);
+  }
+
+  async function registerStudent(
+    studentData: Partial<Student>,
+    addressData: Partial<Address>
+  ): Promise<Id> {
     try {
       if (!studentData.fullName) {
         throw new Error(strings.studentRegistration.errors.fullNameRequired);
@@ -127,7 +164,9 @@ export function useStudentRegistration() {
       }
 
       if (!studentData.registrationNumber) {
-        throw new Error(strings.studentRegistration.errors.registrationNumberRequired);
+        throw new Error(
+          strings.studentRegistration.errors.registrationNumberRequired
+        );
       }
 
       if (!studentData.schoolYear) {
@@ -138,14 +177,18 @@ export function useStudentRegistration() {
         throw new Error(strings.studentRegistration.errors.genderRequired);
       }
       if (!studentData.enrollmentDate) {
-        throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
+        throw new Error(
+          strings.studentRegistration.errors.enrollmentDateRequired
+        );
       }
       if (!addressData.cep) {
         throw new Error(strings.studentRegistration.errors.addressCepRequired);
       }
 
       if (!addressData.number) {
-        throw new Error(strings.studentRegistration.errors.addressNumberRequired);
+        throw new Error(
+          strings.studentRegistration.errors.addressNumberRequired
+        );
       }
 
       const newStudent = await apiRegisterStudent(studentData);
@@ -153,12 +196,10 @@ export function useStudentRegistration() {
         throw new Error("No ID returned from student registration");
       }
 
-
       const studentAddress = await registerAddress(newStudent.id, addressData);
       if (!studentAddress.id) {
         throw new Error("No ID returned from address registration");
       }
-
 
       showToast(strings.studentRegistration.successMessage, "success");
 
@@ -172,7 +213,11 @@ export function useStudentRegistration() {
     }
   }
 
-  async function updateStudent(studentId: number, studentData: Partial<Student>, addressData: Partial<Address>): Promise<void> {
+  async function updateStudent(
+    studentId: Id,
+    studentData: Partial<Student>,
+    addressData: Partial<Address>
+  ): Promise<void> {
     try {
       if (!studentData.fullName) {
         throw new Error(strings.studentRegistration.errors.fullNameRequired);
@@ -183,7 +228,9 @@ export function useStudentRegistration() {
       }
 
       if (!studentData.registrationNumber) {
-        throw new Error(strings.studentRegistration.errors.registrationNumberRequired);
+        throw new Error(
+          strings.studentRegistration.errors.registrationNumberRequired
+        );
       }
 
       if (!studentData.schoolYear) {
@@ -193,15 +240,22 @@ export function useStudentRegistration() {
       if (!studentData.gender) {
         throw new Error(strings.studentRegistration.errors.genderRequired);
       }
-      if (!studentData.enrollmentDate || studentData.enrollmentDate === undefined) {
-        throw new Error(strings.studentRegistration.errors.enrollmentDateRequired);
+      if (
+        !studentData.enrollmentDate ||
+        studentData.enrollmentDate === undefined
+      ) {
+        throw new Error(
+          strings.studentRegistration.errors.enrollmentDateRequired
+        );
       }
       if (!addressData.cep) {
         throw new Error(strings.studentRegistration.errors.addressCepRequired);
       }
 
       if (!addressData.number) {
-        throw new Error(strings.studentRegistration.errors.addressNumberRequired);
+        throw new Error(
+          strings.studentRegistration.errors.addressNumberRequired
+        );
       }
       await apiUpdateStudent(studentId, studentData);
       const studentAddress = await getStudentAddress(studentId);
@@ -239,9 +293,11 @@ export function useStudentRegistration() {
 
   async function handleActivateStudent() {
     if (!studentId) return;
-    const confirm = window.confirm("Tem certeza que deseja ativar este educando?");
+    const confirm = window.confirm(
+      "Tem certeza que deseja ativar este educando?"
+    );
     if (!confirm) return;
-  
+
     try {
       const studentData: Partial<Student> = {
         status: "ATIVO",
@@ -255,8 +311,8 @@ export function useStudentRegistration() {
         showToast("Erro interno no servidor.", "error");
         return;
       }
-      showToast(err?.message , "error");
-    } 
+      showToast(err?.message, "error");
+    }
   }
 
   function formatDateToInput(dateString: string | undefined): string {
@@ -270,7 +326,9 @@ export function useStudentRegistration() {
 
   async function handleDeactivateStudent() {
     if (!studentId) return;
-    const confirm = window.confirm("Tem certeza que deseja desativar este educando?");
+    const confirm = window.confirm(
+      "Tem certeza que deseja desativar este educando?"
+    );
     if (!confirm) return;
 
     try {
@@ -283,22 +341,47 @@ export function useStudentRegistration() {
         showToast("Erro interno no servidor.", "error");
         return;
       }
-      showToast(err?.message , "error");
+      showToast(err?.message, "error");
     }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const studentData = filterByPrefix<Student>(formData, "student.");
     const addressData = filterByPrefix<Address>(formData, "address.");
 
     if (isEditing) {
-      updateStudent(studentId!, studentData, addressData)
+      updateStudent(studentId, studentData, addressData)
         .then(() => {
-          documents.forEach((document) => {
-            addStudentDocument<Document>({ id: studentId! }, document);
+          documents.forEach(async (document) => {
+            const documentData: CreateStudentFile = {
+              studentId: Number(document.studentId),
+              originalName: document.originalName,
+              description: document.description,
+              contentType: document.contentType,
+              createdAt: document.createdAt,
+              file: document.file,
+            };
+
+            if (!documentData.file) {
+              showToast("Erro", "error");
+              return;
+            }
+
+            const uploadResponse =
+              await addStudentDocument<UploadResponse>(documentData);
+
+            if (!uploadResponse) {
+              showToast("Erro", "error");
+              return;
+            }
+            await addDocumentInFirebase(
+              uploadResponse,
+              documentData.file,
+              document.contentType
+            );
+            await confirmUpload(uploadResponse.documentId);
           });
           goBack();
         })
@@ -308,18 +391,59 @@ export function useStudentRegistration() {
       return;
     }
     registerStudent(studentData, addressData)
-      .then((studentId) => {
-        if (!studentId) {
-          throw new Error("Student ID is undefined");
+      .then(async (studentid) => {
+        if (!studentid) {
+          throw new Error("Student ID missing from API response");
         }
-        documents.forEach((document) => {
-          addStudentDocument<Document>({ id: studentId }, document);
-        });
+
+        for (const document of documents) {
+          const documentData: CreateStudentFile = {
+            studentId: studentid,
+            originalName: document.originalName,
+            description: document.description,
+            contentType: document.contentType,
+            createdAt: document.createdAt,
+            file: document.file,
+          };
+
+          if (!documentData.file) {
+            showToast("Erro", "error");
+            return;
+          }
+
+          const uploadResponse =
+            await addStudentDocument<UploadResponse>(documentData);
+          if (!uploadResponse) {
+            showToast("Erro", "error");
+            return;
+          }
+
+          await addDocumentInFirebase(
+            uploadResponse,
+            documentData.file,
+            document.contentType
+          );
+          await confirmUpload(uploadResponse.documentId);
+        }
+
+        showToast(strings.studentRegistration.documentAdded, "success");
         goBack();
       })
       .catch((error) => {
         showToast(error.message, "error");
       });
+  }
+
+  async function viewDocumentsByStudent(studentId?: string) {
+    if (!studentId) {
+      return;
+    }
+    const documents = await getDocumentByStudent(studentId);
+
+    if (!documents) {
+      return;
+    }
+    await downloadDocumentsIndividually(documents);
   }
 
   return {
@@ -329,7 +453,9 @@ export function useStudentRegistration() {
     docForm,
     setDocForm,
     handleAddDoc,
+    handleFileSelect,
     handleSubmit,
+    viewDocumentsByStudent,
     address,
     setAddress,
     isEditing,
@@ -341,5 +467,5 @@ export function useStudentRegistration() {
     handleDeactivateStudent,
     formatDateToInput,
     handleActivateStudent,
-  }
+  };
 }

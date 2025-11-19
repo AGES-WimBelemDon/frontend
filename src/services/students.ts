@@ -25,19 +25,6 @@ export async function registerAddress(studentId: Id, address: Partial<AddressRes
   }
 }
 
-export async function addStudentDocument<Doc>(studentId: Pick<ApiStudent, "id">, document: Doc): Promise<void> {
-  try {
-    // TODO: Replace with actual endpoint when available
-    await api.post(`${endpoints.students}/${studentId}/documentos`, document, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-  } catch {
-    throw new Error("Error on servicesAddStudentDocument");
-  }
-}
-
 export async function getStudents(): Promise<Student[]> {
   try {
     const response = await api.get<Student[]>(endpoints.students.base);
@@ -67,7 +54,7 @@ export async function getStudentResponsibles({ id: studentId }: Pick<ApiStudent,
   }
 }
 
-export async function updateStudent(studentId: number, data: Partial<Student>): Promise<void> {
+export async function updateStudent(studentId: Id, data: Partial<Student>): Promise<void> {
   try {
     await api.patch(endpoints.students.byId(studentId), data);
   } catch (error: unknown) {
@@ -91,7 +78,7 @@ export async function updateStudentAddress(addressId: Id, data: Partial<AddressR
   }
 }
 
-export async function deactivateStudent(studentId: number): Promise<void> {
+export async function deactivateStudent(studentId: Id): Promise<void> {
   try {
     await api.delete(endpoints.students.byId(studentId));
   } catch (error: unknown) {
@@ -102,7 +89,7 @@ export async function deactivateStudent(studentId: number): Promise<void> {
   }
 }
 
-export async function activateStudent(studentId: number, activate: Partial<Student>): Promise<void> {
+export async function activateStudent(studentId: Id, activate: Partial<Student>): Promise<void> {
   try {
     await api.patch(`${endpoints.students.byId(studentId)}`, activate);
   }
@@ -114,7 +101,7 @@ export async function activateStudent(studentId: number, activate: Partial<Stude
   }
 }
 
-export async function getStudentById(studentId: number): Promise<Student> {
+export async function getStudentById(studentId: Id): Promise<Student> {
   try {
     const response = await api.get<Student>(endpoints.students.byId(studentId));
     return response.data;
@@ -123,7 +110,7 @@ export async function getStudentById(studentId: number): Promise<Student> {
   }
 }
 
-export async function getStudentAddress(studentId: number): Promise<AddressResponse | null> {
+export async function getStudentAddress(studentId: Id): Promise<AddressResponse | null> {
   try {
     const response = await api.get<AddressResponse>(endpoints.students.addressById(studentId));
     return response.data;

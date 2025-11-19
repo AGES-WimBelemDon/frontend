@@ -76,6 +76,12 @@ const endpoints = {
     byCpf: (cpf: string) => `/students/cpf/${cpf}`,
     addressById: (studentId: Id) => `/students/${studentId}/address`,
   },
+  documents: {
+    base: "/documents",
+    generatePreUpload: "/documents/generate-upload-url",
+    confirmUpload: "/documents/confirm-upload",
+    getDocumentsByStudent: (studentId: Id) => `/documents/student/${studentId}`,
+  },
   users: {
     base: "/user",
     register: "/user/register",
