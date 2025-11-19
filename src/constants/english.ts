@@ -477,6 +477,8 @@ export const englishTextMap = {
     registrationNumber: "Identity Document (CPF)",
     attachments: "Attachments",
     attachMoreFiles: "Attach more documents",
+    viewFiles: "View files",
+    documentAdded: "Document added successfully!",
     selectFiles: "Select file",
     selectedFile: "Selected file:",
     fileCreatedAt: "File creation date:",

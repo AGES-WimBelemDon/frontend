@@ -25,19 +25,6 @@ export async function registerAddress(studentId: Id, address: Partial<AddressRes
   }
 }
 
-export async function addStudentDocument<Doc>(studentId: Pick<ApiStudent, "id">, document: Doc): Promise<void> {
-  try {
-    // TODO: Replace with actual endpoint when available
-    await api.post(`${endpoints.students}/${studentId}/documentos`, document, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-  } catch {
-    throw new Error("Error on servicesAddStudentDocument");
-  }
-}
-
 export async function getStudents(): Promise<Student[]> {
   try {
     const response = await api.get<Student[]>(endpoints.students.base);

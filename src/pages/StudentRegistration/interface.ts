@@ -1,9 +1,12 @@
+import type { FileContentType } from "../../types/fileTypes";
+import type { Id } from "../../types/id";
+
 export type Document = {
-  fileName: string;
-  fileType: string;
-  documentType: string;
-  origin: string;
-  date: string;
-  description: string;
-  id: number;
+  id: string;
+  studentId: Id;
+  originalName: string;
+  contentType: FileContentType;
+  description: string | null;
+  createdAt: string;
+  file?: File;
 };
