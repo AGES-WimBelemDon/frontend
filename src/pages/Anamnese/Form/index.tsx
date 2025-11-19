@@ -64,7 +64,6 @@ const AnamnesisForm = () => {
             justifyContent="end"
             marginTop={5}
           >
-            <Button variant="outlined">{strings.anamnesis.skip}</Button>
             <Button variant="contained" type="submit">
               {strings.anamnesis.save}
             </Button>

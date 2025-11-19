@@ -5,7 +5,6 @@ import {
   Badge,
   Checklist,
   DeveloperBoard,
-  Psychology,
   Home,
   PeopleAlt,
 } from "@mui/icons-material";
@@ -27,10 +26,6 @@ export const sidebarOptionsMapper: Partial<SidebarRouteMapper> = {
   "/alunos": {
     text: strings.sidebar.students,
     icon: PeopleAlt,
-  },
-  "/anamnese": {
-    text: strings.sidebar.anamnesis,
-    icon: Psychology,
   },
   "/atividades": {
     text: strings.sidebar.activities,

@@ -558,6 +558,7 @@ export const englishTextMap = {
     title: "Students",
     createNew: "Add Student",
     viewResponsible: "View Guardians",
+    editAnamnesisForm: "View Assesment",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     noStudents: "No students found",

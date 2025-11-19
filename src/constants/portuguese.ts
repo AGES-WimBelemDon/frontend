@@ -558,6 +558,7 @@ export const portugueseTextMap = {
     title: "Educandos",
     createNew: "Adicionar Educando",
     viewResponsible: "Ver Responsáveis",
+    editAnamnesisForm: "Ver Anamnese",
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
