@@ -23,11 +23,15 @@ export function useRoutes() {
   const navigate = useNavigate();
 
   function goTo(baseRoute: ValidRoute, path: string = "") {
-    navigate(`${baseRoute}${path}`);
+    const normalizedBase = String(baseRoute).replace(/^\/frontend\/?/, "");
+    const normalizedPath = String(path);
+    const to = `${normalizedBase.startsWith("/") ? normalizedBase : `/${normalizedBase}`}${normalizedPath}`;
+    navigate(to);
   }
 
   function goBack() {
-    const previousRoute = window.location.pathname.split("/")[1];
+    const pathname = String(window.location.pathname).replace(/^\/frontend\/?/, "");
+    const previousRoute = pathname.split("/")[1];
 
     const routesWithHistory = ["alunos", "turmas", "anamnese"];
     if (previousRoute && routesWithHistory.includes(previousRoute)) {
@@ -44,12 +48,20 @@ export function useRoutes() {
   }
 
   function getPathParamId(previousParamName: string): Id | null {
-    const pathSegments = window.location.pathname.split("/").filter(Boolean);
+    const pathname = String(window.location.pathname).replace(/^\/frontend\/?/, "");
+    const pathSegments = pathname.split("/").filter(Boolean);
     const paramIndex = pathSegments.indexOf(previousParamName);
     if (paramIndex !== -1 && paramIndex + 1 < pathSegments.length) {
       return pathSegments[paramIndex + 1];
     }
     return null;
+  }
+
+  function replaceSearchParams(params: URLSearchParams) {
+    const search = params.toString();
+    const pathname = String(window.location.pathname).replace(/^\/frontend\/?/, "");
+    const path = `${pathname.startsWith("/") ? pathname : `/${pathname}`}${search ? `?${search}` : ""}`;
+    navigate(path, { replace: true });
   }
 
   const allowedRoutes: ValidRoute[] = [
@@ -69,6 +81,7 @@ export function useRoutes() {
     goTo,
     goBack,
     getPathParamId,
+    replaceSearchParams,
     allowedRoutes,
   };
 }

@@ -1,7 +1,6 @@
 import type { ClassState } from "./filters";
 import type { Id } from "./id";
 import type { UserResponse } from "./users";
-// import type { Student } from "./students";
 
 export type CreateClasses = {
   name: string;
@@ -51,7 +50,8 @@ export type CreateClass = Omit<Classes, "teachers" | "schedules"> & ApiClass & {
   teacherIds: Id[];
   dayOfWeek: Id[];
 }
-export type CreateClassForm =  Pick<CreateEnrollment, "studentIds"> & Omit<CreateClass, "startTime" | "endTime"> & { dayOfWeekSelection?: WeekDay[]; startTime?: string | Date; endTime?: string | Date }
+
+export type CreateClassForm = Pick<CreateEnrollment, "studentIds"> & Omit<CreateClass, "startTime" | "endTime"> & { dayOfWeekSelection?: WeekDay[]; startTime?: Date | null; endTime?: Date | null }
 
 export type StudentFrequency = {
   id: Id;

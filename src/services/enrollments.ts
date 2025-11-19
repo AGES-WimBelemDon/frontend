@@ -16,13 +16,13 @@ export async function getEnrollment(): Promise<Enrollment[]> {
     const response = await api.get<Enrollment[]>(endpoints.enrollments.base);
     return response.data
   } catch {
-    return []
+    throw new Error("Error on servicesGetEnrollment")
   }
 }
 
-export async function getEnrollmentByClassId(classid: Id): Promise<Enrollment[]> {
+export async function getEnrollmentByClassId(classId: Id): Promise<Enrollment[]> {
   try {
-    const response = await api.get<Enrollment[]>(endpoints.enrollments.byClassId(classid));
+    const response = await api.get<Enrollment[]>(endpoints.enrollments.byClassId(classId));
     return response.data
   } catch {
     throw new Error("Error on servicesGetEnrollmentByClassId")

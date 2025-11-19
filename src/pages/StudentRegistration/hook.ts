@@ -51,7 +51,7 @@ export function useStudentRegistration() {
   });
 
   const editingId = getPathParamId("alunos");
-  const studentId = editingId ?? null;
+  const studentId = isNaN(Number(editingId)) ? null : (editingId as Id);
   const isEditing = studentId !== null;
 
   function getAddressDetails() {
@@ -176,11 +176,7 @@ export function useStudentRegistration() {
       if (!studentData.gender) {
         throw new Error(strings.studentRegistration.errors.genderRequired);
       }
-      if (!studentData.enrollmentDate) {
-        throw new Error(
-          strings.studentRegistration.errors.enrollmentDateRequired
-        );
-      }
+      
       if (!addressData.cep) {
         throw new Error(strings.studentRegistration.errors.addressCepRequired);
       }

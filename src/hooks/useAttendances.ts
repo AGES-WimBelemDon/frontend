@@ -1,8 +1,10 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { editAttendanceClass, getAttendanceClass, registerAttendanceClass, type ClassAttendence, type UpdateClassAttendance } from "../services/frequency";
+import { editAttendanceClass, getAttendanceClass, registerAttendanceClass } from "../services/frequency";
+import type { ClassAttendence, UpdateClassAttendance } from "../types/frequency";
+import type { Id } from "../types/id";
 
-export function useAttendances(classId: number, date: string) {
+export function useAttendances(classId: Id, date: string) {
   const queryClient = useQueryClient();
 
   const { isPending, error, data, refetch } = useQuery({
@@ -10,7 +12,7 @@ export function useAttendances(classId: number, date: string) {
     queryFn: () => getAttendanceClass(classId, date)
   });
 
-  async function createAttendanceClass(classId: number, date: string): Promise<ClassAttendence> {
+  async function createAttendanceClass(classId: Id, date: string): Promise<ClassAttendence> {
     const response = await registerAttendanceClass({ classId, date });
     await queryClient.invalidateQueries({
       queryKey: ["attendances", classId, date],
@@ -19,7 +21,6 @@ export function useAttendances(classId: number, date: string) {
   }
 
   async function updateAttendanceClass(body: UpdateClassAttendance): Promise<UpdateClassAttendance> {
-
     const response = await editAttendanceClass(body)
     await queryClient.invalidateQueries({
       queryKey: ["attendances", classId, date],
@@ -35,5 +36,4 @@ export function useAttendances(classId: number, date: string) {
     createAttendanceClass,
     updateAttendanceClass,
   }
-
 }

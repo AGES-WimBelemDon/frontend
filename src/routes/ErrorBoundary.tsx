@@ -4,8 +4,11 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
 
 import { strings } from "../constants";
+import { useRoutes } from "../hooks/useRoutes";
 
 function ErrorFallback({ resetErrorBoundary }: { resetErrorBoundary?: () => void }) {
+  const { goTo } = useRoutes();
+
   return (
     <Container maxWidth="sm" sx={{ mt: 8 }}>
       <Box
@@ -24,15 +27,7 @@ function ErrorFallback({ resetErrorBoundary }: { resetErrorBoundary?: () => void
           {strings.errorBoundary.message}
         </Typography>
         <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              window.location.href = "/frontend/";
-            }}
-          >
-            {strings.errorBoundary.goHome}
-          </Button>
+          <Button variant="contained" color="primary" onClick={() => goTo("/")}>{strings.errorBoundary.goHome}</Button>
           <Button
             variant="outlined"
             onClick={() => {
@@ -50,7 +45,7 @@ function ErrorFallback({ resetErrorBoundary }: { resetErrorBoundary?: () => void
 
 export default function ErrorBoundary({ children }: { children: React.ReactNode }) {
   return (
-    <ReactErrorBoundary FallbackComponent={ErrorFallback} onReset={() => { /* noop */ }}>
+    <ReactErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
       {children}
     </ReactErrorBoundary>
   );

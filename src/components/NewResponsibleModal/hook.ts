@@ -17,8 +17,8 @@ import {
   getFamilyMemberById,
   getFamilyMemberAddress
 } from "../../services/family-members";
-import type { CreateFamilyMemberData } from "../../services/family-members";
 import type { Address } from "../../types/address";
+import type { CreateFamilyMemberData } from "../../types/family-member";
 
 export function useNewResponsibleModal(studentId?: string) {
   const { showToast } = useToast();

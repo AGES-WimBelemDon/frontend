@@ -24,8 +24,8 @@ export type CreateStudentFile = {
 };
 
 export type UploadResponse = {
-    documentId: string,
-    url: string
+  documentId: string,
+  url: string
 }
 
 export type StudentFile = {

@@ -1,11 +1,11 @@
-import type { FrequencyStatus, NoteTypes } from "../../components/FrequencyCard/interface";
+import type { FrequencyStatus, NoteTypes } from "../../types/filters";
 
 export interface GeneralCallStudent {
   studentId: number;
   studentName: string;
   status: FrequencyStatus;
   generalAttendanceAllowed: boolean;
-  observation: NoteTypes| null;
+  observation: NoteTypes | null;
 }
 
 export interface FrequencyGeneralCallState {

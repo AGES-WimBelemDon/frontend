@@ -26,14 +26,7 @@ export async function getFormTypesFilter(): Promise<FormType[]> {
     const response = await api.get<FormType[]>(endpoints.filters.formTypes);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "PSICOLOGIA" as FormType,
-        "SOCIAL" as FormType,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetFormTypesFilter")
   }
 }
 
@@ -42,14 +35,7 @@ export async function getUserStatusFilter(): Promise<UserStatus[]> {
     const response = await api.get<UserStatus[]>(endpoints.filters.userStatus);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "ATIVO" as UserStatus,
-        "INATIVO" as UserStatus,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetUserStatusFilter")
   }
 }
 
@@ -58,14 +44,7 @@ export async function getStudentStatusFilter(): Promise<StudentStatus[]> {
     const response = await api.get<StudentStatus[]>(endpoints.filters.studentStatus);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "ATIVO" as StudentStatus,
-        "INATIVO" as StudentStatus,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetStudentStatusFilter")
   }
 }
 
@@ -74,14 +53,7 @@ export async function getFrequencyStatusFilter(): Promise<FrequencyStatus[]> {
     const response = await api.get<FrequencyStatus[]>(endpoints.filters.frequencyStatus);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "PRESENTE" as FrequencyStatus,
-        "AUSENTE" as FrequencyStatus,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetFrequencyStatusFilter")
   }
 }
 
@@ -90,14 +62,7 @@ export async function getClassStateFilter(): Promise<ClassState[]> {
     const response = await api.get<ClassState[]>(endpoints.filters.classState);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "ATIVA" as ClassState,
-        "INATIVA" as ClassState,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetClassStateFilter")
   }
 }
 
@@ -106,18 +71,7 @@ export async function getRacesFilter(): Promise<Race[]> {
     const response = await api.get<Race[]>(endpoints.filters.races);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "BRANCA" as Race,
-        "PRETA" as Race,
-        "PARDA" as Race,
-        "AMARELA" as Race,
-        "INDIGENA" as Race,
-        "NA" as Race,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetRacesFilter")
   }
 }
 
@@ -126,15 +80,7 @@ export async function getGendersFilter(): Promise<Gender[]> {
     const response = await api.get<Gender[]>(endpoints.filters.genders);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "MASCULINO" as Gender,
-        "FEMININO" as Gender,
-        "OUTRO" as Gender,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetGendersFilter")
   }
 }
 
@@ -143,18 +89,7 @@ export async function getSocialProgramsFilter(): Promise<SocialPrograms[]> {
     const response = await api.get<SocialPrograms[]>(endpoints.filters.socialPrograms);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "BOLSA_FAMILIA" as SocialPrograms,
-        "BPC_LOAS" as SocialPrograms,
-        "TARIFA_SOCIAL_DE_ENERGIA" as SocialPrograms,
-        "AUXILIO_GAS" as SocialPrograms,
-        "PROGRAMA_ESTADUAL" as SocialPrograms,
-        "PROGRAMA_MUNICIPAL_VIA_CRAS" as SocialPrograms,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetSocialProgramsFilter")
   }
 }
 
@@ -163,19 +98,7 @@ export async function getEmploymentStatusFilter(): Promise<EmploymentStatus[]> {
     const response = await api.get<EmploymentStatus[]>(endpoints.filters.employmentStatus);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "ESTUDANTE" as EmploymentStatus,
-        "EMPREGADO" as EmploymentStatus,
-        "DESEMPREGADO" as EmploymentStatus,
-        "ESTAGIARIO" as EmploymentStatus,
-        "APRENDIZ" as EmploymentStatus,
-        "AUTONOMO" as EmploymentStatus,
-        "OUTRO" as EmploymentStatus,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetEmploymentStatusFilter")
   }
 }
 
@@ -184,26 +107,7 @@ export async function getSchoolYearsFilter(): Promise<SchoolYear[]> {
     const response = await api.get<SchoolYear[]>(endpoints.filters.schoolYears);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "EDUCACAO_INFANTIL" as SchoolYear,
-        "FUNDAMENTAL_1" as SchoolYear,
-        "FUNDAMENTAL_2" as SchoolYear,
-        "FUNDAMENTAL_3" as SchoolYear,
-        "FUNDAMENTAL_4" as SchoolYear,
-        "FUNDAMENTAL_5" as SchoolYear,
-        "FUNDAMENTAL_6" as SchoolYear,
-        "FUNDAMENTAL_7" as SchoolYear,
-        "FUNDAMENTAL_8" as SchoolYear,
-        "FUNDAMENTAL_9" as SchoolYear,
-        "ENSINO_MEDIO_1" as SchoolYear,
-        "ENSINO_MEDIO_2" as SchoolYear,
-        "ENSINO_MEDIO_3" as SchoolYear,
-        "EJA" as SchoolYear,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetSchoolYearsFilter")
   }
 }
 
@@ -212,21 +116,7 @@ export async function getStudentEducationLevelFilter(): Promise<EducationLevel[]
     const response = await api.get<EducationLevel[]>(endpoints.filters.educationLevels);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "NENHUM" as EducationLevel,
-        "ALFABETIZADO" as EducationLevel,
-        "FUNDAMENTAL_INCOMPLETO" as EducationLevel,
-        "FUNDAMENTAL_COMPLETO" as EducationLevel,
-        "ENSINO_MEDIO_INCOMPLETO" as EducationLevel,
-        "ENSINO_MEDIO_COMPLETO" as EducationLevel,
-        "SUPERIOR_INCOMPLETO" as EducationLevel,
-        "SUPERIOR_COMPLETO" as EducationLevel,
-        "POS_GRADUACAO" as EducationLevel,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetStudentEducationLevelFilter")
   }
 }
 
@@ -235,14 +125,7 @@ export async function getNoteTypesFilter(): Promise<NoteTypes[]> {
     const response = await api.get<NoteTypes[]>(endpoints.filters.noteTypes);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "ATESTADO_MEDICO" as NoteTypes,
-        "SEM_JUSTIFICATIVA" as NoteTypes,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetNoteTypesFilter")
   }
 }
 
@@ -251,19 +134,7 @@ export async function getWeekDaysFilter(): Promise<WeekDay[]> {
     const response = await api.get<WeekDay[]>(endpoints.filters.weekDays);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "SEGUNDA" as WeekDay,
-        "TERCA" as WeekDay,
-        "QUARTA" as WeekDay,
-        "QUINTA" as WeekDay,
-        "SEXTA" as WeekDay,
-        "SABADO" as WeekDay,
-        "DOMINGO" as WeekDay,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetWeekDaysFilter")
   }
 }
 
@@ -272,17 +143,7 @@ export async function getRoleFilter(): Promise<Role[]> {
     const response = await api.get<Role[]>(endpoints.filters.roles);
     return response.data;
   } catch {
-    // TODO: This should only work for development, remove in production
-    const mockResponse = await Promise.resolve({
-      data: [
-        "ADMIN" as Role,
-        "MANAGER" as Role,
-        "TEACHER" as Role,
-        "PSYCHOLOGIST" as Role,
-        "INTERN" as Role,
-      ],
-    });
-    return mockResponse.data;
+    throw new Error("Error on servicesGetRoleFilter")
   }
 }
 

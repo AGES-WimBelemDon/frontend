@@ -6,17 +6,18 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { useNavigate } from "react-router";
+
 
 import { SidebarBurgerIcon } from "./BurgerIcon";
 import { sidebarOptionsMapper, type SidebarProps } from "./interface";
 import { strings } from "../../constants";
+import { useRoutes } from "../../hooks/useRoutes";
 import type { ValidRoute } from "../../hooks/useRoutes";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useSidebar } from "../../hooks/useSidebar";
 
 export function Sidebar({ allowedRoutes }: SidebarProps) {
-  const navigate = useNavigate();
+  const { goTo } = useRoutes();
   const { deviceSize, isMobile } = useScreenSize();
   const {
     sidebarState,
@@ -77,7 +78,7 @@ export function Sidebar({ allowedRoutes }: SidebarProps) {
                   if (isMobile) {
                     toggleSidebar();
                   }
-                  navigate(route);
+                  goTo(route as ValidRoute);
                 }}
                 sx={{
                   backgroundColor: "grey.100",

@@ -67,6 +67,7 @@ const genderFilterOptionsMap: Record<Gender, keyof typeof strings.filters.gender
   FEMININO: "female",
   HOMEM_TRANS: "transMan",
   MULHER_TRANS: "transWoman",
+  TRAVESTI: "transvestite",
   NAO_BINARIO: "nonBinary",
   OUTRO: "other",
 }
@@ -74,7 +75,7 @@ const genderFilterOptionsMap: Record<Gender, keyof typeof strings.filters.gender
 const socialProgramOptionsMap: Record<SocialPrograms, keyof typeof strings.filters.socialPrograms> = {
   BOLSA_FAMILIA: "bolsaFamilia",
   BPC_LOAS: "bpcLoas",
-  TARIFA_SOCIAL_DE_ENERGIA: "tarifaSocialDeEnergia",
+  TARIFA_SOCIAL_ENERGIA: "tarifaSocialDeEnergia",
   AUXILIO_GAS: "auxilioGas",
   PROGRAMA_ESTADUAL: "programaEstadual",
   PROGRAMA_MUNICIPAL_VIA_CRAS: "programaMunicipalViaCras",

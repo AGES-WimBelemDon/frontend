@@ -17,8 +17,6 @@ import Login from "../pages/Login";
 import ResponsibleRegistration from "../pages/ResponsibleRegistration";
 import StudentRegistration from "../pages/StudentRegistration";
 import Students from "../pages/Students";
-import TechDemo from "../pages/TechDemo";
-import TechDemoMockAPI from "../pages/TechDemo/MockAPI";
 import Users from "../pages/Users";
 
 function AppRouter() {
@@ -42,9 +40,6 @@ function AppRouter() {
             <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>
             <Route path="frequencias/atividades/:id/turmas/:id/chamada" element={<FrequencyCall/>} />
             <Route path="frequencias/chamada-geral" element={<FrequencyGeneralCall/>} />
-            <Route path="tech-demo" element={<TechDemo />}>
-              <Route path=":id" element={<TechDemoMockAPI />} />
-            </Route>
             <Route path="turmas" element={<Classes />} />
             <Route path="turmas/:id" element={<ClassDetails />} />
             <Route path="turmas/atividade/:activityId" element={<Classes />} />

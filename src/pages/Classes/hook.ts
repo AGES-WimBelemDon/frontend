@@ -30,6 +30,8 @@ export function useClassesPage() {
     }
   }, []);
 
+  const { replaceSearchParams } = useRoutes();
+
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
@@ -40,10 +42,8 @@ export function useClassesPage() {
     } else {
       params.delete("activityId");
     }
-    const newSearch = params.toString();
-    const newUrl = `${window.location.pathname}${newSearch ? `?${newSearch}` : ""}`;
-    window.history.replaceState({}, "", newUrl);
-  }, [activityFilter]);
+    replaceSearchParams(params);
+  }, [activityFilter, replaceSearchParams]);
 
   const filteredClasses = useMemo(() => {
     if (isLoadingClasses || classesError || !classes) {
@@ -51,7 +51,7 @@ export function useClassesPage() {
     }
     return classes.filter((c) => {
       return (
-        (!activityFilter || c.activityId == activityFilter)
+        (!activityFilter || String(c.activityId) === String(activityFilter))
         && (!dayFilter || c.schedules.map(schedule => schedule.dayOfWeek).includes(dayFilter.toString()))
         && (!levelFilter || c.levelId === levelFilter.id)
       );

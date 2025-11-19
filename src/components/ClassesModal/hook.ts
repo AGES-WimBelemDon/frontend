@@ -61,8 +61,8 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
       isRecurrent: false,
       startDate: "",
       endDate: "",
-      startTime: "",
-      endTime: "",
+      startTime: null,
+      endTime: null,
       dayOfWeek: [],
       dayOfWeekSelection: [],
     },
@@ -70,10 +70,10 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
 
   useEffect(() => {
     if (classData) {
-      function parseTimeToDate(value?: string | Date) {
-        if (!value) return "";
+      function parseTimeToDate(value?: string | Date | null): Date | null {
+        if (!value) return null;
         if (value instanceof Date) {
-          if (isNaN(value.getTime())) return "";
+          if (isNaN(value.getTime())) return null;
           return value;
         }
         const asString = String(value);
@@ -88,7 +88,7 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
         }
         const parsed = new Date(asString);
         if (!isNaN(parsed.getTime())) return parsed;
-        return "";
+        return null;
       }
 
       reset({
@@ -197,7 +197,7 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
     return "";
   }
 
-  function formatTime(date?: string | Date): string {
+  function formatTime(date?: string | Date | null): string {
     if (!date) return "";
 
     if (date instanceof Date) {

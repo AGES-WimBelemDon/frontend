@@ -15,12 +15,12 @@ import { strings } from "../../constants";
 
 export function NewActivityModal({ isOpen, closeModal, handleSubmit, editingActivity }: NewActivityModalProps) {
 
-  const title = editingActivity 
-    ? "Editar atividade"
+  const title = editingActivity
+    ? strings.newActivityModal.editTitle
     : strings.newActivityModal.title;
 
   const buttonText = editingActivity
-    ? "Salvar alterações"
+    ? strings.genericActions.saveEdit
     : strings.newActivityModal.buttonText;
 
   return (

@@ -1,15 +1,14 @@
 import { api, endpoints } from "./api";
 import type { Id } from "../types/id";
-import type { UserRegister, UserResponse, GetUsersParams } from "../types/users";
+import type { UserRegister, UserResponse, GetUsersParams, UserEdit } from "../types/users";
 
 
 export async function registerUser(user: UserRegister): Promise<UserResponse> {
   try {
     const response = await api.post<UserResponse>(endpoints.users.register, user);
     return response.data;
-  } catch (error) {
-    console.error("API Error in registerUser:", error);
-    throw new Error("Error registering user");
+  } catch {
+    throw new Error("Error on servicesRegisterUser");
   }
 }
 
@@ -17,9 +16,8 @@ export async function login(token: string): Promise<UserResponse> {
   try {
     const response = await api.post<UserResponse>(endpoints.users.login, { token });
     return response.data;
-  } catch (error) {
-    console.error("API Error in login:", error);
-    throw new Error("Error logging in user");
+  } catch {
+    throw new Error("Error on servicesLogin");
   }
 }
 
@@ -39,66 +37,41 @@ export async function getUsers({
     const endpoint = `${endpoints.users.base}${paramsString}`;
     const response = await api.get<UserResponse[]>(endpoint);
     return response.data;
-  } catch (error) {
-    console.error("API Error in getUsers:", error);
-    // TODO: This should only work for development, remove in production
-    let id = 0;
-    const mockResponse = await Promise.resolve({
-      data: [
-        {
-          id: id++,
-          fullName: "John Doe",
-          email: "john.doe@example.com",
-          status: "ATIVO",
-          role: "admin",
-        } as UserResponse,
-        {
-          id: id++,
-          fullName: "Jane Smith",
-          email: "jane.smith@example.com",
-          status: "INATIVO",
-          role: "teacher",
-        } as UserResponse,
-      ],
-    });
-    return mockResponse.data;
+  } catch {
+    throw new Error("Error on servicesGetUsers");
   }
 }
 
-export async function getUserById(userId: number): Promise<UserResponse> {
+export async function getUserById(userId: Id): Promise<UserResponse> {
   try {
     const response = await api.get<UserResponse>(endpoints.users.byId(userId));
     return response.data;
-  } catch (error) {
-    console.error("API Error in getUserById:", error);
-    throw new Error("Error fetching user");
+  } catch {
+    throw new Error("Error on servicesGetUserById");
   }
 }
 
-export async function updateUser(userId: number, payload: Partial<UserRegister>): Promise<UserResponse> {
+export async function updateUser(userId: Id, payload: Partial<UserEdit>): Promise<UserResponse> {
   try {
     const response = await api.patch<UserResponse>(endpoints.users.byId(userId), payload);
     return response.data;
-  } catch (error) {
-    console.error("API Error in updateUser:", error);
-    throw new Error("Error updating user");
+  } catch {
+    throw new Error("Error on servicesUpdateUser");
   }
 }
 
 export async function disableUser(userId: Id): Promise<void> {
   try {
     await api.patch(endpoints.users.disableById(userId));
-  } catch (error) {
-    console.error("API Error in disableUser:", error);
-    throw new Error("Error disabling user");
+  } catch {
+    throw new Error("Error on servicesDisableUser");
   }
 }
 
 export async function enableUser(userId: Id): Promise<void> {
   try {
     await api.patch(endpoints.users.enableById(userId));
-  } catch (error) {
-    console.error("API Error in enableUser:", error);
-    throw new Error("Error enabling user");
+  } catch {
+    throw new Error("Error on servicesEnableUser");
   }
 }

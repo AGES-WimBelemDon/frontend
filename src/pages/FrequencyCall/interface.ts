@@ -1,4 +1,4 @@
-import type { FrequencyCardStudent } from "../../components/FrequencyCard/interface";
+import type { FrequencyCardStudent } from "../../types/frequency";
 
 export interface FrequencyCallObject {
   students: FrequencyCardStudent[],

@@ -139,7 +139,11 @@ axiosClient.interceptors.response.use(
         if (!isLoginPage) {
           const currentPath = window.location.pathname + window.location.search;
           const loginPath = `/frontend/login?from=${encodeURIComponent(currentPath)}`;
-          window.location.replace(loginPath);
+          try {
+            window.dispatchEvent(new CustomEvent("app:unauthorized", { detail: { loginPath } }));
+          } catch {
+            window.location.replace(loginPath);
+          }
         }
       }
     }

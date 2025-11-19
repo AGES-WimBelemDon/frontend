@@ -10,10 +10,10 @@ import {
 
 import { useFrequencyGeneralCall } from "./hook";
 import { FrequencyCard } from "../../components/FrequencyCard";
-import type { FrequencyCardStudent } from "../../components/FrequencyCard/interface";
 import { DateInput } from "../../components/Inputs/DateInput";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
+import type { FrequencyCardStudent } from "../../types/frequency";
 
 export function FrequencyGeneralCall() {
   const { students, updatePresence, registerCall, isLoading } =
