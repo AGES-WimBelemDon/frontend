@@ -8,6 +8,7 @@ import "dayjs/locale/en";
 
 import { getUserLocale } from "./constants";
 import { AuthProvider } from "./contexts/Auth/AuthProvider";
+import { ClassesModalProvider } from "./contexts/ClassesModal/ClassesModalProvider";
 import { SidebarProvider } from "./contexts/Sidebar/SidebarProvider";
 import { ToastProvider } from "./contexts/Toast/ToastProvider";
 import AppRouter from "./routes/AppRouter";
@@ -26,7 +27,9 @@ export default function App() {
           <AuthProvider>
             <SidebarProvider>
               <ToastProvider>
-                <AppRouter />
+                <ClassesModalProvider>
+                  <AppRouter />
+                </ClassesModalProvider>
               </ToastProvider>
             </SidebarProvider>
           </AuthProvider>

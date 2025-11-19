@@ -61,7 +61,6 @@ export function ClassesModal() {
 
   const { isMobile } = useScreenSize();
 
-
   function DaysCalendarIcon({ text, checked }: { text: string; checked: boolean }) {
     return (
       <Box
@@ -144,8 +143,6 @@ export function ClassesModal() {
       <DialogContent sx={{ overflow: "auto" }}>
         {activeStep === 0 && (
           <Box display="flex" flexDirection="column" gap={2}>
-
-
             <FormControl sx={{ color: "text.primary" }}>
               <Controller
                 name="name"
@@ -159,8 +156,8 @@ export function ClassesModal() {
                 )}
               />
             </FormControl>
-            <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
 
+            <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
               <InputLabel id="level-select-label" sx={{ color: "text.primary" }}>{strings.classesModal.inputs.classLevel}</InputLabel>
               <Controller
                 name="levelId"
@@ -181,32 +178,35 @@ export function ClassesModal() {
               />
             </FormControl>
 
-
             <InputLabel sx={{ color: "text.primary" }}>{strings.filters.weekDays.title}</InputLabel>
             <Controller
-              name="dayOfWeek"
+              name="dayOfWeekSelection"
               control={control}
               render={({ field }) => (
                 <FormGroup sx={{ flexDirection: "row", gap: 1 }}>
-                  {days.map((day) => (
-                    <Checkbox
-                      key={day.id}
-                      disableRipple
-                      checked={field.value.includes(day.id)}
-                      onChange={(_event, checked) => {
-                        const newWeekDays = checked
-                          ? [...field.value, day.id]
-                          : field.value.filter((d: string) => d !== day.id);
-                        field.onChange(newWeekDays);
-                      }}
-                      checkedIcon={<DaysCalendarIcon text={day.symbol} checked={true} />}
-                      icon={<DaysCalendarIcon text={day.symbol} checked={false} />}
-                      sx={{
-                        p: 0.3,
-                        "&:hover": { backgroundColor: "transparent" },
-                      }}
-                    />
-                  ))}
+                  {days.map((day) => {
+                    const current = Array.isArray(field.value) ? field.value : [];
+                    const isChecked = current.some((d) => d.id === day.id);
+                    return (
+                      <Checkbox
+                        key={day.id}
+                        disableRipple
+                        checked={isChecked}
+                        onChange={(_event, checked) => {
+                          const newWeekDays = checked
+                            ? [...current, day]
+                            : current.filter((d) => d.id !== day.id);
+                          field.onChange(newWeekDays);
+                        }}
+                        checkedIcon={<DaysCalendarIcon text={day.symbol} checked={true} />}
+                        icon={<DaysCalendarIcon text={day.symbol} checked={false} />}
+                        sx={{
+                          p: 0.3,
+                          "&:hover": { backgroundColor: "transparent" },
+                        }}
+                      />
+                    );
+                  })}
                 </FormGroup>
               )}
             />
@@ -283,6 +283,7 @@ export function ClassesModal() {
             </Box>
           </Box>
         )}
+
         {activeStep === 1 && (
           <Box display="flex" flexDirection="column" gap={2}>
             <Filters
@@ -425,7 +426,6 @@ export function ClassesModal() {
                                 : currentSelection.filter(
                                   (id) => id !== student.id
                                 );
-                              console.log({ checked, currentSelection, newSelection });
                               field.onChange(newSelection);
                             }}
                           />
@@ -456,5 +456,3 @@ export function ClassesModal() {
     </Dialog>
   );
 };
-
-export default ClassesModal;

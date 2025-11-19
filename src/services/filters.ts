@@ -310,7 +310,6 @@ export async function getDocumentTypesFilter(): Promise<DocumentType[]> {
 export async function getLevelsFilter(): Promise<Level[]> {
   try {
     const response = await api.get<Level[]>(endpoints.levels.base);
-    console.log(response.data)
     return response.data;
   } catch {
     throw new Error("Error on servicesGetLevelsFilter")

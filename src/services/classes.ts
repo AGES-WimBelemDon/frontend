@@ -6,7 +6,6 @@ import type { Id } from "../types/id";
 export async function createClasses(data: CreateClass): Promise<ApiClass["id"] | null> {
   try {
     const response = await api.post(endpoints.classes.base, data)
-    console.log(response);
     return response.data.id;
   } catch {
     throw new Error("Error on servicesCreateClasses")
@@ -34,9 +33,10 @@ export async function getClassFrequency({ id, date }: { id: Id; date: string }):
   }
 }
 
-export async function patchClass(id: Id, Classdata: Classes) {
+export async function patchClass(id: Id, classData: Classes): Promise<number> {
   try {
-    const response = await api.patch<Classes>(endpoints.classes.byId(id), Classdata)
+    console.log(id)
+    const response = await api.patch<Classes>(endpoints.classes.byId(id), classData)
     return response.status;
   } catch {
     throw new Error("Error on servicesPatchClass")

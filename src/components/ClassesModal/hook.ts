@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
-import { getUserLocale, strings } from "../../constants";
+import { strings } from "../../constants";
 import { useActivities } from "../../hooks/useActivities";
 import { useFilters } from "../../hooks/useFilters";
 import { useStudents } from "../../hooks/useStudents";
@@ -10,13 +11,14 @@ import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
 import { createClasses, patchClass } from "../../services/classes";
 import { createEnrollment } from "../../services/enrollments";
-import type { Classes, CreateClassForm } from "../../types/classes";
+import type { Classes, CreateClassForm, WeekDay } from "../../types/classes";
 import type { Id } from "../../types/id";
 
 const steps = [strings.classesModal.steps.data, strings.classesModal.steps.activity, strings.classesModal.steps.teacher, strings.classesModal.steps.student];
 
 export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boolean, closeModal: () => void, classData?: Classes }) {
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
   const { students, isLoadingStudents, studentsError } = useStudents();
   const { levelOptions, weekDaysOptions } = useFilters()
   const { users, isLoadingUsers, usersError } = useUsers();
@@ -29,15 +31,17 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
   const [selectedStudents, setSelectedStudents] = useState<Id[]>([]);
   const [selectedTeachers, setSelectedTeachers] = useState<Id[]>([]);
 
-  const isEditing = classData ? true : false;
+  const isEditing = classData !== undefined;
 
-  const days = useMemo(() => weekDaysOptions?.map(({ id, label }) => ({
-    id,
-    value: label,
+  const days = useMemo(() => weekDaysOptions?.map(({ id, label }, index) => ({
+    id: index + 1,
+    value: id,
     symbol: label.charAt(0).toUpperCase(),
   })), [weekDaysOptions]);
 
-  const { control, getValues, reset } = useForm<CreateClassForm>({
+  type FormValues = CreateClassForm & { dayOfWeekSelection?: WeekDay[] };
+
+  const { control, getValues, reset } = useForm<FormValues>({
     defaultValues: {
       name: "",
       activityId: 0,
@@ -50,6 +54,7 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
       startTime: "",
       endTime: "",
       dayOfWeek: [],
+      dayOfWeekSelection: [],
     },
   });
 
@@ -67,6 +72,7 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
         startTime: classData.startTime,
         endTime: classData.endTime,
         dayOfWeek: classData.schedules.map((schedule) => schedule.dayOfWeek),
+        dayOfWeekSelection: classData.schedules.map((schedule) => ({ id: schedule.id, dayOfWeek: schedule.dayOfWeek })),
       });
     } else {
       reset();
@@ -92,23 +98,44 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
   }
 
   async function handleSubmit() {
-    const formData = getValues();
+    const { studentIds, dayOfWeekSelection, ...classData } = getValues() as FormValues;
 
-    if (!formData) {
+    const dayOfWeekStrings = (dayOfWeekSelection ?? []).map((d) => {
+      // @ts-expect-error -- value exists
+      return d.value;
+    });
+
+    if (!classData) {
       showToast(strings.classesModal.createErrorFillAllFields, "error");
       return;
     }
 
     try {
+      console.log(classData, classData.id)
       if (isEditing && classData) {
-        await patchClass(classData.id, formData);
+        const formattedClassData = {
+          ...classData,
+          startTime: formatTime(classData.startTime),
+          endTime: formatTime(classData.endTime),
+        };
+        await patchClass(classData.id, formattedClassData);
         showToast(strings.classesModal.editSucessMessage, "success");
       } else {
-        const classId = await createClass(formData);
+        const formattedClassData = {
+          ...classData,
+          startDate: formatDate(classData.startDate),
+          startTime: formatTime(classData.startTime),
+          endTime: formatTime(classData.endTime),
+          dayOfWeek: dayOfWeekStrings,
+        };
+        if (classData.endDate) {
+          formattedClassData.endDate = formatDate(classData.endDate);
+        }
+        const classId = await createClasses(formattedClassData);
         if (!classId) {
           throw new Error("Error in ClassesModalcreateClass");
         }
-        await createEnrollment({ classId, studentIds: formData.studentIds });
+        await createEnrollment({ classId, studentIds: studentIds });
         showToast(strings.classesModal.createSuccessMessage, "success");
       }
       setActiveStep(0);
@@ -117,23 +144,64 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
       setNameTeacher("");
       closeModal();
     } catch {
-      showToast(isEditing ? strings.classesModal.editErrorGeneric : strings.classesModal.createErrorGeneric, "error");
+      if (isEditing) {
+        showToast(strings.classesModal.editErrorGeneric, "error");
+        return;
+      }
+      showToast(strings.classesModal.createErrorGeneric, "error");
+    } finally {
+      queryClient.invalidateQueries({ queryKey: ["classes"] });
     }
   }
 
-  async function createClass(data: CreateClassForm): Promise<Id | null> {
-    try {
-      // const { studentIds, ...classData } = data;
-      const formattedData = {
-        ...data,
-        startTime: new Date(data.startTime).toLocaleTimeString(getUserLocale(), { hour: "2-digit", minute: "2-digit", second: "2-digit" }),
-        endTime: new Date(data.endTime).toLocaleTimeString(getUserLocale(), { hour: "2-digit", minute: "2-digit", second: "2-digit" }),
-      };
-      const classId = await createClasses(formattedData);
-      return classId;
-    } catch {
-      return null;
+  function formatDate(date: string): string {
+    if (!date) return "";
+
+    const parsed = new Date(date);
+    if (!isNaN(parsed.getTime())) {
+      const yyyy = String(parsed.getFullYear());
+      const mm = String(parsed.getMonth() + 1).padStart(2, "0");
+      const dd = String(parsed.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
     }
+    return "";
+  }
+
+  function formatTime(date: string | Date): string {
+    if (!date) return "";
+
+    if (date instanceof Date) {
+      if (isNaN(date.getTime())) return "";
+      const hh = String(date.getHours()).padStart(2, "0");
+      const mm = String(date.getMinutes()).padStart(2, "0");
+      const ss = String(date.getSeconds()).padStart(2, "0");
+      return `${hh}:${mm}:${ss}`;
+    }
+
+    const timeOnly = (date as string).match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
+    if (timeOnly) {
+      const hh = timeOnly[1].padStart(2, "0");
+      const mm = timeOnly[2];
+      const ss = (timeOnly[3] ?? "00").padStart(2, "0");
+      return `${hh}:${mm}:${ss}`;
+    }
+    const parsed = new Date(date as string);
+    if (!isNaN(parsed.getTime())) {
+      const hh = String(parsed.getHours()).padStart(2, "0");
+      const mm = String(parsed.getMinutes()).padStart(2, "0");
+      const ss = String(parsed.getSeconds()).padStart(2, "0");
+      return `${hh}:${mm}:${ss}`;
+    }
+
+    const fallback = (date as string).match(/(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+    if (fallback) {
+      const hh = fallback[1].padStart(2, "0");
+      const mm = fallback[2];
+      const ss = (fallback[3] ?? "00").padStart(2, "0");
+      return `${hh}:${mm}:${ss}`;
+    }
+
+    return "";
   }
 
   const filteredStudents = useMemo(() => {

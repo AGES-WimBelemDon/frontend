@@ -2,12 +2,11 @@ import { Box, CircularProgress } from "@mui/material";
 import { Outlet } from "react-router";
 
 import { useLayout } from "./useLayout";
-import ClassesModal from "../../components/ClassesModal";
+import { ClassesModal } from "../../components/ClassesModal";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { Toast } from "../../components/Toast";
 import { UserProfile } from "../../components/UserProfile";
-import { ClassesModalProvider } from "../../contexts/ClassesModal/ClassesModalProvider";
 import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Layout() {
@@ -49,10 +48,8 @@ export default function Layout() {
             marginX="auto"
           >
             <Toast />
-            <ClassesModalProvider>
-              <Outlet />
-              <ClassesModal />
-            </ClassesModalProvider>
+            <ClassesModal />
+            <Outlet />
           </Box>
         )}
       </Box>

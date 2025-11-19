@@ -49,7 +49,7 @@ export type CreateEnrollment = {
 
 export type CreateClass = Omit<Classes, "teachers" | "schedules"> & ApiClass & {
   teacherIds: Id[];
-  dayOfWeek: string[];
+  dayOfWeek: Id[];
 }
 export type CreateClassForm = CreateClass & Pick<CreateEnrollment, "studentIds">;
 

@@ -117,6 +117,7 @@ export default function Classes() {
             </FormLabel>
             <Autocomplete
               options={levelOptions || []}
+              getOptionLabel={(option) => option.name}
               onChange={(_, newValue) => setLevelFilter(newValue)}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -187,11 +188,8 @@ export default function Classes() {
                   <strong>{strings.classes.card.level}</strong>{" "}{c.levelId}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
-                  {c.teachers.map(teacher => (
-                    <>
-                      <strong>{strings.classes.card.teacher}</strong>{" "}{teacher.fullName}
-                    </>
-                  ))}
+                  <strong>{strings.classes.card.teachers}</strong>{" "}
+                  {c.teachers.map((teacher) => teacher.fullName).join(", ")}
                 </Typography>
               </CardContent>
             </Card>

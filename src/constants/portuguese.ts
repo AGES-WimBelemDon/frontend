@@ -55,7 +55,7 @@ export const portugueseTextMap = {
     activity: "Atividade",
     card: {
       level: "Nível:",
-      teacher: "Responsável:"
+      teachers: "Professores:"
     },
   },
   classDetails: {

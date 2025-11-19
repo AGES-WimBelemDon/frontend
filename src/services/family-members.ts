@@ -34,7 +34,6 @@ export type FamilyMemberResponse = {
 
 export async function createFamilyMember(data: CreateFamilyMemberData): Promise<FamilyMemberResponse> {
   try {
-    console.log("Creating family member with data:", data);
     const response = await api.post<FamilyMemberResponse>(endpoints.familyMembers.base, data);
     return response.data;
   } catch (error) {
@@ -48,7 +47,6 @@ export async function createFamilyMemberAddress(
   addressData: CreateAddressData
 ): Promise<void> {
   try {
-    console.log(`Creating address for family member ID ${familyMemberId} with data:`, addressData);
     await api.post(endpoints.familyMembers.addressById(familyMemberId), addressData);
   } catch {
     throw new Error("Error creating family member address");

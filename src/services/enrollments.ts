@@ -3,9 +3,9 @@ import type { CreateEnrollment } from "../types/classes";
 import type { Enrollment } from "../types/enrollment";
 import type { Id } from "../types/id";
 
-export function createEnrollment(enrollment: CreateEnrollment): void {
+export async function createEnrollment(enrollment: CreateEnrollment): Promise<void> {
   try {
-    api.post(endpoints.enrollments.base, enrollment);
+    return api.post(endpoints.enrollments.base, enrollment);
   } catch {
     throw new Error("Error on servicesCreateEnrollment");
   }

@@ -31,17 +31,10 @@ export default function ClassDetails() {
 
   const classTitle = classId ? getClassTitleById(classId) : "";
 
-  console.log("classes and classId:", { classes, classId });
-
-
   function handleOpenModal() {
-
-    if (classData) {
-
-      openModal(classData);
-
+    if (classData && classId) {
+      openModal({ ...classData, id: classId });
     }
-
   }
 
   function getFrequencyColor(value: number) {
@@ -70,8 +63,6 @@ export default function ClassDetails() {
       </Typography>
     );
   }
-  console.log(classEnrollment);
-  console.log({ frequencyClass });
 
   if (!frequencyClass || !classEnrollment) {
     return (

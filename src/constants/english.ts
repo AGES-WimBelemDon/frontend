@@ -55,7 +55,7 @@ export const englishTextMap = {
     activity: "Activity",
     card: {
       level: "Level:",
-      teacher: "Teacher:"
+      teachers: "Teachers:"
     },
   },
   classDetails: {
