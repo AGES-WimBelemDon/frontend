@@ -14,24 +14,27 @@ import type { Id } from "../../../types/id";
 export function useAnamneseForm() {
   const { studentId, formId } = useParams<{ studentId: string; formId: string }>();
   const navigate = useNavigate();
-  const [questions, setQuestions] = useState<Question[]>([])
   const [forms, setForms] = useState<AnamneseFormInfo[]>([]);
   const [responses, setResponses] = useState<Record<string, string>>({});
   const [isCreating, setIsCreating] = useState(formId === "new");
   const [formTypes, setFormTypes] = useState<AnamneseFormType[]>([])
   const [selectedFormType, setSelectedFormType] = useState<AnamneseFormType>()
+  const [questions, setQuestions] = useState<Question[]>([])
+
+  useEffect(function fetchQuestions() {
+    const formTypeById = formTypes.filter(formType => formType.id.toString() == formId)
+    setSelectedFormType(formTypeById[0])
+
+    if (selectedFormType) {
+      getQuestions(selectedFormType.type.toString()).then(setQuestions)
+    }
+  }, [selectedFormType, formTypes])
 
   useEffect(function fetchStudentForms() {
     if (studentId) {
       getAnamneseFormsByStudent(studentId).then(setForms);
     }
   }, [studentId]);
-
-  useEffect(function fetchQuestions() {
-    if (selectedFormType) {
-      getQuestions(selectedFormType.type.toString()).then(setQuestions)
-    }
-  }, [selectedFormType])
 
   useEffect(function fetchFormTypes() {
     getFormTypes().then(setFormTypes)
@@ -83,10 +86,10 @@ export function useAnamneseForm() {
 
   return {
     forms,
-    questions,
     selectedFormType,
     formId: isCreating ? "new" : formId,
     responses,
+    questions,
     isCreating,
     formTypes,
     handleSelectFormType,

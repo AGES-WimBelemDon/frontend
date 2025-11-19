@@ -31,7 +31,7 @@ function AppRouter() {
           <Route path="alunos/:id/editar" element={<StudentRegistration />} />
           <Route path="alunos/:id/responsaveis" element={<ResponsibleRegistration />} />
           <Route path="anamnese" element={<SelectForm />} />
-          <Route path="anamnese/form/:id" element={<AnamnesisForm />} />
+          <Route path="anamnese/form/:formId" element={<AnamnesisForm />} />
           <Route path="atividades" element={<ActivityList />} />
           <Route path="frequencias/atividades" element={<Frequency />}/>
           <Route path="frequencias/atividades/:id/turmas" element={<FrequencyClasses />}/>

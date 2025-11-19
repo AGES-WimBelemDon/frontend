@@ -9,18 +9,16 @@ import { strings } from "../../../constants";
 const AnamnesisForm = () => {
   const {
     forms,
-    formId,
     responses,
-    questions,
     isCreating,
-    selectedFormType,
+    questions,
+    formId,
     handleResponseChange,
     handleSubmit,
     handleCreateNew,
     handleFormChange,
   } = useAnamneseForm();
 
-  console.log(selectedFormType, questions)
   return (
     <>
       <PageTitle title={strings.anamnesis.title} dataCy="anamnesis-form" />
@@ -51,12 +49,12 @@ const AnamnesisForm = () => {
           <CardList rowGap={5} columnGap={5}>
             {questions.map((question) => (
               <TextField
-                key={question.id}
-                id={question.id.toString()}
+                key={question.questionId}
+                id={question.questionId.toString()}
                 label={question.statement}
                 variant="standard"
-                value={responses[question.id] || ""}
-                onChange={(e) => handleResponseChange(question.id, e.target.value)}
+                value={responses[question.questionId] || ""}
+                onChange={(e) => handleResponseChange(question.questionId, e.target.value)}
               />
             ))}
           </CardList>
