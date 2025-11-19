@@ -176,7 +176,7 @@ export function useStudentRegistration() {
       if (!studentData.gender) {
         throw new Error(strings.studentRegistration.errors.genderRequired);
       }
-      
+
       if (!addressData.cep) {
         throw new Error(strings.studentRegistration.errors.addressCepRequired);
       }
@@ -351,7 +351,12 @@ export function useStudentRegistration() {
       updateStudent(studentId, studentData, addressData)
         .then(() => {
           documents.forEach(async (document) => {
-            const documentData: CreateStudentFile = {
+            if (!document.file) {
+              showToast("Arquivo inválido", "error");
+              return;
+            }
+
+            const { file, ...payload } = {
               studentId: Number(document.studentId),
               originalName: document.originalName,
               description: document.description,
@@ -360,32 +365,27 @@ export function useStudentRegistration() {
               file: document.file,
             };
 
-            if (!documentData.file) {
-              showToast("Erro", "error");
-              return;
-            }
-
             const uploadResponse =
-              await addStudentDocument<UploadResponse>(documentData);
+              await addStudentDocument<UploadResponse>(payload);
 
-            if (!uploadResponse) {
-              showToast("Erro", "error");
-              return;
-            }
             await addDocumentInFirebase(
               uploadResponse,
-              documentData.file,
+              file,
               document.contentType
             );
+
             await confirmUpload(uploadResponse.documentId);
           });
+
           goBack();
         })
         .catch((error) => {
           showToast(error.message, "error");
         });
+
       return;
     }
+
     registerStudent(studentData, addressData)
       .then(async (studentid) => {
         if (!studentid) {
@@ -393,7 +393,12 @@ export function useStudentRegistration() {
         }
 
         for (const document of documents) {
-          const documentData: CreateStudentFile = {
+          if (!document.file) {
+            showToast("Arquivo inválido", "error");
+            return;
+          }
+
+          const { file, ...payload } = {
             studentId: studentid,
             originalName: document.originalName,
             description: document.description,
@@ -402,23 +407,20 @@ export function useStudentRegistration() {
             file: document.file,
           };
 
-          if (!documentData.file) {
-            showToast("Erro", "error");
-            return;
-          }
-
           const uploadResponse =
-            await addStudentDocument<UploadResponse>(documentData);
+            await addStudentDocument<UploadResponse>(payload);
+
           if (!uploadResponse) {
-            showToast("Erro", "error");
+            showToast("Erro ao gerar URL de upload", "error");
             return;
           }
 
           await addDocumentInFirebase(
             uploadResponse,
-            documentData.file,
+            file,
             document.contentType
           );
+
           await confirmUpload(uploadResponse.documentId);
         }
 
