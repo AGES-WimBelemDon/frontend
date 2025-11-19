@@ -50,9 +50,37 @@ const AnamnesisForm = () => {
             {questions.map((question) => (
               <TextField
                 key={question.questionId}
+                fullWidth
+                multiline
+                minRows={1}
                 id={question.questionId.toString()}
                 label={question.statement}
                 variant="standard"
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                    sx: {
+                      whiteSpace: "normal",
+                      lineHeight: 1.2,
+                      maxWidth: "100%",
+                    },
+                  },
+                  formHelperText: {
+                    sx: { whiteSpace: "normal" },
+                  },
+                }}
+                sx={{
+                  "& .MuiInputLabel-root": {
+                    whiteSpace: "normal",
+                    overflow: "visible",
+                    textOverflow: "unset",
+                    fontSize: "1.2rem"
+                  },
+                  "& .MuiInputBase-input": {
+                    paddingTop: "25px",
+                  },
+                }}
+                
                 value={responses[question.questionId]?.content || ""}
                 onChange={(e) => handleResponseChange(question.questionId, e.target.value)}
               />
