@@ -9,16 +9,18 @@ import { strings } from "../../../constants";
 const AnamnesisForm = () => {
   const {
     forms,
-    questions,
     formId,
     responses,
+    questions,
     isCreating,
+    selectedFormType,
     handleResponseChange,
     handleSubmit,
     handleCreateNew,
     handleFormChange,
   } = useAnamneseForm();
 
+  console.log(selectedFormType, questions)
   return (
     <>
       <PageTitle title={strings.anamnesis.title} dataCy="anamnesis-form" />

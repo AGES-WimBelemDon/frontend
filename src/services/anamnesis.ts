@@ -52,12 +52,12 @@ const mockQuestionSets: { [key: string]: Question[] } = {
 export async function getQuestions(formId: string): Promise<Question[]> {
   try {
     // TODO: This endpoint is a placeholder, replace with the actual endpoint
-    const response = await api.get<Question[]>(`${endpoints.assessment.base}/${formId}/questions`);
+    const response = await api.get<Question[]>(endpoints.assessment.questionsByFormType(formId));
     return response.data;
   } catch {
     // TODO: This should only work for development, remove in production
     console.warn(`Mocking questions for formId: ${formId}`);
-    return Promise.resolve(mockQuestionSets[formId] || mockQuestionSets["new"]);
+    return Promise.resolve(mockQuestionSets["new"]);
   }
 }
 

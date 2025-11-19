@@ -6,7 +6,7 @@ import { useRoutes } from "../../../hooks/useRoutes";
 import { useAnamneseForm } from "../Form/useAnamneseForm";
 
 export default function SelectForm() {
-  const { formTypes } = useAnamneseForm()
+  const { formTypes, handleSelectFormType } = useAnamneseForm()
   const { goTo } = useRoutes();
 
   return (
@@ -16,9 +16,12 @@ export default function SelectForm() {
         {formTypes.map((card) => (
           <TextCard
             key={card.id}
-            title={card.type}
+            title={card.title}
             theme="light"
-            onClick={() => goTo("/anamnese", `/form/${card.id}`)}
+            onClick={() => {
+              handleSelectFormType(card.id)
+              goTo("/anamnese", `/form/${card.id}`)
+            }}
           />
         ))}
       </CardList>

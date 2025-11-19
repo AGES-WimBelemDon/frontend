@@ -2,6 +2,8 @@ import type { Id } from "./id";
 
 export type Question = {
   id: Id;
+  isRequired: boolean,
+  questionId: Id,
   statement: string;
 };
 

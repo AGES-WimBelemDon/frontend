@@ -14,28 +14,24 @@ import type { Id } from "../../../types/id";
 export function useAnamneseForm() {
   const { studentId, formId } = useParams<{ studentId: string; formId: string }>();
   const navigate = useNavigate();
-
+  const [questions, setQuestions] = useState<Question[]>([])
   const [forms, setForms] = useState<AnamneseFormInfo[]>([]);
-  const [questions, setQuestions] = useState<Question[]>([]);
   const [responses, setResponses] = useState<Record<string, string>>({});
   const [isCreating, setIsCreating] = useState(formId === "new");
   const [formTypes, setFormTypes] = useState<AnamneseFormType[]>([])
+  const [selectedFormType, setSelectedFormType] = useState<AnamneseFormType>()
 
   useEffect(function fetchStudentForms() {
     if (studentId) {
       getAnamneseFormsByStudent(studentId).then(setForms);
     }
   }, [studentId]);
-  
+
   useEffect(function fetchQuestions() {
-    if (formId && formId !== "new" && !isCreating) {
-      getQuestions(formId).then(setQuestions);
-    } else {
-      // When creating a new form, we can fetch template questions
-      getQuestions("new").then(setQuestions);
-      setResponses({});
+    if (selectedFormType) {
+      getQuestions(selectedFormType.type.toString()).then(setQuestions)
     }
-  }, [formId, isCreating]);
+  }, [selectedFormType])
 
   useEffect(function fetchFormTypes() {
     getFormTypes().then(setFormTypes)
@@ -80,13 +76,20 @@ export function useAnamneseForm() {
     }
   }
 
+  function handleSelectFormType(formId: number) {
+    const formTypeById = formTypes.filter(formType => formType.id == formId)
+    setSelectedFormType(formTypeById[0])
+  }
+
   return {
     forms,
     questions,
+    selectedFormType,
     formId: isCreating ? "new" : formId,
     responses,
     isCreating,
     formTypes,
+    handleSelectFormType,
     handleResponseChange,
     handleSubmit,
     handleCreateNew,
