@@ -46,6 +46,7 @@ function AppRouter() {
             </Route>
             <Route path="turmas" element={<Classes />} />
             <Route path="turmas/:id" element={<ClassDetails />} />
+            <Route path="turmas/atividade/:activityId" element={<Classes />} />
             <Route path="usuarios" element={<Users />} />
           </Route>
         </Routes>

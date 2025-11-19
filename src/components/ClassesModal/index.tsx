@@ -126,12 +126,12 @@ export function ClassesModal() {
       <Box sx={{ width: "100%", mb: 2 }}>
         <Stepper
           activeStep={activeStep} alternativeLabel>
-          {steps.map((label, index) => (
+          {[...steps.entries()].map(([key, label]) => (
             <Step key={label} >
               <StepLabel >
                 <Typography
-                  sx={{ color: activeStep >= index ? "" : "grey.500" }}
-                  fontWeight={activeStep === index ? "bold" : "normal"} >
+                  sx={{ color: activeStep >= key ? "" : "grey.500" }}
+                  fontWeight={activeStep === key ? "bold" : "normal"} >
                   {label}
                 </Typography>
               </StepLabel>
@@ -157,7 +157,7 @@ export function ClassesModal() {
               />
             </FormControl>
 
-            <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
+            <FormControl fullWidth>
               <InputLabel id="level-select-label" sx={{ color: "text.primary" }}>{strings.classesModal.inputs.classLevel}</InputLabel>
               <Controller
                 name="levelId"
@@ -169,7 +169,7 @@ export function ClassesModal() {
                     label={strings.classesModal.inputs.classLevel}
                   >
                     {levelOptions?.map((level) => (
-                      <MenuItem key={level.id} value={level.id} sx={{ backgroundColor: "background.default" }}>
+                      <MenuItem key={level.id} value={level.id}>
                         <ListItemText primary={level.name} />
                       </MenuItem>
                     ))}

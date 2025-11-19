@@ -11,10 +11,9 @@ import { useToast } from "../../hooks/useToast";
 import { useUsers } from "../../hooks/useUsers";
 import { createClasses, patchClass } from "../../services/classes";
 import { createEnrollment } from "../../services/enrollments";
-import type { Classes, CreateClassForm, WeekDay } from "../../types/classes";
+import type { Classes, CreateClassForm } from "../../types/classes";
 import type { Id } from "../../types/id";
 
-const steps = [strings.classesModal.steps.data, strings.classesModal.steps.activity, strings.classesModal.steps.teacher, strings.classesModal.steps.student];
 
 export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boolean, closeModal: () => void, classData?: Classes }) {
   const { showToast } = useToast();
@@ -33,15 +32,26 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
 
   const isEditing = classData !== undefined;
 
+  const steps = isEditing
+    ? [
+      strings.classesModal.steps.data,
+      strings.classesModal.steps.activity,
+      strings.classesModal.steps.teacher,
+    ]
+    : [
+      strings.classesModal.steps.data,
+      strings.classesModal.steps.activity,
+      strings.classesModal.steps.teacher,
+      strings.classesModal.steps.student,
+    ];
+
   const days = useMemo(() => weekDaysOptions?.map(({ id, label }, index) => ({
     id: index + 1,
     value: id,
     symbol: label.charAt(0).toUpperCase(),
   })), [weekDaysOptions]);
 
-  type FormValues = CreateClassForm & { dayOfWeekSelection?: WeekDay[] };
-
-  const { control, getValues, reset } = useForm<FormValues>({
+  const { control, getValues, reset } = useForm<CreateClassForm>({
     defaultValues: {
       name: "",
       activityId: 0,
@@ -60,6 +70,27 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
 
   useEffect(() => {
     if (classData) {
+      function parseTimeToDate(value?: string | Date) {
+        if (!value) return "";
+        if (value instanceof Date) {
+          if (isNaN(value.getTime())) return "";
+          return value;
+        }
+        const asString = String(value);
+        const timeOnly = asString.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
+        if (timeOnly) {
+          const hh = Number(timeOnly[1]);
+          const mm = Number(timeOnly[2]);
+          const ss = Number(timeOnly[3] ?? "0");
+          const d = new Date();
+          d.setHours(hh, mm, ss, 0);
+          return d;
+        }
+        const parsed = new Date(asString);
+        if (!isNaN(parsed.getTime())) return parsed;
+        return "";
+      }
+
       reset({
         name: classData.name,
         activityId: classData.activityId,
@@ -69,8 +100,8 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
         isRecurrent: classData.isRecurrent,
         startDate: classData.startDate,
         endDate: classData.endDate,
-        startTime: classData.startTime,
-        endTime: classData.endTime,
+        startTime: parseTimeToDate(classData.startTime),
+        endTime: parseTimeToDate(classData.endTime),
         dayOfWeek: classData.schedules.map((schedule) => schedule.dayOfWeek),
         dayOfWeekSelection: classData.schedules.map((schedule) => ({ id: schedule.id, dayOfWeek: schedule.dayOfWeek })),
       });
@@ -98,7 +129,7 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
   }
 
   async function handleSubmit() {
-    const { studentIds, dayOfWeekSelection, ...classFormData } = getValues() as FormValues;
+    const { studentIds, dayOfWeekSelection, ...classFormData } = getValues() as CreateClassForm;
 
     const dayOfWeekStrings = (dayOfWeekSelection ?? []).map((d) => {
       // @ts-expect-error -- value exists
@@ -166,7 +197,7 @@ export function useClassesModal({ isOpen, closeModal, classData }: { isOpen: boo
     return "";
   }
 
-  function formatTime(date: string | Date): string {
+  function formatTime(date?: string | Date): string {
     if (!date) return "";
 
     if (date instanceof Date) {
