@@ -1,21 +1,22 @@
+import { useContext } from "react";
+
 import { Button, Grid, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "react-router";
 
-import ClassesModal from "../../components/ClassesModal";
-import { useClassesModal } from "../../components/ClassesModal/hook";
 import { NewResponsibleModal } from "../../components/NewResponsibleModal";
 import { useNewResponsibleModal } from "../../components/NewResponsibleModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { PersonCard } from "../../components/PersonCard";
 import { TextCard } from "../../components/TextCard";
 import { strings } from "../../constants";
+import { ClassesModalContext } from "../../contexts/ClassesModal/ClassesModalContext";
 import { useToast } from "../../hooks/useToast";
 
 export default function TechDemo() {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const { openModal } = useNewResponsibleModal();
-  const { openClassesModal } = useClassesModal();
+  const { openModal: openClassesModal } = useContext(ClassesModalContext);
 
   function showAPIInfo() {
     navigate("2?c2=4");
@@ -113,7 +114,6 @@ export default function TechDemo() {
       </Grid>
 
       <NewResponsibleModal />
-      <ClassesModal />
 
       <Outlet />
     </>

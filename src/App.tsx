@@ -3,19 +3,22 @@ import { ThemeProvider } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "dayjs/locale/pt-br";
+import "dayjs/locale/en";
 
 import { getUserLocale } from "./constants";
 import { AuthProvider } from "./contexts/Auth/AuthProvider";
+import { ClassesModalProvider } from "./contexts/ClassesModal/ClassesModalProvider";
 import { SidebarProvider } from "./contexts/Sidebar/SidebarProvider";
 import { ToastProvider } from "./contexts/Toast/ToastProvider";
 import AppRouter from "./routes/AppRouter";
 import { theme } from "./styles/theme";
 
+
 const queryClient = new QueryClient();
 
 export default function App() {
   const preferedLocale = getUserLocale().toLocaleLowerCase();
-
   return (
     <QueryClientProvider client={queryClient}>
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={preferedLocale}>
@@ -24,7 +27,9 @@ export default function App() {
           <AuthProvider>
             <SidebarProvider>
               <ToastProvider>
-                <AppRouter />
+                <ClassesModalProvider>
+                  <AppRouter />
+                </ClassesModalProvider>
               </ToastProvider>
             </SidebarProvider>
           </AuthProvider>

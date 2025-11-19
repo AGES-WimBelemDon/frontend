@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
@@ -9,7 +9,15 @@ import { useFilters } from "../../hooks/useFilters";
 import { useScreenSize } from "../../hooks/useScreenSize";
 import { useToast } from "../../hooks/useToast";
 import { fetchAddress } from "../../services/address";
-import { createFamilyMember, createFamilyMemberAddress } from "../../services/family-members";
+import { 
+  createFamilyMember, 
+  createFamilyMemberAddress,
+  updateFamilyMember,
+  updateFamilyMemberAddress,
+  getFamilyMemberById,
+  getFamilyMemberAddress
+} from "../../services/family-members";
+import type { CreateFamilyMemberData } from "../../services/family-members";
 import type { Address } from "../../types/address";
 
 export function useNewResponsibleModal(studentId?: string) {
@@ -19,6 +27,7 @@ export function useNewResponsibleModal(studentId?: string) {
   const [address, setAddress] = useState<Partial<Address> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<Partial<ResponsibleData>>({});
+  const [editingId, setEditingId] = useState<string | null>(null);
   const { 
     civilStateOptions,
     raceOptions,
@@ -31,28 +40,102 @@ export function useNewResponsibleModal(studentId?: string) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const isOpen = searchParams.get("action") === "open-new-responsible-modal";
+  const editId = searchParams.get("editId");
 
-  function openModal() {
+  const loadResponsibleData = useCallback(async (id: string) => {
+    try {
+      const [responsibleData, addressData] = await Promise.all([
+        getFamilyMemberById(id),
+        getFamilyMemberAddress(id)
+      ]);
+
+      let formattedDate = responsibleData.dateOfBirth;
+      if (formattedDate) {
+        if (formattedDate.includes("T")) {
+          formattedDate = formattedDate.split("T")[0];
+        }
+        if (formattedDate.includes(" ")) {
+          formattedDate = formattedDate.split(" ")[0];
+        }
+        const parsedDate = new Date(formattedDate);
+        if (!isNaN(parsedDate.getTime())) {
+          formattedDate = parsedDate.toISOString().split("T")[0];
+        }
+      }
+
+      setFormData({
+        fullName: responsibleData.fullName,
+        socialName: responsibleData.socialName,
+        registrationNumber: responsibleData.registrationNumber,
+        dateOfBirth: formattedDate || "",
+        nis: responsibleData.nis,
+        phoneNumber: responsibleData.phoneNumber,
+        email: responsibleData.email,
+        relationship: responsibleData.relationship,
+        race: responsibleData.race,
+        gender: responsibleData.gender,
+        educationLevel: responsibleData.educationLevel,
+        socialPrograms: responsibleData.socialPrograms,
+        employmentStatus: responsibleData.employmentStatus,
+      });
+
+      if (addressData && addressData.cep) {
+        setAddress({
+          cep: addressData.cep,
+          street: addressData.street,
+          neighborhood: addressData.neighborhood,
+          city: addressData.city,
+          state: addressData.state,
+          number: addressData.number,
+          complement: addressData.complement,
+        });
+      }
+    } catch (error) {
+      console.error("Error loading responsible data:", error);
+      showToast(strings.newResponsibleModal.errorLoadingResponsible, "error");
+    }
+  }, [showToast]);
+
+  useEffect(() => {
+    if (editId && isOpen) {
+      setEditingId(editId);
+      loadResponsibleData(editId);
+    } else {
+      setEditingId(null);
+      setFormData({});
+      setAddress(null);
+    }
+  }, [editId, isOpen, loadResponsibleData]);
+
+  function openModal(editId?: string) {
     const params = new URLSearchParams(searchParams);
     params.set("action", "open-new-responsible-modal");
+    if (editId) {
+      params.set("editId", editId);
+    } else {
+      params.delete("editId");
+    }
     setSearchParams(params);
   };
 
   function closeModal() {
     const params = new URLSearchParams();
     setSearchParams(params);
+    setEditingId(null);
+    setFormData({});
+    setAddress(null);
   };
 
   function getAddressDetails() {
-    if (!address?.code) {
+    if (!address?.cep) {
       return Promise.resolve(null);
     }
   
-    if (address.code.length !== 8) {
+    if (address.cep.length !== 8) {
       return Promise.resolve(null);
     }
   
-    return fetchAddress(address.code).then((addressData) => {
+    return fetchAddress(address.cep).then((addressData) => {
       if (addressData) {
         setAddress(prev => ({ ...prev, ...addressData }));
       }
@@ -61,9 +144,9 @@ export function useNewResponsibleModal(studentId?: string) {
   }
     
   useQuery({
-    queryKey: ["address", address?.code],
+    queryKey: ["address", address?.cep],
     queryFn: getAddressDetails,
-    enabled: !!address?.code && address.code.length === 8,
+    enabled: !!address?.cep && address.cep.length === 8,
   })
   
   async function addResponsible(e : React.FormEvent<HTMLFormElement>) {
@@ -71,9 +154,6 @@ export function useNewResponsibleModal(studentId?: string) {
     const formData = new FormData(e.currentTarget);
     const familyMemberData = Object.fromEntries(formData.entries()) as ResponsibleData;
     
-    console.log("== Form data:", familyMemberData);
-    console.log("== Address state:", address);
-
     if(!familyMemberData.fullName){
       showToast(strings.newResponsibleModal.requiredFields.fullName, "error");
       return;
@@ -99,7 +179,7 @@ export function useNewResponsibleModal(studentId?: string) {
       return;
     }
 
-    if(!address?.code || address.code.length !== 8){
+    if(!address?.cep || address.cep.length !== 8){
       showToast(strings.newResponsibleModal.requiredFields.cep, "error");
       return;
     }
@@ -110,23 +190,22 @@ export function useNewResponsibleModal(studentId?: string) {
     }
 
     if(!address?.street || !address?.city || !address?.state || !address?.neighborhood){
-      showToast("Por favor, aguarde o carregamento do endereço completo", "error");
+      showToast(strings.newResponsibleModal.waitAddressLoading, "error");
       return;
     }
 
     if (!studentId) {
-      showToast("Student ID is required", "error");
+      showToast(strings.newResponsibleModal.studentIdRequired, "error");
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const familyMemberPayload = {
+      const familyMemberPayload: Partial<CreateFamilyMemberData> & { studentIds?: number[] } = {
         fullName: familyMemberData.fullName,
         relationship: familyMemberData.relationship,
         phoneNumber: familyMemberData.phoneNumber,
-        studentIds: [parseInt(studentId)],
         socialName: familyMemberData.socialName || undefined,
         gender: familyMemberData.gender || undefined,
         educationLevel: familyMemberData.educationLevel || undefined,
@@ -139,27 +218,37 @@ export function useNewResponsibleModal(studentId?: string) {
         nis: familyMemberData.nis || undefined,
       };
 
-      console.log("Creating family member with payload:", familyMemberPayload);
-
-      const familyMemberResponse = await createFamilyMember(familyMemberPayload);
-      console.log("Family member created with ID:", familyMemberResponse.id);
+      if (!editingId) {
+        familyMemberPayload.studentIds = [parseInt(studentId)];
+      }
 
       const addressPayload = {
         street: address.street!,
         neighborhood: address.neighborhood!,
         city: address.city!,
         state: address.state!,
-        cep: address.code!,
+        cep: address.cep!,
         number: address.number!,
         complement: address.complement || undefined,
       };
 
-      console.log("Creating address with payload:", addressPayload);
+      if (editingId) {
+        await updateFamilyMember(editingId, familyMemberPayload);
 
-      await createFamilyMemberAddress(familyMemberResponse.id, addressPayload);
-      console.log("Address created successfully");
-
-      showToast(strings.newResponsibleModal.successMessage, "success");
+        const existingAddress = await getFamilyMemberAddress(editingId);
+        
+        if (existingAddress && existingAddress.cep) {
+          await updateFamilyMemberAddress(editingId, addressPayload);
+        } else {
+          await createFamilyMemberAddress(editingId, addressPayload);
+        }
+        showToast(strings.newResponsibleModal.updateSuccessMessage, "success");
+      } else {
+        const familyMemberResponse = await createFamilyMember(familyMemberPayload as CreateFamilyMemberData);
+  
+        await createFamilyMemberAddress(familyMemberResponse.id, addressPayload);
+        showToast(strings.newResponsibleModal.successMessage, "success");
+      }
     
       await queryClient.invalidateQueries({ 
         queryKey: ["responsibles", studentId] 
@@ -168,12 +257,11 @@ export function useNewResponsibleModal(studentId?: string) {
       setAddress(null);
       closeModal();
     } catch (error) {
-      console.error("Error creating responsible:", error);
-      console.error("Full error details:", JSON.stringify(error, null, 2));
-      if (error instanceof Error && "response" in error) {
-        console.error("API Response:", (error as { response?: { data: unknown } }).response?.data);
-      }
-      showToast("Erro ao criar responsável. Por favor, tente novamente.", "error");
+      console.error("Error saving responsible:", error);
+      const errorMessage = editingId 
+        ? strings.newResponsibleModal.updateErrorMessage 
+        : strings.newResponsibleModal.createErrorMessage;
+      showToast(errorMessage, "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -205,5 +293,6 @@ export function useNewResponsibleModal(studentId?: string) {
     setAddress,
     updateField,
     clearForm,
+    isEditing: !!editingId,
   };
 }

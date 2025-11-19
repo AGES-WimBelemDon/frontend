@@ -9,7 +9,10 @@ import { NewActivityModal } from "../../components/NewActivityModal";
 import { useNewActivityModal } from "../../components/NewActivityModal/hook";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
+import { useRoutes } from "../../hooks/useRoutes";
 import type { Activity } from "../../types/activities";
+import type { Id } from "../../types/id";
+
 
 export default function ActivityList() {
   const {
@@ -29,6 +32,12 @@ export default function ActivityList() {
     handleSubmit,
     editingActivity,
   } = useNewActivityModal();
+
+  const { goTo } = useRoutes();
+
+  function handleViewClasses(activityId: Id) {
+    goTo("/turmas", `?activityId=${activityId}`);
+  }
 
 
   if (isLoadingActivities) {
@@ -74,7 +83,13 @@ export default function ActivityList() {
               <ActivityCard
                 key={activity.id}
                 content={activity}
-                onEdit={() => openEditModal({ ...activity, id: activity.id.toString() })}
+                onEdit={() =>
+                  openEditModal({
+                    ...activity,
+                    id: activity.id.toString(),
+                  })
+                }
+                onViewClasses={() => handleViewClasses(activity.id)}
               />
             ))
           ) : (

@@ -55,21 +55,29 @@ export const englishTextMap = {
     activity: "Activity",
     card: {
       level: "Level:",
-      teacher: "Teacher:"
+      teachers: "Teachers:"
     },
   },
   classDetails: {
     loading: "Loading class details...",
     errorLoading: "Error loading class data.",
     classNotFound: "Class not found.",
+    title: "Class Details",
     editClass: "Edit Class",
     professor: "Teacher",
+    teachers: "Teachers",
     level: "Level",
     frequency: "Frequency",
     noStudents: "Class does not have students.",
   },
   dateInput: {
     selectDate: "Select date",
+  },
+  errorBoundary: {
+    title: "Oops",
+    message: "Something went wrong. You can reload the page or go back to the home screen.",
+    goHome: "Go Home",
+    reload: "Reload",
   },
   filters: {
     loading: "Loading filters...",
@@ -260,7 +268,10 @@ export const englishTextMap = {
     edit: "Edit",
     loading: "Loading...",
     save: "Save",
+    saveEdit: "Save Changes",
     viewDetails: "View Details",
+    toggleStatusOn: "Activate",
+    toggleStatusOff: "Deactivate",
   },
   frequencyGeneralCall: {
     title: "General Attendance",
@@ -306,6 +317,14 @@ export const englishTextMap = {
   },
   newResponsibleModal: {
     title: "Register Responsible",
+    editTitle: "Edit Responsible",
+    updateButton: "Update Responsible",
+    updateSuccessMessage: "Responsible updated successfully!",
+    updateErrorMessage: "Error updating responsible. Please try again.",
+    createErrorMessage: "Error creating responsible. Please try again.", 
+    waitAddressLoading: "Please wait for the address to load completely",
+    errorLoadingResponsible: "Error loading responsible",
+    studentIdRequired: "Student ID is required",
     buttonText: "Add Responsible",
     personalInformation: "Personal Information",
     employmentInformation: "Employment Information",
@@ -370,6 +389,12 @@ export const englishTextMap = {
     successMessage: "Responsible added successfully!",
     pleaseFillAllFields: "Please fill in all required fields.",
   },
+  notFound: {
+    title: "Page not found",
+    message: "The page you're looking for doesn't exist.",
+    goHome: "Go Home",
+    reload: "Reload",
+  },
   classesModal: {
     title: "Create Class",
     recurring: "Recurring Activity",
@@ -381,6 +406,7 @@ export const englishTextMap = {
       startTime: "Start Time",
       endTime: "End Time",
       level: "Level",
+      searchActivity: "Search Activity",
       searchTeacher: "Search Teacher",
       assignTeacher: "Assign Teacher",
       searchStudent: "Search Student",
@@ -393,12 +419,15 @@ export const englishTextMap = {
     },
     steps: {
       data: "Data",
+      activity: "Activity",
       teacher: "Teachers",
       student: "Educandos",
     },
     createSuccessMessage: "Class created successfully!",
+    editSuccessMessage: "Class edited successfully",
     createErrorFillAllFields: "Please fill in all fields.",
     createErrorGeneric: "Error creating class. Please try again.",
+    editErrorGeneric: "Error editing class. Please try again."
   },
   personCard: {
     userImageAlt: "User image",
@@ -456,6 +485,8 @@ export const englishTextMap = {
     registrationNumber: "Identity Document (CPF)",
     attachments: "Attachments",
     attachMoreFiles: "Attach more documents",
+    viewFiles: "View files",
+    documentAdded: "Document added successfully!",
     selectFiles: "Select file",
     selectedFile: "Selected file:",
     fileCreatedAt: "File creation date:",
@@ -471,7 +502,12 @@ export const englishTextMap = {
     saveButton: "Save",
     cancelButton: "Cancel",
     successMessage: "Student registered successfully!",
+    updateSuccess: "Student updated successfully!",
     errorMessage: "Error registering student. Please try again.",
+    confirmationMessage: "Are you sure you want to disable the student?",
+    activationConfirmationMessage: "Are you sure you want to activate the student?",
+    deactivationSuccess: "Student deactivated successfully",
+    activationSuccess: "Student activated successfully",
     errors: {
       fullNameRequired: "Student full name is required",
       dateOfBirthRequired: "Student date of birth is required",
@@ -481,6 +517,10 @@ export const englishTextMap = {
       enrollmentDateRequired: "Student enrollment date is required",
       addressCepRequired: "Student address ZIP code is required",
       addressNumberRequired: "Student address number is required",
+      internalError: "Internal server error",
+      studentNotFound: "Student not found",
+      invalidData: "Invalid data",
+      searchStudentError: "Error searching for student",
     },
   },
   studentEdition: {
@@ -508,8 +548,6 @@ export const englishTextMap = {
     fileDescription: "File description",
     cancelFileSend: "Cancel file upload",
     addFileButton: "Add file",
-    toggleStudentStatusOn: "Activate student",
-    toggleStudentStatusOff: "Deactivate student",
     details: "Details",
     schoolName: "Current School",
     schoolNamePlaceholder: "Enter student's current school",
@@ -523,9 +561,14 @@ export const englishTextMap = {
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     noStudents: "No students found",
-    editStudent: "Edit Student",
+    viewStudent: "View Details",
     birthday: ({ date }: Params<"date">) => `Birthday: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
+    status: ({ status }: Params<"status">) => `Status: ${status}`,
+    filter: {
+      search: "Student name",
+      title: "Name"
+    }
   },
   studentsResponsibles: {
     title: "Responsibles",

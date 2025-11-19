@@ -80,7 +80,14 @@ export type NoteTypes =
   ;
 
 export type WeekDay =
-  string;
+  | "SEGUNDA"
+  | "TERCA"
+  | "QUARTA"
+  | "QUINTA"
+  | "SEXTA"
+  | "SABADO"
+  | "DOMINGO"
+;
 
 export type Role =
   | "admin"

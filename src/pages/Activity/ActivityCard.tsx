@@ -4,7 +4,7 @@ import { Box, Typography, Button, IconButton } from "@mui/material";
 import type { ActivityCardProps } from "./interface";
 
 
-export function ActivityCard({ content, onEdit }: ActivityCardProps) {
+export function ActivityCard({ content, onEdit, onViewClasses }: ActivityCardProps) {
   return (
     <Box
       gap={1.5}
@@ -41,6 +41,7 @@ export function ActivityCard({ content, onEdit }: ActivityCardProps) {
       <Button
         variant="outlined"
         fullWidth
+        onClick={onViewClasses}
         sx={{
           fontWeight: "bold",
           textTransform: "none",

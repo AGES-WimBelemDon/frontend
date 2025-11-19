@@ -1,19 +1,19 @@
 import { api, endpoints } from "./api";
-import type { Classes, CreateClasses, StudentFrequencyClass } from "../types/classes";
+import type { ApiClass, Classes, CreateClass, StudentFrequencyClass } from "../types/classes";
 import type { Id } from "../types/id";
 
-export async function createClasses(data: CreateClasses): Promise<number> {
+export async function createClasses(data: CreateClass): Promise<ApiClass["id"] | null> {
   try {
     const response = await api.post(endpoints.classes.base, data)
-    return response.status;
+    return response.data.id;
   } catch {
     throw new Error("Error on servicesCreateClasses")
   }
 }
 
-export async function getClasses(): Promise<Classes[]> {
+export async function getClasses(): Promise<ApiClass[]> {
   try {
-    const response = await api.get<Classes[]>(endpoints.classes.base);
+    const response = await api.get<ApiClass[]>(endpoints.classes.base);
     return response.data;
   } catch {
     throw new Error("Error on servicesGetClasses")
@@ -32,11 +32,27 @@ export async function getClassFrequency({ id, date }: { id: Id; date: string }):
   }
 }
 
-export async function patchClass({ id }: { id: number }) {
+export async function patchClass(id: Id, classData: Classes): Promise<number> {
   try {
-    const response = await api.patch<Classes>(endpoints.classes.byId(id))
+    const response = await api.patch<Classes>(endpoints.classes.byId(id), classData)
     return response.status;
   } catch {
     throw new Error("Error on servicesPatchClass")
+  }
+}
+
+export async function getClassesByActivity(activityId: number): Promise<ApiClass[]> {
+  try {
+    const response = await api.get<ApiClass[]>(endpoints.classes.base, {
+      params: {
+        activityId,
+        state: "ALL", 
+      },
+    });
+
+    return response.data;
+
+  } catch {
+    throw new Error("Error on servicesGetClassesByActivity")
   }
 }

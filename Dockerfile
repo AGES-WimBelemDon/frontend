@@ -9,6 +9,7 @@ RUN npm install --frozen-lockfile
 
 # Pass environment variables as build args
 ARG VITE_API_URL
+ARG VITE_API_VERSION
 ARG VITE_FIREBASE_API_KEY
 ARG VITE_FIREBASE_AUTH_DOMAIN
 ARG VITE_FIREBASE_PROJECT_ID

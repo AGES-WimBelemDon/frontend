@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { useRoutes } from "./useRoutes";
+import { strings } from "../constants";
 import { getClasses, getClassFrequency as apiGetClassFrequency } from "../services/classes";
 import type { Id } from "../types/id";
 
@@ -16,8 +17,8 @@ export function useClasses() {
     queryFn: getClasses,
   });
 
-  function getClassTitleById(id: string) {
-    if (!data) return "Carregando...";
+  function getClassTitleById(id: Id) {
+    if (!data) return strings.genericActions.loading;
     const classItem = data.find(c => c.id == id);
     return classItem ? classItem.name : "Turma Desconhecida";
   }
