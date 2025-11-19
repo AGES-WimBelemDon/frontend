@@ -53,7 +53,7 @@ const AnamnesisForm = () => {
                 id={question.questionId.toString()}
                 label={question.statement}
                 variant="standard"
-                value={responses[question.questionId] || ""}
+                value={responses[question.questionId]?.content || ""}
                 onChange={(e) => handleResponseChange(question.questionId, e.target.value)}
               />
             ))}
@@ -78,4 +78,3 @@ const AnamnesisForm = () => {
 };
 
 export default AnamnesisForm;
-

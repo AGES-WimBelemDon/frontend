@@ -19,8 +19,12 @@ export type AnamneseSubmission = {
   answers: AnamneseResponse[];
 };
 
+export type AnamneseUpdate = {
+  updates: AnamneseResponse[];
+};
+
 export type AnamneseFormAnswer = {
-  id: Id;
+  answerId: Id;
   content: string,
   submissionDate: string;
   questionId: Id;

@@ -1,5 +1,5 @@
 import { api, endpoints } from "./api";
-import type { AnamneseFormAnswer, AnamneseSubmission, Question } from "../types/anamnesis";
+import type { AnamneseFormAnswer, AnamneseSubmission, AnamneseUpdate, Question } from "../types/anamnesis";
 import type { Id } from "../types/id";
 
 
@@ -10,10 +10,10 @@ export async function getAnamneseFormsByStudent(studentId: Id, formType: string)
   } catch {
     console.warn(`Mocking anamnese forms for studentId: ${studentId}`);
     const mockForms: AnamneseFormAnswer[] = [
-      { id: "1", questionId: "1-1", content: "Some content for question 1-1", submissionDate: "2023-03-12" },
-      { id: "2", questionId: "1-2", content: "Some content for question 1-2", submissionDate: "2023-03-12" },
-      { id: "3", questionId: "2-1", content: "Some content for question 2-1", submissionDate: "2023-09-25" },
-      { id: "4", questionId: "2-2", content: "Some content for question 2-2", submissionDate: "2023-09-25" },
+      { answerId: "1", questionId: "1-1", content: "Some content for question 1-1", submissionDate: "2023-03-12" },
+      { answerId: "2", questionId: "1-2", content: "Some content for question 1-2", submissionDate: "2023-03-12" },
+      { answerId: "3", questionId: "2-1", content: "Some content for question 2-1", submissionDate: "2023-09-25" },
+      { answerId: "4", questionId: "2-2", content: "Some content for question 2-2", submissionDate: "2023-09-25" },
     ];
     return Promise.resolve(mockForms);
   }
@@ -65,7 +65,19 @@ export async function postAnamnese(submission: AnamneseSubmission, studentId: Id
     console.error("Error posting anamnese:", error);
     // Mock a successful response for development
     const newId = (Math.random() * 1000).toFixed(0).toString();
-    return Promise.resolve([{ id: newId, questionId: 0, content: "mock", submissionDate: "mock" }]);
+    return Promise.resolve([{ answerId: newId, questionId: 0, content: "mock", submissionDate: "mock" }]);
+  }
+}
+
+export async function patchAnamnese(submission: AnamneseUpdate): Promise<AnamneseFormAnswer[]> {
+  try {
+    const response = await api.patch(endpoints.assessment.base, submission);
+    return response.data;
+  } catch (error) {
+    console.error("Error patching anamnese:", error);
+    // Mock a successful response for development
+    const newId = (Math.random() * 1000).toFixed(0).toString();
+    return Promise.resolve([{ answerId: newId, questionId: 0, content: "mock", submissionDate: "mock" }]);
   }
 }
 
