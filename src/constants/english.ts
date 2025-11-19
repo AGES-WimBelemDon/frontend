@@ -156,6 +156,7 @@ export const englishTextMap = {
       female: "Female",
       transMan: "Trans Man",
       transWoman: "Trans Woman",
+      transvestite: "Transvestite",
       nonBinary: "Non-Binary",
       other: "Other",
     },

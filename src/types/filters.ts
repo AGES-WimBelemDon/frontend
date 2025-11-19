@@ -22,6 +22,7 @@ export type Gender =
   | "FEMININO"
   | "HOMEM_TRANS"
   | "MULHER_TRANS"
+  | "TRAVESTI"
   | "NAO_BINARIO"
   | "OUTRO"
 ;
@@ -29,7 +30,7 @@ export type Gender =
 export type SocialPrograms =
   | "BOLSA_FAMILIA"
   | "BPC_LOAS"
-  | "TARIFA_SOCIAL_DE_ENERGIA"
+  | "TARIFA_SOCIAL_ENERGIA"
   | "AUXILIO_GAS"
   | "PROGRAMA_ESTADUAL"
   | "PROGRAMA_MUNICIPAL_VIA_CRAS"

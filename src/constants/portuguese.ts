@@ -155,6 +155,7 @@ export const portugueseTextMap = {
       female: "Feminino",
       transMan: "Homem Trans",
       transWoman: "Mulher Trans",
+      transvestite: "Travesti",
       nonBinary: "Não Binário",
       other: "Outro",
     },
