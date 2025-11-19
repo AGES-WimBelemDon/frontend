@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 
-import { getAuthToken } from "./auth.firebase";
+import { getAuthToken, logout } from "./auth.firebase";
 import type { FormType } from "../types/filters";
 import type { Id } from "../types/id";
 
@@ -33,7 +33,9 @@ const endpoints = {
   },
   enrollments: {
     base: "/enrollments",
-    byId: (id: Id) => `/enrollments/${id}`,
+    byClassId: (id: Id) => `/enrollments/?classId=${id}`,
+    bystudentId: (id: Id) => `/enrollments/?studentId=${id}`,
+    byStudentClassIds: (studentId: Id, classId: Id) => `/enrollments/?studentId=${studentId}&classId=${classId}`
   },
   familyMembers: {
     base: "/family-member",
@@ -56,6 +58,8 @@ const endpoints = {
     noteTypes: "/filters/note-types",
     weekDays: "/filters/week-days",
     roles: "/filters/roles",
+    civilStates: "/filters/civil-states",
+    schoolYear: "/filters/school-year",
   },
   frequencies: {
     base: "/frequency",
@@ -65,8 +69,6 @@ const endpoints = {
   },
   levels: {
     base: "/level",
-    civilStates: "/filters/civil-states",
-    schoolYear: "/filters/school-year",
   },
   students: {
     base: "/students",
@@ -115,14 +117,32 @@ axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error("API Error:", error);
-    if (error.response) {
-      console.error("Response status:", error.response.status);
-      console.error("Response data:", error.response.data);
-      if (error.response.data?.message && Array.isArray(error.response.data.message)) {
-        console.error("Error messages:", error.response.data.message);
+    const response = error?.response;
+    if (response) {
+      console.error("Response status:", response.status);
+      console.error("Response data:", response.data);
+      if (response.data?.message && Array.isArray(response.data.message)) {
+        console.error("Error messages:", response.data.message);
       }
-      console.error("Response headers:", error.response.headers);
+      console.error("Response headers:", response.headers);
+
+      if (response.status === 401) {
+        try {
+          logout().catch((e) => console.debug("Logout failed (ignored):", e));
+        } catch (e) {
+          console.debug("Error during logout handling:", e);
+        }
+
+        const pathname = window.location.pathname;
+        const isLoginPage = pathname.includes("/login");
+        if (!isLoginPage) {
+          const currentPath = window.location.pathname + window.location.search;
+          const loginPath = `/frontend/login?from=${encodeURIComponent(currentPath)}`;
+          window.location.replace(loginPath);
+        }
+      }
     }
+
     return Promise.reject(error);
   }
 );

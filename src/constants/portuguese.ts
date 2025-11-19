@@ -55,21 +55,29 @@ export const portugueseTextMap = {
     activity: "Atividade",
     card: {
       level: "Nível:",
-      teacher: "Responsável:"
+      teachers: "Professores:"
     },
   },
   classDetails: {
     loading: "Carregando turma...",
     errorLoading: "Não foi possível carregar os dados da turma.",
     classNotFound: "Turma não encontrada.",
+    title: "Detalhes da Turma",
     editClass: "Editar Turma",
-    professor: "Responsável",
+    professor: "Professor",
+    teachers: "Professores",
     level: "Nível",
     frequency: "Frequência",
     noStudents: "Nenhum aluno cadastrado nesta turma.",
   },
   dateInput: {
     selectDate: "Selecione a data",
+  },
+  errorBoundary: {
+    title: "Ops",
+    message: "Algo deu errado. Você pode recarregar a página ou voltar para a tela inicial.",
+    goHome: "Ir para a página inicial",
+    reload: "Recarregar",
   },
   filters: {
     loading: "Carregando filtros...",
@@ -271,7 +279,10 @@ export const portugueseTextMap = {
     edit: "Editar",
     loading: "Carregando...",
     save: "Salvar",
+    saveEdit: "Salvar Alterações",
     viewDetails: "Ver Detalhes",
+    toggleStatusOn: "Ativar",
+    toggleStatusOff: "Desativar",
   },
   header: {
     goToHome: "Ir para a página inicial",
@@ -305,6 +316,14 @@ export const portugueseTextMap = {
   },
   newResponsibleModal: {
     title: "Cadastrar Responsável",
+    editTitle: "Editar Responsável",
+    updateButton: "Atualizar Responsável",
+    updateSuccessMessage: "Responsável atualizado com sucesso!",
+    updateErrorMessage: "Erro ao atualizar responsável. Por favor, tente novamente.",
+    createErrorMessage: "Erro ao criar responsável. Por favor, tente novamente.",
+    waitAddressLoading: "Por favor, aguarde o carregamento do endereço completo",
+    errorLoadingResponsible: "Erro ao carregar dados do responsável",
+    studentIdRequired: "ID do estudante é obrigatório",
     buttonText: "Adicionar Responsável",
     personalInformation: "Informações Pessoais",
     employmentInformation: "Situação Empregatícia",
@@ -369,6 +388,12 @@ export const portugueseTextMap = {
     successMessage: "Responsável adicionado com sucesso!",
     pleaseFillAllFields: "Por favor, preencha todos os campos obrigatórios.",
   },
+  notFound: {
+    title: "Página não encontrada",
+    message: "A página que você tentou acessar não existe.",
+    goHome: "Ir para a página inicial",
+    reload: "Recarregar",
+  },
   classesModal: {
     recurring: "Atividade Recorrente",
     inputs: {
@@ -379,6 +404,7 @@ export const portugueseTextMap = {
       startTime: "Horário de Início",
       endTime: "Horário de Término",
       level: "Nível",
+      searchActivity: "Buscar Atividade",
       searchTeacher: "Pesquisar Professor",
       assignTeacher: "Atribuir Professor",
       searchStudent: "Pesquisar Educando",
@@ -391,12 +417,15 @@ export const portugueseTextMap = {
     },
     steps: {
       data: "Dados",
+      activity: "Atividade",
       teacher: "Professor",
       student: "Educando",
     },
     createSuccessMessage: "Turma criada com sucesso!",
+    editSuccessMessage: "Turma editada com sucesso!",
     createErrorFillAllFields: "Por favor, preencha todos os campos.",
     createErrorGeneric: "Erro ao criar turma. Por favor, tente novamente.",
+    editErrorGeneric: "Erro ao editar a classe. Por favor, tente novamente."
   },
   personCard: {
     userImageAlt: "Imagem do usuário",
@@ -460,8 +489,6 @@ export const portugueseTextMap = {
     fileDescription: "Descrição do arquivo",
     cancelFileSend: "Cancelar envio do arquivo",
     addFileButton: "Adicionar arquivo",
-    toggleStudentStatusOn: "Ativar estudante",
-    toggleStudentStatusOff: "Desativar estudante",
     details: "Detalhes",
     schoolName: "Escola Atual",
     schoolNamePlaceholder: "Digite a escola atual do Educando",
@@ -530,11 +557,11 @@ export const portugueseTextMap = {
     loadingStudents: "Carregando educandos...",
     studentsError: "Erro ao carregar educandos",
     noStudents: "Nenhum educando encontrado",
-    editStudent: "Editar Educando",
+    viewStudent: "Ver Detalhes",
     birthday: ({ date }: Params<"date">) => `Aniversário: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
     status: ({ status }: Params<"status">) => `Status: ${status}`,
-    filter:{
+    filter: {
       search: "Nome do educando",
       title: "Nome"
     },

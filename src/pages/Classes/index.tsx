@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 
 import {
   Add as AddIcon,
@@ -20,12 +20,14 @@ import {
 
 import { useClassesPage } from "./hook";
 import { CardList } from "../../components/CardList";
-import ClassesModal from "../../components/ClassesModal";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
+import { ClassesModalContext } from "../../contexts/ClassesModal/ClassesModalContext";
 import { useToast } from "../../hooks/useToast";
 
 export default function Classes() {
+  const { openModal } = useContext(ClassesModalContext);
+
   const {
     isLoadingClasses,
     classesError,
@@ -37,7 +39,6 @@ export default function Classes() {
     levelOptions,
     filteredClasses,
     handleClassClick,
-    openClassesModal,
   } = useClassesPage();
 
   const { showToast } = useToast();
@@ -116,6 +117,7 @@ export default function Classes() {
             </FormLabel>
             <Autocomplete
               options={levelOptions || []}
+              getOptionLabel={(option) => option.name}
               onChange={(_, newValue) => setLevelFilter(newValue)}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -125,7 +127,7 @@ export default function Classes() {
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          onClick={openClassesModal}
+          onClick={() => openModal()}
           sx={{
             alignSelf: isMobile ? "auto" : "flex-start",
           }}
@@ -186,19 +188,14 @@ export default function Classes() {
                   <strong>{strings.classes.card.level}</strong>{" "}{c.levelId}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
-                  {c.teachers.map(teacher => (
-                    <>
-                      <strong>{strings.classes.card.teacher}</strong>{" "}{teacher.fullName}
-                    </>
-                  ))}
+                  <strong>{strings.classes.card.teachers}</strong>{" "}
+                  {c.teachers.map((teacher) => teacher.fullName).join(", ")}
                 </Typography>
               </CardContent>
             </Card>
           ))}
         </CardList>
       </Box>
-
-      <ClassesModal />
     </>
   );
 }

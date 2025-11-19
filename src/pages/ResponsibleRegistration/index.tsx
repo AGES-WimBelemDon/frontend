@@ -55,7 +55,7 @@ export default function ResponsibleRegistration() {
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          onClick={openModal}
+          onClick={() => openModal()}
         >
           {strings.studentsResponsibles.registerResponsible}
         </Button>
@@ -69,6 +69,7 @@ export default function ResponsibleRegistration() {
             responsibles.map((responsible) => (
               <PersonCard
                 key={responsible.id}
+                id={responsible.id}
                 fullName={responsible.fullName}
                 registrationNumber={responsible.registrationNumber}
                 dateOfBirth={responsible.dateOfBirth}
@@ -83,6 +84,7 @@ export default function ResponsibleRegistration() {
                 race={formatEnum(responsible.race)}
                 socialPrograms={formatEnum(responsible.socialPrograms)}
                 socialName={responsible.socialName}
+                onEdit={openModal}
               />
             ))
           )}

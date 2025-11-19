@@ -2,6 +2,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { Outlet } from "react-router";
 
 import { useLayout } from "./useLayout";
+import { ClassesModal } from "../../components/ClassesModal";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { Toast } from "../../components/Toast";
@@ -47,6 +48,7 @@ export default function Layout() {
             marginX="auto"
           >
             <Toast />
+            <ClassesModal />
             <Outlet />
           </Box>
         )}

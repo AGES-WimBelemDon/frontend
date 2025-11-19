@@ -1,7 +1,5 @@
-import {
-  RadioButtonChecked,
-  RadioButtonUnchecked,
-} from "@mui/icons-material";
+import { useContext } from "react";
+
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
@@ -24,6 +22,8 @@ import {
   StepLabel,
   Typography,
   TextField,
+  Radio,
+  Divider,
 } from "@mui/material";
 import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
@@ -32,32 +32,32 @@ import { Controller } from "react-hook-form";
 import { Filters } from "./filters";
 import { useClassesModal } from "./hook";
 import { strings } from "../../constants";
+import { ClassesModalContext } from "../../contexts/ClassesModal/ClassesModalContext";
 import { useScreenSize } from "../../hooks/useScreenSize";
 
 export function ClassesModal() {
+  const { isOpen, closeModal, classData } = useContext(ClassesModalContext);
+
   const {
-    isOpen,
-    closeModal,
     activeStep,
     steps,
     control,
-    level,
+    levelOptions,
     days,
     nameTeacher,
     setNameTeacher,
-    selectedTeachers,
-    setSelectedTeachers,
     filteredTeachers,
     nameStudent,
     setNameStudent,
-    selectedStudents,
-    setSelectedStudents,
     filteredStudents,
+    activityName,
+    setActivityName,
+    filteredActivities,
     handleBack,
     handleNext,
     isLastStep,
     handleSubmit,
-  } = useClassesModal();
+  } = useClassesModal({ isOpen, closeModal, classData });
 
   const { isMobile } = useScreenSize();
 
@@ -143,8 +143,6 @@ export function ClassesModal() {
       <DialogContent sx={{ overflow: "auto" }}>
         {activeStep === 0 && (
           <Box display="flex" flexDirection="column" gap={2}>
-
-
             <FormControl sx={{ color: "text.primary" }}>
               <Controller
                 name="name"
@@ -158,8 +156,8 @@ export function ClassesModal() {
                 )}
               />
             </FormControl>
-            <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
 
+            <FormControl fullWidth sx={{ backgroundColor: "background.default" }}>
               <InputLabel id="level-select-label" sx={{ color: "text.primary" }}>{strings.classesModal.inputs.classLevel}</InputLabel>
               <Controller
                 name="levelId"
@@ -170,7 +168,7 @@ export function ClassesModal() {
                     labelId="level-select-label"
                     label={strings.classesModal.inputs.classLevel}
                   >
-                    {level.map((level) => (
+                    {levelOptions?.map((level) => (
                       <MenuItem key={level.id} value={level.id} sx={{ backgroundColor: "background.default" }}>
                         <ListItemText primary={level.name} />
                       </MenuItem>
@@ -180,83 +178,72 @@ export function ClassesModal() {
               />
             </FormControl>
 
-            <Controller
-              name="isRecurrent"
-              control={control}
-              render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      {...field}
-                      checked={field.value}
-                      size="small"
-                      sx={{ color: "primary.main" }}
-                      icon={<RadioButtonUnchecked />}
-                      checkedIcon={<RadioButtonChecked />}
-                    />
-                  }
-                  label={strings.classesModal.recurring}
-                />
-              )}
-            />
-
             <InputLabel sx={{ color: "text.primary" }}>{strings.filters.weekDays.title}</InputLabel>
             <Controller
-              name="dayOfWeek"
+              name="dayOfWeekSelection"
               control={control}
               render={({ field }) => (
                 <FormGroup sx={{ flexDirection: "row", gap: 1 }}>
-                  {days.map((day) => (
-                    <Checkbox
-                      key={day.id}
-                      disableRipple
-                      checked={field.value.includes(day.value)}
-                      onChange={(_event, checked) => {
-                        const newWeekDays = checked
-                          ? [...field.value, day.value]
-                          : field.value.filter((d: string) => d !== day.value);
-                        field.onChange(newWeekDays);
-                      }}
-                      checkedIcon={<DaysCalendarIcon text={day.symbol} checked={true} />}
-                      icon={<DaysCalendarIcon text={day.symbol} checked={false} />}
-                      sx={{
-                        p: 0.3,
-                        "&:hover": { backgroundColor: "transparent" },
-                      }}
-                    />
-                  ))}
+                  {days.map((day) => {
+                    const current = Array.isArray(field.value) ? field.value : [];
+                    const isChecked = current.some((d) => d.id === day.id);
+                    return (
+                      <Checkbox
+                        key={day.id}
+                        disableRipple
+                        checked={isChecked}
+                        onChange={(_event, checked) => {
+                          const newWeekDays = checked
+                            ? [...current, day]
+                            : current.filter((d) => d.id !== day.id);
+                          field.onChange(newWeekDays);
+                        }}
+                        checkedIcon={<DaysCalendarIcon text={day.symbol} checked={true} />}
+                        icon={<DaysCalendarIcon text={day.symbol} checked={false} />}
+                        sx={{
+                          p: 0.3,
+                          "&:hover": { backgroundColor: "transparent" },
+                        }}
+                      />
+                    );
+                  })}
                 </FormGroup>
               )}
             />
 
-            <Box flex={1}>
-              <InputLabel sx={{ color: "text.primary" }}>{strings.classesModal.inputs.startDate}</InputLabel>
-              <Controller
-                name="startDate"
-                control={control}
-                render={({ field }) => (
-                  <DatePicker
-                    value={field.value ? dayjs(field.value) : null}
-                    onChange={(v) => field.onChange(v ? v.toDate() : null)}
-                    format="DD/MM/YYYY"
-
-                    sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
-                  />
-                )}
-              />
-              <InputLabel sx={{ color: "text.primary" }}>{strings.classesModal.inputs.endDate}</InputLabel>
-              <Controller
-                name="endDate"
-                control={control}
-                render={({ field }) => (
-                  <DatePicker
-                    value={field.value ? dayjs(field.value) : null}
-                    onChange={(v) => field.onChange(v ? v.toDate() : null)}
-                    format="DD/MM/YYYY"
-                    sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
-                  />
-                )}
-              />
+            <Box
+              gap={1}
+              display="flex"
+              flexDirection={isMobile ? "column" : "row"}
+            >
+              <Box flex={1}>
+                <InputLabel sx={{ color: "text.primary" }}> {strings.classesModal.inputs.startDate} </InputLabel>
+                <Controller
+                  name="startDate"
+                  control={control}
+                  render={({ field }) => (
+                    <DatePicker
+                      value={field.value ? dayjs(field.value) : null}
+                      onChange={(v) => field.onChange(v ? v.toDate() : null)}
+                      sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
+                    />
+                  )}
+                />
+              </Box>
+              <Box flex={1}>
+                <InputLabel sx={{ color: "text.primary" }}>{strings.classesModal.inputs.endDate}</InputLabel>
+                <Controller
+                  name="endDate"
+                  control={control}
+                  render={({ field }) => (
+                    <DatePicker
+                      value={field.value ? dayjs(field.value) : null}
+                      onChange={(v) => field.onChange(v ? v.toDate() : null)}
+                      sx={{ width: "100%", borderRadius: 1, color: "background.default" }}
+                    />
+                  )}
+                />
+              </Box>
             </Box>
             <Box
               gap={1}
@@ -300,39 +287,108 @@ export function ClassesModal() {
         {activeStep === 1 && (
           <Box display="flex" flexDirection="column" gap={2}>
             <Filters
+              label={strings.classesModal.inputs.searchActivity}
+              name={activityName}
+              onChange={setActivityName}
+              placeholder={strings.classesModal.inputs.searchActivity}
+            />
+            <Controller
+              name="isRecurrent"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      {...field}
+                      checked={field.value}
+                      size="small"
+                      sx={{ color: "primary.main" }}
+                    />
+                  }
+                  label={strings.classesModal.recurring}
+                />
+              )}
+            />
+            <Divider />
+            <FormControl sx={{ overflow: "auto", minHeight: 125, maxHeight: 250 }}>
+              <Controller
+                name="activityId"
+                control={control}
+                render={({ field }) => (
+                  <>
+                    {filteredActivities.map((activity) => (
+                      <FormControlLabel
+                        key={activity.id}
+                        label={activity.name}
+                        sx={{ borderBottom: "1px solid", borderBottomColor: "grey.300" }}
+                        control={
+                          <Radio
+                            sx={{ color: "primary.main" }}
+                            checked={field.value === activity.id}
+                            onChange={(_, checked) => {
+                              const currentSelection = field.value || [];
+                              const newSelection = checked
+                                ? activity.id
+                                : currentSelection;
+                              field.onChange(newSelection);
+                            }}
+                          />
+                        }
+                      />
+                    ))}
+                  </>
+                )}
+              />
+            </FormControl>
+          </Box>
+        )}
+
+        {activeStep === 2 && (
+          <Box display="flex" flexDirection="column" gap={2}>
+            <Filters
               label={strings.classesModal.inputs.assignTeacher}
               name={nameTeacher}
               onChange={setNameTeacher}
               placeholder={strings.classesModal.inputs.searchTeacher}
             />
             <FormControl sx={{ overflow: "auto", minHeight: 125, maxHeight: 250 }}>
-              {filteredTeachers.map((teacher) => (
-                <FormControlLabel
-                  key={teacher.id}
-                  label={teacher.fullName}
-                  value={teacher.fullName}
-                  sx={{ borderBottom: "1px solid", borderBottomColor: "grey.300" }}
-                  control={
-                    <Checkbox
-                      sx={{ color: "primary.main" }}
-                      checked={selectedTeachers.includes(teacher.id)}
-                      onChange={() => {
-                        const isSelected = selectedTeachers.includes(teacher.id);
-                        if (isSelected) {
-                          setSelectedTeachers(selectedTeachers => selectedTeachers.filter((id) => id !== teacher.id));
-                        } else {
-                          setSelectedTeachers(selectedTeachers => [...selectedTeachers, teacher.id]);
+              <Controller
+                name="teacherIds"
+                control={control}
+                render={({ field }) => (
+                  <>
+                    {filteredTeachers.map((teacher) => (
+                      <FormControlLabel
+                        key={teacher.id}
+                        label={teacher.fullName}
+                        sx={{ borderBottom: "1px solid", borderBottomColor: "grey.300" }}
+                        control={
+                          <Checkbox
+                            sx={{ color: "primary.main" }}
+                            checked={
+                              field.value.includes(teacher.id)
+                            }
+                            onChange={(_, checked) => {
+                              const currentSelection = field.value;
+                              const newSelection = checked
+                                ? [...currentSelection, teacher.id]
+                                : currentSelection.filter(
+                                  (id) => id !== teacher.id
+                                );
+                              field.onChange(newSelection);
+                            }}
+                          />
                         }
-                      }}
-                    />
-                  }
-                />
-              ))}
+                      />
+                    ))}
+                  </>
+                )}
+              />
             </FormControl>
           </Box>
         )}
 
-        {activeStep === 2 && (
+        {activeStep === 3 && (
           <Box display="flex" flexDirection="column" gap={2}>
             <Filters
               label={strings.classesModal.inputs.addStudent}
@@ -347,31 +403,38 @@ export function ClassesModal() {
                 maxHeight: 250,
               }}
             >
-              {filteredStudents.map((student) => (
-                <FormControlLabel
-                  key={student.id}
-                  label={student.fullName}
-                  sx={{ borderBottom: "1px solid", borderBottomColor: "grey.300" }}
-                  control={
-                    <Checkbox
-                      sx={{ color: "primary.main" }}
-                      checked={selectedStudents.includes(student.id)}
-                      onChange={() => {
-                        const isSelected = selectedStudents.includes(student.id);
-                        if (isSelected) {
-                          setSelectedStudents(selectedStudents =>
-                            selectedStudents.filter((id) => id !== student.id)
-                          );
-                        } else {
-                          setSelectedStudents(selectedStudents =>
-                            [...selectedStudents, student.id]
-                          );
+              <Controller
+                name="studentIds"
+                control={control}
+                render={({ field }) => (
+                  <>
+                    {filteredStudents.map((student) => (
+                      <FormControlLabel
+                        key={student.id}
+                        label={student.fullName}
+                        sx={{ borderBottom: "1px solid", borderBottomColor: "grey.300" }}
+                        control={
+                          <Checkbox
+                            sx={{ color: "primary.main" }}
+                            checked={
+                              field.value.includes(student.id)
+                            }
+                            onChange={(_, checked) => {
+                              const currentSelection = field.value;
+                              const newSelection = checked
+                                ? [...currentSelection, student.id]
+                                : currentSelection.filter(
+                                  (id) => id !== student.id
+                                );
+                              field.onChange(newSelection);
+                            }}
+                          />
                         }
-                      }}
-                    />
-                  }
-                />
-              ))}
+                      />
+                    ))}
+                  </>
+                )}
+              />
             </FormControl>
           </Box>
         )}
@@ -393,5 +456,3 @@ export function ClassesModal() {
     </Dialog>
   );
 };
-
-export default ClassesModal;

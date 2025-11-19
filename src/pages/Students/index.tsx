@@ -1,4 +1,4 @@
-import { Add as AddIcon, PersonAdd as PersonAddIcon, Mode as ModeIcon } from "@mui/icons-material";
+import { Add as AddIcon, FamilyRestroom as FamilyIcon, Visibility as SeeIcon } from "@mui/icons-material";
 import { Box, Button, Card, CardContent, CircularProgress, Stack, Typography } from "@mui/material";
 
 import { useStudentsPage } from "./hook";
@@ -107,7 +107,7 @@ export default function Students() {
                     <Button
                       variant="outlined"
                       color="primary"
-                      startIcon={<ModeIcon />}
+                      startIcon={<SeeIcon />}
                       onClick={() => handleEditStudents(student.id)}
                       sx={{
                         color: student.status === "ATIVO" ? "text.main" : "grey.600",
@@ -117,13 +117,13 @@ export default function Students() {
                         width: { xs: "100%", sm: "auto" }
                       }}
                     >
-                      {strings.students.editStudent}
+                      {strings.students.viewStudent}
                     </Button>
                     <Button
                       variant="outlined"
                       color="secondary"
                       size="small"
-                      startIcon={<PersonAddIcon />}
+                      startIcon={<FamilyIcon />}
                       onClick={() => handleCreateResponsible(student.id)}
                       sx={{
                         color: student.status === "ATIVO" ? "text.main" : "grey.600",
