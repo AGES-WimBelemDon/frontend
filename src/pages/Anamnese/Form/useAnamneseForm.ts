@@ -28,7 +28,7 @@ export function useAnamneseForm() {
     if (selectedFormType) {
       getQuestions(selectedFormType.type.toString()).then(setQuestions)
     }
-  }, [selectedFormType, formTypes])
+  }, [selectedFormType, formTypes, formId])
 
   useEffect(function fetchStudentForms() {
     if (studentId) {
