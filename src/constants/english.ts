@@ -55,15 +55,17 @@ export const englishTextMap = {
     activity: "Activity",
     card: {
       level: "Level:",
-      teacher: "Teacher:"
+      teachers: "Teachers:"
     },
   },
   classDetails: {
     loading: "Loading class details...",
     errorLoading: "Error loading class data.",
     classNotFound: "Class not found.",
+    title: "Class Details",
     editClass: "Edit Class",
     professor: "Teacher",
+    teachers: "Teachers",
     level: "Level",
     frequency: "Frequency",
     noStudents: "Class does not have students.",
@@ -403,6 +405,7 @@ export const englishTextMap = {
       startTime: "Start Time",
       endTime: "End Time",
       level: "Level",
+      searchActivity: "Search Activity",
       searchTeacher: "Search Teacher",
       assignTeacher: "Assign Teacher",
       searchStudent: "Search Student",
@@ -415,12 +418,15 @@ export const englishTextMap = {
     },
     steps: {
       data: "Data",
+      activity: "Activity",
       teacher: "Teachers",
       student: "Educandos",
     },
     createSuccessMessage: "Class created successfully!",
+    editSuccessMessage: "Class edited successfully",
     createErrorFillAllFields: "Please fill in all fields.",
     createErrorGeneric: "Error creating class. Please try again.",
+    editErrorGeneric: "Error editing class. Please try again."
   },
   personCard: {
     userImageAlt: "User image",
@@ -557,7 +563,7 @@ export const englishTextMap = {
     birthday: ({ date }: Params<"date">) => `Birthday: ${date}`,
     registrationNumber: ({ registrationNumber }: Params<"registrationNumber">) => `CPF: ${registrationNumber}`,
     status: ({ status }: Params<"status">) => `Status: ${status}`,
-    filter:{
+    filter: {
       search: "Student name",
       title: "Name"
     }
