@@ -1,10 +1,11 @@
-import { Add as AddIcon, FamilyRestroom as FamilyIcon, Visibility as SeeIcon } from "@mui/icons-material";
+import { Add as AddIcon, FamilyRestroom as FamilyIcon, Psychology, Visibility as SeeIcon } from "@mui/icons-material";
 import { Box, Button, Card, CardContent, CircularProgress, Stack, Typography } from "@mui/material";
 
 import { useStudentsPage } from "./hook";
 import { StudentFilter } from "./studentsFilter";
 import { PageTitle } from "../../components/PageTitle";
 import { strings } from "../../constants";
+import { useRoutes } from "../../hooks/useRoutes";
 
 export default function Students() {
   const {
@@ -21,6 +22,8 @@ export default function Students() {
     setStatus,
     filteredStudents,
   } = useStudentsPage();
+
+  const { goTo } = useRoutes();
 
   if (isLoadingStudents) {
     return (
@@ -134,6 +137,22 @@ export default function Students() {
                       }}
                     >
                       {strings.students.viewResponsible}
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      size="small"
+                      startIcon={<Psychology />}
+                      onClick={() => goTo("/alunos", `/${student.id}/anamnese`) }
+                      sx={{
+                        color: student.status === "ATIVO" ? "text.main" : "grey.600",
+                        fontWeight: "bold",
+                        border: "2px solid",
+                        borderRadius: 2,
+                        width: { xs: "100%", sm: "auto" }
+                      }}
+                    >
+                      {strings.students.editAnamnesisForm}
                     </Button>
                   </Box>
                 </Box>

@@ -327,6 +327,7 @@ export const englishTextMap = {
     cards: {
       takeAttendance: "Take Attendance",
       manageStudents: "Manage Students",
+      manageAnamnesis: "Manage Anamnesis",
       manageActivities: "Manage Activities",
       manageClasses: "Manage Classes",
       manageUsers: "Manage Users"
@@ -464,6 +465,7 @@ export const englishTextMap = {
     home: "Home",
     frequency: "Frequency",
     students: "Students",
+    anamnesis: "Anamnesis",
     activities: "Activities",
     classes: "Classes",
     users: "Users",
@@ -567,6 +569,7 @@ export const englishTextMap = {
     title: "Students",
     createNew: "Add Student",
     viewResponsible: "View Guardians",
+    editAnamnesisForm: "View Assesment",
     loadingStudents: "Loading students...",
     studentsError: "Error loading students",
     noStudents: "No students found",
