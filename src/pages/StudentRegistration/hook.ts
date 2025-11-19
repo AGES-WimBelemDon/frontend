@@ -51,11 +51,8 @@ export function useStudentRegistration() {
   });
 
   const editingId = getPathParamId("alunos");
-  const studentId = editingId ? Number(editingId) : null;
-  const isEditing = Boolean(studentId);
-  useEffect(() => {
-    console.log(docForm);
-  }, [docForm]);
+  const studentId = editingId ?? null;
+  const isEditing = studentId !== null;
 
   function getAddressDetails() {
     if (!address?.cep) {
@@ -217,7 +214,7 @@ export function useStudentRegistration() {
   }
 
   async function updateStudent(
-    studentId: number,
+    studentId: Id,
     studentData: Partial<Student>,
     addressData: Partial<Address>
   ): Promise<void> {
@@ -355,7 +352,7 @@ export function useStudentRegistration() {
     const addressData = filterByPrefix<Address>(formData, "address.");
 
     if (isEditing) {
-      updateStudent(studentId!, studentData, addressData)
+      updateStudent(studentId, studentData, addressData)
         .then(() => {
           documents.forEach(async (document) => {
             const documentData: CreateStudentFile = {
