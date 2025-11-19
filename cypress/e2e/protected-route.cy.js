@@ -1,6 +1,6 @@
 describe("tech demo auth fallback", () => {
   beforeEach(function tryToVisitProtectedPage() {
-    cy.visit("/tech-demo");
+    cy.visit("/usuarios");
   });
 
   it("redirects to login when not authenticated and login fails in Cypress", () => {
