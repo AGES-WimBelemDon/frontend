@@ -57,7 +57,7 @@ export function FrequencyCall() {
       />
       {!students.length && (
         <Typography variant="body1" color="error">
-          {strings.frequencyCall.studentsError}
+          {"Chamada não criada para esse dia"}
         </Typography>
       )}
       <List sx={{
@@ -84,7 +84,7 @@ export function FrequencyCall() {
           <Button
             onClick={() => registerCall()}
             variant="outlined"
-            disabled={students.length === 0}
+            // disabled="false"
           >
             {strings.genericActions.create}
           </Button>
